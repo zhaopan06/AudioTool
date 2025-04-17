@@ -268,6 +268,7 @@ Makefile: AudioTool.pro D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\win32-msvc\qmake.con
 		D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\qt_config.prf \
 		D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\win32-msvc\qmake.conf \
 		D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\spec_post.prf \
+		.qmake.stash \
 		D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\exclusive_builds.prf \
 		D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\common\msvc-version.conf \
 		D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\toolchain.prf \
@@ -299,7 +300,6 @@ Makefile: AudioTool.pro D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\win32-msvc\qmake.con
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Network.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Core.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\qtmain.prl \
-		.qmake.stash \
 		D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\build_pass.prf \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Widgetsd.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Guid.prl \
@@ -492,6 +492,7 @@ D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\qt_functions.prf:
 D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\qt_config.prf:
 D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\win32-msvc\qmake.conf:
 D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\spec_post.prf:
+.qmake.stash:
 D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\exclusive_builds.prf:
 D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\common\msvc-version.conf:
 D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\toolchain.prf:
@@ -523,7 +524,6 @@ D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebSockets.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Network.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Core.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\qtmain.prl:
-.qmake.stash:
 D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\build_pass.prf:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Widgetsd.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Guid.prl:

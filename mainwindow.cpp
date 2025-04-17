@@ -3,6 +3,7 @@
 #include "ui_mainwindow.h"
 #include "agorartcengineinterface.h"
 #include "Base/Http/HttpInterFace.h"
+#include "Base/Http/HttpUserInfo.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -32,7 +33,17 @@ void MainWindow::audioVolumeIndication(int uid,int value)
 
 void MainWindow::on_enterRoom_clicked()
 {
-    m_agoraFace->joinChannel("", "111", "", 30000003);
+    int roomID = 30000003;
+    QVariantMap data =  HttpInterFace::getInstance()->joinRoom(roomID,1,"");
+    if(data["code"].toInt() == 1)//成功
+    {
+        QString rtcToken = data["data"].toMap()["rtcToken"].toString();
+        qDebug()<<"rtcToken---"<<data;
+        m_agoraFace->joinChannel(rtcToken, "30000003", "", 123456789);
+    }
+
+
+//    m_agoraFace->joinChannel("", "111", "", 30000003);
 }
 
 
@@ -42,17 +53,19 @@ void MainWindow::on_pushButton_clicked()
     if(Captchadata["code"].toInt() == 1)
     {
         QVariantMap data = HttpInterFace::getInstance()->loginToServer("13333333333", "654321");       
-        if(data["code"].toInt() != 0)
+        if(data["code"].toInt() == 1)
         {
-            QString errMsg = data["message"].toString();
+            qDebug()<<"success ---"<<data["message"].toString();
+            HttpUserInfo::instance()->setLoginInfo(data["data"].toMap());
         }
-        else if(data["code"].toInt() == 0)
+        else
         {
+            qDebug()<<"message ---"<<data["message"].toInt();
         }
     }
     else
     {
-        qDebug()<<"Captchadata-------------"<<Captchadata;
+        qDebug()<<"message ---"<<Captchadata["message"].toInt();
     }
 
 }

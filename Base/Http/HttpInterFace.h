@@ -32,13 +32,16 @@ class HttpInterFace : public QObject
 public:
     static HttpInterFace* getInstance();
 
-    QVariantMap loginToServer(QString account, QString passwd);
-    void loginToServer_asy(QString account,QString passwd);
-
     //获取验证码
     QVariantMap getCaptcha(QString phone,QString region_code);
-    //获取手机区号
-    QVariantMap getConfig();
+    QVariantMap loginToServer(QString account, QString passwd);
+    QVariantMap joinRoom(int roomId, int entryType, QString subTopic);
+
+    /*********************以下暂时无用*********************/
+    void loginToServer_asy(QString account,QString passwd);
+
+
+
     //密码登录
     QVariantMap loginForPassword(const QString &country_code
                , const QString &mobile
@@ -49,9 +52,6 @@ public:
                               ,QString code
                               ,QString mobile
                               ,QString password);
-
-    //直播分类
-    QVariantMap getLiveClass();
 
     //上传图片 场景类型 QString: avatar | cover | image | video | audio
     void uploadFile(QString filePath, QString scenes, callBack callback);

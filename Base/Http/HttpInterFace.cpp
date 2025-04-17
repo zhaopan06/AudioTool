@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QHttpPart>
+#include "HttpUserInfo.h"
 
 HttpInterFace* HttpInterFace::pHttpInterFace = NULL;
 
@@ -66,12 +67,6 @@ QVariantMap HttpInterFace:: loginForPassword(const QString &country_code
     const QString strUrl = QString(BASE_API_URL) + "/api/v1/auth/pwd-login";
     return httpPost_syn(strUrl,jsonMap);
 }
-//获取手机区号
-QVariantMap HttpInterFace::getConfig()
-{
-    const QString url = domain_base + "/api/v1/misc/configs";
-    return httpPost_syn(url,QVariantMap());
-}
 
 QVariantMap HttpInterFace::resetPassword(PhoneCodeType type
                                          ,QString country_code
@@ -89,12 +84,6 @@ QVariantMap HttpInterFace::resetPassword(PhoneCodeType type
 
     const QString url = domain_base + "/api/v1/user/reset-password";
     return httpPost_syn(url,jsonMap);
-}
-
-QVariantMap HttpInterFace::getLiveClass()
-{
-    const QString url = domain_base + "/api/v1/misc/comm/live-categories";
-    return httpsGet_syn(url);
 }
 
 void HttpInterFace::uploadFile(QString filePath, QString scenes , callBack callback)
@@ -236,14 +225,14 @@ QVariantMap HttpInterFace::updateRoomInfo(QString category_id,
 /**********************************************************/
 void HttpInterFace::addBaseParams(QVariantMap &jsonMap)
 {
-    jsonMap.insert("token ",m_token);
+    jsonMap.insert("token",m_token);
     jsonMap.insert("deviceId ",m_uuid);
     jsonMap.insert("appVersion",m_version);
     jsonMap.insert("deviceType","2");
-    jsonMap.insert("osVersion ","win10");
+    jsonMap.insert("osVersion","win10");
     jsonMap.insert("root",0);
     jsonMap.insert("deviceName","PC");
-    jsonMap.insert("channel ", "1");
+    jsonMap.insert("channel", "1");
     jsonMap.insert("emulator",0);
     jsonMap.insert("networkType ","0");
 }
@@ -255,6 +244,16 @@ QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)
     jsonMap.insert("verifyCode", verifyCode);
     jsonMap.insert("authType", -1);
     QString url = BASE_API_URL + QString(LOGIN_URL);
+    return httpsPost_syn(url,jsonMap);
+}
+
+QVariantMap HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",roomId);
+    jsonMap.insert("entryType", entryType);
+    jsonMap.insert("subTopic", subTopic);
+    QString url = BASE_API_URL + QString(LIVE_START);
     return httpsPost_syn(url,jsonMap);
 }
 
@@ -428,7 +427,13 @@ QVariantMap HttpInterFace::httpsPost_syn(QString url ,QVariantMap jsonMap)
 {
     QByteArray postData = QJsonDocument::fromVariant(jsonMap).toJson();
     QNetworkRequest request(url);
-    request.setRawHeader("token", "0");
+    if(!HttpUserInfo::instance()->gettoken().isEmpty())
+    {
+        request.setRawHeader("token", HttpUserInfo::instance()->gettoken().toLatin1());
+    }
+    else
+        request.setRawHeader("token", "0");
+
     request.setRawHeader("deviceId", "11");
     request.setRawHeader("appVersion", "1.0");
     request.setRawHeader("deviceType", "2");
@@ -440,8 +445,6 @@ QVariantMap HttpInterFace::httpsPost_syn(QString url ,QVariantMap jsonMap)
     request.setRawHeader("networkType", "0");
     request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
 
-    qDebug()<<"url---"<<url;
-    qDebug()<<"1--------------"<<postData;
     QNetworkReply *reply = m_pNetworkAccessManager->post(request, postData);
     if (NULL == reply)
     {

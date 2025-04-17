@@ -25,12 +25,14 @@ LIBS += \
 SOURCES += \
     Base/Agora/agorartcengineinterface.cpp \
     Base/Http/HttpInterFace.cpp \
+    Base/Http/HttpUserInfo.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     Base/Agora/agorartcengineinterface.h \
     Base/Http/HttpInterFace.h \
+    Base/Http/HttpUserInfo.h \
     mainwindow.h
 
 FORMS += \
