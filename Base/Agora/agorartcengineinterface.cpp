@@ -34,6 +34,7 @@ public:
     }
     virtual void onAudioVolumeIndication(const AudioVolumeInfo* speakers, unsigned int speakerNumber, int totalVolume)
     {
+        qDebug()<<"onAudioVolumeIndication--------------------";
         if(speakers)
             emit m_engine.audioVolumeIndication(speakers->uid,speakers->volume);
     }
@@ -56,7 +57,7 @@ public:
     }
     virtual void onError(int err, const char* msg) override
     {
-        qDebug()<<"err---"<<err<<"msg---"<<msg;
+        qDebug()<<"err---"<<err<<"msg---"<<QString::fromLatin1(msg);
     }
 };
 
@@ -85,18 +86,30 @@ void AgoraRtcEngineInterface::vInitAgoraSdk()
         qDebug()<<"initialize error";
     }
     agora::util::AutoPtr<agora::media::IMediaEngine> mediaEngine;
-    mediaEngine.queryInterface(m_rtcEngine, AGORA_IID_MEDIA_ENGINE);
+    mediaEngine.queryInterface(m_rtcEngine, AGORA_IID_MEDIA_ENGINE);    
 
+    m_rtcEngine->enableAudioVolumeIndication(300,5,false);
+    m_rtcEngine->enableAudio();
     m_rtcEngine->disableVideo();
-    m_rtcEngine->setLogFile("agora.log");
+//    m_rtcEngine->setLogFile("agora.log");
 
 }
 
-int AgoraRtcEngineInterface::joinChannel(const QString& key, const QString& channel, const char* info, int uid)
-{    
-    int r = m_rtcEngine->joinChannel(key.toUtf8().data(), channel.toUtf8().data(), info, uid);
+int AgoraRtcEngineInterface::joinChannel(const QString& token, const QString& channel, int uid)
+{
+    ChannelMediaOptions options;
+    // 设置频道场景为直播场景
+    options.channelProfile = agora::CHANNEL_PROFILE_LIVE_BROADCASTING;
+    // 设置用户角色为主播；如果要将用户角色设置为观众，保持默认值即可
+    options.clientRoleType = CLIENT_ROLE_BROADCASTER;
+    // 发布麦克风采集的音频流
+    options.publishMicrophoneTrack = true;
+    options.autoSubscribeAudio = true;
+
+    int r = m_rtcEngine->joinChannel(token.toUtf8().data(), channel.toUtf8().data(), uid, options);
     if (!r)
         emit joiningChannel();
+
     return r;
 }
 
@@ -200,6 +213,7 @@ QVariantList AgoraRtcEngineInterface::getRecordingDeviceList()
             {
                 data.insert("name", name);
                 data.insert("guid", guid);
+                qDebug()<<"name---"<<name;
             }
             devices.append(data);
         }

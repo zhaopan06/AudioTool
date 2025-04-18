@@ -301,6 +301,7 @@ Makefile: AudioTool.pro D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\win32-msvc\qmake.con
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Core.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\qtmain.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\build_pass.prf \
+		res.qrc \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Widgetsd.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Guid.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebSocketsd.prl \
@@ -525,6 +526,7 @@ D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Network.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Core.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\qtmain.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\build_pass.prf:
+res.qrc:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Widgetsd.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Guid.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebSocketsd.prl:

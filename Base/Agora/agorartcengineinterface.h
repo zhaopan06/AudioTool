@@ -20,7 +20,7 @@ public:
     **/
     void vInitAgoraSdk();
 
-    int joinChannel(const QString& key, const QString& channel, const char *info, int uid);
+    int joinChannel(const QString& token, const QString& channel, int uid);
     /**
      * @brief 离开房间
      * @return

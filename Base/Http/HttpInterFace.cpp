@@ -247,6 +247,24 @@ QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)
     return httpsPost_syn(url,jsonMap);
 }
 
+QVariantMap HttpInterFace::addMic(int roomId, int type)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",roomId);
+    jsonMap.insert("type", type);
+    QString url = BASE_API_URL + QString("/live/dealApplyMic");
+    return httpsPost_syn(url,jsonMap);
+}
+
+QVariantMap HttpInterFace::createRoom(QString roomPhoto, QString roomName)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomPhoto",roomPhoto);
+    jsonMap.insert("roomName", roomName);
+    QString url = BASE_API_URL + QString("/live/createLiveRoom");
+    return httpsPost_syn(url,jsonMap);
+}
+
 QVariantMap HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic)
 {
     QVariantMap jsonMap;

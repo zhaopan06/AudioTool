@@ -27,7 +27,7 @@
      <string>进入房间</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="createRoom">
     <property name="geometry">
      <rect>
       <x>90</x>
@@ -37,7 +37,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>登录</string>
+     <string>创建房间</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>460</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>上麦</string>
     </property>
    </widget>
   </widget>

@@ -24,6 +24,7 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QPushButton *enterRoom;
+    QPushButton *createRoom;
     QPushButton *pushButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
@@ -38,9 +39,12 @@ public:
         enterRoom = new QPushButton(centralwidget);
         enterRoom->setObjectName(QString::fromUtf8("enterRoom"));
         enterRoom->setGeometry(QRect(280, 470, 75, 23));
+        createRoom = new QPushButton(centralwidget);
+        createRoom->setObjectName(QString::fromUtf8("createRoom"));
+        createRoom->setGeometry(QRect(90, 450, 75, 23));
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(90, 450, 75, 23));
+        pushButton->setGeometry(QRect(420, 460, 75, 23));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -59,7 +63,8 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         enterRoom->setText(QCoreApplication::translate("MainWindow", "\350\277\233\345\205\245\346\210\277\351\227\264", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "\347\231\273\345\275\225", nullptr));
+        createRoom->setText(QCoreApplication::translate("MainWindow", "\345\210\233\345\273\272\346\210\277\351\227\264", nullptr));
+        pushButton->setText(QCoreApplication::translate("MainWindow", "\344\270\212\351\272\246", nullptr));
     } // retranslateUi
 
 };

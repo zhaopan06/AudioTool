@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/bg.png</file>
+        <file>images/bg_dianshi.png</file>
+        <file>images/icon_二维码.png</file>
+        <file>images/icon_下拉.png</file>
+        <file>images/login_back_n.png</file>
+        <file>images/login_check_c.png</file>
+        <file>images/login_check_n.png</file>
+        <file>images/login_close_n.png</file>
+        <file>images/login_min_n.png</file>
+        <file>images/login_hlep_n.png</file>
+    </qresource>
+</RCC>

@@ -11,7 +11,7 @@
 #define LOGIN_URL "/user/login" //登录
 #define LIVE_START "/live/joinLivingRoom" //加入房间
 
-#define LOGIN_CODE "/vcode"   //验证码
+
 #define USER_INFO "/api/v1/auth/pwd-login"   //用户信息
 #define LIVE_INFO "/lives/me"   //用户信息 和保存用户信息
 #define LIVE_STOP "/lives/me/stop" //结束直播
@@ -35,8 +35,10 @@ public:
     //获取验证码
     QVariantMap getCaptcha(QString phone,QString region_code);
     QVariantMap loginToServer(QString account, QString passwd);
+    QVariantMap createRoom(QString roomPhoto, QString roomName);
     QVariantMap joinRoom(int roomId, int entryType, QString subTopic);
 
+    QVariantMap addMic(int roomId, int type);
     /*********************以下暂时无用*********************/
     void loginToServer_asy(QString account,QString passwd);
 

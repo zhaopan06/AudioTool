@@ -24,6 +24,8 @@ private slots:
 
     void on_enterRoom_clicked();
 
+    void on_createRoom_clicked();
+
     void on_pushButton_clicked();
 
 private:

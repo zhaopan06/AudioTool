@@ -13,8 +13,12 @@ LIBS += user32.lib
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 INCLUDEPATH += \
+        ./Base/Agora \
         ./SDK/Agora/include \
-        ./Base/Agora
+        ./Base/Http \
+        ./control \
+        ./UI
+
 
 LIBS += \
     -L$$PWD/SDK/Agora/lib
@@ -26,19 +30,28 @@ SOURCES += \
     Base/Agora/agorartcengineinterface.cpp \
     Base/Http/HttpInterFace.cpp \
     Base/Http/HttpUserInfo.cpp \
-    main.cpp \
-    mainwindow.cpp
+    UI/LoginPage.cpp \
+    UI/mainwindow.cpp \
+    control/click_label.cpp \
+    main.cpp
+
 
 HEADERS += \
     Base/Agora/agorartcengineinterface.h \
     Base/Http/HttpInterFace.h \
     Base/Http/HttpUserInfo.h \
-    mainwindow.h
+    UI/LoginPage.h \
+    UI/mainwindow.h \
+    control/click_label.h
 
 FORMS += \
-    mainwindow.ui
+    UI/LoginPage.ui \
+    UI/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    res.qrc
