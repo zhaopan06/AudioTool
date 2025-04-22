@@ -82,6 +82,8 @@ public:
     QLabel *label_12;
     QPushButton *help_btn;
     QSpacerItem *horizontalSpacer;
+    QLabel *code_label;
+    click_label *code_label_click;
     QPushButton *closeBtn;
     QPushButton *minBtn;
     QPushButton *help_Btn_1;
@@ -532,6 +534,24 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout_6);
 
+        code_label = new QLabel(page1);
+        code_label->setObjectName(QString::fromUtf8("code_label"));
+        code_label->setGeometry(QRect(36, 282, 160, 22));
+        code_label->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-size: 14px;\n"
+"color: rgba(255,255,255,0.5);\n"
+"line-height: 22px;\n"
+"text-align: left;\n"
+"font-style: normal;"));
+        code_label_click = new click_label(page1);
+        code_label_click->setObjectName(QString::fromUtf8("code_label_click"));
+        code_label_click->setGeometry(QRect(36, 282, 58, 22));
+        code_label_click->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-size: 14px;\n"
+"color: #7B5AE4;\n"
+"line-height: 22px;\n"
+"text-align: left;\n"
+"font-style: normal;"));
         stackedWidget_2->addWidget(page1);
         closeBtn = new QPushButton(widget);
         closeBtn->setObjectName(QString::fromUtf8("closeBtn"));
@@ -601,7 +621,7 @@ public:
 
         retranslateUi(LoginPage);
 
-        stackedWidget_2->setCurrentIndex(0);
+        stackedWidget_2->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(LoginPage);
@@ -640,6 +660,8 @@ public:
         label_10->setText(QCoreApplication::translate("LoginPage", " \347\232\2046\344\275\215\351\252\214\350\257\201\347\240\201\357\274\21410\345\210\206\351\222\237\345\206\205\346\234\211\346\225\210\343\200\202", nullptr));
         label_12->setText(QCoreApplication::translate("LoginPage", "\345\246\202\346\234\252\346\224\266\345\210\260\357\274\214\350\257\267\351\207\215\346\226\260\350\216\267\345\217\226\351\252\214\350\257\201\347\240\201\346\210\226 ", nullptr));
         help_btn->setText(QCoreApplication::translate("LoginPage", "\350\216\267\345\217\226\345\270\256\345\212\251", nullptr));
+        code_label->setText(QCoreApplication::translate("LoginPage", "59\347\247\222\345\220\216\345\217\257\351\207\215\346\226\260\350\216\267\345\217\226\351\252\214\350\257\201\347\240\201", nullptr));
+        code_label_click->setText(QCoreApplication::translate("LoginPage", "\351\207\215\346\226\260\350\216\267\345\217\226", nullptr));
         closeBtn->setText(QString());
         minBtn->setText(QString());
         help_Btn_1->setText(QCoreApplication::translate("LoginPage", " \345\270\256\345\212\251", nullptr));

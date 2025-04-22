@@ -1,4 +1,4 @@
-#include "HttpUserInfo.h"
+﻿#include "HttpUserInfo.h"
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -35,7 +35,10 @@ void HttpUserInfo::setLoginInfo(QVariantMap data)
 {
     m_loginInfo = data;
     m_token = data["token"].toString();
+    m_userID = data["user"].toMap()["userId"].toString();
     qDebug()<<"m_token---"<<m_token;
+    qDebug()<<"m_userID---"<<m_userID;
+    m_IMtoken = data["imToken"].toString();
 }
 
 QVariantMap HttpUserInfo::getLoginInfo()
@@ -55,7 +58,12 @@ QVariantMap HttpUserInfo::getHttpUserInfo()
 
 QString HttpUserInfo::getUserID()
 {
-    return m_HttpUserInfo["id"].toString();
+    return m_userID;
+}
+
+QString HttpUserInfo::getImToken()
+{
+    return m_IMtoken;
 }
 
 QString HttpUserInfo::getWSPath()

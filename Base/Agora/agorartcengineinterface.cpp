@@ -14,7 +14,7 @@ public:
     }
     virtual void onVideoStopped() override
     {
-        emit m_engine.videoStopped();
+
     }
     virtual void onJoinChannelSuccess(const char* channel, uid_t uid, int elapsed) override
     {
@@ -30,22 +30,19 @@ public:
     }
     virtual void onFirstLocalVideoFrame(int width, int height, int elapsed)
     {
-        emit m_engine.firstLocalVideoFrame(width, height, elapsed);
+
     }
     virtual void onAudioVolumeIndication(const AudioVolumeInfo* speakers, unsigned int speakerNumber, int totalVolume)
-    {
-        qDebug()<<"onAudioVolumeIndication--------------------";
+    {        
         if(speakers)
             emit m_engine.audioVolumeIndication(speakers->uid,speakers->volume);
     }
     virtual void onFirstRemoteVideoDecoded(uid_t uid, int width, int height, int elapsed) override
     {
-        emit m_engine.firstRemoteVideoDecoded(uid, width, height, elapsed);
+
     }
     virtual void onFirstRemoteVideoFrame(uid_t uid, int width, int height, int elapsed) override
-    {
-
-        emit m_engine.firstRemoteVideoFrameDrawn(uid, width, height, elapsed);
+    {       
     }
     virtual void onRtmpStreamingStateChanged(const char *url, RTMP_STREAM_PUBLISH_STATE state, RTMP_STREAM_PUBLISH_REASON errCode)
     {
@@ -98,11 +95,8 @@ void AgoraRtcEngineInterface::vInitAgoraSdk()
 int AgoraRtcEngineInterface::joinChannel(const QString& token, const QString& channel, int uid)
 {
     ChannelMediaOptions options;
-    // 设置频道场景为直播场景
-    options.channelProfile = agora::CHANNEL_PROFILE_LIVE_BROADCASTING;
-    // 设置用户角色为主播；如果要将用户角色设置为观众，保持默认值即可
+    options.channelProfile = agora::CHANNEL_PROFILE_LIVE_BROADCASTING;  
     options.clientRoleType = CLIENT_ROLE_BROADCASTER;
-    // 发布麦克风采集的音频流
     options.publishMicrophoneTrack = true;
     options.autoSubscribeAudio = true;
 
@@ -136,10 +130,6 @@ int AgoraRtcEngineInterface::muteLocalAudioStream(bool muted)
 {
     return m_rtcEngine->muteLocalAudioStream(muted);
 }
-int AgoraRtcEngineInterface::enableDualStreamMode(bool enabled)
-{    
-    return m_rtcEngine->enableDualStreamMode(enabled);
-}
 
 int AgoraRtcEngineInterface::muteRemoteAudioStream(uid_t uid, bool muted)
 {
@@ -151,45 +141,10 @@ int AgoraRtcEngineInterface::muteAllRemoteAudioStreams(bool muted)
     return m_rtcEngine->muteAllRemoteAudioStreams(muted);
 }
 
-int AgoraRtcEngineInterface::muteLocalVideoStream(bool muted)
-{    
-    return m_rtcEngine->muteLocalVideoStream(muted);
-}
-
-int AgoraRtcEngineInterface::muteAllRemoteVideoStreams(bool muted)
-{    
-    return m_rtcEngine->muteAllRemoteVideoStreams(muted);
-}
-
-int AgoraRtcEngineInterface::muteRemoteVideoStream(uid_t uid, bool muted)
-{
-    return m_rtcEngine->muteRemoteVideoStream(uid, muted);
-}
-
-int AgoraRtcEngineInterface::enableLocalVideo(bool muted)
-{
-    return m_rtcEngine->enableLocalVideo(muted);
-}
-
 //设置直播模式
 void AgoraRtcEngineInterface::setChannelProfile(agora::CHANNEL_PROFILE_TYPE profile)
 {
     m_rtcEngine->setChannelProfile(profile);
-}
-
-int AgoraRtcEngineInterface::setVideoProfile(int iProfile)
-{
-    int iRet = 0;
- //   iRet = m_rtcEngine->setVideoProfile((VIDEO_PROFILE_TYPE)iProfile, false);
-    return iRet;
-}
-
-int AgoraRtcEngineInterface::setLocalRenderMode(int mode)
-{
-    int iRet = 0;
-
-    //iRet = m_rtcEngine->setLocalRenderMode((RENDER_MODE_TYPE)mode);
-    return iRet;
 }
 
 QVariantList AgoraRtcEngineInterface::getRecordingDeviceList()
@@ -213,7 +168,6 @@ QVariantList AgoraRtcEngineInterface::getRecordingDeviceList()
             {
                 data.insert("name", name);
                 data.insert("guid", guid);
-                qDebug()<<"name---"<<name;
             }
             devices.append(data);
         }
@@ -251,33 +205,7 @@ QVariantMap AgoraRtcEngineInterface::getPlayoutDeviceList()
     return devices;
 }
 
-QVariantList AgoraRtcEngineInterface::getVideoDeviceList()
-{
-    QVariantList devices;
-    AVideoDeviceManager videoDeviceManager(m_rtcEngine);
-    if (!videoDeviceManager)
-        return devices;
 
-    agora::util::AutoPtr<IVideoDeviceCollection> spCollection(videoDeviceManager->enumerateVideoDevices());
-    if (!spCollection)
-        return devices;
-    char name[MAX_DEVICE_ID_LENGTH], guid[MAX_DEVICE_ID_LENGTH];
-    int count = spCollection->getCount();
-    if (count > 0)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            QVariantMap data;
-            if (!spCollection->getDevice(i, name, guid))
-            {
-                data.insert("name", name);
-                data.insert("guid", guid);
-            }
-            devices.append(data);
-        }
-    }
-    return devices;
-}
 
 int AgoraRtcEngineInterface::setRecordingDevice(const QString& guid)
 {
@@ -297,16 +225,6 @@ int AgoraRtcEngineInterface::setPlayoutDevice(const QString& guid)
     if (!audioDeviceManager)
         return -1;
     return audioDeviceManager->setPlaybackDevice(guid.toUtf8().data());
-}
-
-int AgoraRtcEngineInterface::setVideoDevice(const QString& guid)
-{
-    if (guid.isEmpty())
-        return -1;
-    AVideoDeviceManager videoDeviceManager(m_rtcEngine);
-    if (!videoDeviceManager)
-        return -1;
-    return videoDeviceManager->setDevice(guid.toUtf8().data());
 }
 
 int AgoraRtcEngineInterface::getRecordingDeviceVolume()

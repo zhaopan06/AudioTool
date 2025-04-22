@@ -2,7 +2,7 @@ QT       += core gui network websockets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++17
+CONFIG += c++17 utf8_source
 
 QMAKE_PROJECT_DEPTH = 0
 
@@ -14,22 +14,27 @@ LIBS += user32.lib
 
 INCLUDEPATH += \
         ./Base/Agora \
+        ./Base/ImSDK \
         ./SDK/Agora/include \
+        ./SDK/ImSDK/include \        
         ./Base/Http \
         ./control \
         ./UI
 
 
 LIBS += \
-    -L$$PWD/SDK/Agora/lib
+    -L$$PWD/SDK/Agora/lib   \
+    -L$$PWD/SDK/ImSDK/lib
 
 LIBS += \
-    -lagora_rtc_sdk.dll
+    -lagora_rtc_sdk.dll \
+    -limsdk
 
 SOURCES += \
     Base/Agora/agorartcengineinterface.cpp \
     Base/Http/HttpInterFace.cpp \
     Base/Http/HttpUserInfo.cpp \
+    Base/IMSDK/TimInterface.cpp \
     UI/LoginPage.cpp \
     UI/mainwindow.cpp \
     control/click_label.cpp \
@@ -40,6 +45,7 @@ HEADERS += \
     Base/Agora/agorartcengineinterface.h \
     Base/Http/HttpInterFace.h \
     Base/Http/HttpUserInfo.h \
+    Base/IMSDK/TimInterface.h \
     UI/LoginPage.h \
     UI/mainwindow.h \
     control/click_label.h

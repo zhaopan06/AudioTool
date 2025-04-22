@@ -1,4 +1,4 @@
-#ifndef HttpUserInfo_H
+﻿#ifndef HttpUserInfo_H
 #define HttpUserInfo_H
 
 #include <QObject>
@@ -21,12 +21,14 @@ public:
     QVariantMap getHttpUserInfo();
     QString getUserID();
 
+
     //websocket相关
     QString getWSPath();
     void setWSPath(QString path);
 
     //获取个人token
     const QString gettoken();
+    QString getImToken();
 
     //设置房间信息
     void setRoomInfo(QVariantMap data);
@@ -73,6 +75,8 @@ private:
     QString m_areaID;//选择的地域
     /******************************************************/
 
+    QString m_userID;
+    QString m_IMtoken;
 signals:
 
 };

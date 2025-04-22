@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QMouseEvent>
+#include <QTimer>
 
 namespace Ui {
 class LoginPage;
@@ -22,6 +23,8 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
 
 private slots:
+    void onTimeout();
+
     void on_login_status_clicked(bool checked);
 
     void on_back_btn_clicked();
@@ -52,6 +55,8 @@ private slots:
 
     void on_help_Btn_1_clicked();
 
+    void on_code_label_click_clicked();
+
 private:
     void updateBtnStyle();
 private:
@@ -59,6 +64,9 @@ private:
     QPoint      mouseStartPoint;
     QPoint      windowTopLeftPoint;
     int m_count = 0;
+    int m_time = 0;
+
+    QTimer m_timer;
 
 };
 

@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "qdebug.h"
 #include "ui_mainwindow.h"
 #include "agorartcengineinterface.h"
@@ -34,10 +34,10 @@ void MainWindow::joinedChannelSuccess(const QString& channel, unsigned int uid, 
 {
     qDebug()<<"join sueccess--------" <<channel;
 }
-
+//直播间的每个人麦克风音量回调
 void MainWindow::audioVolumeIndication(int uid,int value)
 {
-    qDebug()<<"audioVolumeIndication uid---"<<uid<<"  value---"<<value;
+
 }
 
 void MainWindow::on_enterRoom_clicked()
@@ -57,6 +57,7 @@ void MainWindow::on_enterRoom_clicked()
         QString rtcToken = data["data"].toMap()["rtcToken"].toString();
         QString chatRoomId = data["data"].toMap()["roomId"].toString();
         int userId = data["data"].toMap()["userInfoResponse"].toMap()["userId"].toInt();
+        HttpUserInfo::instance()->setHttpUserInfo(data);
 
         m_agoraFace->joinChannel(rtcToken, chatRoomId, userId);
         m_agoraFace->setChannelProfile(agora::CHANNEL_PROFILE_COMMUNICATION);
@@ -82,5 +83,33 @@ void MainWindow::on_pushButton_clicked()
     {
     }
 
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    if(m_timInterface == nullptr)
+    {
+        m_timInterface = new TimInterface;
+        m_timInterface->initSDK();
+
+        connect(m_timInterface, &TimInterface::loginStatus, this, &MainWindow::loginIm);
+    }
+}
+
+void MainWindow::loginIm(int code, QString msg)
+{
+    if (code != ERR_SUCC)
+    {
+        qDebug()<<"login error-----------code-"<<code<<"---desc-"<<msg;
+
+    }
+    else
+    {
+        // 成功
+        qDebug()<<"login suess-----------";
+        QVariantMap data = HttpUserInfo::instance()->getHttpUserInfo();
+        QString chatRoomld = data["chatRoomId"].toString();
+        m_timInterface->groupJoin(chatRoomld.toLatin1());
+    }
 }
 

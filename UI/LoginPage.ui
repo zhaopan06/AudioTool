@@ -76,7 +76,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page">
        <property name="styleSheet">
@@ -968,6 +968,48 @@ border:none;</string>
           </layout>
          </item>
         </layout>
+       </widget>
+       <widget class="QLabel" name="code_label">
+        <property name="geometry">
+         <rect>
+          <x>36</x>
+          <y>282</y>
+          <width>160</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: &quot;微软雅黑&quot;;
+font-size: 14px;
+color: rgba(255,255,255,0.5);
+line-height: 22px;
+text-align: left;
+font-style: normal;</string>
+        </property>
+        <property name="text">
+         <string>59秒后可重新获取验证码</string>
+        </property>
+       </widget>
+       <widget class="click_label" name="code_label_click">
+        <property name="geometry">
+         <rect>
+          <x>36</x>
+          <y>282</y>
+          <width>58</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: &quot;微软雅黑&quot;;
+font-size: 14px;
+color: #7B5AE4;
+line-height: 22px;
+text-align: left;
+font-style: normal;</string>
+        </property>
+        <property name="text">
+         <string>重新获取</string>
+        </property>
        </widget>
       </widget>
      </widget>

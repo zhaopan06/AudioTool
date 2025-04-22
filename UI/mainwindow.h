@@ -1,8 +1,9 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include "agorartcengineinterface.h"
 #include <QMainWindow>
+#include "TimInterface.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -28,8 +29,13 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
+    void loginIm(int code, QString msg);
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;
+    TimInterface *m_timInterface = nullptr;
 };
 #endif // MAINWINDOW_H

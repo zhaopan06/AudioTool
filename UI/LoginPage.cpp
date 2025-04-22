@@ -20,12 +20,30 @@ LoginPage::LoginPage(QWidget *parent)
     ui->lineEdit_6->setMaxLength(1);
 
     ui->stackedWidget_2->setCurrentIndex(0);
+    ui->code_label_click->setVisible(false);
+    m_time = 60;
+
+    connect(&m_timer, &QTimer::timeout, this, &LoginPage::onTimeout);
 }
 
 LoginPage::~LoginPage()
 {
     delete ui;
 }
+
+void LoginPage::onTimeout()
+{
+    m_time--;
+    QString label = QString::number(m_time) + tr("秒后可重新获取验证码");
+    ui->code_label->setText(label);
+    if(m_time<= 0)
+    {
+        m_timer.stop();
+        ui->code_label->setVisible(false);
+        ui->code_label_click->setVisible(true);
+    }
+}
+
 //记录登录状态
 void LoginPage::on_login_status_clicked(bool checked)
 {
@@ -253,34 +271,41 @@ void LoginPage::on_back_label_clicked()
 
 void LoginPage::on_login_btn_clicked()
 {
-    qDebug()<<"login---------";
+    QVariantMap data = HttpInterFace::getInstance()->loginToServer("13333333333", "654321");
+    if(data["code"].toInt() == 1)
+    {
+        qDebug()<<"success ---"<<data["message"].toString();
+        HttpUserInfo::instance()->setLoginInfo(data["data"].toMap());
+        accept();
+    }
+    else
+    {
+        qDebug()<<"login message ---"<<data["message"].toInt();
+    }
+}
+
+void LoginPage::on_next_page_btn_clicked()
+{    
     QVariantMap Captchadata =  HttpInterFace::getInstance()->getCaptcha("13333333333","+86");
     if(Captchadata["code"].toInt() == 1)
     {
-        QVariantMap data = HttpInterFace::getInstance()->loginToServer("13333333333", "654321");
-        if(data["code"].toInt() == 1)
-        {
-            qDebug()<<"success ---"<<data["message"].toString();
-            HttpUserInfo::instance()->setLoginInfo(data["data"].toMap());
-            accept();
-        }
-        else
-        {
-            qDebug()<<"login message ---"<<data["message"].toInt();
-        }
+        QString str = ui->cap_mobile->text();
+        str = "+86" + str.left(3) + "***" + str.right(2);
+        ui->label_9->setText(str);
+        ui->stackedWidget_2->setCurrentIndex(1);
+
+        m_time = 60;
+        m_timer.start(1000);
+        ui->code_label->setVisible(true);
+        QString label = QString::number(m_time) + tr("秒后可重新获取验证码");
+        ui->code_label->setText(label);
+
+        ui->code_label_click->setVisible(false);
     }
     else
     {
         qDebug()<<"Captchadata message ---"<<Captchadata;
     }
-}
-
-void LoginPage::on_next_page_btn_clicked()
-{
-    QString str = ui->cap_mobile->text();
-    str = "+86" + str.left(3) + "***" + str.right(2);
-    ui->label_9->setText(str);
-    ui->stackedWidget_2->setCurrentIndex(1);
 }
 
 //获取帮助
@@ -305,5 +330,11 @@ void LoginPage::on_minBtn_clicked()
 void LoginPage::on_help_Btn_1_clicked()
 {
 
+}
+
+//重新获取验证码
+void LoginPage::on_code_label_click_clicked()
+{
+    on_next_page_btn_clicked();
 }
 
