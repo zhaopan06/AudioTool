@@ -57,7 +57,7 @@ int  TimInterface::logout(TIMCommCallback cb, const void *user_data)
 int TimInterface::sendMessage_group(const char *conv_id, const char *json_msg_param, const void *user_data)
 {
     TIMCommCallback callback = [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
-        TimInterface* ths = (TimInterface*)user_data;
+
         if (code != ERR_SUCC)
         { // 失败
             qDebug()<<"sendMessage_group error-----------";
@@ -184,17 +184,22 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                 // 处理图片消息
                 break;
 
-            case TIMElemType::kTIMElem_Custom:  // 自定义元素
-                // 处理自定义消息
-                qDebug()<<tr("自定义元素---") + content;
-                qDebug()<<"------------"<<json_doc;
+            case TIMElemType::kTIMElem_Custom:
+            {
+                QString str_content = msg_obj["message_cloud_custom_str"].toString();
+                QJsonObject str_doc = QJsonDocument::fromJson(str_content.toLatin1()).object();
+                if("groupMsg" == str_doc["tximMsgType"].toString())
+                {
+                    //TODO 这里处理自定义信息
+                    qDebug()<<tr("groupMsg---");
+                }
                 break;
-
+            }
             case TIMElemType::kTIMElem_GroupTips:  // 群组系统消息
-                // 处理群组系统消息
+            {
                 qDebug()<<tr("群组系统消息1---") + content;
                 break;
-
+            }
             case TIMElemType::kTIMElem_Face:  // 表情
                 qDebug()<<tr("表情---") + content;
                 // 处理表情消息
