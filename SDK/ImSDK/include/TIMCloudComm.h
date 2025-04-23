@@ -1,5 +1,7 @@
-#ifndef SDK_TIM_CLOUD_COMM_HEADER_
-#define SDK_TIM_CLOUD_COMM_HEADER_
+// Copyright (c) 2021 Tencent. All rights reserved.
+
+#ifndef SRC_PLATFORM_CROSS_PLATFORM_INCLUDE_TIM_CLOUD_COMM_H_
+#define SRC_PLATFORM_CROSS_PLATFORM_INCLUDE_TIM_CLOUD_COMM_H_
 
 #include <sys/types.h>
 
@@ -13,8 +15,12 @@
 
 #ifndef    _STDINT_H
 
-/* FreeBSD has these C99 int types defined in /sys/inttypes.h already */
-#ifndef _SYS_TYPES_H
+#if defined(__PROSPERO__) || defined(__ORBIS__)
+typedef     u_int8_t            uint8_t;
+typedef     u_int16_t           uint16_t;
+typedef     u_int32_t           uint32_t;
+typedef     u_int64_t           uint64_t;
+#elif !defined(_SYS_TYPES_H)
 typedef     signed char         int8_t;
 typedef     signed short        int16_t;
 typedef     signed int          int32_t;
@@ -24,11 +30,12 @@ typedef     unsigned short      uint16_t;
 typedef     unsigned int        uint32_t;
 typedef     unsigned long long  uint64_t;
 #else
+/* FreeBSD has these C99 int types defined in /sys/inttypes.h already */
 typedef     u_int8_t            uint8_t;
 typedef     u_int16_t           uint16_t;
 typedef     u_int32_t           uint32_t;
 typedef     u_int64_t           uint64_t;
-#endif  // _SYS_TYPES_H
+#endif  // defined(__PROSPERO__) || defined(__ORBIS__)
 
 #endif  // _STDINT_H
 
@@ -79,22 +86,23 @@ typedef unsigned char bool;
 
 #endif /* !__cplusplus */
 
-#ifdef _WIN32
-#if defined(TIM_EXPORTS) 
-#define TIM_DECL __declspec(dllexport)
+#if defined(_WIN32) || defined(__PROSPERO__) || defined(__ORBIS__)
+#if defined(ENABLE_STATIC_LIB)
+#define TIM_API
 #else
-#define TIM_DECL __declspec(dllimport)
+#if defined(TIM_EXPORTS) 
+#define TIM_API __declspec(dllexport)
+#else
+#define TIM_API __declspec(dllimport)
+#endif
 #endif
 
 #else 
 
-#if defined(TIM_EXPORTS)
-#define TIM_DECL __attribute__ ((visibility ("default")))
-#else 
-#define TIM_DECL __attribute__ ((visibility ("hidden")))
-#endif
+#define TIM_API __attribute__ ((visibility ("default")))
 
 #endif
 
+#define TIM_DECL TIM_API
 
-#endif //SDK_TIM_CLOUD_COMM_HEADER_
+#endif  // SRC_PLATFORM_CROSS_PLATFORM_INCLUDE_TIM_CLOUD_COMM_H_

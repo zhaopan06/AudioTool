@@ -621,7 +621,7 @@ public:
 
         retranslateUi(LoginPage);
 
-        stackedWidget_2->setCurrentIndex(1);
+        stackedWidget_2->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(LoginPage);

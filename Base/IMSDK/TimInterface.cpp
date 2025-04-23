@@ -1,8 +1,9 @@
 ﻿#include "TimInterface.h"
-#include "TIMCloud.h"
+#include "qcoreapplication.h"
 #include "qdebug.h"
 #include "HttpUserInfo.h"
-
+#include <QJsonObject>
+#include <QJsonDocument>
 
 TimInterface::TimInterface()
 {
@@ -11,8 +12,20 @@ TimInterface::TimInterface()
 
 int TimInterface::initSDK()
 {
-    int sdk_app_id = 1600037216;
-    int code = TIMInit(sdk_app_id, "");
+    uint64_t sdk_app_id = 1600037216;
+
+    QString path = QCoreApplication::applicationDirPath();
+    QJsonObject jsonObj;
+    jsonObj["kTIMSdkConfigLogFilePath"] = path.toUtf8().data();
+    jsonObj["kTIMSdkConfigConfigFilePath"] = path.toUtf8().data();
+    QJsonDocument doc(jsonObj);
+    QString jsonString = doc.toJson(QJsonDocument::Compact);
+    int code = TIMInit(sdk_app_id, jsonString.toUtf8().data());
+    if (TIM_SUCC != code)
+    {
+        qDebug()<<"TIMInit error code----------"<<code;
+    }
+
 
     QString ImUserID = "user" + HttpUserInfo::instance()->getUserID();
     QString IMtoken = HttpUserInfo::instance()->getImToken();
@@ -96,13 +109,12 @@ void TimInterface::groupJoin(const char* group_id)
     TIMCommCallback callback = [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
 
         if (code != ERR_SUCC)
-        { // 失败
+        {
             qDebug()<<"groupJoin error-----------code-"<<code<<"---desc-"<<desc;
             return ;
         }
         else
-        {
-            // 成功
+        {            
             qDebug()<<"groupJoin suess-----------";
         }
     };
@@ -175,7 +187,7 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
             case TIMElemType::kTIMElem_Custom:  // 自定义元素
                 // 处理自定义消息
                 qDebug()<<tr("自定义元素---") + content;
-                qDebug()<<"------------"<<msg_obj;
+                qDebug()<<"------------"<<json_doc;
                 break;
 
             case TIMElemType::kTIMElem_GroupTips:  // 群组系统消息

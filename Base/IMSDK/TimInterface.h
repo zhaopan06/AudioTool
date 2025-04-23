@@ -1,6 +1,6 @@
 ﻿#ifndef TIMINTERFACE_H
 #define TIMINTERFACE_H
-#include "TIMCloudCallback.h"
+#include "TIMCloud.h"
 #include <QObject>
 #include <QJsonDocument>
 #include <QJsonArray>

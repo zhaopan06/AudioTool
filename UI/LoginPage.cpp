@@ -1,4 +1,4 @@
-#include "LoginPage.h"
+﻿#include "LoginPage.h"
 #include "qdebug.h"
 #include "ui_LoginPage.h"
 #include "HttpInterFace.h"
@@ -301,6 +301,7 @@ void LoginPage::on_next_page_btn_clicked()
         ui->code_label->setText(label);
 
         ui->code_label_click->setVisible(false);
+        ui->lineEdit->setFocus();
     }
     else
     {

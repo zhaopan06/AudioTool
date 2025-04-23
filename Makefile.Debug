@@ -566,9 +566,6 @@ debug\moc_HttpUserInfo.cpp: Base\Http\HttpUserInfo.h \
 	D:\Qt5.15.2\5.15.2\msvc2019\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/zhaopan/code_git/AudioTool/debug/moc_predefs.h -ID:/Qt5.15.2/5.15.2/msvc2019/mkspecs/win32-msvc -ID:/zhaopan/code_git/AudioTool -ID:/zhaopan/code_git/AudioTool/Base/Agora -ID:/zhaopan/code_git/AudioTool/Base/ImSDK -ID:/zhaopan/code_git/AudioTool/SDK/Agora/include -ID:/zhaopan/code_git/AudioTool/SDK/ImSDK/include -ID:/zhaopan/code_git/AudioTool/Base/Http -ID:/zhaopan/code_git/AudioTool/control -ID:/zhaopan/code_git/AudioTool/UI -ID:/Qt5.15.2/5.15.2/msvc2019/include -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtWidgets -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtGui -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtANGLE -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtWebSockets -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtNetwork -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtCore -I"D:\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"D:\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\cppwinrt" Base\Http\HttpUserInfo.h -o debug\moc_HttpUserInfo.cpp
 
 debug\moc_TimInterface.cpp: Base\IMSDK\TimInterface.h \
-		SDK\ImSDK\include\TIMCloudCallback.h \
-		SDK\ImSDK\include\TIMCloudDef.h \
-		SDK\ImSDK\include\TIMCloudComm.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QObject \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qobject.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qobjectdefs.h \
@@ -622,6 +619,32 @@ debug\moc_TimInterface.cpp: Base\IMSDK\TimInterface.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qvarlengtharray.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcontainerfwd.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qobject_impl.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonDocument \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsondocument.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonvalue.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qshareddata.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qhash.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcborvalue.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qdatetime.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcborcommon.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qdebug.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qmap.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qtextstream.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qiodevice.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qlocale.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qvariant.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qset.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcontiguouscache.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qsharedpointer.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qsharedpointer_impl.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qregularexpression.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qurl.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qurlquery.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\quuid.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonArray \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonarray.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonObject \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonobject.h \
 		debug\moc_predefs.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\bin\moc.exe
 	D:\Qt5.15.2\5.15.2\msvc2019\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/zhaopan/code_git/AudioTool/debug/moc_predefs.h -ID:/Qt5.15.2/5.15.2/msvc2019/mkspecs/win32-msvc -ID:/zhaopan/code_git/AudioTool -ID:/zhaopan/code_git/AudioTool/Base/Agora -ID:/zhaopan/code_git/AudioTool/Base/ImSDK -ID:/zhaopan/code_git/AudioTool/SDK/Agora/include -ID:/zhaopan/code_git/AudioTool/SDK/ImSDK/include -ID:/zhaopan/code_git/AudioTool/Base/Http -ID:/zhaopan/code_git/AudioTool/control -ID:/zhaopan/code_git/AudioTool/UI -ID:/Qt5.15.2/5.15.2/msvc2019/include -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtWidgets -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtGui -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtANGLE -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtWebSockets -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtNetwork -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtCore -I"D:\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"D:\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\cppwinrt" Base\IMSDK\TimInterface.h -o debug\moc_TimInterface.cpp
@@ -860,10 +883,19 @@ debug\moc_mainwindow.cpp: UI\mainwindow.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qtabwidget.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\qicon.h \
 		Base\ImSDK\TimInterface.h \
-		SDK\ImSDK\include\TIMCloudCallback.h \
-		SDK\ImSDK\include\TIMCloudDef.h \
-		SDK\ImSDK\include\TIMCloudComm.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QObject \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonDocument \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsondocument.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonvalue.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcborvalue.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qdatetime.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcborcommon.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qregularexpression.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\quuid.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonArray \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonarray.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonObject \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonobject.h \
 		debug\moc_predefs.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\bin\moc.exe
 	D:\Qt5.15.2\5.15.2\msvc2019\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/zhaopan/code_git/AudioTool/debug/moc_predefs.h -ID:/Qt5.15.2/5.15.2/msvc2019/mkspecs/win32-msvc -ID:/zhaopan/code_git/AudioTool -ID:/zhaopan/code_git/AudioTool/Base/Agora -ID:/zhaopan/code_git/AudioTool/Base/ImSDK -ID:/zhaopan/code_git/AudioTool/SDK/Agora/include -ID:/zhaopan/code_git/AudioTool/SDK/ImSDK/include -ID:/zhaopan/code_git/AudioTool/Base/Http -ID:/zhaopan/code_git/AudioTool/control -ID:/zhaopan/code_git/AudioTool/UI -ID:/Qt5.15.2/5.15.2/msvc2019/include -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtWidgets -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtGui -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtANGLE -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtWebSockets -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtNetwork -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtCore -I"D:\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"D:\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\cppwinrt" UI\mainwindow.h -o debug\moc_mainwindow.cpp
@@ -1460,9 +1492,6 @@ debug\HttpUserInfo.obj: Base\Http\HttpUserInfo.cpp Base\Http\HttpUserInfo.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QDebug
 
 debug\TimInterface.obj: Base\IMSDK\TimInterface.cpp Base\IMSDK\TimInterface.h \
-		SDK\ImSDK\include\TIMCloudCallback.h \
-		SDK\ImSDK\include\TIMCloudDef.h \
-		SDK\ImSDK\include\TIMCloudComm.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QObject \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qobject.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qobjectdefs.h \
@@ -1516,19 +1545,49 @@ debug\TimInterface.obj: Base\IMSDK\TimInterface.cpp Base\IMSDK\TimInterface.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qvarlengtharray.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcontainerfwd.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qobject_impl.h \
-		SDK\ImSDK\include\TIMCloud.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qdebug.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonDocument \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsondocument.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonvalue.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qshareddata.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qhash.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcborvalue.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qdatetime.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcborcommon.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qdebug.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qmap.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qtextstream.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qiodevice.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qlocale.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qvariant.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qshareddata.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qset.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcontiguouscache.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qsharedpointer.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qsharedpointer_impl.h
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qsharedpointer_impl.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qregularexpression.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qurl.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qurlquery.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\quuid.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonArray \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonarray.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonObject \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonobject.h \
+		SDK\ImSDK\include\TIMCloud.h \
+		SDK\ImSDK\include\TIMCommunityManager.h \
+		SDK\ImSDK\include\TIMCloudDef.h \
+		SDK\ImSDK\include\TIMCloudComm.h \
+		SDK\ImSDK\include\TIMConversationManager.h \
+		SDK\ImSDK\include\TIMErrorCode.h \
+		SDK\ImSDK\include\TIMExperimentalAPI.h \
+		SDK\ImSDK\include\TIMFriendshipManager.h \
+		SDK\ImSDK\include\TIMGroupManager.h \
+		SDK\ImSDK\include\TIMManager.h \
+		SDK\ImSDK\include\TIMMessageManager.h \
+		SDK\ImSDK\include\TIMOfflinePushManager.h \
+		SDK\ImSDK\include\TIMSignalingManager.h \
+		Base\Http\HttpUserInfo.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QReadWriteLock \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qreadwritelock.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QVariantMap
 
 debug\LoginPage.obj: UI\LoginPage.cpp UI\LoginPage.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QDialog \
@@ -1640,42 +1699,6 @@ debug\LoginPage.obj: UI\LoginPage.cpp UI\LoginPage.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qtimer.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qbasictimer.h \
 		ui_LoginPage.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QVariant \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\QIcon \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\qicon.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QApplication \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qapplication.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcoreapplication.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qeventloop.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qdesktopwidget.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\qguiapplication.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\qinputmethod.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QFrame \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qframe.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QHBoxLayout \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qboxlayout.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qlayout.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qlayoutitem.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qgridlayout.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QLabel \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qlabel.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QLineEdit \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qlineedit.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\qtextcursor.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\qtextformat.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\qpen.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\qtextoption.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QPushButton \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qpushbutton.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qabstractbutton.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QRadioButton \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qradiobutton.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QSpacerItem \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QStackedWidget \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qstackedwidget.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QVBoxLayout \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QWidget \
-		control\click_label.h \
 		Base\Http\HttpInterFace.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\QNetworkAccessManager \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\qnetworkaccessmanager.h \
@@ -1685,6 +1708,7 @@ debug\LoginPage.obj: UI\LoginPage.cpp UI\LoginPage.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QSharedDataPointer \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QString \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QUrl \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QVariant \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QVector \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QObject \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\QSslConfiguration \
@@ -1832,29 +1856,20 @@ debug\mainwindow.obj: UI\mainwindow.cpp UI\mainwindow.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qtabwidget.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\qicon.h \
 		Base\ImSDK\TimInterface.h \
-		SDK\ImSDK\include\TIMCloudCallback.h \
-		SDK\ImSDK\include\TIMCloudDef.h \
-		SDK\ImSDK\include\TIMCloudComm.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QObject \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonDocument \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsondocument.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonvalue.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcborvalue.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qdatetime.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcborcommon.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qregularexpression.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\quuid.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonArray \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonarray.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonObject \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonobject.h \
 		ui_mainwindow.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QApplication \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qapplication.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcoreapplication.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qeventloop.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qdesktopwidget.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\qguiapplication.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\qinputmethod.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QMenuBar \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qmenubar.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qmenu.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qaction.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qactiongroup.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QPushButton \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qpushbutton.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qabstractbutton.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QStatusBar \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qstatusbar.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QWidget \
 		Base\Http\HttpInterFace.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\QNetworkAccessManager \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\qnetworkaccessmanager.h \
@@ -1872,7 +1887,6 @@ debug\mainwindow.obj: UI\mainwindow.cpp UI\mainwindow.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\qsslerror.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\qsslcertificate.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcryptographichash.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qdatetime.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\qssl.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QFlags \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\QSslPreSharedKeyAuthenticator \
@@ -2130,10 +2144,19 @@ debug\main.obj: main.cpp UI\mainwindow.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qtabwidget.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\qicon.h \
 		Base\ImSDK\TimInterface.h \
-		SDK\ImSDK\include\TIMCloudCallback.h \
-		SDK\ImSDK\include\TIMCloudDef.h \
-		SDK\ImSDK\include\TIMCloudComm.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QObject \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonDocument \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsondocument.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonvalue.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcborvalue.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qdatetime.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcborcommon.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qregularexpression.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\quuid.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonArray \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonarray.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonObject \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonobject.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QApplication \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qapplication.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcoreapplication.h \
