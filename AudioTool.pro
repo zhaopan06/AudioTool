@@ -37,6 +37,7 @@ SOURCES += \
     Base/IMSDK/TimInterface.cpp \
     UI/LoginPage.cpp \
     UI/mainwindow.cpp \
+    control/EmotionWidget.cpp \
     control/click_label.cpp \
     main.cpp
 
@@ -48,11 +49,13 @@ HEADERS += \
     Base/IMSDK/TimInterface.h \
     UI/LoginPage.h \
     UI/mainwindow.h \
+    control/EmotionWidget.h \
     control/click_label.h
 
 FORMS += \
     UI/LoginPage.ui \
-    UI/mainwindow.ui
+    UI/mainwindow.ui \
+    control/EmotionWidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

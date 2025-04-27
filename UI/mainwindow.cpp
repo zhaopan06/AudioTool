@@ -113,3 +113,25 @@ void MainWindow::loginIm(int code, QString msg)
     }
 }
 
+//表情
+void MainWindow::on_pushButton_3_clicked()
+{
+    if(nullptr == m_men)
+    {
+        m_men = new QMenu;
+        m_men->setFixedSize(226,226);
+        QHBoxLayout *hbox = new QHBoxLayout;
+        m_emotionWidget = new EmotionWidget(this);
+        m_emotionWidget->initChatEmotion();
+        connect(m_emotionWidget, SIGNAL(emotionClicked(QString)), this, SLOT(emotionClicked(QString)));
+        hbox->setMargin(0);
+        hbox->addWidget(m_emotionWidget);
+        m_men->setLayout(hbox);
+    }
+    QPoint point;
+    point.setX(ui->pushButton_3->mapToGlobal(QPoint(0, 0)).rx());
+    point.setY(ui->pushButton_3->mapToGlobal(QPoint(0, 0)).ry() - m_emotionWidget->height() - 26);
+    m_men->move(point);
+    m_men->exec();
+}
+

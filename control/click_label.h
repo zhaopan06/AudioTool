@@ -1,22 +1,18 @@
-// clicklabel.h
-
 #ifndef CLICKED_LABEL_H
 #define CLICKED_LABEL_H
-
 #include <QWidget>
 #include <QLabel>
-
 
 class click_label : public QLabel
 {
     Q_OBJECT
 public:
-    click_label(QWidget *parent=0): QLabel(parent) {
+    click_label(QWidget *parent=0): QLabel(parent)
+    {
         setScaledContents(true);
-//        setStyleSheet(" background: solid lightGray; ");
     }
     virtual ~click_label() {}
-    void setRadius(int radius){m_radius = radius;}//…Ë÷√‘≤Ω«
+    void setRadius(int radius){m_radius = radius;}
     void setRound(){m_isRound = true;}
     void setColor(){m_isShowColor = true;}
 signals:

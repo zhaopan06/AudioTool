@@ -1,5 +1,4 @@
-
-#include "click_label.h"
+ï»¿#include "click_label.h"
 #include <QPainterPath>
 #include <QPainter>
 void click_label::mouseReleaseEvent(QMouseEvent *)
@@ -9,7 +8,6 @@ void click_label::mouseReleaseEvent(QMouseEvent *)
 void click_label::paintEvent(QPaintEvent *e)
 {
     QPainter painter(this);
-    // ¿¹¾â³Ý
     painter.setRenderHint(QPainter::Antialiasing, true);
     if(m_isRound)
     {

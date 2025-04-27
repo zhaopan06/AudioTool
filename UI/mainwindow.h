@@ -4,6 +4,7 @@
 #include "agorartcengineinterface.h"
 #include <QMainWindow>
 #include "TimInterface.h"
+#include "EmotionWidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -33,9 +34,14 @@ private slots:
 
     void loginIm(int code, QString msg);
 
+    void on_pushButton_3_clicked();
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;
     TimInterface *m_timInterface = nullptr;
+
+    QMenu *m_men = nullptr;
+    EmotionWidget *m_emotionWidget = nullptr;
 };
 #endif // MAINWINDOW_H
