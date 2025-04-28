@@ -126,21 +126,12 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
     // 解析JSON消息数组
     QJsonParseError error;
     QJsonDocument json_doc = QJsonDocument::fromJson(json_msg_array, &error);
-
     if (json_doc.isNull())
-    {
-        qDebug() << "JSON parse failure:" << error.errorString();
         return;
-    }
-
     if (!json_doc.isArray())
-    {
-        qDebug() << "Expected JSON array but got something else";
         return;
-    }
 
     QJsonArray json_array_msgs = json_doc.array();
-
     // 遍历消息
     for (const QJsonValue& json_value_msg : json_array_msgs)
     {
@@ -156,69 +147,111 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
             if (!elem_value.isObject())
                 continue;
 
+            QString str_content = msg_obj["message_cloud_custom_str"].toString();
+            QJsonObject str_doc = QJsonDocument::fromJson(str_content.toLatin1()).object();
+
+            //收集发送者的信息
+            QJsonObject user_doc = str_doc["user"].toObject();
+            m_user_info.insert("name", user_doc["name"].toString());
+            m_user_info.insert("photo", user_doc["photo"].toString());
+            m_user_info.insert("userId", user_doc["userId"].toString());
+
+
             QJsonObject elem = elem_value.toObject();
             uint32_t elem_type = elem["elem_type"].toInt();
-
-            QString content = elem[kTIMTextElemContent].toString();//内容
-
             switch (elem_type) {
             case TIMElemType::kTIMElem_Text:  // 文本
             {
                 // 处理文本消息
-                qDebug()<<tr("文本消息---") + content;
-                break;
-            }
+                QString content = elem[kTIMTextElemContent].toString();//内容
 
-            case TIMElemType::kTIMElem_Sound:  // 声音
-                qDebug()<<tr("声音---") + content;
-                // 处理声音消息
-                break;
+                qDebug()<<tr("文本消息---") + content.toUtf8();
 
-            case TIMElemType::kTIMElem_File:  // 文件
-                qDebug()<<tr("文件---") + content;
-                // 处理文件消息
-                break;
+                if("groupMsg" == str_doc["tximMsgType"].toString())
+                {
+                    QJsonObject message_ob = str_doc["message"].toObject();
+                    int type = message_ob["type"].toInt();
+                    qDebug()<<"type---"<<type;
 
-            case TIMElemType::kTIMElem_Image:  // 图片
-                qDebug()<<tr("图片---") + content;
-                // 处理图片消息
+                }
                 break;
+            }           
 
             case TIMElemType::kTIMElem_Custom:
-            {
-                QString str_content = msg_obj["message_cloud_custom_str"].toString();
-                QJsonObject str_doc = QJsonDocument::fromJson(str_content.toLatin1()).object();
+            {                
                 if("groupMsg" == str_doc["tximMsgType"].toString())
                 {
                     //TODO 这里处理自定义信息
-                    qDebug()<<tr("groupMsg---");
+                    QJsonObject message_ob = str_doc["message"].toObject();
+                    int type = message_ob["type"].toInt();
+                    qDebug()<<"type---"<<type;
+                    qDebug()<<"body = "<<message_ob["body"];
+
+                    switch (type) {
+                    case 8://爆灯
+                    {
+                        QString imagePath = ":/images/emotion/vc_emoji_2.png";
+                        emit msg_emotion(imagePath);
+                        break;
+                    }
+                    case 9://9 emjio表情单图
+                    {
+                        int emotion_num = message_ob["body"].toString().right(3).toInt() + 1;
+                        QString imagePath = ":/images/emotion/vc_emoji_" + QString::number(emotion_num) + ".png";
+                        emit msg_emotion(imagePath);
+                        break;
+                    }
+                    case 10://10 骰子
+                    {
+                        int num = message_ob["body"].toString().toInt();
+                        QString imagePath = ":/images/emotion/icon_dice_" +QString::number(num) + ".png";
+                        emit msg_dice(imagePath);
+                        break;
+                    }
+                    case 11://11 划拳
+                    {
+                        int num = message_ob["body"].toString().toInt();
+                        QString imagePath = ":/images/emotion/icon_finger_" +QString::number(num) + ".png";
+                        emit msg_finger(imagePath);
+                        break;
+                    }
+                    case 12://12 操作类型消息（例如：主持将xxx抱上麦。显示样式与普通消息一样，只是文本颜色不一样），
+                    {
+                        break;
+                    }
+                    case 13://*13 通知类型消息（例如：xxx来了。无需显示发送者头像，需要显示用户等级）
+                    {
+                        break;
+                    }
+                    case 15://*15. 用户等级提升提示 （例如：恭喜 xxx 等级提升到多少级）
+                    {
+                        break;
+                    }
+                    case 16://*16：pk通知
+                    {
+                        break;
+                    }
+                    case 17://*17：vip表情
+                    {
+                        break;
+                    }
+                    case 18://麦味机
+                    {
+                        int num = message_ob["body"].toString().toInt();
+                        QString imagePath = ":/images/emotion/icon_mic_" +QString::number(num) + ".png";
+                        emit msg_dice(imagePath);
+                        break;
+                    }
+                    default:
+                        break;
+                    }
                 }
                 break;
             }
             case TIMElemType::kTIMElem_GroupTips:  // 群组系统消息
-            {
-                qDebug()<<tr("群组系统消息1---") + content;
+            {                
                 break;
-            }
-            case TIMElemType::kTIMElem_Face:  // 表情
-                qDebug()<<tr("表情---") + content;
-                // 处理表情消息
-                break;
-
-            case TIMElemType::kTIMElem_Location:  // 位置
-                qDebug()<<tr("位置---") + content;
-                // 处理位置消息
-                break;
-
-            case TIMElemType::kTIMElem_GroupReport:  // 群组系统通知
-                qDebug()<<tr("群组系统通知2---")+content;
-                // 处理群组通知
-                break;
-
-            case TIMElemType::kTIMElem_Video:  // 视频
-                qDebug()<<tr("视频---") + content;
-                // 处理视频消息
-                break;
+            }          
 
             default:
                 qDebug() << "Unknown message element type:" << elem_type;

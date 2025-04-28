@@ -32,13 +32,21 @@ public:
     /*-----------群组相关-----------*/
     //加入群组
     void groupJoin(const char* group_id);
-
     //解析消息
     void getMSGTojson(QByteArray msg);
 
 signals:
     void loginStatus(int,QString);
     void newMes();
+
+    void msg_emotion(QString);//纯表情
+    void msg_txt(QString);//文字
+    void msg_dice(QString);//骰子
+    void msg_finger(QString);//猜拳
+    void msg_mic(QString);//猜拳
+
+private:
+    QVariantMap m_user_info; //消息发送者的信息
 
 };
 

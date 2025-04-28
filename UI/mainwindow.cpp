@@ -10,9 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);    
+    ui->setupUi(this);
 
-#ifndef NO
     LoginPage *login = new LoginPage;
     if(login->exec() == QDialog::Accepted)
     {
@@ -22,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     {
         exit(0);
     }
-#endif
+
 }
 
 MainWindow::~MainWindow()
