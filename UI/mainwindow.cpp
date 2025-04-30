@@ -5,6 +5,7 @@
 #include "Base/Http/HttpInterFace.h"
 #include "Base/Http/HttpUserInfo.h"
 #include "LoginPage.h"
+#include <QRandomGenerator>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -109,8 +110,15 @@ void MainWindow::loginIm(int code, QString msg)
     }
 }
 
-//表情
-void MainWindow::on_pushButton_3_clicked()
+//发送消息
+void MainWindow::on_sendBtn_clicked()
+{
+    QString msg = ui->msgEdit->text();
+    m_timInterface->setSendJson(IMType_Text, msg);
+}
+
+
+void MainWindow::on_emoBtn_clicked()
 {
     if(nullptr == m_men)
     {
@@ -125,16 +133,76 @@ void MainWindow::on_pushButton_3_clicked()
         m_men->setLayout(hbox);
     }
     QPoint point;
-    point.setX(ui->pushButton_3->mapToGlobal(QPoint(0, 0)).rx());
-    point.setY(ui->pushButton_3->mapToGlobal(QPoint(0, 0)).ry() - m_emotionWidget->height() - 26);
+    point.setX(ui->emoBtn->mapToGlobal(QPoint(0, 0)).rx());
+    point.setY(ui->emoBtn->mapToGlobal(QPoint(0, 0)).ry() - m_emotionWidget->height() - 26);
     m_men->move(point);
     m_men->exec();
 }
 
-//发送消息
-void MainWindow::on_sendBtn_clicked()
+void MainWindow::emotionClicked(QString path)
 {
-    QString msg = ui->msgEdit->text();
-    m_timInterface->setSendJson_text(msg);
+    ui->sendBtn->setFocus();
+    QString text;
+    if(path.contains("/"))
+    {
+        text = path.split("/").at(2);
+        if(text.contains("."))
+        {
+            text = text.split(".").at(0);
+            int number =  text.split("_").at(text.split("_").size()-1).toInt();
+            if(number < 4)
+            {
+                switch (number)
+                {
+                case 0://发送骰子
+                {
+                    int diceRoll = QRandomGenerator::global()->bounded(1, 7);
+                    m_timInterface->setSendJson(IMType_dice, QString::number(diceRoll));
+                    break;
+                }
+                case 1://发送猜拳
+                {
+                    int diceRoll = QRandomGenerator::global()->bounded(1, 4);
+                    qDebug()<<"diceRoll---"<<diceRoll;
+                    m_timInterface->setSendJson(IMType_finger, QString::number(diceRoll));
+                    break;
+                }
+                case 2://发送爆灯
+                {
+                    m_timInterface->setSendJson(IMType_light, "");
+                    break;
+                }
+                case 3://美味基
+                {
+                    int diceRoll = QRandomGenerator::global()->bounded(1, 9);
+                    qDebug()<<"diceRoll---"<<diceRoll;
+                    m_timInterface->setSendJson(IMType_machine, QString::number(diceRoll));
+
+                    break;
+                }
+                default:
+                    break;
+                }
+            }
+            else
+            {
+                //表情
+                if(number <= 21)
+                    number --;
+                else if(number >= 27 && number < 32)
+                    number += 4;
+                else if(number == 32)
+                    number = 43;
+                else if(number == 33)
+                    number = 45;
+                else if(number >= 34 && number < 36)
+                    number += 4 ;
+
+                QString str = QString("%1").arg(number, 3, 10, QChar('0'));
+                text = text.left(8) + "_" + str;
+                m_timInterface->setSendJson(IMType_emjio, text);
+            }
+        }
+    }
 }
 

@@ -66,19 +66,6 @@
      <string>加入群聊</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>530</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>表情</string>
-    </property>
-   </widget>
    <widget class="QFrame" name="frame_6">
     <property name="geometry">
      <rect>
@@ -144,14 +131,17 @@
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">border:none;
-background:rgba(23,36,67,1);</string>
+        <string notr="true">background:rgba(41,58,97,1);
+font-size:14px;
+font-family:MicrosoftYaHei;
+color:rgba(255,255,255,1);
+</string>
        </property>
        <property name="text">
-        <string/>
+        <string>表情</string>
        </property>
        <property name="icon">
-        <iconset resource="../../../../QT_qml_Test/PowerDog/res.qrc">
+        <iconset>
          <normaloff>:/image/Live/Live_biaoqing.png</normaloff>:/image/Live/Live_biaoqing.png</iconset>
        </property>
        <property name="iconSize">
@@ -297,8 +287,6 @@ QListWidget::item:selected
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="../../../../QT_qml_Test/PowerDog/res.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

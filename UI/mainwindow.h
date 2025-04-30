@@ -34,10 +34,11 @@ private slots:
 
     void loginIm(int code, QString msg);
 
-    void on_pushButton_3_clicked();
-
     void on_sendBtn_clicked();
 
+    void on_emoBtn_clicked();
+
+    void emotionClicked(QString path);
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;

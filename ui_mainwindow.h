@@ -33,7 +33,6 @@ public:
     QPushButton *createRoom;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
-    QPushButton *pushButton_3;
     QFrame *frame_6;
     QHBoxLayout *horizontalLayout_6;
     QToolButton *emoBtn;
@@ -62,9 +61,6 @@ public:
         pushButton_2 = new QPushButton(centralwidget);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
         pushButton_2->setGeometry(QRect(560, 400, 75, 23));
-        pushButton_3 = new QPushButton(centralwidget);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
-        pushButton_3->setGeometry(QRect(110, 530, 75, 23));
         frame_6 = new QFrame(centralwidget);
         frame_6->setObjectName(QString::fromUtf8("frame_6"));
         frame_6->setGeometry(QRect(740, 660, 301, 70));
@@ -85,8 +81,11 @@ public:
         emoBtn->setObjectName(QString::fromUtf8("emoBtn"));
         emoBtn->setMinimumSize(QSize(40, 70));
         emoBtn->setMaximumSize(QSize(40, 70));
-        emoBtn->setStyleSheet(QString::fromUtf8("border:none;\n"
-"background:rgba(23,36,67,1);"));
+        emoBtn->setStyleSheet(QString::fromUtf8("background:rgba(41,58,97,1);\n"
+"font-size:14px;\n"
+"font-family:MicrosoftYaHei;\n"
+"color:rgba(255,255,255,1);\n"
+""));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/image/Live/Live_biaoqing.png"), QSize(), QIcon::Normal, QIcon::Off);
         emoBtn->setIcon(icon);
@@ -175,8 +174,7 @@ public:
         createRoom->setText(QCoreApplication::translate("MainWindow", "\345\210\233\345\273\272\346\210\277\351\227\264", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "\344\270\212\351\272\246", nullptr));
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "\345\212\240\345\205\245\347\276\244\350\201\212", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("MainWindow", "\350\241\250\346\203\205", nullptr));
-        emoBtn->setText(QString());
+        emoBtn->setText(QCoreApplication::translate("MainWindow", "\350\241\250\346\203\205", nullptr));
         msgEdit->setText(QString());
         msgEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "\345\222\214\345\244\247\345\256\266\350\201\212\350\201\212\345\244\251", nullptr));
         sendBtn->setText(QCoreApplication::translate("MainWindow", "\345\217\221\351\200\201", nullptr));

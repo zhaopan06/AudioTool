@@ -72,11 +72,16 @@ int TimInterface::sendMessage_group(const char *conv_id, const char *json_msg_pa
     return TIMMsgSendNewMsg(conv_id, kTIMConv_Group, json_msg_param, callback, user_data);
 }
 
-void TimInterface::setSendJson_text(QString text)
+void TimInterface::setSendJson(IMType type, QString text)
 {
     QVariantMap json_value_text;
-    json_value_text[kTIMElemType] = kTIMElem_Text;
+    if(type == IMType_Text)
+        json_value_text[kTIMElemType] = kTIMElem_Text;
+    else
+        json_value_text[kTIMElemType] = kTIMElem_Custom;
+
     json_value_text[kTIMTextElemContent] = text;
+
 
     // 创建消息元素数组
     QVariantMap json_value_msg;
@@ -84,25 +89,23 @@ void TimInterface::setSendJson_text(QString text)
     elem_array.append(json_value_text);
     json_value_msg[kTIMMsgElemArray] = elem_array;
 
-
     json_value_msg[kTIMMsgSender] = "user" + HttpUserInfo::instance()->getUserID();
     json_value_msg[kTIMMsgClientTime] = time(NULL);
     json_value_msg[kTIMMsgServerTime] = time(NULL);
     json_value_msg[kTIMMsgConvId] = HttpUserInfo::instance()->getRoomID();
     json_value_msg[kTIMMsgConvType] = kTIMConv_Group;
-    json_value_msg["message_cloud_custom_str"] = setCustomJson(text);
+    json_value_msg["message_cloud_custom_str"] = setCustomJson(type,text);
 
     // 转换为 JSON 字符串
-    QJsonDocument doc(QJsonObject::fromVariantMap(json_value_msg));
-    qDebug()<<"send---"<<doc;
+    QJsonDocument doc(QJsonObject::fromVariantMap(json_value_msg));    
     sendMessage_group(HttpUserInfo::instance()->getRoomID().toLatin1(), doc.toJson(), this);
 }
 
-QString TimInterface::setCustomJson(QString text)
+QString TimInterface::setCustomJson(IMType imType, QString text)
 {
     QVariantMap message;
     message["body"] = text;
-    message["type"] = kTIMElem_Text;
+    message["type"] = imType;
 
     QVariantMap action;
     action["clickType"] = 0;
@@ -249,9 +252,21 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     }
                     case 9://9 emjio表情单图
                     {
-                        int emotion_num = message_ob["body"].toString().right(3).toInt() + 1;
-                        QString imagePath = ":/images/emotion/vc_emoji_" + QString::number(emotion_num) + ".png";
-                        emit msg_emotion(imagePath);
+                        int number = message_ob["body"].toString().right(3).toInt();
+
+                        if(number <= 20)
+                            number ++;
+                        else if(number >= 31 && number < 36)
+                            number -= 4;
+                        else if(number == 43)
+                            number = 32;
+                        else if(number == 45)
+                            number = 33;
+                        else if(number >= 38 && number < 40)
+                            number -= 4 ;
+
+                        QString imagePath = ":/images/emotion/vc_emoji_" + QString::number(number) + ".png";
+                        emit msg_emotion(imagePath);                        
                         break;
                     }
                     case 10://10 骰子
