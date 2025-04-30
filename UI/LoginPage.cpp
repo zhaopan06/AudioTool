@@ -1,5 +1,7 @@
 ﻿#include "LoginPage.h"
 #include "qdebug.h"
+#include "qjsondocument.h"
+#include "qjsonobject.h"
 #include "ui_LoginPage.h"
 #include "HttpInterFace.h"
 #include "HttpUserInfo.h"
@@ -274,7 +276,7 @@ void LoginPage::on_login_btn_clicked()
     QVariantMap data = HttpInterFace::getInstance()->loginToServer("13333333333", "654321");
     if(data["code"].toInt() == 1)
     {
-        qDebug()<<"success ---"<<data["message"].toString();
+        QJsonObject jsonObject = QJsonObject::fromVariantMap(data);        
         HttpUserInfo::instance()->setLoginInfo(data["data"].toMap());
         accept();
     }

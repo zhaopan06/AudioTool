@@ -56,7 +56,7 @@ void MainWindow::on_enterRoom_clicked()
         QString rtcToken = data["data"].toMap()["rtcToken"].toString();
         QString chatRoomId = data["data"].toMap()["roomId"].toString();
         int userId = data["data"].toMap()["userInfoResponse"].toMap()["userId"].toInt();
-        HttpUserInfo::instance()->setHttpUserInfo(data);
+        HttpUserInfo::instance()->setRoomInfo(data["data"].toMap());
 
         m_agoraFace->joinChannel(rtcToken, chatRoomId, userId);
         m_agoraFace->setChannelProfile(agora::CHANNEL_PROFILE_COMMUNICATION);
@@ -103,11 +103,8 @@ void MainWindow::loginIm(int code, QString msg)
 
     }
     else
-    {
-        // 成功
-        qDebug()<<"login suess-----------";
-        QVariantMap data = HttpUserInfo::instance()->getHttpUserInfo();
-        QString chatRoomld = data["chatRoomId"].toString();
+    {        
+        QString chatRoomld = HttpUserInfo::instance()->getRoomID();
         m_timInterface->groupJoin(chatRoomld.toLatin1());
     }
 }
@@ -132,5 +129,12 @@ void MainWindow::on_pushButton_3_clicked()
     point.setY(ui->pushButton_3->mapToGlobal(QPoint(0, 0)).ry() - m_emotionWidget->height() - 26);
     m_men->move(point);
     m_men->exec();
+}
+
+//发送消息
+void MainWindow::on_sendBtn_clicked()
+{
+    QString msg = ui->msgEdit->text();
+    m_timInterface->setSendJson_text(msg);
 }
 

@@ -13,18 +13,14 @@ private:
 
 public:
     static HttpUserInfo* instance(QObject *parent = nullptr);
-    //登录信息
-    void setLoginInfo(QVariantMap data);
-    QVariantMap getLoginInfo();
+
     //用户信息相关
-    void setHttpUserInfo(QVariantMap data);
-    QVariantMap getHttpUserInfo();
+    void setLoginInfo(QVariantMap data);
+    QVariantMap getLoginInfo();   
     QString getUserID();
 
-
-    //websocket相关
-    QString getWSPath();
-    void setWSPath(QString path);
+    QString getImgTag();
+    QString getName();
 
     //获取个人token
     const QString gettoken();
@@ -61,9 +57,9 @@ private:
     static QReadWriteLock readWriteLock;
     static QScopedPointer<HttpUserInfo> instance_;
 
-    QVariantMap m_roomInfo;
+
     QVariantMap m_loginInfo;
-    QVariantMap m_HttpUserInfo;
+
     QVariant m_areaInfo;//地域信息
     QVariant m_phoneAreaInfo;
     QString m_token;
@@ -76,7 +72,12 @@ private:
     /******************************************************/
 
     QString m_userID;
+
+
+    /*IM相关*/
+    QString m_chatRoomId; //消息所属会话 ID,就是 IM的kTIMMsgConvIdID
     QString m_IMtoken;
+    QVariantMap m_roomInfo;//进入房间后获取的json数据 http请求的原数据
 signals:
 
 };

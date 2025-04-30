@@ -927,6 +927,13 @@ release\moc_mainwindow.cpp: UI\mainwindow.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonarray.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonObject \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonobject.h \
+		control\EmotionWidget.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QWidget \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QLabel \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qlabel.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qframe.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\QMouseEvent \
+		ui_EmotionWidget.h \
 		release\moc_predefs.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\bin\moc.exe
 	D:\Qt5.15.2\5.15.2\msvc2019\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include D:/zhaopan/code_git/AudioTool/release/moc_predefs.h -ID:/Qt5.15.2/5.15.2/msvc2019/mkspecs/win32-msvc -ID:/zhaopan/code_git/AudioTool -ID:/zhaopan/code_git/AudioTool/Base/Agora -ID:/zhaopan/code_git/AudioTool/Base/ImSDK -ID:/zhaopan/code_git/AudioTool/SDK/Agora/include -ID:/zhaopan/code_git/AudioTool/SDK/ImSDK/include -ID:/zhaopan/code_git/AudioTool/Base/Http -ID:/zhaopan/code_git/AudioTool/control -ID:/zhaopan/code_git/AudioTool/UI -ID:/Qt5.15.2/5.15.2/msvc2019/include -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtWidgets -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtGui -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtANGLE -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtWebSockets -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtNetwork -ID:/Qt5.15.2/5.15.2/msvc2019/include/QtCore -I"D:\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"D:\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\cppwinrt" UI\mainwindow.h -o release\moc_mainwindow.cpp
@@ -1848,6 +1855,14 @@ release\LoginPage.obj: UI\LoginPage.cpp UI\LoginPage.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QTimer \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qtimer.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qbasictimer.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsondocument.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonvalue.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcborvalue.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qdatetime.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcborcommon.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qregularexpression.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\quuid.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonobject.h \
 		ui_LoginPage.h \
 		Base\Http\HttpInterFace.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\QNetworkAccessManager \
@@ -1869,7 +1884,6 @@ release\LoginPage.obj: UI\LoginPage.cpp UI\LoginPage.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\qsslerror.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\qsslcertificate.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcryptographichash.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qdatetime.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\qssl.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QFlags \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\QSslPreSharedKeyAuthenticator \
@@ -2032,6 +2046,13 @@ release\mainwindow.obj: UI\mainwindow.cpp UI\mainwindow.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonarray.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonObject \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonobject.h \
+		control\EmotionWidget.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QWidget \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QLabel \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qlabel.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qframe.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\QMouseEvent \
+		ui_EmotionWidget.h \
 		ui_mainwindow.h \
 		Base\Http\HttpInterFace.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtNetwork\QNetworkAccessManager \
@@ -2067,7 +2088,6 @@ release\mainwindow.obj: UI\mainwindow.cpp UI\mainwindow.h \
 		UI\LoginPage.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QDialog \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qdialog.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\QMouseEvent \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QTimer \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qtimer.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qbasictimer.h
@@ -2477,6 +2497,13 @@ release\main.obj: main.cpp UI\mainwindow.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonarray.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\QJsonObject \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qjsonobject.h \
+		control\EmotionWidget.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QWidget \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QLabel \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qlabel.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qframe.h \
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtGui\QMouseEvent \
+		ui_EmotionWidget.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QApplication \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qapplication.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtCore\qcoreapplication.h \

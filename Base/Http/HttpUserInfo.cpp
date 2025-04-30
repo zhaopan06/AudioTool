@@ -36,8 +36,6 @@ void HttpUserInfo::setLoginInfo(QVariantMap data)
     m_loginInfo = data;
     m_token = data["token"].toString();
     m_userID = data["user"].toMap()["userId"].toString();
-    qDebug()<<"m_token---"<<m_token;
-    qDebug()<<"m_userID---"<<m_userID;
     m_IMtoken = data["imToken"].toString();
 }
 
@@ -46,34 +44,24 @@ QVariantMap HttpUserInfo::getLoginInfo()
     return m_loginInfo;
 }
 
-void HttpUserInfo::setHttpUserInfo(QVariantMap data)
-{
-    m_HttpUserInfo = data["data"].toMap();
-}
-
-QVariantMap HttpUserInfo::getHttpUserInfo()
-{
-    return m_HttpUserInfo;
-}
-
 QString HttpUserInfo::getUserID()
 {
     return m_userID;
 }
 
+QString HttpUserInfo::getImgTag()
+{
+    return m_loginInfo["imgTag"].toString();
+}
+
+QString HttpUserInfo::getName()
+{
+    return m_loginInfo["name"].toString();
+}
+
 QString HttpUserInfo::getImToken()
 {
     return m_IMtoken;
-}
-
-QString HttpUserInfo::getWSPath()
-{
-    return m_wsPath;
-}
-
-void HttpUserInfo::setWSPath(QString path)
-{
-    m_wsPath = path;
 }
 
 const QString HttpUserInfo::gettoken()
@@ -84,6 +72,10 @@ const QString HttpUserInfo::gettoken()
 void HttpUserInfo::setRoomInfo(QVariantMap data)
 {
     m_roomInfo = data;
+    m_chatRoomId = data["chatRoomId"].toString();
+
+    QJsonDocument doc(QJsonObject::fromVariantMap(data));
+    qDebug()<<"setRoomInfo---"<<doc;
 }
 
 QVariantMap HttpUserInfo::getRoomInfo()
@@ -93,7 +85,7 @@ QVariantMap HttpUserInfo::getRoomInfo()
 
 QString HttpUserInfo::getRoomID()
 {
-    return m_roomInfo["id"].toString();
+    return m_chatRoomId;
 }
 
 void HttpUserInfo::setAreaInfo(QVariant data)

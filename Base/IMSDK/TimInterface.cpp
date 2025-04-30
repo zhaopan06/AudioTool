@@ -59,19 +59,71 @@ int TimInterface::sendMessage_group(const char *conv_id, const char *json_msg_pa
     TIMCommCallback callback = [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
 
         if (code != ERR_SUCC)
-        { // 失败
-            qDebug()<<"sendMessage_group error-----------";
+        {
+            qDebug()<<"group error-----------";
             return ;
         }
         else
-        {
-            // 成功
-            qDebug()<<"sendMessage_group suess-----------";
+        {            
+            qDebug()<<"group suess-----------";
         }
     };
 
     return TIMMsgSendNewMsg(conv_id, kTIMConv_Group, json_msg_param, callback, user_data);
 }
+
+void TimInterface::setSendJson_text(QString text)
+{
+    QVariantMap json_value_text;
+    json_value_text[kTIMElemType] = kTIMElem_Text;
+    json_value_text[kTIMTextElemContent] = text;
+
+    // 创建消息元素数组
+    QVariantMap json_value_msg;
+    QVariantList elem_array;
+    elem_array.append(json_value_text);
+    json_value_msg[kTIMMsgElemArray] = elem_array;
+
+
+    json_value_msg[kTIMMsgSender] = "user" + HttpUserInfo::instance()->getUserID();
+    json_value_msg[kTIMMsgClientTime] = time(NULL);
+    json_value_msg[kTIMMsgServerTime] = time(NULL);
+    json_value_msg[kTIMMsgConvId] = HttpUserInfo::instance()->getRoomID();
+    json_value_msg[kTIMMsgConvType] = kTIMConv_Group;
+    json_value_msg["message_cloud_custom_str"] = setCustomJson(text);
+
+    // 转换为 JSON 字符串
+    QJsonDocument doc(QJsonObject::fromVariantMap(json_value_msg));
+    qDebug()<<"send---"<<doc;
+    sendMessage_group(HttpUserInfo::instance()->getRoomID().toLatin1(), doc.toJson(), this);
+}
+
+QString TimInterface::setCustomJson(QString text)
+{
+    QVariantMap message;
+    message["body"] = text;
+    message["type"] = kTIMElem_Text;
+
+    QVariantMap action;
+    action["clickType"] = 0;
+    action["responseType"] = 0;
+
+
+    QVariantMap roomInfo = HttpUserInfo::instance()->getRoomInfo();
+    QJsonDocument user_doc(QJsonObject::fromVariantMap(roomInfo["userInfoResponse"].toMap()));
+    qDebug()<<"send user---"<<user_doc;
+
+    QVariantMap CustomJson;
+    CustomJson["tximMsgType"] = "groupMsg";
+    CustomJson["isRead"] = false;
+    CustomJson["message"] = message;
+    CustomJson["action"] = action;
+    CustomJson["user"] = roomInfo["userInfoResponse"].toMap();
+
+    QJsonDocument doc(QJsonObject::fromVariantMap(CustomJson));
+    return doc.toJson();
+}
+
 
 int TimInterface::sendMessage_c2c(const char *conv_id, const char *json_msg_param, const void *user_data)
 {
@@ -149,6 +201,7 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
 
             QString str_content = msg_obj["message_cloud_custom_str"].toString();
             QJsonObject str_doc = QJsonDocument::fromJson(str_content.toLatin1()).object();
+            qDebug()<<"jieshou str_doc---"<<str_doc;
 
             //收集发送者的信息
             QJsonObject user_doc = str_doc["user"].toObject();
