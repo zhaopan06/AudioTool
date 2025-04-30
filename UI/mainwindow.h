@@ -20,6 +20,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private:
+    void initUserUI();
+
 private slots:
     void joinedChannelSuccess(const QString& channel, unsigned int uid, int elapsed);
     void audioVolumeIndication(int uid,int value);
@@ -39,6 +42,12 @@ private slots:
     void on_emoBtn_clicked();
 
     void emotionClicked(QString path);
+    void on_closeBtn_clicked();
+
+    void on_minBtn_clicked();
+
+    void on_copyBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;

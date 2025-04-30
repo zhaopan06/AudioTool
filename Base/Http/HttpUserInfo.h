@@ -22,36 +22,19 @@ public:
     QString getImgTag();
     QString getName();
 
-    //获取个人token
+    //获取token
     const QString gettoken();
     QString getImToken();
 
     //设置房间信息
     void setRoomInfo(QVariantMap data);
     QVariantMap getRoomInfo();
-    QString getRoomID();
-
-    //设置地域信息
-    void setAreaInfo(QVariant data);
-    QVariant getAreaInfo();
+    QString getRoomID();   
 
     //设置手机号区号和归属地信息
     void setPhoneAreaInfo(QVariant data);
     QVariant getPhoneAreaInfo();
 
-    /***********************开播所需相关*********************/
-    //获取封面地址
-    void setCoverInfo(QString path);
-    QString getCoverInfo();
-
-    //设置已选择的直播分类
-    void setClassID(QString id);
-    QString getClassID();
-
-    //设置已选择的直播地域
-    void setLiveArea(QString area);    
-    QString getLiveArea();
-    /******************************************************/
 
 private:
     static QReadWriteLock readWriteLock;

@@ -10,5 +10,12 @@
         <file>images/login_close_n.png</file>
         <file>images/login_min_n.png</file>
         <file>images/login_hlep_n.png</file>
+        <file>images/icon_number.png</file>
+        <file>images/logo.png</file>
+        <file>images/top_a.png</file>
+        <file>images/top_b.png</file>
+        <file>images/top_c.png</file>
+        <file>images/top_d.png</file>
+        <file>images/copy_n.png</file>
     </qresource>
 </RCC>

@@ -88,16 +88,6 @@ QString HttpUserInfo::getRoomID()
     return m_chatRoomId;
 }
 
-void HttpUserInfo::setAreaInfo(QVariant data)
-{
-    m_areaInfo = data;
-}
-
-QVariant HttpUserInfo::getAreaInfo()
-{
-    return m_areaInfo;
-}
-
 void HttpUserInfo::setPhoneAreaInfo(QVariant data)
 {
     m_phoneAreaInfo = data;
@@ -107,36 +97,5 @@ QVariant HttpUserInfo::getPhoneAreaInfo()
 {
     return m_phoneAreaInfo;
 }
-
-void HttpUserInfo::setCoverInfo(QString path)
-{
-    m_coverPath = path;
-}
-
-QString HttpUserInfo::getCoverInfo()
-{
-    return m_coverPath;
-}
-
-void HttpUserInfo::setClassID(QString id)
-{
-    m_classID = id;
-}
-
-QString HttpUserInfo::getClassID()
-{
-    return m_classID;
-}
-
-void HttpUserInfo::setLiveArea(QString area)
-{
-    m_areaID = area;
-}
-
-QString HttpUserInfo::getLiveArea()
-{
-    return m_areaID;
-}
-
 
 

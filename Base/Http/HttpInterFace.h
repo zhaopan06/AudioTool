@@ -1,4 +1,4 @@
-#ifndef HTTPINTERFACE_H
+﻿#ifndef HTTPINTERFACE_H
 #define HTTPINTERFACE_H
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
@@ -25,6 +25,8 @@ enum class PhoneCodeType : int
 };
 
 using callBack = std::function<void(const QVariant &content)>;
+
+using downLoadCallBack = std::function<void(const QString &path)>;
 
 class HttpInterFace : public QObject
 {
@@ -59,7 +61,7 @@ public:
     void uploadFile(QString filePath, QString scenes, callBack callback);
     //TODO zp 下载图片(待完善)
     void downLoadFile(QString url, QString path);
-    void downLoad(QString url, QString path);
+    void downLoad(QString url, downLoadCallBack callBack);
     //获取主播个人信息
     QVariantMap getUserInfo();
     //开播 display_type 1横屏， 2竖屏

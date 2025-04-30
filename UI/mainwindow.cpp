@@ -6,12 +6,16 @@
 #include "Base/Http/HttpUserInfo.h"
 #include "LoginPage.h"
 #include <QRandomGenerator>
+#include "RoomItem.h"
+#include <QMenu>
+#include <QClipboard>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
 
     LoginPage *login = new LoginPage;
     if(login->exec() == QDialog::Accepted)
@@ -23,11 +27,29 @@ MainWindow::MainWindow(QWidget *parent)
         exit(0);
     }
 
+    ui->gridLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    RoomItem *roomItem = new RoomItem;
+    roomItem->setFixedSize(155,211);
+    ui->gridLayout->addWidget(roomItem,0,0);
+
+    initUserUI();
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::initUserUI()
+{
+    QVariantMap data = HttpUserInfo::instance()->getLoginInfo();
+    QString photoUrl = data["user"].toMap()["photo"].toString();
+    QString name = data["user"].toMap()["name"].toString();
+    ui->userName->setText(name);
+    HttpInterFace::getInstance()->downLoad(photoUrl, [&](const QString &path) {
+        this->ui->userImage->setPixmap(QPixmap::fromImage(QImage(path)));
+    });
 }
 
 void MainWindow::joinedChannelSuccess(const QString& channel, unsigned int uid, int elapsed)
@@ -204,5 +226,25 @@ void MainWindow::emotionClicked(QString path)
             }
         }
     }
+}
+
+
+void MainWindow::on_closeBtn_clicked()
+{
+    exit(0);
+}
+
+
+void MainWindow::on_minBtn_clicked()
+{
+    showMinimized();
+}
+
+//复制工会ID
+void MainWindow::on_copyBtn_clicked()
+{
+    QString text = ui->label_4->text();
+    QClipboard *clipboard = QApplication::clipboard();
+    clipboard->setText(text);
 }
 

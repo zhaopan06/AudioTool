@@ -32,11 +32,15 @@ LIBS += \
 
 SOURCES += \
     Base/Agora/agorartcengineinterface.cpp \
+    Base/Http/Global.cpp \
     Base/Http/HttpInterFace.cpp \
     Base/Http/HttpUserInfo.cpp \
     Base/IMSDK/TimInterface.cpp \
+    UI/LivePage.cpp \
     UI/LoginPage.cpp \
+    UI/RoomItem.cpp \
     UI/mainwindow.cpp \
+    control/CRoundLabel.cpp \
     control/EmotionWidget.cpp \
     control/click_label.cpp \
     main.cpp
@@ -44,16 +48,22 @@ SOURCES += \
 
 HEADERS += \
     Base/Agora/agorartcengineinterface.h \
+    Base/Http/Global.h \
     Base/Http/HttpInterFace.h \
     Base/Http/HttpUserInfo.h \
     Base/IMSDK/TimInterface.h \
+    UI/LivePage.h \
     UI/LoginPage.h \
+    UI/RoomItem.h \
     UI/mainwindow.h \
+    control/CRoundLabel.h \
     control/EmotionWidget.h \
     control/click_label.h
 
 FORMS += \
+    UI/LivePage.ui \
     UI/LoginPage.ui \
+    UI/RoomItem.ui \
     UI/mainwindow.ui \
     control/EmotionWidget.ui
 

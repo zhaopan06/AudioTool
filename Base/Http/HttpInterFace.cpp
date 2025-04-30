@@ -1,10 +1,12 @@
-#include "HttpInterFace.h"
+﻿#include "HttpInterFace.h"
 #include <QEventLoop>
 #include <QJsonDocument>
 #include <QProcess>
 #include <QFile>
 #include <QFileInfo>
 #include <QHttpPart>
+#include <QStandardPaths>
+#include "Global.h"
 #include "HttpUserInfo.h"
 
 HttpInterFace* HttpInterFace::pHttpInterFace = NULL;
@@ -140,7 +142,7 @@ void HttpInterFace::downLoadFile(QString url,QString path)
     });
 }
 
-void HttpInterFace::downLoad(QString url, QString path)
+void HttpInterFace::downLoad(QString url, downLoadCallBack callBack)
 {
     QNetworkAccessManager *manager = new QNetworkAccessManager();
     QNetworkRequest request;
@@ -154,13 +156,14 @@ void HttpInterFace::downLoad(QString url, QString path)
                          }
                          else
                          {
+                             QString path = mapDownloadImagePath(url);
                              QByteArray downloadedData = reply->readAll(); // 处理响应数据
                              QFile file(path);
                              if (file.open(QIODevice::WriteOnly))
                              {
                                  file.write(downloadedData);
                                  file.close();
-                                 qDebug() << "File downloaded successfully";
+                                 callBack(path);
                              }
                              else
                              {
