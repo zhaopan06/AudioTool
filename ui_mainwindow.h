@@ -74,10 +74,10 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QHBoxLayout *horizontalLayout_3;
     QVBoxLayout *verticalLayout_4;
-    QLabel *label;
+    CRoundLabel *guildImage;
     QSpacerItem *verticalSpacer;
     QVBoxLayout *verticalLayout_5;
-    QLabel *label_3;
+    QLabel *guildName;
     QHBoxLayout *horizontalLayout_7;
     QLabel *label_2;
     QLabel *IDLabel;
@@ -92,7 +92,7 @@ public:
     QVBoxLayout *verticalLayout_8;
     QWidget *widget_7;
     QVBoxLayout *verticalLayout_9;
-    QLabel *label_6;
+    QLabel *intro;
     QWidget *widget_8;
     QHBoxLayout *horizontalLayout_4;
     QVBoxLayout *verticalLayout_10;
@@ -112,7 +112,7 @@ public:
     QHBoxLayout *horizontalLayout_9;
     QLabel *label_11;
     QSpacerItem *horizontalSpacer_4;
-    QPushButton *pushButton_3;
+    QPushButton *updateBtn;
     QFrame *line_2;
     QWidget *widget_11;
     QVBoxLayout *verticalLayout_15;
@@ -234,6 +234,18 @@ public:
         pushButton_7 = new QPushButton(widget_17);
         pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
         pushButton_7->setMinimumSize(QSize(24, 25));
+        pushButton_7->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
+"border:none;\n"
+"}\n"
+"QPushButton::hover{\n"
+"border:none;\n"
+"background:#3E3E3E;\n"
+"}\n"
+"QPushButton::checked {\n"
+"border:none;\n"
+"}\n"
+"\n"
+""));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/images/top_d.png"), QSize(), QIcon::Normal, QIcon::Off);
         pushButton_7->setIcon(icon);
@@ -244,6 +256,18 @@ public:
         pushButton_8 = new QPushButton(widget_17);
         pushButton_8->setObjectName(QString::fromUtf8("pushButton_8"));
         pushButton_8->setMinimumSize(QSize(24, 25));
+        pushButton_8->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
+"border:none;\n"
+"}\n"
+"QPushButton::hover{\n"
+"border:none;\n"
+"background:#3E3E3E;\n"
+"}\n"
+"QPushButton::checked {\n"
+"border:none;\n"
+"}\n"
+"\n"
+""));
         QIcon icon1;
         icon1.addFile(QString::fromUtf8(":/images/top_c.png"), QSize(), QIcon::Normal, QIcon::Off);
         pushButton_8->setIcon(icon1);
@@ -254,6 +278,18 @@ public:
         pushButton_10 = new QPushButton(widget_17);
         pushButton_10->setObjectName(QString::fromUtf8("pushButton_10"));
         pushButton_10->setMinimumSize(QSize(24, 25));
+        pushButton_10->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
+"border:none;\n"
+"}\n"
+"QPushButton::hover{\n"
+"border:none;\n"
+"background:#3E3E3E;\n"
+"}\n"
+"QPushButton::checked {\n"
+"border:none;\n"
+"}\n"
+"\n"
+""));
         QIcon icon2;
         icon2.addFile(QString::fromUtf8(":/images/top_a.png"), QSize(), QIcon::Normal, QIcon::Off);
         pushButton_10->setIcon(icon2);
@@ -264,7 +300,18 @@ public:
         pushButton_9 = new QPushButton(widget_17);
         pushButton_9->setObjectName(QString::fromUtf8("pushButton_9"));
         pushButton_9->setMinimumSize(QSize(24, 25));
-        pushButton_9->setStyleSheet(QString::fromUtf8(""));
+        pushButton_9->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
+"border:none;\n"
+"}\n"
+"QPushButton::hover{\n"
+"border:none;\n"
+"background:#3E3E3E;\n"
+"}\n"
+"QPushButton::checked {\n"
+"border:none;\n"
+"}\n"
+"\n"
+""));
         QIcon icon3;
         icon3.addFile(QString::fromUtf8(":/images/top_b.png"), QSize(), QIcon::Normal, QIcon::Off);
         pushButton_9->setIcon(icon3);
@@ -428,12 +475,13 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
-        label = new QLabel(widget_5);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setMinimumSize(QSize(47, 47));
-        label->setMaximumSize(QSize(47, 47));
+        guildImage = new CRoundLabel(widget_5);
+        guildImage->setObjectName(QString::fromUtf8("guildImage"));
+        guildImage->setMinimumSize(QSize(47, 47));
+        guildImage->setMaximumSize(QSize(47, 47));
+        guildImage->setScaledContents(true);
 
-        verticalLayout_4->addWidget(label);
+        verticalLayout_4->addWidget(guildImage);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -444,9 +492,9 @@ public:
 
         verticalLayout_5 = new QVBoxLayout();
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
-        label_3 = new QLabel(widget_5);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        guildName = new QLabel(widget_5);
+        guildName->setObjectName(QString::fromUtf8("guildName"));
+        guildName->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 500;\n"
 "font-size: 16px;\n"
 "color: #FFFFFF;\n"
@@ -454,7 +502,7 @@ public:
 "text-align: left;\n"
 "font-style: normal;"));
 
-        verticalLayout_5->addWidget(label_3);
+        verticalLayout_5->addWidget(guildName);
 
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(8);
@@ -485,7 +533,7 @@ public:
 
         copyBtn = new QPushButton(widget_5);
         copyBtn->setObjectName(QString::fromUtf8("copyBtn"));
-        copyBtn->setMinimumSize(QSize(16, 18));
+        copyBtn->setMinimumSize(QSize(16, 16));
         copyBtn->setMaximumSize(QSize(16, 16));
         QIcon icon6;
         icon6.addFile(QString::fromUtf8(":/images/copy_n.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -553,20 +601,20 @@ public:
         verticalLayout_9->setObjectName(QString::fromUtf8("verticalLayout_9"));
         verticalLayout_9->setSizeConstraint(QLayout::SetMaximumSize);
         verticalLayout_9->setContentsMargins(12, 8, 12, 8);
-        label_6 = new QLabel(widget_7);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        intro = new QLabel(widget_7);
+        intro->setObjectName(QString::fromUtf8("intro"));
+        intro->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 400;\n"
 "font-size: 16px;\n"
 "color: #FFFFFF;\n"
 "line-height: 22px;\n"
 "text-align: left;\n"
 "font-style: normal;"));
-        label_6->setScaledContents(false);
-        label_6->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
-        label_6->setWordWrap(true);
+        intro->setScaledContents(false);
+        intro->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+        intro->setWordWrap(true);
 
-        verticalLayout_9->addWidget(label_6);
+        verticalLayout_9->addWidget(intro);
 
 
         verticalLayout_8->addWidget(widget_7);
@@ -696,10 +744,21 @@ public:
 
         horizontalLayout_9->addItem(horizontalSpacer_4);
 
-        pushButton_3 = new QPushButton(widget_10);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        updateBtn = new QPushButton(widget_10);
+        updateBtn->setObjectName(QString::fromUtf8("updateBtn"));
+        updateBtn->setStyleSheet(QString::fromUtf8("font-family: \342\200\234\345\276\256\350\275\257\351\233\205\351\273\221\342\200\235;\n"
+"font-weight: 400;\n"
+"font-size: 14px;\n"
+"color: #A8A8A7;\n"
+"line-height: 20px;\n"
+"text-align: left;\n"
+"font-style: normal;"));
+        QIcon icon7;
+        icon7.addFile(QString::fromUtf8(":/images/update_n.png"), QSize(), QIcon::Normal, QIcon::Off);
+        updateBtn->setIcon(icon7);
+        updateBtn->setIconSize(QSize(24, 24));
 
-        horizontalLayout_9->addWidget(pushButton_3);
+        horizontalLayout_9->addWidget(updateBtn);
 
 
         verticalLayout_14->addWidget(widget_10);
@@ -819,9 +878,9 @@ public:
 "font-family:MicrosoftYaHei;\n"
 "color:rgba(255,255,255,1);\n"
 ""));
-        QIcon icon7;
-        icon7.addFile(QString::fromUtf8(":/image/Live/Live_biaoqing.png"), QSize(), QIcon::Normal, QIcon::Off);
-        emoBtn->setIcon(icon7);
+        QIcon icon8;
+        icon8.addFile(QString::fromUtf8(":/image/Live/Live_biaoqing.png"), QSize(), QIcon::Normal, QIcon::Off);
+        emoBtn->setIcon(icon8);
         emoBtn->setIconSize(QSize(24, 24));
         emoBtn->setAutoRaise(true);
 
@@ -887,18 +946,18 @@ public:
         minBtn->setText(QString());
         closeBtn->setText(QString());
         label_10->setText(QCoreApplication::translate("MainWindow", "\345\271\263\345\217\260\345\205\254\345\221\212", nullptr));
-        label->setText(QString());
-        label_3->setText(QCoreApplication::translate("MainWindow", "\345\205\254\344\274\232\345\220\215\347\247\260\345\215\240\344\275\215\345\205\254\344\274\232\345\220\215\347\247\260\345\215\240\344\275\215", nullptr));
+        guildImage->setText(QString());
+        guildName->setText(QCoreApplication::translate("MainWindow", "\345\205\254\344\274\232\345\220\215\347\247\260\345\215\240\344\275\215\345\205\254\344\274\232\345\220\215\347\247\260\345\215\240\344\275\215", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "ID:", nullptr));
         IDLabel->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         copyBtn->setText(QString());
         label_5->setText(QCoreApplication::translate("MainWindow", "\345\205\254\344\274\232\347\256\200\344\273\213\357\274\232", nullptr));
-        label_6->setText(QCoreApplication::translate("MainWindow", "\351\235\242\345\220\221\345\205\250\345\233\275\346\213\233\345\274\200\345\216\205\345\233\242\351\230\237\357\274\214\347\272\277\344\270\212\347\272\277\344\270\213\346\213\233\345\213\237\357\274\214\345\234\272\345\234\260\350\207\252\351\200\211\357\274\214\345\205\254\344\274\232\347\273\231\344\272\210\346\234\200\345\244\247\347\232\204\346\211\266\346\214\201\357\274\214\347\246\217\345\210\251\346\213\211\346\273\241\357\274\201\345\220\210\344\275\234\345\212\240\357\274\23213588888888 18599999999", nullptr));
+        intro->setText(QCoreApplication::translate("MainWindow", "\351\235\242\345\220\221\345\205\250\345\233\275\346\213\233\345\274\200\345\216\205\345\233\242\351\230\237\357\274\214\347\272\277\344\270\212\347\272\277\344\270\213\346\213\233\345\213\237\357\274\214\345\234\272\345\234\260\350\207\252\351\200\211\357\274\214\345\205\254\344\274\232\347\273\231\344\272\210\346\234\200\345\244\247\347\232\204\346\211\266\346\214\201\357\274\214\347\246\217\345\210\251\346\213\211\346\273\241\357\274\201\345\220\210\344\275\234\345\212\240\357\274\23213588888888 18599999999", nullptr));
         label_7->setText(QCoreApplication::translate("MainWindow", "\345\205\254\344\274\232\350\215\243\350\252\211\357\274\232", nullptr));
         label_9->setText(QString());
         label_8->setText(QCoreApplication::translate("MainWindow", "\345\233\233\347\272\247\345\205\254\344\274\232", nullptr));
         label_11->setText(QCoreApplication::translate("MainWindow", "\347\255\276\347\272\246\345\216\205", nullptr));
-        pushButton_3->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        updateBtn->setText(QCoreApplication::translate("MainWindow", "\345\210\267\346\226\260", nullptr));
         createRoom->setText(QCoreApplication::translate("MainWindow", "\345\210\233\345\273\272\346\210\277\351\227\264", nullptr));
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "\345\212\240\345\205\245\347\276\244\350\201\212", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "\344\270\212\351\272\246", nullptr));

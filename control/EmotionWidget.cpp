@@ -21,8 +21,7 @@ void EmotionWidget::setLiveStyle()
 }
 
 void EmotionWidget::initChatEmotion()
-{
-    this->setFixedSize(232,232);
+{    
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
     for (int i = 0; i < CHAT_EMOTION_COUNT; i++)
@@ -35,7 +34,7 @@ void EmotionWidget::initChatEmotion()
         connect(emotionIcon, SIGNAL(clicked(QString)), this, SIGNAL(emotionClicked(QString)));
         emotionIcon->setMargin(4);
         emotionIcon->setStyleSheet("border:none;");
-        emotionIcon->setFixedSize(34,34);
+        emotionIcon->setFixedSize(55,54);
         emotionIcon->setScaledContents(true);
         emotionIcon->setPixmap(QPixmap(path));
         ui.gridLayout->addWidget(emotionIcon,row, col);

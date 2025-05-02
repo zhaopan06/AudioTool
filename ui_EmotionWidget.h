@@ -32,9 +32,8 @@ public:
     {
         if (EmotionWidget->objectName().isEmpty())
             EmotionWidget->setObjectName(QString::fromUtf8("EmotionWidget"));
-        EmotionWidget->resize(226, 226);
-        EmotionWidget->setStyleSheet(QString::fromUtf8("border: 1px solid rgba(233,233,233,1);\n"
-"background-color: transparent; "));
+        EmotionWidget->resize(488, 539);
+        EmotionWidget->setStyleSheet(QString::fromUtf8(""));
         verticalLayout = new QVBoxLayout(EmotionWidget);
         verticalLayout->setSpacing(0);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -42,12 +41,14 @@ public:
         verticalLayout->setContentsMargins(1, 1, 1, 1);
         scrollArea = new QScrollArea(EmotionWidget);
         scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
-        scrollArea->setStyleSheet(QString::fromUtf8("border:none;\n"
-"background:rgba(255,255,255,1);"));
+        scrollArea->setStyleSheet(QString::fromUtf8("background: qlineargradient(x1:0, y1:0, x2:0, y2:1, \n"
+"                    stop:0 #0B0A2B, stop:1 #19113D);\n"
+"\n"
+"border-radius: 12px;"));
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 224, 224));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 486, 537));
         scrollAreaWidgetContents->setStyleSheet(QString::fromUtf8("QScrollBar:vertical\n"
 "{\n"
 "    width:8px;\n"
@@ -81,7 +82,7 @@ public:
         horizontalLayout->setSpacing(0);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalLayout->setContentsMargins(10, 10, 10, 10);
+        horizontalLayout->setContentsMargins(34, 27, 34, 27);
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(0);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));

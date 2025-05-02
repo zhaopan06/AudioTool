@@ -15,13 +15,14 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QWidget>
+#include <click_label.h>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_RoomItem
 {
 public:
-    QLabel *label;
+    click_label *imageLab;
     QLabel *roomName;
     QLabel *userName;
     QWidget *widget;
@@ -36,10 +37,10 @@ public:
         RoomItem->resize(156, 211);
         RoomItem->setStyleSheet(QString::fromUtf8("background: #222429;\n"
 "border-radius: 16px;"));
-        label = new QLabel(RoomItem);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(0, 0, 156, 156));
-        label->setStyleSheet(QString::fromUtf8("border-radius: 16px;"));
+        imageLab = new click_label(RoomItem);
+        imageLab->setObjectName(QString::fromUtf8("imageLab"));
+        imageLab->setGeometry(QRect(0, 0, 156, 156));
+        imageLab->setStyleSheet(QString::fromUtf8("border-radius: 16px;"));
         roomName = new QLabel(RoomItem);
         roomName->setObjectName(QString::fromUtf8("roomName"));
         roomName->setGeometry(QRect(0, 166, 156, 22));
@@ -105,7 +106,7 @@ public:
     void retranslateUi(QDialog *RoomItem)
     {
         RoomItem->setWindowTitle(QCoreApplication::translate("RoomItem", "Dialog", nullptr));
-        label->setText(QString());
+        imageLab->setText(QString());
         roomName->setText(QCoreApplication::translate("RoomItem", "\346\265\252\346\274\253\346\273\241\345\261\213-\344\273\231\345\245\263\351\201\277\351\243\216\346\270\257", nullptr));
         userName->setText(QCoreApplication::translate("RoomItem", "\346\210\277\344\270\273\357\274\232\342\226\201\345\200\224\345\274\272\343\201\223\347\224\267\345\255\251\343\201\206", nullptr));
         label_4->setText(QString());

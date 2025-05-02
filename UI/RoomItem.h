@@ -2,6 +2,7 @@
 #define ROOMITEM_H
 
 #include <QDialog>
+#include <QVariantMap>
 
 namespace Ui {
 class RoomItem;
@@ -15,8 +16,16 @@ public:
     explicit RoomItem(QWidget *parent = nullptr);
     ~RoomItem();
 
+    void setData(QVariantMap data);
+signals:
+    void enterRoom(QVariantMap);
+
+private slots:
+    void on_imageLab_clicked();
+
 private:
     Ui::RoomItem *ui;
+    QVariantMap m_data;
 };
 
 #endif // ROOMITEM_H

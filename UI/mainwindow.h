@@ -23,6 +23,11 @@ public:
 private:
     void initUserUI();
 
+protected:
+    void mouseMoveEvent(QMouseEvent* event);
+    void mousePressEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent *event);
+
 private slots:
     void joinedChannelSuccess(const QString& channel, unsigned int uid, int elapsed);
     void audioVolumeIndication(int uid,int value);
@@ -48,10 +53,14 @@ private slots:
 
     void on_copyBtn_clicked();
 
+    void on_updateBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;
     TimInterface *m_timInterface = nullptr;
+    bool  m_bMoveing = false;
+    QPoint m_pMovePosition = QPoint(0,0);
 
     QMenu *m_men = nullptr;
     EmotionWidget *m_emotionWidget = nullptr;

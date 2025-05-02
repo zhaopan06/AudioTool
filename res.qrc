@@ -17,5 +17,6 @@
         <file>images/top_c.png</file>
         <file>images/top_d.png</file>
         <file>images/copy_n.png</file>
+        <file>images/update_n.png</file>
     </qresource>
 </RCC>

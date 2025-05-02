@@ -17,7 +17,7 @@
    <string notr="true">background: #222429;
 border-radius: 16px;</string>
   </property>
-  <widget class="QLabel" name="label">
+  <widget class="click_label" name="imageLab">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -151,6 +151,16 @@ font-style: normal;</string>
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>click_label</class>
+   <extends>QLabel</extends>
+   <header location="global">click_label.h</header>
+   <slots>
+    <signal>clicked()</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../res.qrc"/>
  </resources>

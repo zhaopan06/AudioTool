@@ -17,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
 
-    LoginPage *login = new LoginPage;
-    if(login->exec() == QDialog::Accepted)
+    LoginPage login;
+    if(login.exec() == QDialog::Accepted)
     {
 
     }
@@ -50,6 +50,44 @@ void MainWindow::initUserUI()
     HttpInterFace::getInstance()->downLoad(photoUrl, [&](const QString &path) {
         this->ui->userImage->setPixmap(QPixmap::fromImage(QImage(path)));
     });
+
+    QVariantMap familyData = HttpInterFace::getInstance()->getFamilyDetail();
+    QJsonDocument doc(QJsonObject::fromVariantMap(familyData));
+    QString fName = familyData["data"].toMap()["name"].toString();
+    ui->guildName->setText(fName);
+    QString fID = familyData["data"].toMap()["roomId"].toString();
+    ui->IDLabel->setText(fID);
+    QString intro = familyData["data"].toMap()["intro"].toString();
+    ui->intro->setText(intro);
+    QString fPhotoUrl = familyData["data"].toMap()["photo"].toString();
+    HttpInterFace::getInstance()->downLoad(fPhotoUrl, [&](const QString &path) {
+        this->ui->guildImage->setPixmap(QPixmap::fromImage(QImage(path)));
+    });
+}
+
+void MainWindow::mousePressEvent(QMouseEvent* event)
+{
+    if(event->pos().ry() < 66)
+    {
+        m_bMoveing = true;
+        m_pMovePosition = event->globalPos() - this->pos();
+    }
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent* event)
+{
+    if (m_bMoveing&&
+        (event->buttons() & Qt::LeftButton)&&
+        (event->globalPos() - m_pMovePosition).manhattanLength() > QApplication::startDragDistance())
+    {
+        move(event->globalPos() - m_pMovePosition);
+        m_pMovePosition = event->globalPos() - pos();
+    }
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event)
+{
+    m_bMoveing = false;
 }
 
 void MainWindow::joinedChannelSuccess(const QString& channel, unsigned int uid, int elapsed)
@@ -144,8 +182,7 @@ void MainWindow::on_emoBtn_clicked()
 {
     if(nullptr == m_men)
     {
-        m_men = new QMenu;
-        m_men->setFixedSize(226,226);
+        m_men = new QMenu;        
         QHBoxLayout *hbox = new QHBoxLayout;
         m_emotionWidget = new EmotionWidget(this);
         m_emotionWidget->initChatEmotion();
@@ -243,8 +280,14 @@ void MainWindow::on_minBtn_clicked()
 //复制工会ID
 void MainWindow::on_copyBtn_clicked()
 {
-    QString text = ui->label_4->text();
+    QString text = ui->IDLabel->text();
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText(text);
+}
+
+//刷新
+void MainWindow::on_updateBtn_clicked()
+{
+
 }
 

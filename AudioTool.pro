@@ -36,7 +36,6 @@ SOURCES += \
     Base/Http/HttpInterFace.cpp \
     Base/Http/HttpUserInfo.cpp \
     Base/IMSDK/TimInterface.cpp \
-    UI/LivePage.cpp \
     UI/LoginPage.cpp \
     UI/RoomItem.cpp \
     UI/mainwindow.cpp \
@@ -52,7 +51,6 @@ HEADERS += \
     Base/Http/HttpInterFace.h \
     Base/Http/HttpUserInfo.h \
     Base/IMSDK/TimInterface.h \
-    UI/LivePage.h \
     UI/LoginPage.h \
     UI/RoomItem.h \
     UI/mainwindow.h \
@@ -61,7 +59,6 @@ HEADERS += \
     control/click_label.h
 
 FORMS += \
-    UI/LivePage.ui \
     UI/LoginPage.ui \
     UI/RoomItem.ui \
     UI/mainwindow.ui \

@@ -123,19 +123,19 @@ void CreateDir()
     if(!mDir.exists(mPath + "/images"))
         mDir.mkpath(mPath + "/images");
 
-    QFile *tempFile = new QFile;
-    if(tempFile->exists(mPath + "/client.ini"))
+    QFile tempFile;
+    if(tempFile.exists(mPath + "/client.ini"))
     {
         qDebug()<<QStringLiteral("文件存在");
     }
     else
     {
-        tempFile->setFileName(mPath + "/client.ini");
-        if(!tempFile->open(QIODevice::WriteOnly|QIODevice::Text))
+        tempFile.setFileName(mPath + "/client.ini");
+        if(!tempFile.open(QIODevice::WriteOnly|QIODevice::Text))
         {
             qDebug()<<QStringLiteral("打开失败");
         }
-        tempFile->close();
+        tempFile.close();
     }
 
     g_downloadImages = mPath + "/images";

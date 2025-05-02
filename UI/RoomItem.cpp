@@ -12,3 +12,14 @@ RoomItem::~RoomItem()
 {
     delete ui;
 }
+
+void RoomItem::setData(QVariantMap data)
+{
+    m_data = data;
+}
+
+void RoomItem::on_imageLab_clicked()
+{
+    emit enterRoom(m_data);
+}
+
