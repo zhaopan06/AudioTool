@@ -37,6 +37,8 @@ SOURCES += \
     Base/Http/HttpUserInfo.cpp \
     Base/IMSDK/TimInterface.cpp \
     UI/LoginPage.cpp \
+    UI/MicseQuenceItem.cpp \
+    UI/OnlineItem.cpp \
     UI/RoomItem.cpp \
     UI/mainwindow.cpp \
     control/CRoundLabel.cpp \
@@ -52,6 +54,8 @@ HEADERS += \
     Base/Http/HttpUserInfo.h \
     Base/IMSDK/TimInterface.h \
     UI/LoginPage.h \
+    UI/MicseQuenceItem.h \
+    UI/OnlineItem.h \
     UI/RoomItem.h \
     UI/mainwindow.h \
     control/CRoundLabel.h \
@@ -60,6 +64,8 @@ HEADERS += \
 
 FORMS += \
     UI/LoginPage.ui \
+    UI/MicseQuenceItem.ui \
+    UI/OnlineItem.ui \
     UI/RoomItem.ui \
     UI/mainwindow.ui \
     control/EmotionWidget.ui

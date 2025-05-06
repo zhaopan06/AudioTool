@@ -31,5 +31,10 @@
         <file>images/live_lling.png</file>
         <file>images/live_bp.png</file>
         <file>images/live_noMic.png</file>
+        <file>images/live_inRoom.png</file>
+        <file>images/live_mic_number.png</file>
+        <file>images/live_people_man.png</file>
+        <file>images/live_people_woman.png</file>
+        <file>images/live_lev.png</file>
     </qresource>
 </RCC>
