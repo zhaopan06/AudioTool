@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->gridLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     RoomItem *roomItem = new RoomItem;
+    connect(roomItem, SIGNAL(enterTheRoom(QVariantMap)),this,SLOT(enterTheToom(QVariantMap)));
     roomItem->setFixedSize(155,211);
     ui->gridLayout->addWidget(roomItem,0,0);
 
@@ -43,6 +44,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::initUserUI()
 {
+    ui->mic_stackedWidget->setCurrentIndex(0);
+
     QVariantMap data = HttpUserInfo::instance()->getLoginInfo();
     QString photoUrl = data["user"].toMap()["photo"].toString();
     QString name = data["user"].toMap()["name"].toString();
@@ -124,7 +127,7 @@ void MainWindow::on_enterRoom_clicked()
         m_agoraFace->enableLoopbackRecording(true);
     }
 }
-
+//创建房间
 void MainWindow::on_createRoom_clicked()
 {
     QVariantMap data =  HttpInterFace::getInstance()->createRoom("","PCTest");
@@ -193,7 +196,7 @@ void MainWindow::on_emoBtn_clicked()
     }
     QPoint point;
     point.setX(ui->emoBtn->mapToGlobal(QPoint(0, 0)).rx());
-    point.setY(ui->emoBtn->mapToGlobal(QPoint(0, 0)).ry() - m_emotionWidget->height() - 26);
+    point.setY(ui->emoBtn->mapToGlobal(QPoint(0, 0)).ry() - m_emotionWidget->height() - 10);
     m_men->move(point);
     m_men->exec();
 }
@@ -289,5 +292,10 @@ void MainWindow::on_copyBtn_clicked()
 void MainWindow::on_updateBtn_clicked()
 {
 
+}
+//进入房间
+void MainWindow::enterTheToom(QVariantMap data)
+{
+    ui->stackedWidget->setCurrentIndex(1);
 }
 

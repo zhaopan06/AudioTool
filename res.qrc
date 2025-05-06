@@ -18,5 +18,18 @@
         <file>images/top_d.png</file>
         <file>images/copy_n.png</file>
         <file>images/update_n.png</file>
+        <file>images/live_audio_n.png</file>
+        <file>images/live_mic_n.png</file>
+        <file>images/live_setting_n.png</file>
+        <file>images/live_send_n.png</file>
+        <file>images/live_em_n.png</file>
+        <file>images/live_gift_n.png</file>
+        <file>images/live_image_c.png</file>
+        <file>images/live_mic_path.png</file>
+        <file>images/live_share.png</file>
+        <file>images/live_eidt_name.png</file>
+        <file>images/live_lling.png</file>
+        <file>images/live_bp.png</file>
+        <file>images/live_noMic.png</file>
     </qresource>
 </RCC>

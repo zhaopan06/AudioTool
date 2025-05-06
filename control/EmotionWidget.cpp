@@ -23,6 +23,7 @@ void EmotionWidget::setLiveStyle()
 void EmotionWidget::initChatEmotion()
 {    
     this->setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    this->setFixedSize(456,511);
 
     for (int i = 0; i < CHAT_EMOTION_COUNT; i++)
     {

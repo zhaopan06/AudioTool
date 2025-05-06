@@ -20,6 +20,6 @@ void RoomItem::setData(QVariantMap data)
 
 void RoomItem::on_imageLab_clicked()
 {
-    emit enterRoom(m_data);
+    emit enterTheRoom(m_data);
 }
 

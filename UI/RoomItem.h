@@ -18,7 +18,7 @@ public:
 
     void setData(QVariantMap data);
 signals:
-    void enterRoom(QVariantMap);
+    void enterTheRoom(QVariantMap);
 
 private slots:
     void on_imageLab_clicked();

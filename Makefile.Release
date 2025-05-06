@@ -310,13 +310,23 @@ compiler_rcc_clean:
 release\qrc_res.cpp: res.qrc \
 		D:\Qt5.15.2\5.15.2\msvc2019\bin\rcc.exe \
 		images\icon_???.png \
+		images\live_setting_n.png \
 		images\login_hlep_n.png \
 		images\login_back_n.png \
+		images\live_image_c.png \
 		images\bg.png \
+		images\live_mic_n.png \
+		images\live_gift_n.png \
+		images\live_bp.png \
 		images\login_check_c.png \
+		images\live_mic_path.png \
 		images\icon_number.png \
 		images\login_min_n.png \
 		images\icon_??.png \
+		images\live_audio_n.png \
+		images\live_send_n.png \
+		images\live_eidt_name.png \
+		images\live_lling.png \
 		images\top_a.png \
 		images\login_close_n.png \
 		images\top_b.png \
@@ -326,7 +336,10 @@ release\qrc_res.cpp: res.qrc \
 		images\top_d.png \
 		images\update_n.png \
 		images\copy_n.png \
-		images\logo.png
+		images\live_share.png \
+		images\live_noMic.png \
+		images\logo.png \
+		images\live_em_n.png
 	D:\Qt5.15.2\5.15.2\msvc2019\bin\rcc.exe -name res res.qrc -o release\qrc_res.cpp
 
 compiler_moc_predefs_make_all: release\moc_predefs.h
@@ -2741,7 +2754,8 @@ release\RoomItem.obj: UI\RoomItem.cpp UI\RoomItem.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QLabel \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qlabel.h \
 		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\qframe.h \
-		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QWidget
+		D:\Qt5.15.2\5.15.2\msvc2019\include\QtWidgets\QWidget \
+		control\click_label.h
 
 release\mainwindow.obj: UI\mainwindow.cpp UI\mainwindow.h \
 		Base\Agora\agorartcengineinterface.h \

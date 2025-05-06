@@ -55,6 +55,8 @@ private slots:
 
     void on_updateBtn_clicked();
 
+    void enterTheToom(QVariantMap data);
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;
