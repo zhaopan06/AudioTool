@@ -15,7 +15,7 @@ class OnlineItem : public QDialog
 public:
     explicit OnlineItem(QWidget *parent = nullptr);
     ~OnlineItem();
-    void  setData(QVariantMap data, int type = 0);
+    void  setData(QVariantMap data, QString id);
 
 private:
     Ui::OnlineItem *ui;

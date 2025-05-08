@@ -1,4 +1,8 @@
 ﻿#include "mainwindow.h"
+#include "ContributeItem.h"
+#include "Global.h"
+#include "MicseQuenceItem.h"
+#include "NewUserPage.h"
 #include "qdebug.h"
 #include "ui_mainwindow.h"
 #include "agorartcengineinterface.h"
@@ -9,6 +13,7 @@
 #include "RoomItem.h"
 #include <QMenu>
 #include <QClipboard>
+#include "OnlineItem.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,6 +21,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->stackedWidget_2->setCurrentIndex(0);
+    ui->gridLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    ui->micList->setAlignment(Qt::AlignTop);
+    ui->contList->setAlignment(Qt::AlignTop);
 
     LoginPage login;
     if(login.exec() == QDialog::Accepted)
@@ -26,12 +36,6 @@ MainWindow::MainWindow(QWidget *parent)
     {
         exit(0);
     }
-
-    ui->gridLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    RoomItem *roomItem = new RoomItem;
-    connect(roomItem, SIGNAL(enterTheRoom(QVariantMap)),this,SLOT(enterTheToom(QVariantMap)));
-    roomItem->setFixedSize(155,211);
-    ui->gridLayout->addWidget(roomItem,0,0);
 
     initUserUI();
 
@@ -54,18 +58,42 @@ void MainWindow::initUserUI()
         this->ui->userImage->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
-    QVariantMap familyData = HttpInterFace::getInstance()->getFamilyDetail();
-    QJsonDocument doc(QJsonObject::fromVariantMap(familyData));
-    QString fName = familyData["data"].toMap()["name"].toString();
+    QVariantMap familyData = HttpInterFace::getInstance()->getLiveRoomInfo();
+    QVariantMap roomInfo = familyData["data"].toMap();
+
+    //公会相关
+    QVariantMap pcFamilyPo = roomInfo["pcFamilyPo"].toMap();
+    QString fName = pcFamilyPo["name"].toString();
     ui->guildName->setText(fName);
-    QString fID = familyData["data"].toMap()["roomId"].toString();
+    QString fID = pcFamilyPo["id"].toString();
     ui->IDLabel->setText(fID);
-    QString intro = familyData["data"].toMap()["intro"].toString();
+    QString intro = pcFamilyPo["intro"].toString();
     ui->intro->setText(intro);
-    QString fPhotoUrl = familyData["data"].toMap()["photo"].toString();
+    QString fPhotoUrl = pcFamilyPo["photo"].toString();
     HttpInterFace::getInstance()->downLoad(fPhotoUrl, [&](const QString &path) {
         this->ui->guildImage->setPixmap(QPixmap::fromImage(QImage(path)));
     });
+
+    if(pcFamilyPo["wallList"].toList().size() > 0)
+    {
+        QString title = pcFamilyPo["wallList"].toList().at(0).toMap()["title"].toString();
+        ui->label_8->setText(title);
+        QString wallPhotoUrl = pcFamilyPo["wallList"].toList().at(0).toMap()["medalUrl"].toString();
+        HttpInterFace::getInstance()->downLoad(wallPhotoUrl, [&](const QString &path) {
+            this->ui->label_9->setPixmap(QPixmap::fromImage(QImage(path)));
+        });
+    }
+
+    //直播房间相关
+    if(roomInfo["pcChatRoomPo"].toList().size() > 0)
+    {
+        QVariantMap pcChatRoomPo = roomInfo["pcChatRoomPo"].toList().at(0).toMap();
+        RoomItem *roomItem = new RoomItem;
+        roomItem->setData(pcChatRoomPo);
+        connect(roomItem, SIGNAL(enterTheRoom(QVariantMap)),this,SLOT(enterTheToom(QVariantMap)));
+        roomItem->setFixedSize(155,211);
+        ui->gridLayout->addWidget(roomItem,0,0);
+    }
 }
 
 void MainWindow::mousePressEvent(QMouseEvent* event)
@@ -103,32 +131,8 @@ void MainWindow::audioVolumeIndication(int uid,int value)
 
 }
 
-void MainWindow::on_enterRoom_clicked()
-{
-    if(m_agoraFace == nullptr)
-    {
-        m_agoraFace = new AgoraRtcEngineInterface;
-        m_agoraFace->vInitAgoraSdk();
-        connect(m_agoraFace, &AgoraRtcEngineInterface::joinedChannelSuccess, this, &MainWindow::joinedChannelSuccess);
-        connect(m_agoraFace, &AgoraRtcEngineInterface::audioVolumeIndication, this, &MainWindow::audioVolumeIndication);
-    }
-
-    int roomID = 30000003;
-    QVariantMap data =  HttpInterFace::getInstance()->joinRoom(roomID,1,"");
-    if(1 == data["code"].toInt())
-    {
-        QString rtcToken = data["data"].toMap()["rtcToken"].toString();
-        QString chatRoomId = data["data"].toMap()["roomId"].toString();
-        int userId = data["data"].toMap()["userInfoResponse"].toMap()["userId"].toInt();
-        HttpUserInfo::instance()->setRoomInfo(data["data"].toMap());
-
-        m_agoraFace->joinChannel(rtcToken, chatRoomId, userId);
-        m_agoraFace->setChannelProfile(agora::CHANNEL_PROFILE_COMMUNICATION);
-        m_agoraFace->enableLoopbackRecording(true);
-    }
-}
 //创建房间
-void MainWindow::on_createRoom_clicked()
+void MainWindow::createRoom()
 {
     QVariantMap data =  HttpInterFace::getInstance()->createRoom("","PCTest");
     qDebug()<<"data---"<<data;
@@ -296,6 +300,168 @@ void MainWindow::on_updateBtn_clicked()
 //进入房间
 void MainWindow::enterTheToom(QVariantMap data)
 {
-    ui->stackedWidget->setCurrentIndex(1);
+    QString id = data["id"].toString();
+    int currentPage = 1;
+
+    HttpInterFace::getInstance()->getOnlineInfo(id,currentPage, [&](const QVariant &data) {
+
+        QVariantMap onlineInfo =  data.toMap();
+        QVariantList list = onlineInfo["data"].toList();
+        for(QVariant var : list)
+        {
+            QVariantMap map = var.toMap();
+            OnlineItem *item = new OnlineItem();
+            item->setFixedSize(390,70);
+            item->setData(map,id);
+            ui->onlineList->addWidget(item);
+        }
+
+    });
+    HttpInterFace::getInstance()->getMicApplyList(id, [&](const QVariant &data) {
+
+        QVariantMap info =  data.toMap();
+        QVariantList list = info["data"].toList();
+        if(list.size() > 0)
+            ui->mic_stackedWidget->setCurrentIndex(1);
+        else
+            ui->mic_stackedWidget->setCurrentIndex(0);
+
+        for(int i=0; i<list.size(); i++)
+        {
+            QVariantMap map = list.at(i).toMap();
+            MicseQuenceItem *item = new MicseQuenceItem();
+            item->setFixedSize(390,70);
+            item->setData(map, i+1);
+            ui->micList->addWidget(item);
+        }
+
+    });
+
+    if(m_agoraFace == nullptr)
+    {
+        m_agoraFace = new AgoraRtcEngineInterface;
+        m_agoraFace->vInitAgoraSdk();
+        connect(m_agoraFace, &AgoraRtcEngineInterface::joinedChannelSuccess, this, &MainWindow::joinedChannelSuccess);
+        connect(m_agoraFace, &AgoraRtcEngineInterface::audioVolumeIndication, this, &MainWindow::audioVolumeIndication);
+    }
+
+    QVariantMap roomdata =  HttpInterFace::getInstance()->joinRoom(id.toInt(), 1 , "");
+    if(1 == roomdata["code"].toInt())
+    {
+        roomdata = roomdata["data"].toMap();
+        QString rtcToken = roomdata["rtcToken"].toString();
+        QString chatRoomId = roomdata["roomId"].toString();
+        int userId = roomdata["userInfoResponse"].toMap()["userId"].toInt();
+        HttpUserInfo::instance()->setRoomInfo(roomdata);
+
+        m_agoraFace->joinChannel(rtcToken, chatRoomId, userId);
+        m_agoraFace->setChannelProfile(agora::CHANNEL_PROFILE_COMMUNICATION);
+        m_agoraFace->enableLoopbackRecording(true);
+
+        QString roomName = roomdata["roomName"].toString();
+        ui->roomName->setText(roomName);
+        QString roomId = roomdata["roomId"].toString();
+        ui->roomID->setText(QStringLiteral("ID：") + roomId);
+
+        //TODO 设置麦序
+        QVariantList micInfoList = roomdata["micInfoList"].toList();
+        for(int i = 0; i < micInfoList.size(); i++)
+        {
+            qDebug()<<"micinfo---"<<micInfoList.at(i);
+        }
+
+
+        ui->stackedWidget->setCurrentIndex(1);
+    }
+}
+
+//线上
+void MainWindow::on_onlineBtn_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(0);
+}
+
+//萌新
+void MainWindow::on_squareBtn_clicked()
+{
+    NewUserPage page;
+    page.init();
+    page.exec();
+}
+
+//贡献
+void MainWindow::on_contributeBtn_clicked()
+{
+    ui->stackedWidget_2->setCurrentIndex(1);
+
+}
+
+//日榜
+void MainWindow::on_day_btn_clicked()
+{
+    QVariantMap data = HttpUserInfo::instance()->getRoomInfo();
+    QString roomid = data["roomId"].toString();
+    HttpInterFace::getInstance()->getContributeList(1, 0, 20, roomid, [&](const QVariant &data) {
+
+        cleanupLayout(ui->contList);
+
+        QVariantMap reData = data.toMap()["data"].toMap();
+
+        QVariantList list = reData["rankingDtos"].toList();
+        for(QVariant var : list)
+        {
+            QVariantMap map = var.toMap();
+            ContributeItem *item = new ContributeItem();
+            item->setFixedSize(390,70);
+            item->setData(map);
+            ui->contList->addWidget(item);
+        }
+    });
+}
+
+
+void MainWindow::on_week_btn_clicked()
+{
+    QVariantMap data = HttpUserInfo::instance()->getRoomInfo();
+    QString roomid = data["roomId"].toString();
+    HttpInterFace::getInstance()->getContributeList(1, 1, 20, roomid, [&](const QVariant &data) {
+
+        cleanupLayout(ui->contList);
+
+        QVariantMap reData = data.toMap()["data"].toMap();
+
+        QVariantList list = reData["rankingDtos"].toList();
+        for(QVariant var : list)
+        {
+            QVariantMap map = var.toMap();
+            ContributeItem *item = new ContributeItem();
+            item->setFixedSize(390,70);
+            item->setData(map);
+            ui->contList->addWidget(item);
+        }
+    });
+}
+
+
+void MainWindow::on_m_btn_clicked()
+{
+    QVariantMap data = HttpUserInfo::instance()->getRoomInfo();
+    QString roomid = data["roomId"].toString();
+    HttpInterFace::getInstance()->getContributeList(1, 2, 20, roomid, [&](const QVariant &data) {
+
+        cleanupLayout(ui->contList);
+
+        QVariantMap reData = data.toMap()["data"].toMap();
+
+        QVariantList list = reData["rankingDtos"].toList();
+        for(QVariant var : list)
+        {
+            QVariantMap map = var.toMap();
+            ContributeItem *item = new ContributeItem();
+            item->setFixedSize(390,70);
+            item->setData(map);
+            ui->contList->addWidget(item);
+        }
+    });
 }
 

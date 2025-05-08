@@ -73,9 +73,6 @@ void HttpUserInfo::setRoomInfo(QVariantMap data)
 {
     m_roomInfo = data;
     m_chatRoomId = data["chatRoomId"].toString();
-
-    QJsonDocument doc(QJsonObject::fromVariantMap(data));
-    qDebug()<<"setRoomInfo---"<<doc;
 }
 
 QVariantMap HttpUserInfo::getRoomInfo()

@@ -9,7 +9,6 @@
 #define BASE_API_URL "https://testapi.linkfunapp.com/app"
 #define LIVE_BASE_API_URL ""
 #define LOGIN_URL "/user/login" //登录
-#define LIVE_START "/live/joinLivingRoom" //加入房间
 
 enum class PhoneCodeType : int
 {
@@ -48,6 +47,15 @@ public:
     /*公会相关*/
     QVariantMap getFamilyDetail();
 
+    QVariantMap getLiveRoomInfo();
+
+    QVariantMap followUser(QString followedId, int isFollow);
+
+    void getOnlineInfo(QString roomId, int currentPage, callBack callBack);
+    void getMicApplyList(QString roomId, callBack callBack);
+    void getContributeList(int type, int timeType, int size, QString roomId, callBack callBack);
+    void getPcNewUserSquareList(int pageNum, int pageSize, callBack callBack);
+
 private:
     explicit HttpInterFace(QObject *parent = nullptr);
     ~HttpInterFace();
@@ -56,7 +64,7 @@ private:
 
     QVariantMap httpsPut_syn(QString url, QVariantMap jsonMap);
 
-    void httpsGet_asy(QString url, callBack callback);//get异步
+    void httpsGet_asy(QString url, QVariantMap jsonMap, callBack callback);//get异步
     void httpPost_asy(QString url , QVariantMap jsonMap, callBack callback);//Post异步
     void httpsPost_asy(QString url , QVariantMap jsonMap);//异步
 

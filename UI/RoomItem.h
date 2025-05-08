@@ -16,7 +16,7 @@ public:
     explicit RoomItem(QWidget *parent = nullptr);
     ~RoomItem();
 
-    void setData(QVariantMap data);
+    void setData(QVariantMap roomInfo);
 signals:
     void enterTheRoom(QVariantMap);
 

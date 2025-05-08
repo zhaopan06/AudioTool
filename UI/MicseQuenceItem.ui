@@ -57,7 +57,7 @@ font-style: normal;</string>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="image">
+    <widget class="CRoundLabel" name="image">
      <property name="minimumSize">
       <size>
        <width>47</width>
@@ -72,6 +72,9 @@ font-style: normal;</string>
      </property>
      <property name="text">
       <string/>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -231,6 +234,13 @@ color: #FFFFFF;
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CRoundLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">CRoundLabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../res.qrc"/>
  </resources>

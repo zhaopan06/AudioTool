@@ -36,5 +36,9 @@
         <file>images/live_people_man.png</file>
         <file>images/live_people_woman.png</file>
         <file>images/live_lev.png</file>
+        <file>app.qss</file>
+        <file>images/top1.png</file>
+        <file>images/top2.png</file>
+        <file>images/top3.png</file>
     </qresource>
 </RCC>

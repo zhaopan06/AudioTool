@@ -18,4 +18,15 @@ QString getCpuId();
 void CreateDir();//创建文件夹
 qint32 getWebTime();
 QString mapDownloadImagePath(QString url);
+void showMapTojson(QVariantMap data);
+
+
+
+
+
+
+
+
+
+
 #endif // !GLOBAL_H

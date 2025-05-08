@@ -1,4 +1,6 @@
 ﻿#include "Global.h"
+#include "qjsondocument.h"
+#include "qjsonobject.h"
 #include <QDir>
 #include <QFile>
 #include <QProcess>
@@ -220,4 +222,10 @@ QString mapDownloadImagePath(QString url)
     storeName.replace("?","");
     QString savePath = g_downloadImages + "/" + storeName;
     return savePath;
+}
+
+void showMapTojson(QVariantMap data)
+{
+    QJsonDocument doc(QJsonObject::fromVariantMap(data));
+    qDebug()<<"data---------"<<doc;
 }

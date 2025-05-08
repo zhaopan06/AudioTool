@@ -9,6 +9,7 @@
 #ifndef UI_ONLINEITEM_H
 #define UI_ONLINEITEM_H
 
+#include <CRoundLabel.h>
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
@@ -25,7 +26,7 @@ class Ui_OnlineItem
 {
 public:
     QHBoxLayout *horizontalLayout;
-    QLabel *image;
+    CRoundLabel *image;
     QVBoxLayout *verticalLayout;
     QLabel *nameLab;
     QHBoxLayout *horizontalLayout_2;
@@ -39,14 +40,15 @@ public:
     {
         if (OnlineItem->objectName().isEmpty())
             OnlineItem->setObjectName(QString::fromUtf8("OnlineItem"));
-        OnlineItem->resize(397, 70);
+        OnlineItem->resize(447, 70);
         horizontalLayout = new QHBoxLayout(OnlineItem);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(5, -1, 0, -1);
-        image = new QLabel(OnlineItem);
+        image = new CRoundLabel(OnlineItem);
         image->setObjectName(QString::fromUtf8("image"));
         image->setMinimumSize(QSize(47, 46));
         image->setMaximumSize(QSize(47, 46));
+        image->setScaledContents(true);
 
         horizontalLayout->addWidget(image);
 
@@ -86,14 +88,20 @@ public:
 
         user_lab = new QLabel(OnlineItem);
         user_lab->setObjectName(QString::fromUtf8("user_lab"));
-        user_lab->setMinimumSize(QSize(36, 16));
-        user_lab->setMaximumSize(QSize(36, 16));
+        user_lab->setMinimumSize(QSize(37, 16));
+        user_lab->setMaximumSize(QSize(37, 16));
         user_lab->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 400;\n"
 "font-size: 10px;\n"
 "color: #FFFFFF;\n"
 "text-align: right;\n"
-"font-style: normal;"));
+"font-style: normal;\n"
+"\n"
+"background-image: url(:/images/live_lev.png);\n"
+"background-position: center;\n"
+"padding-right: 6px; \n"
+" text-align: right;"));
+        user_lab->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         horizontalLayout_2->addWidget(user_lab);
 

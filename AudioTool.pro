@@ -36,8 +36,11 @@ SOURCES += \
     Base/Http/HttpInterFace.cpp \
     Base/Http/HttpUserInfo.cpp \
     Base/IMSDK/TimInterface.cpp \
+    UI/ContributeItem.cpp \
     UI/LoginPage.cpp \
     UI/MicseQuenceItem.cpp \
+    UI/NewUserItem.cpp \
+    UI/NewUserPage.cpp \
     UI/OnlineItem.cpp \
     UI/RoomItem.cpp \
     UI/mainwindow.cpp \
@@ -53,8 +56,11 @@ HEADERS += \
     Base/Http/HttpInterFace.h \
     Base/Http/HttpUserInfo.h \
     Base/IMSDK/TimInterface.h \
+    UI/ContributeItem.h \
     UI/LoginPage.h \
     UI/MicseQuenceItem.h \
+    UI/NewUserItem.h \
+    UI/NewUserPage.h \
     UI/OnlineItem.h \
     UI/RoomItem.h \
     UI/mainwindow.h \
@@ -63,8 +69,11 @@ HEADERS += \
     control/click_label.h
 
 FORMS += \
+    UI/ContributeItem.ui \
     UI/LoginPage.ui \
     UI/MicseQuenceItem.ui \
+    UI/NewUserItem.ui \
+    UI/NewUserPage.ui \
     UI/OnlineItem.ui \
     UI/RoomItem.ui \
     UI/mainwindow.ui \

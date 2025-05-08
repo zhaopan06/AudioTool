@@ -16,7 +16,7 @@ public:
     explicit MicseQuenceItem(QWidget *parent = nullptr);
     ~MicseQuenceItem();
 
-    void setData(QVariantMap data);
+    void setData(QVariantMap data, int num);
 
 private slots:
     void on_micBtn_clicked();

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>397</width>
+    <width>447</width>
     <height>70</height>
    </rect>
   </property>
@@ -21,7 +21,7 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QLabel" name="image">
+    <widget class="CRoundLabel" name="image">
      <property name="minimumSize">
       <size>
        <width>47</width>
@@ -36,6 +36,9 @@
      </property>
      <property name="text">
       <string/>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -102,13 +105,13 @@ font-style: normal;</string>
         <widget class="QLabel" name="user_lab">
          <property name="minimumSize">
           <size>
-           <width>36</width>
+           <width>37</width>
            <height>16</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>36</width>
+           <width>37</width>
            <height>16</height>
           </size>
          </property>
@@ -118,10 +121,18 @@ font-weight: 400;
 font-size: 10px;
 color: #FFFFFF;
 text-align: right;
-font-style: normal;</string>
+font-style: normal;
+
+background-image: url(:/images/live_lev.png);
+background-position: center;
+padding-right: 6px; 
+ text-align: right;</string>
          </property>
          <property name="text">
           <string>8</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -223,6 +234,13 @@ font-style: normal;</string>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CRoundLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">CRoundLabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../res.qrc"/>
  </resources>

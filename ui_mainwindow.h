@@ -13,6 +13,7 @@
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
@@ -179,6 +180,8 @@ public:
     QVBoxLayout *verticalLayout_48;
     QScrollArea *scrollArea_2;
     QWidget *scrollAreaWidgetContents_2;
+    QVBoxLayout *verticalLayout_52;
+    QVBoxLayout *micList;
     QWidget *widget_22;
     QVBoxLayout *verticalLayout_24;
     QWidget *widget_38;
@@ -212,11 +215,11 @@ public:
     QHBoxLayout *horizontalLayout_41;
     QVBoxLayout *verticalLayout_44;
     QHBoxLayout *horizontalLayout_43;
-    QLabel *label_45;
+    QLabel *roomName;
     QPushButton *pushButton_26;
     QPushButton *pushButton_27;
     QSpacerItem *horizontalSpacer_14;
-    QLabel *label_46;
+    QLabel *roomID;
     QVBoxLayout *verticalLayout_45;
     QHBoxLayout *horizontalLayout_42;
     QPushButton *pushButton_25;
@@ -228,44 +231,52 @@ public:
     QWidget *widget_46;
     QVBoxLayout *verticalLayout_36;
     QHBoxLayout *horizontalLayout_33;
-    QLabel *label_31;
+    QLabel *micImage1;
     QLabel *label_32;
+    QPushButton *gifts_1;
+    QWidget *widget_56;
+    QVBoxLayout *verticalLayout_50;
+    QHBoxLayout *horizontalLayout_45;
+    QLabel *micImage1_2;
+    QLabel *label_45;
+    QPushButton *gifts_2;
     QWidget *widget_47;
-    QVBoxLayout *verticalLayout_35;
-    QHBoxLayout *horizontalLayout_31;
-    QLabel *label_29;
-    QLabel *label_30;
+    QVBoxLayout *verticalLayout_54;
+    QHBoxLayout *horizontalLayout_46;
+    QLabel *micImage1_3;
+    QLabel *label_46;
+    QPushButton *gifts_3;
+    QWidget *widget_57;
+    QVBoxLayout *verticalLayout_55;
+    QHBoxLayout *horizontalLayout_47;
+    QLabel *micImage1_4;
+    QLabel *label_48;
+    QPushButton *gifts_4;
+    QHBoxLayout *horizontalLayout_36;
     QWidget *widget_48;
     QVBoxLayout *verticalLayout_37;
     QHBoxLayout *horizontalLayout_34;
+    QLabel *micImage1_5;
     QLabel *label_33;
-    QLabel *label_34;
+    QPushButton *gifts_5;
     QWidget *widget_49;
     QVBoxLayout *verticalLayout_38;
     QHBoxLayout *horizontalLayout_35;
-    QLabel *label_35;
-    QLabel *label_36;
-    QHBoxLayout *horizontalLayout_36;
+    QLabel *micImage1_6;
+    QLabel *label_34;
+    QPushButton *gifts_6;
     QWidget *widget_50;
     QVBoxLayout *verticalLayout_39;
     QHBoxLayout *horizontalLayout_37;
-    QLabel *label_37;
-    QLabel *label_38;
+    QLabel *micImage1_7;
+    QLabel *label_35;
+    QPushButton *gifts_7;
     QWidget *widget_51;
     QVBoxLayout *verticalLayout_40;
     QHBoxLayout *horizontalLayout_38;
-    QLabel *label_39;
-    QLabel *label_40;
-    QWidget *widget_52;
-    QVBoxLayout *verticalLayout_41;
-    QHBoxLayout *horizontalLayout_39;
-    QLabel *label_41;
-    QLabel *label_42;
-    QWidget *widget_53;
-    QVBoxLayout *verticalLayout_42;
-    QHBoxLayout *horizontalLayout_40;
-    QLabel *label_43;
-    QLabel *label_44;
+    QLabel *micImage1_8;
+    QLabel *label_36;
+    QPushButton *gifts_8;
     QWidget *widget;
     QVBoxLayout *verticalLayout;
     QListWidget *msgList;
@@ -283,10 +294,31 @@ public:
     QWidget *widget_13;
     QVBoxLayout *verticalLayout_32;
     QWidget *widget_42;
+    QVBoxLayout *verticalLayout_49;
     QWidget *widget_45;
     QHBoxLayout *horizontalLayout_30;
-    QLabel *label_28;
+    QPushButton *onlineBtn;
+    QPushButton *squareBtn;
+    QPushButton *contributeBtn;
     QSpacerItem *horizontalSpacer_13;
+    QStackedWidget *stackedWidget_2;
+    QWidget *onlinePage;
+    QVBoxLayout *verticalLayout_51;
+    QScrollArea *scrollArea_3;
+    QWidget *scrollAreaWidgetContents_3;
+    QVBoxLayout *verticalLayout_53;
+    QVBoxLayout *onlineList;
+    QWidget *page_4;
+    QVBoxLayout *verticalLayout_35;
+    QWidget *widget_52;
+    QHBoxLayout *horizontalLayout_31;
+    QPushButton *day_btn;
+    QPushButton *week_btn;
+    QPushButton *m_btn;
+    QScrollArea *scrollArea_4;
+    QWidget *scrollAreaWidgetContents_4;
+    QVBoxLayout *verticalLayout_42;
+    QVBoxLayout *contList;
     QWidget *widget_35;
     QVBoxLayout *verticalLayout_33;
     QWidget *widget_43;
@@ -309,6 +341,8 @@ public:
     QPushButton *pushButton_14;
     QPushButton *pushButton_15;
     QPushButton *pushButton_16;
+    QButtonGroup *buttonGroup;
+    QButtonGroup *buttonGroup_2;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -626,7 +660,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 648, 362));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 631, 16));
         scrollArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout_13->addWidget(scrollArea);
@@ -847,6 +881,7 @@ public:
         verticalLayout_11->setContentsMargins(0, 0, 0, 0);
         label_9 = new QLabel(widget_9);
         label_9->setObjectName(QString::fromUtf8("label_9"));
+        label_9->setScaledContents(true);
 
         verticalLayout_11->addWidget(label_9);
 
@@ -1433,13 +1468,24 @@ public:
         mic_page2 = new QWidget();
         mic_page2->setObjectName(QString::fromUtf8("mic_page2"));
         verticalLayout_48 = new QVBoxLayout(mic_page2);
+        verticalLayout_48->setSpacing(0);
         verticalLayout_48->setObjectName(QString::fromUtf8("verticalLayout_48"));
+        verticalLayout_48->setContentsMargins(0, 0, 0, 0);
         scrollArea_2 = new QScrollArea(mic_page2);
         scrollArea_2->setObjectName(QString::fromUtf8("scrollArea_2"));
         scrollArea_2->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 379, 262));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 397, 280));
+        verticalLayout_52 = new QVBoxLayout(scrollAreaWidgetContents_2);
+        verticalLayout_52->setSpacing(0);
+        verticalLayout_52->setObjectName(QString::fromUtf8("verticalLayout_52"));
+        verticalLayout_52->setContentsMargins(0, 0, 0, 0);
+        micList = new QVBoxLayout();
+        micList->setObjectName(QString::fromUtf8("micList"));
+
+        verticalLayout_52->addLayout(micList);
+
         scrollArea_2->setWidget(scrollAreaWidgetContents_2);
 
         verticalLayout_48->addWidget(scrollArea_2);
@@ -1720,9 +1766,9 @@ public:
         horizontalLayout_43 = new QHBoxLayout();
         horizontalLayout_43->setSpacing(12);
         horizontalLayout_43->setObjectName(QString::fromUtf8("horizontalLayout_43"));
-        label_45 = new QLabel(widget_54);
-        label_45->setObjectName(QString::fromUtf8("label_45"));
-        label_45->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        roomName = new QLabel(widget_54);
+        roomName->setObjectName(QString::fromUtf8("roomName"));
+        roomName->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 500;\n"
 "font-size: 22px;\n"
 "color: #FFFFFF;\n"
@@ -1730,7 +1776,7 @@ public:
 "text-align: left;\n"
 "font-style: normal;"));
 
-        horizontalLayout_43->addWidget(label_45);
+        horizontalLayout_43->addWidget(roomName);
 
         pushButton_26 = new QPushButton(widget_54);
         pushButton_26->setObjectName(QString::fromUtf8("pushButton_26"));
@@ -1767,9 +1813,9 @@ public:
 
         verticalLayout_44->addLayout(horizontalLayout_43);
 
-        label_46 = new QLabel(widget_54);
-        label_46->setObjectName(QString::fromUtf8("label_46"));
-        label_46->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        roomID = new QLabel(widget_54);
+        roomID->setObjectName(QString::fromUtf8("roomID"));
+        roomID->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 500;\n"
 "font-size: 16px;\n"
 "color: #FFFFFF;\n"
@@ -1777,7 +1823,7 @@ public:
 "text-align: left;\n"
 "font-style: normal;"));
 
-        verticalLayout_44->addWidget(label_46);
+        verticalLayout_44->addWidget(roomID);
 
 
         horizontalLayout_41->addLayout(verticalLayout_44);
@@ -1837,10 +1883,11 @@ public:
         verticalLayout_46 = new QVBoxLayout(widget_55);
         verticalLayout_46->setSpacing(20);
         verticalLayout_46->setObjectName(QString::fromUtf8("verticalLayout_46"));
-        verticalLayout_46->setContentsMargins(0, 0, 0, 18);
+        verticalLayout_46->setContentsMargins(0, 0, 0, 20);
         horizontalLayout_32 = new QHBoxLayout();
+        horizontalLayout_32->setSpacing(0);
         horizontalLayout_32->setObjectName(QString::fromUtf8("horizontalLayout_32"));
-        horizontalLayout_32->setContentsMargins(-1, -1, 20, -1);
+        horizontalLayout_32->setContentsMargins(-1, -1, 0, -1);
         widget_46 = new QWidget(widget_55);
         widget_46->setObjectName(QString::fromUtf8("widget_46"));
         widget_46->setMinimumSize(QSize(122, 124));
@@ -1848,16 +1895,16 @@ public:
         verticalLayout_36 = new QVBoxLayout(widget_46);
         verticalLayout_36->setSpacing(12);
         verticalLayout_36->setObjectName(QString::fromUtf8("verticalLayout_36"));
-        verticalLayout_36->setContentsMargins(0, 0, 0, 30);
+        verticalLayout_36->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_33 = new QHBoxLayout();
         horizontalLayout_33->setObjectName(QString::fromUtf8("horizontalLayout_33"));
-        label_31 = new QLabel(widget_46);
-        label_31->setObjectName(QString::fromUtf8("label_31"));
-        label_31->setMinimumSize(QSize(60, 60));
-        label_31->setMaximumSize(QSize(60, 60));
-        label_31->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
+        micImage1 = new QLabel(widget_46);
+        micImage1->setObjectName(QString::fromUtf8("micImage1"));
+        micImage1->setMinimumSize(QSize(60, 60));
+        micImage1->setMaximumSize(QSize(60, 60));
+        micImage1->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
 
-        horizontalLayout_33->addWidget(label_31);
+        horizontalLayout_33->addWidget(micImage1);
 
 
         verticalLayout_36->addLayout(horizontalLayout_33);
@@ -1877,48 +1924,185 @@ public:
 
         verticalLayout_36->addWidget(label_32);
 
+        gifts_1 = new QPushButton(widget_46);
+        gifts_1->setObjectName(QString::fromUtf8("gifts_1"));
+        gifts_1->setStyleSheet(QString::fromUtf8("border:none;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
+"font-size: 12px;\n"
+"color: rgba(210,181,247,0.8);\n"
+"line-height: 19px;\n"
+"text-align: center;\n"
+"font-style: normal;"));
+
+        verticalLayout_36->addWidget(gifts_1);
+
 
         horizontalLayout_32->addWidget(widget_46);
 
-        widget_47 = new QWidget(widget_55);
-        widget_47->setObjectName(QString::fromUtf8("widget_47"));
-        widget_47->setMinimumSize(QSize(122, 124));
-        widget_47->setMaximumSize(QSize(122, 124));
-        verticalLayout_35 = new QVBoxLayout(widget_47);
-        verticalLayout_35->setSpacing(12);
-        verticalLayout_35->setObjectName(QString::fromUtf8("verticalLayout_35"));
-        verticalLayout_35->setContentsMargins(0, 0, 0, 30);
-        horizontalLayout_31 = new QHBoxLayout();
-        horizontalLayout_31->setObjectName(QString::fromUtf8("horizontalLayout_31"));
-        label_29 = new QLabel(widget_47);
-        label_29->setObjectName(QString::fromUtf8("label_29"));
-        label_29->setMinimumSize(QSize(60, 60));
-        label_29->setMaximumSize(QSize(60, 60));
-        label_29->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
+        widget_56 = new QWidget(widget_55);
+        widget_56->setObjectName(QString::fromUtf8("widget_56"));
+        widget_56->setMinimumSize(QSize(122, 124));
+        widget_56->setMaximumSize(QSize(122, 124));
+        verticalLayout_50 = new QVBoxLayout(widget_56);
+        verticalLayout_50->setSpacing(12);
+        verticalLayout_50->setObjectName(QString::fromUtf8("verticalLayout_50"));
+        verticalLayout_50->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_45 = new QHBoxLayout();
+        horizontalLayout_45->setObjectName(QString::fromUtf8("horizontalLayout_45"));
+        micImage1_2 = new QLabel(widget_56);
+        micImage1_2->setObjectName(QString::fromUtf8("micImage1_2"));
+        micImage1_2->setMinimumSize(QSize(60, 60));
+        micImage1_2->setMaximumSize(QSize(60, 60));
+        micImage1_2->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
 
-        horizontalLayout_31->addWidget(label_29);
+        horizontalLayout_45->addWidget(micImage1_2);
 
 
-        verticalLayout_35->addLayout(horizontalLayout_31);
+        verticalLayout_50->addLayout(horizontalLayout_45);
 
-        label_30 = new QLabel(widget_47);
-        label_30->setObjectName(QString::fromUtf8("label_30"));
-        label_30->setMinimumSize(QSize(0, 22));
-        label_30->setMaximumSize(QSize(16777215, 22));
-        label_30->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        label_45 = new QLabel(widget_56);
+        label_45->setObjectName(QString::fromUtf8("label_45"));
+        label_45->setMinimumSize(QSize(0, 22));
+        label_45->setMaximumSize(QSize(16777215, 22));
+        label_45->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 400;\n"
 "font-size: 16px;\n"
 "color: rgba(240,230,252,0.8);\n"
 "line-height: 22px;\n"
 "text-align: center;\n"
 "font-style: normal;"));
-        label_30->setAlignment(Qt::AlignCenter);
+        label_45->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_35->addWidget(label_30);
+        verticalLayout_50->addWidget(label_45);
+
+        gifts_2 = new QPushButton(widget_56);
+        gifts_2->setObjectName(QString::fromUtf8("gifts_2"));
+        gifts_2->setStyleSheet(QString::fromUtf8("border:none;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
+"font-size: 12px;\n"
+"color: rgba(210,181,247,0.8);\n"
+"line-height: 19px;\n"
+"text-align: center;\n"
+"font-style: normal;"));
+
+        verticalLayout_50->addWidget(gifts_2);
+
+
+        horizontalLayout_32->addWidget(widget_56);
+
+        widget_47 = new QWidget(widget_55);
+        widget_47->setObjectName(QString::fromUtf8("widget_47"));
+        widget_47->setMinimumSize(QSize(122, 124));
+        widget_47->setMaximumSize(QSize(122, 124));
+        verticalLayout_54 = new QVBoxLayout(widget_47);
+        verticalLayout_54->setSpacing(12);
+        verticalLayout_54->setObjectName(QString::fromUtf8("verticalLayout_54"));
+        verticalLayout_54->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_46 = new QHBoxLayout();
+        horizontalLayout_46->setObjectName(QString::fromUtf8("horizontalLayout_46"));
+        micImage1_3 = new QLabel(widget_47);
+        micImage1_3->setObjectName(QString::fromUtf8("micImage1_3"));
+        micImage1_3->setMinimumSize(QSize(60, 60));
+        micImage1_3->setMaximumSize(QSize(60, 60));
+        micImage1_3->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
+
+        horizontalLayout_46->addWidget(micImage1_3);
+
+
+        verticalLayout_54->addLayout(horizontalLayout_46);
+
+        label_46 = new QLabel(widget_47);
+        label_46->setObjectName(QString::fromUtf8("label_46"));
+        label_46->setMinimumSize(QSize(0, 22));
+        label_46->setMaximumSize(QSize(16777215, 22));
+        label_46->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
+"font-size: 16px;\n"
+"color: rgba(240,230,252,0.8);\n"
+"line-height: 22px;\n"
+"text-align: center;\n"
+"font-style: normal;"));
+        label_46->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_54->addWidget(label_46);
+
+        gifts_3 = new QPushButton(widget_47);
+        gifts_3->setObjectName(QString::fromUtf8("gifts_3"));
+        gifts_3->setStyleSheet(QString::fromUtf8("border:none;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
+"font-size: 12px;\n"
+"color: rgba(210,181,247,0.8);\n"
+"line-height: 19px;\n"
+"text-align: center;\n"
+"font-style: normal;"));
+
+        verticalLayout_54->addWidget(gifts_3);
 
 
         horizontalLayout_32->addWidget(widget_47);
 
+        widget_57 = new QWidget(widget_55);
+        widget_57->setObjectName(QString::fromUtf8("widget_57"));
+        widget_57->setMinimumSize(QSize(122, 124));
+        widget_57->setMaximumSize(QSize(122, 124));
+        verticalLayout_55 = new QVBoxLayout(widget_57);
+        verticalLayout_55->setSpacing(12);
+        verticalLayout_55->setObjectName(QString::fromUtf8("verticalLayout_55"));
+        verticalLayout_55->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_47 = new QHBoxLayout();
+        horizontalLayout_47->setObjectName(QString::fromUtf8("horizontalLayout_47"));
+        micImage1_4 = new QLabel(widget_57);
+        micImage1_4->setObjectName(QString::fromUtf8("micImage1_4"));
+        micImage1_4->setMinimumSize(QSize(60, 60));
+        micImage1_4->setMaximumSize(QSize(60, 60));
+        micImage1_4->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
+
+        horizontalLayout_47->addWidget(micImage1_4);
+
+
+        verticalLayout_55->addLayout(horizontalLayout_47);
+
+        label_48 = new QLabel(widget_57);
+        label_48->setObjectName(QString::fromUtf8("label_48"));
+        label_48->setMinimumSize(QSize(0, 22));
+        label_48->setMaximumSize(QSize(16777215, 22));
+        label_48->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
+"font-size: 16px;\n"
+"color: rgba(240,230,252,0.8);\n"
+"line-height: 22px;\n"
+"text-align: center;\n"
+"font-style: normal;"));
+        label_48->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_55->addWidget(label_48);
+
+        gifts_4 = new QPushButton(widget_57);
+        gifts_4->setObjectName(QString::fromUtf8("gifts_4"));
+        gifts_4->setStyleSheet(QString::fromUtf8("border:none;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
+"font-size: 12px;\n"
+"color: rgba(210,181,247,0.8);\n"
+"line-height: 19px;\n"
+"text-align: center;\n"
+"font-style: normal;"));
+
+        verticalLayout_55->addWidget(gifts_4);
+
+
+        horizontalLayout_32->addWidget(widget_57);
+
+
+        verticalLayout_46->addLayout(horizontalLayout_32);
+
+        horizontalLayout_36 = new QHBoxLayout();
+        horizontalLayout_36->setSpacing(0);
+        horizontalLayout_36->setObjectName(QString::fromUtf8("horizontalLayout_36"));
+        horizontalLayout_36->setContentsMargins(-1, -1, 0, -1);
         widget_48 = new QWidget(widget_55);
         widget_48->setObjectName(QString::fromUtf8("widget_48"));
         widget_48->setMinimumSize(QSize(122, 124));
@@ -1926,21 +2110,73 @@ public:
         verticalLayout_37 = new QVBoxLayout(widget_48);
         verticalLayout_37->setSpacing(12);
         verticalLayout_37->setObjectName(QString::fromUtf8("verticalLayout_37"));
-        verticalLayout_37->setContentsMargins(0, 0, 0, 30);
+        verticalLayout_37->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_34 = new QHBoxLayout();
         horizontalLayout_34->setObjectName(QString::fromUtf8("horizontalLayout_34"));
-        label_33 = new QLabel(widget_48);
-        label_33->setObjectName(QString::fromUtf8("label_33"));
-        label_33->setMinimumSize(QSize(60, 60));
-        label_33->setMaximumSize(QSize(60, 60));
-        label_33->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
+        micImage1_5 = new QLabel(widget_48);
+        micImage1_5->setObjectName(QString::fromUtf8("micImage1_5"));
+        micImage1_5->setMinimumSize(QSize(60, 60));
+        micImage1_5->setMaximumSize(QSize(60, 60));
+        micImage1_5->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
 
-        horizontalLayout_34->addWidget(label_33);
+        horizontalLayout_34->addWidget(micImage1_5);
 
 
         verticalLayout_37->addLayout(horizontalLayout_34);
 
-        label_34 = new QLabel(widget_48);
+        label_33 = new QLabel(widget_48);
+        label_33->setObjectName(QString::fromUtf8("label_33"));
+        label_33->setMinimumSize(QSize(0, 22));
+        label_33->setMaximumSize(QSize(16777215, 22));
+        label_33->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
+"font-size: 16px;\n"
+"color: rgba(240,230,252,0.8);\n"
+"line-height: 22px;\n"
+"text-align: center;\n"
+"font-style: normal;"));
+        label_33->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_37->addWidget(label_33);
+
+        gifts_5 = new QPushButton(widget_48);
+        gifts_5->setObjectName(QString::fromUtf8("gifts_5"));
+        gifts_5->setStyleSheet(QString::fromUtf8("border:none;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
+"font-size: 12px;\n"
+"color: rgba(210,181,247,0.8);\n"
+"line-height: 19px;\n"
+"text-align: center;\n"
+"font-style: normal;"));
+
+        verticalLayout_37->addWidget(gifts_5);
+
+
+        horizontalLayout_36->addWidget(widget_48);
+
+        widget_49 = new QWidget(widget_55);
+        widget_49->setObjectName(QString::fromUtf8("widget_49"));
+        widget_49->setMinimumSize(QSize(122, 124));
+        widget_49->setMaximumSize(QSize(122, 124));
+        verticalLayout_38 = new QVBoxLayout(widget_49);
+        verticalLayout_38->setSpacing(12);
+        verticalLayout_38->setObjectName(QString::fromUtf8("verticalLayout_38"));
+        verticalLayout_38->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_35 = new QHBoxLayout();
+        horizontalLayout_35->setObjectName(QString::fromUtf8("horizontalLayout_35"));
+        micImage1_6 = new QLabel(widget_49);
+        micImage1_6->setObjectName(QString::fromUtf8("micImage1_6"));
+        micImage1_6->setMinimumSize(QSize(60, 60));
+        micImage1_6->setMaximumSize(QSize(60, 60));
+        micImage1_6->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
+
+        horizontalLayout_35->addWidget(micImage1_6);
+
+
+        verticalLayout_38->addLayout(horizontalLayout_35);
+
+        label_34 = new QLabel(widget_49);
         label_34->setObjectName(QString::fromUtf8("label_34"));
         label_34->setMinimumSize(QSize(0, 22));
         label_34->setMaximumSize(QSize(16777215, 22));
@@ -1953,33 +2189,98 @@ public:
 "font-style: normal;"));
         label_34->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_37->addWidget(label_34);
+        verticalLayout_38->addWidget(label_34);
+
+        gifts_6 = new QPushButton(widget_49);
+        gifts_6->setObjectName(QString::fromUtf8("gifts_6"));
+        gifts_6->setStyleSheet(QString::fromUtf8("border:none;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
+"font-size: 12px;\n"
+"color: rgba(210,181,247,0.8);\n"
+"line-height: 19px;\n"
+"text-align: center;\n"
+"font-style: normal;"));
+
+        verticalLayout_38->addWidget(gifts_6);
 
 
-        horizontalLayout_32->addWidget(widget_48);
+        horizontalLayout_36->addWidget(widget_49);
 
-        widget_49 = new QWidget(widget_55);
-        widget_49->setObjectName(QString::fromUtf8("widget_49"));
-        widget_49->setMinimumSize(QSize(122, 124));
-        widget_49->setMaximumSize(QSize(122, 124));
-        verticalLayout_38 = new QVBoxLayout(widget_49);
-        verticalLayout_38->setSpacing(12);
-        verticalLayout_38->setObjectName(QString::fromUtf8("verticalLayout_38"));
-        verticalLayout_38->setContentsMargins(0, 0, 0, 30);
-        horizontalLayout_35 = new QHBoxLayout();
-        horizontalLayout_35->setObjectName(QString::fromUtf8("horizontalLayout_35"));
-        label_35 = new QLabel(widget_49);
+        widget_50 = new QWidget(widget_55);
+        widget_50->setObjectName(QString::fromUtf8("widget_50"));
+        widget_50->setMinimumSize(QSize(122, 124));
+        widget_50->setMaximumSize(QSize(122, 124));
+        verticalLayout_39 = new QVBoxLayout(widget_50);
+        verticalLayout_39->setSpacing(12);
+        verticalLayout_39->setObjectName(QString::fromUtf8("verticalLayout_39"));
+        verticalLayout_39->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_37 = new QHBoxLayout();
+        horizontalLayout_37->setObjectName(QString::fromUtf8("horizontalLayout_37"));
+        micImage1_7 = new QLabel(widget_50);
+        micImage1_7->setObjectName(QString::fromUtf8("micImage1_7"));
+        micImage1_7->setMinimumSize(QSize(60, 60));
+        micImage1_7->setMaximumSize(QSize(60, 60));
+        micImage1_7->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
+
+        horizontalLayout_37->addWidget(micImage1_7);
+
+
+        verticalLayout_39->addLayout(horizontalLayout_37);
+
+        label_35 = new QLabel(widget_50);
         label_35->setObjectName(QString::fromUtf8("label_35"));
-        label_35->setMinimumSize(QSize(60, 60));
-        label_35->setMaximumSize(QSize(60, 60));
-        label_35->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
+        label_35->setMinimumSize(QSize(0, 22));
+        label_35->setMaximumSize(QSize(16777215, 22));
+        label_35->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
+"font-size: 16px;\n"
+"color: rgba(240,230,252,0.8);\n"
+"line-height: 22px;\n"
+"text-align: center;\n"
+"font-style: normal;"));
+        label_35->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout_35->addWidget(label_35);
+        verticalLayout_39->addWidget(label_35);
+
+        gifts_7 = new QPushButton(widget_50);
+        gifts_7->setObjectName(QString::fromUtf8("gifts_7"));
+        gifts_7->setStyleSheet(QString::fromUtf8("border:none;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
+"font-size: 12px;\n"
+"color: rgba(210,181,247,0.8);\n"
+"line-height: 19px;\n"
+"text-align: center;\n"
+"font-style: normal;"));
+
+        verticalLayout_39->addWidget(gifts_7);
 
 
-        verticalLayout_38->addLayout(horizontalLayout_35);
+        horizontalLayout_36->addWidget(widget_50);
 
-        label_36 = new QLabel(widget_49);
+        widget_51 = new QWidget(widget_55);
+        widget_51->setObjectName(QString::fromUtf8("widget_51"));
+        widget_51->setMinimumSize(QSize(122, 124));
+        widget_51->setMaximumSize(QSize(122, 124));
+        verticalLayout_40 = new QVBoxLayout(widget_51);
+        verticalLayout_40->setSpacing(12);
+        verticalLayout_40->setObjectName(QString::fromUtf8("verticalLayout_40"));
+        verticalLayout_40->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_38 = new QHBoxLayout();
+        horizontalLayout_38->setObjectName(QString::fromUtf8("horizontalLayout_38"));
+        micImage1_8 = new QLabel(widget_51);
+        micImage1_8->setObjectName(QString::fromUtf8("micImage1_8"));
+        micImage1_8->setMinimumSize(QSize(60, 60));
+        micImage1_8->setMaximumSize(QSize(60, 60));
+        micImage1_8->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
+
+        horizontalLayout_38->addWidget(micImage1_8);
+
+
+        verticalLayout_40->addLayout(horizontalLayout_38);
+
+        label_36 = new QLabel(widget_51);
         label_36->setObjectName(QString::fromUtf8("label_36"));
         label_36->setMinimumSize(QSize(0, 22));
         label_36->setMaximumSize(QSize(16777215, 22));
@@ -1992,172 +2293,23 @@ public:
 "font-style: normal;"));
         label_36->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_38->addWidget(label_36);
+        verticalLayout_40->addWidget(label_36);
 
-
-        horizontalLayout_32->addWidget(widget_49);
-
-
-        verticalLayout_46->addLayout(horizontalLayout_32);
-
-        horizontalLayout_36 = new QHBoxLayout();
-        horizontalLayout_36->setObjectName(QString::fromUtf8("horizontalLayout_36"));
-        horizontalLayout_36->setContentsMargins(-1, -1, 20, -1);
-        widget_50 = new QWidget(widget_55);
-        widget_50->setObjectName(QString::fromUtf8("widget_50"));
-        widget_50->setMinimumSize(QSize(122, 124));
-        widget_50->setMaximumSize(QSize(122, 124));
-        verticalLayout_39 = new QVBoxLayout(widget_50);
-        verticalLayout_39->setSpacing(12);
-        verticalLayout_39->setObjectName(QString::fromUtf8("verticalLayout_39"));
-        verticalLayout_39->setContentsMargins(0, 0, 0, 30);
-        horizontalLayout_37 = new QHBoxLayout();
-        horizontalLayout_37->setObjectName(QString::fromUtf8("horizontalLayout_37"));
-        label_37 = new QLabel(widget_50);
-        label_37->setObjectName(QString::fromUtf8("label_37"));
-        label_37->setMinimumSize(QSize(60, 60));
-        label_37->setMaximumSize(QSize(60, 60));
-        label_37->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
-
-        horizontalLayout_37->addWidget(label_37);
-
-
-        verticalLayout_39->addLayout(horizontalLayout_37);
-
-        label_38 = new QLabel(widget_50);
-        label_38->setObjectName(QString::fromUtf8("label_38"));
-        label_38->setMinimumSize(QSize(0, 22));
-        label_38->setMaximumSize(QSize(16777215, 22));
-        label_38->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        gifts_8 = new QPushButton(widget_51);
+        gifts_8->setObjectName(QString::fromUtf8("gifts_8"));
+        gifts_8->setStyleSheet(QString::fromUtf8("border:none;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 400;\n"
-"font-size: 16px;\n"
-"color: rgba(240,230,252,0.8);\n"
-"line-height: 22px;\n"
+"font-size: 12px;\n"
+"color: rgba(210,181,247,0.8);\n"
+"line-height: 19px;\n"
 "text-align: center;\n"
 "font-style: normal;"));
-        label_38->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_39->addWidget(label_38);
-
-
-        horizontalLayout_36->addWidget(widget_50);
-
-        widget_51 = new QWidget(widget_55);
-        widget_51->setObjectName(QString::fromUtf8("widget_51"));
-        widget_51->setMinimumSize(QSize(122, 124));
-        widget_51->setMaximumSize(QSize(122, 124));
-        verticalLayout_40 = new QVBoxLayout(widget_51);
-        verticalLayout_40->setSpacing(12);
-        verticalLayout_40->setObjectName(QString::fromUtf8("verticalLayout_40"));
-        verticalLayout_40->setContentsMargins(0, 0, 0, 30);
-        horizontalLayout_38 = new QHBoxLayout();
-        horizontalLayout_38->setObjectName(QString::fromUtf8("horizontalLayout_38"));
-        label_39 = new QLabel(widget_51);
-        label_39->setObjectName(QString::fromUtf8("label_39"));
-        label_39->setMinimumSize(QSize(60, 60));
-        label_39->setMaximumSize(QSize(60, 60));
-        label_39->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
-
-        horizontalLayout_38->addWidget(label_39);
-
-
-        verticalLayout_40->addLayout(horizontalLayout_38);
-
-        label_40 = new QLabel(widget_51);
-        label_40->setObjectName(QString::fromUtf8("label_40"));
-        label_40->setMinimumSize(QSize(0, 22));
-        label_40->setMaximumSize(QSize(16777215, 22));
-        label_40->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
-"font-size: 16px;\n"
-"color: rgba(240,230,252,0.8);\n"
-"line-height: 22px;\n"
-"text-align: center;\n"
-"font-style: normal;"));
-        label_40->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_40->addWidget(label_40);
+        verticalLayout_40->addWidget(gifts_8);
 
 
         horizontalLayout_36->addWidget(widget_51);
-
-        widget_52 = new QWidget(widget_55);
-        widget_52->setObjectName(QString::fromUtf8("widget_52"));
-        widget_52->setMinimumSize(QSize(122, 124));
-        widget_52->setMaximumSize(QSize(122, 124));
-        verticalLayout_41 = new QVBoxLayout(widget_52);
-        verticalLayout_41->setSpacing(12);
-        verticalLayout_41->setObjectName(QString::fromUtf8("verticalLayout_41"));
-        verticalLayout_41->setContentsMargins(0, 0, 0, 30);
-        horizontalLayout_39 = new QHBoxLayout();
-        horizontalLayout_39->setObjectName(QString::fromUtf8("horizontalLayout_39"));
-        label_41 = new QLabel(widget_52);
-        label_41->setObjectName(QString::fromUtf8("label_41"));
-        label_41->setMinimumSize(QSize(60, 60));
-        label_41->setMaximumSize(QSize(60, 60));
-        label_41->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
-
-        horizontalLayout_39->addWidget(label_41);
-
-
-        verticalLayout_41->addLayout(horizontalLayout_39);
-
-        label_42 = new QLabel(widget_52);
-        label_42->setObjectName(QString::fromUtf8("label_42"));
-        label_42->setMinimumSize(QSize(0, 22));
-        label_42->setMaximumSize(QSize(16777215, 22));
-        label_42->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
-"font-size: 16px;\n"
-"color: rgba(240,230,252,0.8);\n"
-"line-height: 22px;\n"
-"text-align: center;\n"
-"font-style: normal;"));
-        label_42->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_41->addWidget(label_42);
-
-
-        horizontalLayout_36->addWidget(widget_52);
-
-        widget_53 = new QWidget(widget_55);
-        widget_53->setObjectName(QString::fromUtf8("widget_53"));
-        widget_53->setMinimumSize(QSize(122, 124));
-        widget_53->setMaximumSize(QSize(122, 124));
-        verticalLayout_42 = new QVBoxLayout(widget_53);
-        verticalLayout_42->setSpacing(12);
-        verticalLayout_42->setObjectName(QString::fromUtf8("verticalLayout_42"));
-        verticalLayout_42->setContentsMargins(0, 0, 0, 30);
-        horizontalLayout_40 = new QHBoxLayout();
-        horizontalLayout_40->setObjectName(QString::fromUtf8("horizontalLayout_40"));
-        label_43 = new QLabel(widget_53);
-        label_43->setObjectName(QString::fromUtf8("label_43"));
-        label_43->setMinimumSize(QSize(60, 60));
-        label_43->setMaximumSize(QSize(60, 60));
-        label_43->setPixmap(QPixmap(QString::fromUtf8(":/images/live_mic_path.png")));
-
-        horizontalLayout_40->addWidget(label_43);
-
-
-        verticalLayout_42->addLayout(horizontalLayout_40);
-
-        label_44 = new QLabel(widget_53);
-        label_44->setObjectName(QString::fromUtf8("label_44"));
-        label_44->setMinimumSize(QSize(0, 22));
-        label_44->setMaximumSize(QSize(16777215, 22));
-        label_44->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
-"font-size: 16px;\n"
-"color: rgba(240,230,252,0.8);\n"
-"line-height: 22px;\n"
-"text-align: center;\n"
-"font-style: normal;"));
-        label_44->setAlignment(Qt::AlignCenter);
-
-        verticalLayout_42->addWidget(label_44);
-
-
-        horizontalLayout_36->addWidget(widget_53);
 
 
         verticalLayout_46->addLayout(horizontalLayout_36);
@@ -2319,34 +2471,210 @@ public:
         widget_42->setObjectName(QString::fromUtf8("widget_42"));
         widget_42->setStyleSheet(QString::fromUtf8("background: #222429;\n"
 "border-radius: 12px;"));
+        verticalLayout_49 = new QVBoxLayout(widget_42);
+        verticalLayout_49->setSpacing(0);
+        verticalLayout_49->setObjectName(QString::fromUtf8("verticalLayout_49"));
+        verticalLayout_49->setContentsMargins(16, 0, 6, 8);
         widget_45 = new QWidget(widget_42);
         widget_45->setObjectName(QString::fromUtf8("widget_45"));
-        widget_45->setGeometry(QRect(60, 50, 397, 56));
         widget_45->setMinimumSize(QSize(0, 56));
         widget_45->setMaximumSize(QSize(16777215, 56));
-        widget_45->setStyleSheet(QString::fromUtf8("QWidget#widget_43{\n"
+        widget_45->setStyleSheet(QString::fromUtf8("QWidget#widget_45{\n"
 "    border-bottom: 1px solid #383B43;\n"
 "border-radius: 0px;\n"
-"    }"));
-        horizontalLayout_30 = new QHBoxLayout(widget_45);
-        horizontalLayout_30->setSpacing(0);
-        horizontalLayout_30->setObjectName(QString::fromUtf8("horizontalLayout_30"));
-        horizontalLayout_30->setContentsMargins(0, 0, 0, 1);
-        label_28 = new QLabel(widget_45);
-        label_28->setObjectName(QString::fromUtf8("label_28"));
-        label_28->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"    }\n"
+"\n"
+"QPushButton {\n"
+"     border:none;\n"
+"\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 500;\n"
 "font-size: 18px;\n"
-"color: #FFFFFF;\n"
-"line-height: 25px;\n"
-"text-align: left;\n"
-"font-style: normal;"));
+"color: rgba(255, 255, 255, 0.5);\n"
+"line-height: 25px;   \n"
+"}\n"
+"\n"
+"QPushButton:checked {\n"
+"   border:none;\n"
+"\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 500;\n"
+"font-size: 18px;\n"
+"color: #ffffff;\n"
+"line-height: 25px;   \n"
+"}\n"
+"\n"
+""));
+        horizontalLayout_30 = new QHBoxLayout(widget_45);
+        horizontalLayout_30->setSpacing(24);
+        horizontalLayout_30->setObjectName(QString::fromUtf8("horizontalLayout_30"));
+        horizontalLayout_30->setContentsMargins(0, 0, 0, 1);
+        onlineBtn = new QPushButton(widget_45);
+        buttonGroup = new QButtonGroup(MainWindow);
+        buttonGroup->setObjectName(QString::fromUtf8("buttonGroup"));
+        buttonGroup->addButton(onlineBtn);
+        onlineBtn->setObjectName(QString::fromUtf8("onlineBtn"));
+        onlineBtn->setCheckable(true);
+        onlineBtn->setChecked(true);
 
-        horizontalLayout_30->addWidget(label_28);
+        horizontalLayout_30->addWidget(onlineBtn);
+
+        squareBtn = new QPushButton(widget_45);
+        buttonGroup->addButton(squareBtn);
+        squareBtn->setObjectName(QString::fromUtf8("squareBtn"));
+        squareBtn->setCheckable(true);
+
+        horizontalLayout_30->addWidget(squareBtn);
+
+        contributeBtn = new QPushButton(widget_45);
+        buttonGroup->addButton(contributeBtn);
+        contributeBtn->setObjectName(QString::fromUtf8("contributeBtn"));
+        contributeBtn->setCheckable(true);
+
+        horizontalLayout_30->addWidget(contributeBtn);
 
         horizontalSpacer_13 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_30->addItem(horizontalSpacer_13);
+
+
+        verticalLayout_49->addWidget(widget_45);
+
+        stackedWidget_2 = new QStackedWidget(widget_42);
+        stackedWidget_2->setObjectName(QString::fromUtf8("stackedWidget_2"));
+        onlinePage = new QWidget();
+        onlinePage->setObjectName(QString::fromUtf8("onlinePage"));
+        verticalLayout_51 = new QVBoxLayout(onlinePage);
+        verticalLayout_51->setSpacing(0);
+        verticalLayout_51->setObjectName(QString::fromUtf8("verticalLayout_51"));
+        verticalLayout_51->setContentsMargins(0, 0, 0, 0);
+        scrollArea_3 = new QScrollArea(onlinePage);
+        scrollArea_3->setObjectName(QString::fromUtf8("scrollArea_3"));
+        scrollArea_3->setWidgetResizable(true);
+        scrollAreaWidgetContents_3 = new QWidget();
+        scrollAreaWidgetContents_3->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_3"));
+        scrollAreaWidgetContents_3->setGeometry(QRect(0, 0, 407, 606));
+        verticalLayout_53 = new QVBoxLayout(scrollAreaWidgetContents_3);
+        verticalLayout_53->setSpacing(0);
+        verticalLayout_53->setObjectName(QString::fromUtf8("verticalLayout_53"));
+        verticalLayout_53->setContentsMargins(0, 0, 10, 0);
+        onlineList = new QVBoxLayout();
+        onlineList->setObjectName(QString::fromUtf8("onlineList"));
+
+        verticalLayout_53->addLayout(onlineList);
+
+        scrollArea_3->setWidget(scrollAreaWidgetContents_3);
+
+        verticalLayout_51->addWidget(scrollArea_3);
+
+        stackedWidget_2->addWidget(onlinePage);
+        page_4 = new QWidget();
+        page_4->setObjectName(QString::fromUtf8("page_4"));
+        verticalLayout_35 = new QVBoxLayout(page_4);
+        verticalLayout_35->setSpacing(0);
+        verticalLayout_35->setObjectName(QString::fromUtf8("verticalLayout_35"));
+        verticalLayout_35->setContentsMargins(0, 12, 0, 0);
+        widget_52 = new QWidget(page_4);
+        widget_52->setObjectName(QString::fromUtf8("widget_52"));
+        widget_52->setMinimumSize(QSize(0, 32));
+        widget_52->setMaximumSize(QSize(396, 32));
+        widget_52->setStyleSheet(QString::fromUtf8("\n"
+"\n"
+"QWidget#widget_52{\n"
+"    background: rgba(255,255,255,0.1);\n"
+"border-radius: 16px;\n"
+"    }\n"
+"\n"
+"\n"
+"QPushButton {\n"
+"     border:none;\n"
+"background-color: transparent;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 500;\n"
+"font-size: 16px;\n"
+"color: rgba(255, 255, 255, 0.5);\n"
+"line-height: 22px;   \n"
+"}\n"
+"\n"
+"QPushButton:checked {\n"
+"   border:none;\n"
+"\n"
+"background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #D197FE, stop:1 #9752ED);\n"
+"border-radius: 16px;\n"
+"\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 500;\n"
+"font-size: 16px;\n"
+"color: #ffffff;\n"
+"line-height: 22px;   \n"
+"}\n"
+""));
+        horizontalLayout_31 = new QHBoxLayout(widget_52);
+        horizontalLayout_31->setSpacing(0);
+        horizontalLayout_31->setObjectName(QString::fromUtf8("horizontalLayout_31"));
+        horizontalLayout_31->setContentsMargins(0, 0, 0, 0);
+        day_btn = new QPushButton(widget_52);
+        buttonGroup_2 = new QButtonGroup(MainWindow);
+        buttonGroup_2->setObjectName(QString::fromUtf8("buttonGroup_2"));
+        buttonGroup_2->addButton(day_btn);
+        day_btn->setObjectName(QString::fromUtf8("day_btn"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(day_btn->sizePolicy().hasHeightForWidth());
+        day_btn->setSizePolicy(sizePolicy1);
+        day_btn->setStyleSheet(QString::fromUtf8(""));
+        day_btn->setCheckable(true);
+        day_btn->setChecked(true);
+
+        horizontalLayout_31->addWidget(day_btn);
+
+        week_btn = new QPushButton(widget_52);
+        buttonGroup_2->addButton(week_btn);
+        week_btn->setObjectName(QString::fromUtf8("week_btn"));
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(week_btn->sizePolicy().hasHeightForWidth());
+        week_btn->setSizePolicy(sizePolicy2);
+        week_btn->setCheckable(true);
+
+        horizontalLayout_31->addWidget(week_btn);
+
+        m_btn = new QPushButton(widget_52);
+        buttonGroup_2->addButton(m_btn);
+        m_btn->setObjectName(QString::fromUtf8("m_btn"));
+        sizePolicy2.setHeightForWidth(m_btn->sizePolicy().hasHeightForWidth());
+        m_btn->setSizePolicy(sizePolicy2);
+        m_btn->setCheckable(true);
+
+        horizontalLayout_31->addWidget(m_btn);
+
+
+        verticalLayout_35->addWidget(widget_52);
+
+        scrollArea_4 = new QScrollArea(page_4);
+        scrollArea_4->setObjectName(QString::fromUtf8("scrollArea_4"));
+        scrollArea_4->setWidgetResizable(true);
+        scrollAreaWidgetContents_4 = new QWidget();
+        scrollAreaWidgetContents_4->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_4"));
+        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 407, 562));
+        verticalLayout_42 = new QVBoxLayout(scrollAreaWidgetContents_4);
+        verticalLayout_42->setSpacing(0);
+        verticalLayout_42->setObjectName(QString::fromUtf8("verticalLayout_42"));
+        verticalLayout_42->setContentsMargins(0, 0, 0, 0);
+        contList = new QVBoxLayout();
+        contList->setObjectName(QString::fromUtf8("contList"));
+
+        verticalLayout_42->addLayout(contList);
+
+        scrollArea_4->setWidget(scrollAreaWidgetContents_4);
+
+        verticalLayout_35->addWidget(scrollArea_4);
+
+        stackedWidget_2->addWidget(page_4);
+
+        verticalLayout_49->addWidget(stackedWidget_2);
 
 
         verticalLayout_32->addWidget(widget_42);
@@ -2548,7 +2876,7 @@ public:
         retranslateUi(MainWindow);
 
         stackedWidget->setCurrentIndex(1);
-        mic_stackedWidget->setCurrentIndex(0);
+        mic_stackedWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -2608,28 +2936,36 @@ public:
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "\345\212\240\345\205\245\347\276\244\350\201\212", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "\344\270\212\351\272\246", nullptr));
         enterRoom->setText(QCoreApplication::translate("MainWindow", "\350\277\233\345\205\245\346\210\277\351\227\264", nullptr));
-        label_45->setText(QCoreApplication::translate("MainWindow", "\345\260\276\351\252\250\345\244\247\345\260\206\345\206\233", nullptr));
+        roomName->setText(QCoreApplication::translate("MainWindow", "\345\260\276\351\252\250\345\244\247\345\260\206\345\206\233", nullptr));
         pushButton_26->setText(QString());
         pushButton_27->setText(QCoreApplication::translate("MainWindow", "\347\233\264\346\222\255\344\270\255", nullptr));
-        label_46->setText(QCoreApplication::translate("MainWindow", "ID\357\274\232203899646", nullptr));
+        roomID->setText(QCoreApplication::translate("MainWindow", "ID\357\274\232203899646", nullptr));
         pushButton_25->setText(QString());
         pushButton_24->setText(QCoreApplication::translate("MainWindow", "\345\205\263\351\227\255\347\233\264\346\222\255", nullptr));
-        label_31->setText(QString());
-        label_32->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        label_29->setText(QString());
-        label_30->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        label_33->setText(QString());
-        label_34->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        label_35->setText(QString());
-        label_36->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        label_37->setText(QString());
-        label_38->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        label_39->setText(QString());
-        label_40->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        label_41->setText(QString());
-        label_42->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        label_43->setText(QString());
-        label_44->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        micImage1->setText(QString());
+        label_32->setText(QCoreApplication::translate("MainWindow", "1\345\217\267\351\272\246", nullptr));
+        gifts_1->setText(QString());
+        micImage1_2->setText(QString());
+        label_45->setText(QCoreApplication::translate("MainWindow", "2\345\217\267\351\272\246", nullptr));
+        gifts_2->setText(QString());
+        micImage1_3->setText(QString());
+        label_46->setText(QCoreApplication::translate("MainWindow", "3\345\217\267\351\272\246", nullptr));
+        gifts_3->setText(QString());
+        micImage1_4->setText(QString());
+        label_48->setText(QCoreApplication::translate("MainWindow", "4\345\217\267\351\272\246", nullptr));
+        gifts_4->setText(QString());
+        micImage1_5->setText(QString());
+        label_33->setText(QCoreApplication::translate("MainWindow", "5\345\217\267\351\272\246", nullptr));
+        gifts_5->setText(QString());
+        micImage1_6->setText(QString());
+        label_34->setText(QCoreApplication::translate("MainWindow", "6\345\217\267\351\272\246", nullptr));
+        gifts_6->setText(QString());
+        micImage1_7->setText(QString());
+        label_35->setText(QCoreApplication::translate("MainWindow", "7\345\217\267\351\272\246", nullptr));
+        gifts_7->setText(QString());
+        micImage1_8->setText(QString());
+        label_36->setText(QCoreApplication::translate("MainWindow", "8\345\217\267\351\272\246", nullptr));
+        gifts_8->setText(QString());
         emoBtn_2->setText(QString());
         emoBtn->setText(QString());
         imageBtn->setText(QCoreApplication::translate("MainWindow", "\350\241\250\346\203\205", nullptr));
@@ -2639,7 +2975,12 @@ public:
 #if QT_CONFIG(shortcut)
         sendBtn->setShortcut(QCoreApplication::translate("MainWindow", "Return", nullptr));
 #endif // QT_CONFIG(shortcut)
-        label_28->setText(QCoreApplication::translate("MainWindow", "\347\244\274\347\211\251\344\272\222\345\212\250", nullptr));
+        onlineBtn->setText(QCoreApplication::translate("MainWindow", "\345\234\250\347\272\277\345\210\227\350\241\250", nullptr));
+        squareBtn->setText(QCoreApplication::translate("MainWindow", "\350\220\214\346\226\260\345\271\277\345\234\272", nullptr));
+        contributeBtn->setText(QCoreApplication::translate("MainWindow", "\350\264\241\347\214\256\346\246\234", nullptr));
+        day_btn->setText(QCoreApplication::translate("MainWindow", "\346\227\245\346\246\234", nullptr));
+        week_btn->setText(QCoreApplication::translate("MainWindow", "\345\221\250\346\246\234", nullptr));
+        m_btn->setText(QCoreApplication::translate("MainWindow", "\346\234\210\346\246\234", nullptr));
         label_27->setText(QCoreApplication::translate("MainWindow", "\347\244\274\347\211\251\344\272\222\345\212\250", nullptr));
         pushButton_3->setText(QCoreApplication::translate("MainWindow", "\344\270\212\351\272\246", nullptr));
         pushButton_5->setText(QCoreApplication::translate("MainWindow", "\350\207\252\347\224\261\345\217\221\350\250\200", nullptr));

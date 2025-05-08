@@ -8,16 +8,15 @@
 #include <QStandardPaths>
 #include "Global.h"
 #include "HttpUserInfo.h"
+#include <QUrlQuery>
 
 HttpInterFace* HttpInterFace::pHttpInterFace = NULL;
-
 HttpInterFace *HttpInterFace::getInstance()
 {
     if(pHttpInterFace == NULL)
     {
         pHttpInterFace = new HttpInterFace();
     }
-
     return pHttpInterFace;
 }
 
@@ -124,6 +123,61 @@ QVariantMap HttpInterFace::getFamilyDetail()
     return httpsGet_syn(url);
 }
 
+QVariantMap HttpInterFace::getLiveRoomInfo()
+{
+    QString url = BASE_API_URL + QString("/pcHome/getPcHomeInfo");
+    return httpsGet_syn(url);
+}
+
+QVariantMap HttpInterFace::followUser(QString followedId, int isFollow)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("followedId",followedId);
+    jsonMap.insert("isFollow", isFollow);
+    QString url = BASE_API_URL + QString("/user/followUser");
+    return httpsPost_syn(url,jsonMap);
+}
+
+void HttpInterFace::getOnlineInfo(QString roomId, int currentPage, callBack callBack)
+{
+    QVariantMap params;
+    params.insert("roomId",roomId);
+    params.insert("currentPage", currentPage);
+
+    QString url = BASE_API_URL + QString("/live/getV2OnlineList");
+    httpsGet_asy(url,params, callBack);
+}
+
+void HttpInterFace::getMicApplyList(QString roomId, callBack callBack)
+{
+    QVariantMap params;
+    params.insert("roomId",roomId);
+
+    QString url = BASE_API_URL + QString("/live/getMicApplyList");
+    httpsGet_asy(url,params, callBack);
+}
+
+void HttpInterFace::getContributeList(int type, int timeType, int size, QString roomId, callBack callBack)
+{
+    QVariantMap params;
+    params.insert("type",type);
+    params.insert("timeType",timeType);
+    params.insert("size",size);
+    params.insert("roomId",roomId);
+
+    QString url = BASE_API_URL + QString("/ranking/list");
+    httpsGet_asy(url,params, callBack);
+}
+
+void HttpInterFace::getPcNewUserSquareList(int pageNum, int pageSize, callBack callBack)
+{
+    QVariantMap params;
+    params.insert("pageNum",pageNum);
+    params.insert("pageSize",pageSize);
+
+    QString url = BASE_API_URL + QString("/pcLiveRoom/getPcNewUserSquareList");
+    httpsGet_asy(url,params, callBack);
+}
 
 QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)
 {
@@ -159,7 +213,7 @@ QVariantMap HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic)
     jsonMap.insert("roomId",roomId);
     jsonMap.insert("entryType", entryType);
     jsonMap.insert("subTopic", subTopic);
-    QString url = BASE_API_URL + QString(LIVE_START);
+    QString url = BASE_API_URL + QString("/live/joinLivingRoom");
     return httpsPost_syn(url,jsonMap);
 }
 
@@ -196,11 +250,26 @@ QVariantMap HttpInterFace::httpsPut_syn(QString url, QVariantMap jsonMap)
     return map;
 }
 
-void HttpInterFace::httpsGet_asy(QString url, callBack callback)
+void HttpInterFace::httpsGet_asy(QString url, QVariantMap jsonMap, callBack callback)
 {
+    QUrlQuery query;
+    for (auto it = jsonMap.constBegin(); it != jsonMap.constEnd(); ++it)
+    {
+        query.addQueryItem(it.key(), it.value().toString());
+    }
+
+    QUrl qurl(url);
+    qurl.setQuery(query);
+
     QNetworkRequest request;
     request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
-    request.setUrl(QUrl(url));
+    request.setUrl(qurl);
+    if(!HttpUserInfo::instance()->gettoken().isEmpty())
+    {
+        request.setRawHeader("token", HttpUserInfo::instance()->gettoken().toLatin1());
+    }
+    else
+        request.setRawHeader("token", "0");
 
 
     QNetworkReply *reply = m_http_asy->get(request);

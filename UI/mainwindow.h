@@ -32,9 +32,7 @@ private slots:
     void joinedChannelSuccess(const QString& channel, unsigned int uid, int elapsed);
     void audioVolumeIndication(int uid,int value);
 
-    void on_enterRoom_clicked();
-
-    void on_createRoom_clicked();
+    void createRoom();
 
     void on_pushButton_clicked();
 
@@ -56,6 +54,18 @@ private slots:
     void on_updateBtn_clicked();
 
     void enterTheToom(QVariantMap data);
+
+    void on_onlineBtn_clicked();
+
+    void on_squareBtn_clicked();
+
+    void on_contributeBtn_clicked();
+
+    void on_day_btn_clicked();
+
+    void on_week_btn_clicked();
+
+    void on_m_btn_clicked();
 
 private:
     Ui::MainWindow *ui;

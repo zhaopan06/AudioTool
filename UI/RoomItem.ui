@@ -32,6 +32,9 @@ border-radius: 16px;</string>
    <property name="text">
     <string/>
    </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QLabel" name="roomName">
    <property name="geometry">
@@ -133,7 +136,7 @@ opacity: 0.5;</string>
      </widget>
     </item>
     <item>
-     <widget class="QLabel" name="number">
+     <widget class="QLabel" name="hotValue">
       <property name="styleSheet">
        <string notr="true">font-family: &quot;微软雅黑&quot;;
 font-weight: 400;

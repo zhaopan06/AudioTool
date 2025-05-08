@@ -28,7 +28,7 @@ public:
     QWidget *widget;
     QHBoxLayout *horizontalLayout;
     QLabel *label_4;
-    QLabel *number;
+    QLabel *hotValue;
 
     void setupUi(QDialog *RoomItem)
     {
@@ -41,6 +41,7 @@ public:
         imageLab->setObjectName(QString::fromUtf8("imageLab"));
         imageLab->setGeometry(QRect(0, 0, 156, 156));
         imageLab->setStyleSheet(QString::fromUtf8("border-radius: 16px;"));
+        imageLab->setScaledContents(true);
         roomName = new QLabel(RoomItem);
         roomName->setObjectName(QString::fromUtf8("roomName"));
         roomName->setGeometry(QRect(0, 166, 156, 22));
@@ -85,9 +86,9 @@ public:
 
         horizontalLayout->addWidget(label_4);
 
-        number = new QLabel(widget);
-        number->setObjectName(QString::fromUtf8("number"));
-        number->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        hotValue = new QLabel(widget);
+        hotValue->setObjectName(QString::fromUtf8("hotValue"));
+        hotValue->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 400;\n"
 "font-size: 14px;\n"
 "color: #FFFFFF;\n"
@@ -95,7 +96,7 @@ public:
 "text-align: left;\n"
 "font-style: normal;"));
 
-        horizontalLayout->addWidget(number);
+        horizontalLayout->addWidget(hotValue);
 
 
         retranslateUi(RoomItem);
@@ -110,7 +111,7 @@ public:
         roomName->setText(QCoreApplication::translate("RoomItem", "\346\265\252\346\274\253\346\273\241\345\261\213-\344\273\231\345\245\263\351\201\277\351\243\216\346\270\257", nullptr));
         userName->setText(QCoreApplication::translate("RoomItem", "\346\210\277\344\270\273\357\274\232\342\226\201\345\200\224\345\274\272\343\201\223\347\224\267\345\255\251\343\201\206", nullptr));
         label_4->setText(QString());
-        number->setText(QCoreApplication::translate("RoomItem", "138", nullptr));
+        hotValue->setText(QCoreApplication::translate("RoomItem", "138", nullptr));
     } // retranslateUi
 
 };
