@@ -58,6 +58,7 @@ public:
     int sendMessage_group(const char* conv_id, const char* json_msg_param, const void* user_data);
     //组建发送消息的json方法
     void setSendJson(IMType type, QString text);
+    void sendImage(QString path);
     //设置自定义消息体
     QString setCustomJson(IMType imType, QString text);
 private:

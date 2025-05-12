@@ -80,6 +80,8 @@ private slots:
 
     void on_osBtn_clicked();
 
+    void on_imageBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;

@@ -1,6 +1,8 @@
 ﻿#include "mainwindow.h"
 #include "ChatImageItem.h"
+#include "ChatImageMyItem.h"
 #include "ChatTextItem.h"
+#include "ChatTextMyItem.h"
 #include "ContributeItem.h"
 #include "GIftItem.h"
 #include "Global.h"
@@ -18,7 +20,7 @@
 #include <QClipboard>
 #include "OnlineItem.h"
 #include <QScrollBar>
-
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -269,6 +271,52 @@ void MainWindow::on_sendBtn_clicked()
 {
     QString msg = ui->msgEdit->text();
     m_timInterface->setSendJson(IMType_Text, msg);
+
+    QVariantMap data = HttpUserInfo::instance()->getLoginInfo();
+    QString photoUrl = data["user"].toMap()["photo"].toString();
+
+    ChatTextMyItem *item1 = new ChatTextMyItem;
+    item1->setData(photoUrl, msg);
+
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->msgList->addItem(item);
+    ui->msgList->setItemWidget(item,item1);
+    item->setSizeHint(QSize(ui->msgList->contentsRect().width(), item1->height()));
+    ui->msgList->setCurrentRow(ui->msgList->count()-1);
+    ui->msgList->scrollToBottom();
+
+    ui->msgEdit->clear();
+}
+ //发送图片
+void MainWindow::on_imageBtn_clicked()
+{
+    QString localPath = QFileDialog::getOpenFileName(0, QStringLiteral("选择图片"), "", QStringLiteral("jpg、png图片(*.jpg *.png)"));
+    if (localPath.isEmpty())
+    {
+        return;
+    }
+    QFile file(localPath);
+    if (!file.open(QIODevice::ReadOnly)) return;
+    if(file.size() > 1024*1024*10)
+    {
+        file.close();
+        return;
+    }
+    file.close();
+
+    m_timInterface->sendImage(localPath);
+
+    QVariantMap data = HttpUserInfo::instance()->getLoginInfo();
+    QString photoUrl = data["user"].toMap()["photo"].toString();
+    ChatImageMyItem *item1 = new ChatImageMyItem;
+    item1->setData(localPath,photoUrl);
+
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->msgList->addItem(item);
+    ui->msgList->setItemWidget(item,item1);
+    item->setSizeHint(QSize(ui->msgList->contentsRect().width(), item1->height()));
+    ui->msgList->setCurrentRow(ui->msgList->count()-1);
+    ui->msgList->scrollToBottom();
 }
 
 
@@ -573,4 +621,3 @@ void MainWindow::on_osBtn_clicked()
 {
     ui->stackedWidget_3->setCurrentIndex(3);
 }
-

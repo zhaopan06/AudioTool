@@ -40,5 +40,8 @@
         <file>images/top1.png</file>
         <file>images/top2.png</file>
         <file>images/top3.png</file>
+        <file>images/live_image_n.png</file>
+        <file>images/live_em_c.png</file>
+        <file>images/live_gift_c.png</file>
     </qresource>
 </RCC>

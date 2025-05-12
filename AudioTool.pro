@@ -37,7 +37,9 @@ SOURCES += \
     Base/Http/HttpUserInfo.cpp \
     Base/IMSDK/TimInterface.cpp \
     UI/ChatImageItem.cpp \
+    UI/ChatImageMyItem.cpp \
     UI/ChatTextItem.cpp \
+    UI/ChatTextMyItem.cpp \
     UI/ContributeItem.cpp \
     UI/GIftItem.cpp \
     UI/LoginPage.cpp \
@@ -60,7 +62,9 @@ HEADERS += \
     Base/Http/HttpUserInfo.h \
     Base/IMSDK/TimInterface.h \
     UI/ChatImageItem.h \
+    UI/ChatImageMyItem.h \
     UI/ChatTextItem.h \
+    UI/ChatTextMyItem.h \
     UI/ContributeItem.h \
     UI/GIftItem.h \
     UI/LoginPage.h \
@@ -76,7 +80,9 @@ HEADERS += \
 
 FORMS += \
     UI/ChatImageItem.ui \
+    UI/ChatImageMyItem.ui \
     UI/ChatTextItem.ui \
+    UI/ChatTextMyItem.ui \
     UI/ContributeItem.ui \
     UI/GIftItem.ui \
     UI/LoginPage.ui \

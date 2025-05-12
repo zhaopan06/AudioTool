@@ -25,7 +25,6 @@
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStackedWidget>
-#include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -302,9 +301,9 @@ public:
     QWidget *widget_44;
     QVBoxLayout *verticalLayout_34;
     QHBoxLayout *horizontalLayout_29;
-    QToolButton *emoBtn_2;
-    QToolButton *emoBtn;
-    QToolButton *imageBtn;
+    QPushButton *giftBtn;
+    QPushButton *emoBtn;
+    QPushButton *imageBtn;
     QSpacerItem *horizontalSpacer_12;
     QFrame *frame_6;
     QHBoxLayout *horizontalLayout_6;
@@ -360,9 +359,9 @@ public:
     QPushButton *pushButton_14;
     QPushButton *pushButton_15;
     QPushButton *pushButton_16;
-    QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
     QButtonGroup *buttonGroup_3;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -2450,7 +2449,7 @@ public:
         verticalLayout_41 = new QVBoxLayout(page_3);
         verticalLayout_41->setSpacing(0);
         verticalLayout_41->setObjectName(QString::fromUtf8("verticalLayout_41"));
-        verticalLayout_41->setContentsMargins(6, 0, 16, 0);
+        verticalLayout_41->setContentsMargins(6, 0, 6, 0);
         msgList = new QListWidget(page_3);
         msgList->setObjectName(QString::fromUtf8("msgList"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -2533,45 +2532,63 @@ public:
         horizontalLayout_29 = new QHBoxLayout();
         horizontalLayout_29->setObjectName(QString::fromUtf8("horizontalLayout_29"));
         horizontalLayout_29->setContentsMargins(-1, 4, -1, -1);
-        emoBtn_2 = new QToolButton(widget_44);
-        emoBtn_2->setObjectName(QString::fromUtf8("emoBtn_2"));
-        emoBtn_2->setMinimumSize(QSize(24, 24));
-        emoBtn_2->setMaximumSize(QSize(24, 24));
-        emoBtn_2->setStyleSheet(QString::fromUtf8("border:none;\n"
+        giftBtn = new QPushButton(widget_44);
+        giftBtn->setObjectName(QString::fromUtf8("giftBtn"));
+        giftBtn->setMinimumSize(QSize(24, 24));
+        giftBtn->setMaximumSize(QSize(24, 24));
+        giftBtn->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
+"border:none;\n"
+"background-image: url(:/images/live_gift_n.png);\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton::hover{\n"
+"border:none;\n"
+"background-image: url(:/images/live_gift_c.png);\n"
+"\n"
+"}\n"
 ""));
-        QIcon icon12;
-        icon12.addFile(QString::fromUtf8(":/images/live_gift_n.png"), QSize(), QIcon::Normal, QIcon::Off);
-        emoBtn_2->setIcon(icon12);
-        emoBtn_2->setIconSize(QSize(24, 24));
-        emoBtn_2->setAutoRaise(true);
+        giftBtn->setIconSize(QSize(24, 24));
 
-        horizontalLayout_29->addWidget(emoBtn_2);
+        horizontalLayout_29->addWidget(giftBtn);
 
-        emoBtn = new QToolButton(widget_44);
+        emoBtn = new QPushButton(widget_44);
         emoBtn->setObjectName(QString::fromUtf8("emoBtn"));
         emoBtn->setMinimumSize(QSize(24, 24));
         emoBtn->setMaximumSize(QSize(24, 24));
-        emoBtn->setStyleSheet(QString::fromUtf8("border:none;\n"
+        emoBtn->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
+"border:none;\n"
+"background-image: url(:/images/live_em_n.png);\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton::hover{\n"
+"border:none;\n"
+"background-image: url(:/images/live_em_c.png);\n"
+"\n"
+"}\n"
 ""));
-        QIcon icon13;
-        icon13.addFile(QString::fromUtf8(":/images/live_em_n.png"), QSize(), QIcon::Normal, QIcon::Off);
-        emoBtn->setIcon(icon13);
         emoBtn->setIconSize(QSize(24, 24));
-        emoBtn->setAutoRaise(true);
 
         horizontalLayout_29->addWidget(emoBtn);
 
-        imageBtn = new QToolButton(widget_44);
+        imageBtn = new QPushButton(widget_44);
         imageBtn->setObjectName(QString::fromUtf8("imageBtn"));
         imageBtn->setMinimumSize(QSize(24, 24));
         imageBtn->setMaximumSize(QSize(24, 24));
-        imageBtn->setStyleSheet(QString::fromUtf8("border:none;\n"
+        imageBtn->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
+"border:none;\n"
+"background-image: url(:/images/live_image_n.png);\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton::hover{\n"
+"border:none;\n"
+"background-image: url(:/images/live_image_c.png);\n"
+"\n"
+"}\n"
 ""));
-        QIcon icon14;
-        icon14.addFile(QString::fromUtf8(":/images/live_image_c.png"), QSize(), QIcon::Normal, QIcon::Off);
-        imageBtn->setIcon(icon14);
         imageBtn->setIconSize(QSize(24, 24));
-        imageBtn->setAutoRaise(true);
 
         horizontalLayout_29->addWidget(imageBtn);
 
@@ -2622,9 +2639,9 @@ public:
 "line-height: 20px;\n"
 "\n"
 ""));
-        QIcon icon15;
-        icon15.addFile(QString::fromUtf8(":/images/live_send_n.png"), QSize(), QIcon::Normal, QIcon::Off);
-        sendBtn->setIcon(icon15);
+        QIcon icon12;
+        icon12.addFile(QString::fromUtf8(":/images/live_send_n.png"), QSize(), QIcon::Normal, QIcon::Off);
+        sendBtn->setIcon(icon12);
         sendBtn->setIconSize(QSize(17, 16));
 
         horizontalLayout_6->addWidget(sendBtn);
@@ -2964,9 +2981,9 @@ public:
         pushButton_4->setMinimumSize(QSize(36, 36));
         pushButton_4->setMaximumSize(QSize(36, 36));
         pushButton_4->setStyleSheet(QString::fromUtf8("border:none;"));
-        QIcon icon16;
-        icon16.addFile(QString::fromUtf8(":/images/live_mic_n.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_4->setIcon(icon16);
+        QIcon icon13;
+        icon13.addFile(QString::fromUtf8(":/images/live_mic_n.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton_4->setIcon(icon13);
         pushButton_4->setIconSize(QSize(36, 36));
 
         horizontalLayout_16->addWidget(pushButton_4);
@@ -2975,9 +2992,9 @@ public:
         pushButton_6->setObjectName(QString::fromUtf8("pushButton_6"));
         pushButton_6->setMinimumSize(QSize(36, 36));
         pushButton_6->setMaximumSize(QSize(36, 36));
-        QIcon icon17;
-        icon17.addFile(QString::fromUtf8(":/images/live_audio_n.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_6->setIcon(icon17);
+        QIcon icon14;
+        icon14.addFile(QString::fromUtf8(":/images/live_audio_n.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton_6->setIcon(icon14);
         pushButton_6->setIconSize(QSize(36, 36));
 
         horizontalLayout_16->addWidget(pushButton_6);
@@ -3152,9 +3169,9 @@ public:
         roomChatBtn->setText(QCoreApplication::translate("MainWindow", "\350\277\233\346\210\277", nullptr));
         chatListBtn->setText(QCoreApplication::translate("MainWindow", "\350\201\212\345\244\251", nullptr));
         osBtn->setText(QCoreApplication::translate("MainWindow", "\347\263\273\347\273\237", nullptr));
-        emoBtn_2->setText(QString());
+        giftBtn->setText(QString());
         emoBtn->setText(QString());
-        imageBtn->setText(QCoreApplication::translate("MainWindow", "\350\241\250\346\203\205", nullptr));
+        imageBtn->setText(QString());
         msgEdit->setText(QString());
         msgEdit->setPlaceholderText(QCoreApplication::translate("MainWindow", "\350\257\267\350\276\223\345\205\245\345\206\205\345\256\271\357\274\214\346\224\257\346\214\201\347\233\264\346\216\245\347\262\230\350\264\264\345\233\276\347\211\207", nullptr));
         sendBtn->setText(QCoreApplication::translate("MainWindow", "\345\217\221\351\200\201", nullptr));

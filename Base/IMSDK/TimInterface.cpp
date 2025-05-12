@@ -61,8 +61,8 @@ int TimInterface::sendMessage_group(const char *conv_id, const char *json_msg_pa
             return ;
         }
         else
-        {            
-            qDebug()<<"group suess-----------";
+        {
+            qDebug()<<"group msg send suess-----------";
         }
     };
 
@@ -74,6 +74,8 @@ void TimInterface::setSendJson(IMType type, QString text)
     QVariantMap json_value_text;
     if(type == IMType_Text)
         json_value_text[kTIMElemType] = kTIMElem_Text;
+    if(type == IMType_Image)
+        json_value_text[kTIMElemType] = kTIMElem_Image;
     else
         json_value_text[kTIMElemType] = kTIMElem_Custom;
 
@@ -95,6 +97,30 @@ void TimInterface::setSendJson(IMType type, QString text)
 
     // 转换为 JSON 字符串
     QJsonDocument doc(QJsonObject::fromVariantMap(json_value_msg));    
+    sendMessage_group(HttpUserInfo::instance()->getRoomID().toLatin1(), doc.toJson(), this);
+}
+
+void TimInterface::sendImage(QString path)
+{
+    QVariantMap json_value_image;
+    json_value_image[kTIMElemType] = kTIMElem_Image;
+    json_value_image[kTIMImageElemOrigPath] = path;
+
+    // 创建消息元素数组
+    QVariantMap json_value_msg;
+    QVariantList elem_array;
+    elem_array.append(json_value_image);
+    json_value_msg[kTIMMsgElemArray] = elem_array;
+
+    json_value_msg[kTIMMsgSender] = "user" + HttpUserInfo::instance()->getUserID();
+    json_value_msg[kTIMMsgClientTime] = time(NULL);
+    json_value_msg[kTIMMsgServerTime] = time(NULL);
+    json_value_msg[kTIMMsgConvId] = HttpUserInfo::instance()->getRoomID();
+    json_value_msg[kTIMMsgConvType] = kTIMConv_Group;
+    json_value_msg["message_cloud_custom_str"] = setCustomJson(IMType_Image,"");
+
+    // 转换为 JSON 字符串
+    QJsonDocument doc(QJsonObject::fromVariantMap(json_value_msg));
     sendMessage_group(HttpUserInfo::instance()->getRoomID().toLatin1(), doc.toJson(), this);
 }
 
