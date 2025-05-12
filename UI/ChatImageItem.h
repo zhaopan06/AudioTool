@@ -16,7 +16,7 @@ public:
     explicit ChatImageItem(QWidget *parent = nullptr);
     ~ChatImageItem();
 
-    void setData(QVariantMap data);
+    void setData(QVariantMap data, QString imageUrl);
 private:
     Ui::ChatImageItem *ui;
     QVariantMap m_data;

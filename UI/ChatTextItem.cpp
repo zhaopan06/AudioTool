@@ -1,5 +1,4 @@
 ﻿#include "ChatTextItem.h"
-#include "qjsondocument.h"
 #include "ui_ChatTextItem.h"
 #include "HttpInterFace.h"
 

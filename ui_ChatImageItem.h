@@ -18,6 +18,7 @@
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <click_label.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -29,14 +30,14 @@ public:
     QHBoxLayout *horizontalLayout_2;
     CRoundLabel *label;
     QVBoxLayout *verticalLayout_2;
-    QLabel *label_2;
+    QLabel *nameLab;
     QHBoxLayout *horizontalLayout_3;
     QLabel *label_3;
     QLabel *user_lab;
     QLabel *label_4;
     QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout;
-    QLabel *image;
+    click_label *image;
     QSpacerItem *horizontalSpacer_2;
 
     void setupUi(QDialog *ChatImageItem)
@@ -66,16 +67,16 @@ public:
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(-1, 10, -1, 8);
-        label_2 = new QLabel(widget);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+        nameLab = new QLabel(widget);
+        nameLab->setObjectName(QString::fromUtf8("nameLab"));
+        nameLab->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 400;\n"
 "font-size: 16px;\n"
 "color: #A8A8A7;\n"
 "line-height: 22px;\n"
 "font-style: normal;"));
 
-        verticalLayout_2->addWidget(label_2);
+        verticalLayout_2->addWidget(nameLab);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
@@ -139,10 +140,12 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(68, -1, -1, -1);
-        image = new QLabel(ChatImageItem);
+        image = new click_label(ChatImageItem);
         image->setObjectName(QString::fromUtf8("image"));
         image->setMinimumSize(QSize(150, 150));
         image->setMaximumSize(QSize(150, 150));
+        image->setStyleSheet(QString::fromUtf8("border-radius: 16px;"));
+        image->setAlignment(Qt::AlignCenter);
 
         horizontalLayout->addWidget(image);
 
@@ -163,7 +166,7 @@ public:
     {
         ChatImageItem->setWindowTitle(QCoreApplication::translate("ChatImageItem", "Dialog", nullptr));
         label->setText(QString());
-        label_2->setText(QCoreApplication::translate("ChatImageItem", "TextLabel", nullptr));
+        nameLab->setText(QCoreApplication::translate("ChatImageItem", "TextLabel", nullptr));
         label_3->setText(QCoreApplication::translate("ChatImageItem", "\347\256\241\347\220\206", nullptr));
         user_lab->setText(QCoreApplication::translate("ChatImageItem", "8", nullptr));
         label_4->setText(QString());

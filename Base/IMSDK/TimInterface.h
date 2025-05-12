@@ -70,6 +70,7 @@ signals:
 
     void msg_notice(QVariantMap, QString);
     void msg_emotion(QString);//纯表情
+    void msg_image(QVariantMap, QString);
     void msg_txt(QVariantMap, QString);//文字
     void msg_dice(QString);//骰子
     void msg_finger(QString);//猜拳

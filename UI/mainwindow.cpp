@@ -1,4 +1,5 @@
 ﻿#include "mainwindow.h"
+#include "ChatImageItem.h"
 #include "ChatTextItem.h"
 #include "ContributeItem.h"
 #include "GIftItem.h"
@@ -172,6 +173,7 @@ void MainWindow::on_pushButton_2_clicked()
         connect(m_timInterface, &TimInterface::loginStatus, this, &MainWindow::loginIm);
         connect(m_timInterface, &TimInterface::msg_notice, this, &MainWindow::msg_notice);
         connect(m_timInterface, &TimInterface::msg_txt, this, &MainWindow::msg_txt);
+        connect(m_timInterface, &TimInterface::msg_image, this, &MainWindow::msg_image);
         connect(m_timInterface, &TimInterface::msg_gift, this, &MainWindow::msg_gift);
     }
 }
@@ -227,6 +229,19 @@ void MainWindow::msg_txt(QVariantMap user, QString msg)
 {
     ChatTextItem *item1 = new ChatTextItem;
     item1->setData(user, msg);
+
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->msgList->addItem(item);
+    ui->msgList->setItemWidget(item,item1);
+    item->setSizeHint(QSize(ui->msgList->contentsRect().width(), item1->height()));
+    ui->msgList->setCurrentRow(ui->msgList->count()-1);
+    ui->msgList->scrollToBottom();
+}
+
+void MainWindow::msg_image(QVariantMap user, QString path)
+{
+    ChatImageItem *item1 = new ChatImageItem;
+    item1->setData(user, path);
 
     QListWidgetItem *item = new QListWidgetItem();
     ui->msgList->addItem(item);

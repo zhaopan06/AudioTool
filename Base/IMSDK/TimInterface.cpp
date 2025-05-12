@@ -13,7 +13,6 @@ TimInterface::TimInterface()
 int TimInterface::initSDK()
 {
     uint64_t sdk_app_id = 1600037216;
-
     QString path = QCoreApplication::applicationDirPath();
     QJsonObject jsonObj;
     jsonObj["kTIMSdkConfigLogFilePath"] = path.toUtf8().data();
@@ -25,8 +24,6 @@ int TimInterface::initSDK()
     {
         qDebug()<<"TIMInit error code----------"<<code;
     }
-
-
     QString ImUserID = "user" + HttpUserInfo::instance()->getUserID();
     QString IMtoken = HttpUserInfo::instance()->getImToken();
     login(ImUserID.toLatin1(), IMtoken.toLatin1());
@@ -216,7 +213,6 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     int type = message_ob["type"].toInt();
                     qDebug()<<"text body = "<<type;
                     switch (type) {
-
                     case 1:
                     {
                         QVariantMap user = str_doc["user"].toVariant().toMap();
@@ -235,7 +231,23 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     }
                 }
                 break;
-            }           
+            }
+            case TIMElemType::kTIMElem_Image:  // 图片
+            {
+                if("groupMsg" == str_doc["tximMsgType"].toString())
+                {
+                    QJsonObject message_ob = str_doc["message"].toObject();
+                    int type = message_ob["type"].toInt();
+                    switch (type) {
+                    case 2:
+                    {
+                        QVariantMap user = str_doc["user"].toVariant().toMap();
+                        QString path = elem["image_elem_thumb_url"].toString();
+                        emit msg_image(user, path);
+                    }
+                    }
+                }
+            }
 
             case TIMElemType::kTIMElem_Custom:
             {                

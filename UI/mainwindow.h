@@ -42,6 +42,7 @@ private slots:
 
     void msg_notice(QVariantMap user, QString msg);
     void msg_txt(QVariantMap user, QString msg);
+    void msg_image(QVariantMap user, QString path);
     void msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to);
 
     void on_sendBtn_clicked();
