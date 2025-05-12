@@ -40,6 +40,10 @@ private slots:
 
     void loginIm(int code, QString msg);
 
+    void msg_notice(QVariantMap user, QString msg);
+    void msg_txt(QVariantMap user, QString msg);
+    void msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to);
+
     void on_sendBtn_clicked();
 
     void on_emoBtn_clicked();
@@ -66,6 +70,14 @@ private slots:
     void on_week_btn_clicked();
 
     void on_m_btn_clicked();
+
+    void on_allChatBtn_clicked();
+
+    void on_roomChatBtn_clicked();
+
+    void on_chatListBtn_clicked();
+
+    void on_osBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -1,5 +1,7 @@
 ﻿#include "mainwindow.h"
+#include "ChatTextItem.h"
 #include "ContributeItem.h"
+#include "GIftItem.h"
 #include "Global.h"
 #include "MicseQuenceItem.h"
 #include "NewUserPage.h"
@@ -14,6 +16,8 @@
 #include <QMenu>
 #include <QClipboard>
 #include "OnlineItem.h"
+#include <QScrollBar>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -23,9 +27,15 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
     ui->stackedWidget->setCurrentIndex(0);
     ui->stackedWidget_2->setCurrentIndex(0);
+    ui->stackedWidget_3->setCurrentIndex(0);
     ui->gridLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     ui->micList->setAlignment(Qt::AlignTop);
     ui->contList->setAlignment(Qt::AlignTop);
+
+    //设置listWidget无虚框
+    ui->msgList->setFocusPolicy(Qt::NoFocus);
+    ui->msgList->setVerticalScrollMode(QListWidget::ScrollPerPixel);  // 平滑滚动
+    ui->msgList->verticalScrollBar()->setSingleStep(20);  // 设置滚轮步长
 
     LoginPage login;
     if(login.exec() == QDialog::Accepted)
@@ -160,6 +170,9 @@ void MainWindow::on_pushButton_2_clicked()
         m_timInterface->initSDK();
 
         connect(m_timInterface, &TimInterface::loginStatus, this, &MainWindow::loginIm);
+        connect(m_timInterface, &TimInterface::msg_notice, this, &MainWindow::msg_notice);
+        connect(m_timInterface, &TimInterface::msg_txt, this, &MainWindow::msg_txt);
+        connect(m_timInterface, &TimInterface::msg_gift, this, &MainWindow::msg_gift);
     }
 }
 
@@ -175,6 +188,65 @@ void MainWindow::loginIm(int code, QString msg)
         QString chatRoomld = HttpUserInfo::instance()->getRoomID();
         m_timInterface->groupJoin(chatRoomld.toLatin1());
     }
+}
+
+void MainWindow::msg_notice(QVariantMap user, QString msg)
+{
+    QLabel* label = new QLabel;
+    label->setStyleSheet("font-family: \"微软雅黑\";"
+                         "font-weight: 400;"
+                         "font-size: 16px;"
+                         "color: #A8A8A7;"
+                         "line-height: 22px;"
+                         "text-align: left;"
+                         "font-style: normal;");
+    label->setFixedHeight(34);
+    label->setText(user["name"].toString() + " " + msg);
+
+
+    QListWidgetItem *item1 = new QListWidgetItem();
+    ui->msgList->addItem(item1);
+    ui->msgList->setItemWidget(item1,label);
+    item1->setSizeHint(QSize(ui->msgList->contentsRect().width(), label->height()));
+    ui->msgList->setCurrentRow(ui->msgList->count()-1);
+    ui->msgList->scrollToBottom();
+
+    QLabel *label1 = new QLabel();
+    label1->setText(label->text());
+    label1->setStyleSheet(label->styleSheet());
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->enterRoomList->addItem(item);
+    ui->enterRoomList->setItemWidget(item,label1);
+    item->setSizeHint(QSize(ui->enterRoomList->contentsRect().width(), label1->height()));
+    ui->enterRoomList->setCurrentRow(ui->enterRoomList->count()-1);
+    ui->enterRoomList->scrollToBottom();
+
+}
+
+void MainWindow::msg_txt(QVariantMap user, QString msg)
+{
+    ChatTextItem *item1 = new ChatTextItem;
+    item1->setData(user, msg);
+
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->msgList->addItem(item);
+    ui->msgList->setItemWidget(item,item1);
+    item->setSizeHint(QSize(ui->msgList->contentsRect().width(), item1->height()));
+    ui->msgList->setCurrentRow(ui->msgList->count()-1);
+    ui->msgList->scrollToBottom();
+}
+
+void MainWindow::msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to)
+{
+    GIftItem *item = new GIftItem;
+    item->setData(form, gift, to);
+    QListWidgetItem *item1 = new QListWidgetItem();
+    ui->giftList->addItem(item1);
+    ui->giftList->setItemWidget(item1,item);
+    item1->setSizeHint(QSize(ui->msgList->contentsRect().width(), item->height()));
+
+    ui->giftList->setCurrentRow(ui->msgList->count()-1);
+    ui->giftList->scrollToBottom();
 }
 
 //发送消息
@@ -370,6 +442,7 @@ void MainWindow::enterTheToom(QVariantMap data)
             qDebug()<<"micinfo---"<<micInfoList.at(i);
         }
 
+        on_pushButton_2_clicked();
 
         ui->stackedWidget->setCurrentIndex(1);
     }
@@ -463,5 +536,26 @@ void MainWindow::on_m_btn_clicked()
             ui->contList->addWidget(item);
         }
     });
+}
+
+
+void MainWindow::on_allChatBtn_clicked()
+{
+    ui->stackedWidget_3->setCurrentIndex(0);
+}
+
+void MainWindow::on_roomChatBtn_clicked()
+{
+    ui->stackedWidget_3->setCurrentIndex(1);
+}
+
+void MainWindow::on_chatListBtn_clicked()
+{
+    ui->stackedWidget_3->setCurrentIndex(2);
+}
+
+void MainWindow::on_osBtn_clicked()
+{
+    ui->stackedWidget_3->setCurrentIndex(3);
 }
 

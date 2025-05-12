@@ -150,14 +150,10 @@ void TimInterface::initRecvNewMsgCallback()
 {
     TIMAddRecvNewMsgCallback([](const char* json_msg_array, const void* user_data) {
         TimInterface* ths = (TimInterface*)user_data;
-        ths->newMessages(json_msg_array);
+        ths->getMSGTojson(json_msg_array);
     }, this);
 }
 
-void TimInterface::newMessages(QString msg)
-{
-    getMSGTojson(msg.toLatin1());
-}
 
 void TimInterface::groupJoin(const char* group_id)
 {
@@ -177,7 +173,7 @@ void TimInterface::groupJoin(const char* group_id)
 }
 
 void TimInterface::getMSGTojson(QByteArray json_msg_array)
-{
+{    
     // 解析JSON消息数组
     QJsonParseError error;
     QJsonDocument json_doc = QJsonDocument::fromJson(json_msg_array, &error);
@@ -203,32 +199,40 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                 continue;
 
             QString str_content = msg_obj["message_cloud_custom_str"].toString();
-            QJsonObject str_doc = QJsonDocument::fromJson(str_content.toLatin1()).object();
-            qDebug()<<"jieshou str_doc---"<<str_doc;
-
-            //收集发送者的信息
-            QJsonObject user_doc = str_doc["user"].toObject();
-            m_user_info.insert("name", user_doc["name"].toString());
-            m_user_info.insert("photo", user_doc["photo"].toString());
-            m_user_info.insert("userId", user_doc["userId"].toString());
-
+            QJsonObject str_doc = QJsonDocument::fromJson(str_content.toUtf8()).object();
 
             QJsonObject elem = elem_value.toObject();
             uint32_t elem_type = elem["elem_type"].toInt();
             switch (elem_type) {
             case TIMElemType::kTIMElem_Text:  // 文本
             {
-                // 处理文本消息
-                QString content = elem[kTIMTextElemContent].toString();//内容
-
-                qDebug()<<tr("文本消息---") + content.toUtf8();
-
                 if("groupMsg" == str_doc["tximMsgType"].toString())
                 {
+                    // 处理文本消息
+                    QString content = elem[kTIMTextElemContent].toString();
+                    qDebug()<<tr("文本消息---") + content;
+
                     QJsonObject message_ob = str_doc["message"].toObject();
                     int type = message_ob["type"].toInt();
-                    qDebug()<<"type---"<<type;
+                    qDebug()<<"text body = "<<type;
+                    switch (type) {
 
+                    case 1:
+                    {
+                        QVariantMap user = str_doc["user"].toVariant().toMap();
+                        emit msg_txt(user, content);
+                        break;
+                    }
+
+                    case 13://*13 通知类型消息（例如：xxx来了。无需显示发送者头像，需要显示用户等级）
+                    {
+                        QVariantMap user = str_doc["user"].toVariant().toMap();
+                        emit msg_notice(user, content);
+                        break;
+                    }
+
+
+                    }
                 }
                 break;
             }           
@@ -240,7 +244,6 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     //TODO 这里处理自定义信息
                     QJsonObject message_ob = str_doc["message"].toObject();
                     int type = message_ob["type"].toInt();
-                    qDebug()<<"type---"<<type;
                     qDebug()<<"body = "<<message_ob["body"];
 
                     switch (type) {
@@ -285,12 +288,10 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     }
                     case 12://12 操作类型消息（例如：主持将xxx抱上麦。显示样式与普通消息一样，只是文本颜色不一样），
                     {
+                        qDebug()<<"1---"<<message_ob["body"].toString();
                         break;
                     }
-                    case 13://*13 通知类型消息（例如：xxx来了。无需显示发送者头像，需要显示用户等级）
-                    {
-                        break;
-                    }
+
                     case 15://*15. 用户等级提升提示 （例如：恭喜 xxx 等级提升到多少级）
                     {
                         break;
@@ -319,8 +320,22 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
             case TIMElemType::kTIMElem_GroupTips:  // 群组系统消息
             {                
                 break;
-            }          
+            }
+            //礼物相关
+            case TIMElemType::kTIMElem_GroupReport:
+            {
+                QString giftMsg = elem["group_report_elem_user_data"].toString();
+                QJsonObject object = QJsonDocument::fromJson(giftMsg.toUtf8()).object();
+                QVariantMap fromUser =  object["data"].toObject()["fromUser"].toVariant().toMap();
+                QVariantList toUsers =  object["data"].toObject()["toUsers"].toVariant().toList();
+                QVariantMap gift =  object["data"].toObject()["gift"].toVariant().toMap();
 
+                for(QVariant var : toUsers)
+                {
+                    emit msg_gift(fromUser, gift, var.toMap());
+                }
+                break;
+            }
             default:
                 qDebug() << "Unknown message element type:" << elem_type;
                 break;

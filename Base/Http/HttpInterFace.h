@@ -55,6 +55,7 @@ public:
     void getMicApplyList(QString roomId, callBack callBack);
     void getContributeList(int type, int timeType, int size, QString roomId, callBack callBack);
     void getPcNewUserSquareList(int pageNum, int pageSize, callBack callBack);
+    QVariantMap getCommonConfig();
 
 private:
     explicit HttpInterFace(QObject *parent = nullptr);

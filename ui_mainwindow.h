@@ -279,7 +279,26 @@ public:
     QPushButton *gifts_8;
     QWidget *widget;
     QVBoxLayout *verticalLayout;
+    QWidget *widget_58;
+    QHBoxLayout *horizontalLayout_39;
+    QPushButton *allChatBtn;
+    QPushButton *roomChatBtn;
+    QPushButton *chatListBtn;
+    QPushButton *osBtn;
+    QSpacerItem *horizontalSpacer_15;
+    QStackedWidget *stackedWidget_3;
+    QWidget *page_3;
+    QVBoxLayout *verticalLayout_41;
     QListWidget *msgList;
+    QWidget *page_5;
+    QVBoxLayout *verticalLayout_56;
+    QListWidget *enterRoomList;
+    QWidget *page_6;
+    QVBoxLayout *verticalLayout_57;
+    QListWidget *chatList;
+    QWidget *page_7;
+    QVBoxLayout *verticalLayout_58;
+    QListWidget *osList;
     QWidget *widget_44;
     QVBoxLayout *verticalLayout_34;
     QHBoxLayout *horizontalLayout_29;
@@ -325,7 +344,7 @@ public:
     QHBoxLayout *horizontalLayout_28;
     QLabel *label_27;
     QSpacerItem *horizontalSpacer_11;
-    QListWidget *listWidget;
+    QListWidget *giftList;
     QWidget *widget_25;
     QHBoxLayout *horizontalLayout_18;
     QHBoxLayout *horizontalLayout_16;
@@ -343,6 +362,7 @@ public:
     QPushButton *pushButton_16;
     QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
+    QButtonGroup *buttonGroup_3;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -2324,13 +2344,114 @@ public:
         widget->setObjectName(QString::fromUtf8("widget"));
         widget->setMinimumSize(QSize(488, 581));
         widget->setMaximumSize(QSize(488, 581));
-        widget->setStyleSheet(QString::fromUtf8("background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #0B0A2B, stop:1 #19113D);\n"
-"border-radius: 12px;"));
+        widget->setStyleSheet(QString::fromUtf8("border-radius: 12px;\n"
+"background: transparent;"));
         verticalLayout = new QVBoxLayout(widget);
-        verticalLayout->setSpacing(0);
+        verticalLayout->setSpacing(12);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 16);
-        msgList = new QListWidget(widget);
+        widget_58 = new QWidget(widget);
+        widget_58->setObjectName(QString::fromUtf8("widget_58"));
+        widget_58->setMinimumSize(QSize(0, 56));
+        widget_58->setMaximumSize(QSize(16777215, 56));
+        widget_58->setStyleSheet(QString::fromUtf8("QWidget#widget_58{\n"
+"    border-bottom: 1px solid #383B43;\n"
+"border-radius: 0px;\n"
+"    }\n"
+"\n"
+"QPushButton {\n"
+"     border:none;\n"
+"\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-size: 16px;\n"
+"color: rgba(255, 255, 255, 0.5);\n"
+"}\n"
+"\n"
+"QPushButton:checked {\n"
+"   border:none;\n"
+"\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-size: 16px;\n"
+"color: #ffffff;\n"
+"}\n"
+"\n"
+""));
+        horizontalLayout_39 = new QHBoxLayout(widget_58);
+        horizontalLayout_39->setSpacing(24);
+        horizontalLayout_39->setObjectName(QString::fromUtf8("horizontalLayout_39"));
+        horizontalLayout_39->setContentsMargins(16, 0, 16, 1);
+        allChatBtn = new QPushButton(widget_58);
+        buttonGroup_3 = new QButtonGroup(MainWindow);
+        buttonGroup_3->setObjectName(QString::fromUtf8("buttonGroup_3"));
+        buttonGroup_3->addButton(allChatBtn);
+        allChatBtn->setObjectName(QString::fromUtf8("allChatBtn"));
+        allChatBtn->setMinimumSize(QSize(0, 32));
+        allChatBtn->setCheckable(true);
+        allChatBtn->setChecked(true);
+
+        horizontalLayout_39->addWidget(allChatBtn);
+
+        roomChatBtn = new QPushButton(widget_58);
+        buttonGroup_3->addButton(roomChatBtn);
+        roomChatBtn->setObjectName(QString::fromUtf8("roomChatBtn"));
+        roomChatBtn->setCheckable(true);
+        roomChatBtn->setChecked(false);
+
+        horizontalLayout_39->addWidget(roomChatBtn);
+
+        chatListBtn = new QPushButton(widget_58);
+        buttonGroup_3->addButton(chatListBtn);
+        chatListBtn->setObjectName(QString::fromUtf8("chatListBtn"));
+        chatListBtn->setCheckable(true);
+
+        horizontalLayout_39->addWidget(chatListBtn);
+
+        osBtn = new QPushButton(widget_58);
+        buttonGroup_3->addButton(osBtn);
+        osBtn->setObjectName(QString::fromUtf8("osBtn"));
+        osBtn->setCheckable(true);
+
+        horizontalLayout_39->addWidget(osBtn);
+
+        horizontalSpacer_15 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_39->addItem(horizontalSpacer_15);
+
+
+        verticalLayout->addWidget(widget_58);
+
+        stackedWidget_3 = new QStackedWidget(widget);
+        stackedWidget_3->setObjectName(QString::fromUtf8("stackedWidget_3"));
+        stackedWidget_3->setStyleSheet(QString::fromUtf8("QListWidget\n"
+"{\n"
+"	background: transparent;\n"
+"	border:none;\n"
+"}\n"
+"QListWidget::item\n"
+"{\n"
+"	border:none;\n"
+"   background: transparent;\n"
+"}\n"
+"QListWidget::item:hover\n"
+"{\n"
+"	border:none;\n"
+"   background: transparent;\n"
+"}\n"
+"QListWidget::item:selected\n"
+"{\n"
+"    background: transparent;\n"
+"    padding:0px;\n"
+"    margin:0px;\n"
+"    border:none;\n"
+"}\n"
+""));
+        page_3 = new QWidget();
+        page_3->setObjectName(QString::fromUtf8("page_3"));
+        verticalLayout_41 = new QVBoxLayout(page_3);
+        verticalLayout_41->setSpacing(0);
+        verticalLayout_41->setObjectName(QString::fromUtf8("verticalLayout_41"));
+        verticalLayout_41->setContentsMargins(6, 0, 16, 0);
+        msgList = new QListWidget(page_3);
         msgList->setObjectName(QString::fromUtf8("msgList"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
@@ -2342,7 +2463,65 @@ public:
         msgList->setStyleSheet(QString::fromUtf8(""));
         msgList->setFrameShape(QFrame::NoFrame);
 
-        verticalLayout->addWidget(msgList);
+        verticalLayout_41->addWidget(msgList);
+
+        stackedWidget_3->addWidget(page_3);
+        page_5 = new QWidget();
+        page_5->setObjectName(QString::fromUtf8("page_5"));
+        verticalLayout_56 = new QVBoxLayout(page_5);
+        verticalLayout_56->setSpacing(0);
+        verticalLayout_56->setObjectName(QString::fromUtf8("verticalLayout_56"));
+        verticalLayout_56->setContentsMargins(6, 0, 6, 0);
+        enterRoomList = new QListWidget(page_5);
+        enterRoomList->setObjectName(QString::fromUtf8("enterRoomList"));
+        sizePolicy.setHeightForWidth(enterRoomList->sizePolicy().hasHeightForWidth());
+        enterRoomList->setSizePolicy(sizePolicy);
+        enterRoomList->setMinimumSize(QSize(0, 0));
+        enterRoomList->setMaximumSize(QSize(16777215, 16777215));
+        enterRoomList->setStyleSheet(QString::fromUtf8(""));
+        enterRoomList->setFrameShape(QFrame::NoFrame);
+
+        verticalLayout_56->addWidget(enterRoomList);
+
+        stackedWidget_3->addWidget(page_5);
+        page_6 = new QWidget();
+        page_6->setObjectName(QString::fromUtf8("page_6"));
+        verticalLayout_57 = new QVBoxLayout(page_6);
+        verticalLayout_57->setSpacing(0);
+        verticalLayout_57->setObjectName(QString::fromUtf8("verticalLayout_57"));
+        verticalLayout_57->setContentsMargins(6, 0, 6, 0);
+        chatList = new QListWidget(page_6);
+        chatList->setObjectName(QString::fromUtf8("chatList"));
+        sizePolicy.setHeightForWidth(chatList->sizePolicy().hasHeightForWidth());
+        chatList->setSizePolicy(sizePolicy);
+        chatList->setMinimumSize(QSize(0, 0));
+        chatList->setMaximumSize(QSize(16777215, 16777215));
+        chatList->setStyleSheet(QString::fromUtf8(""));
+        chatList->setFrameShape(QFrame::NoFrame);
+
+        verticalLayout_57->addWidget(chatList);
+
+        stackedWidget_3->addWidget(page_6);
+        page_7 = new QWidget();
+        page_7->setObjectName(QString::fromUtf8("page_7"));
+        verticalLayout_58 = new QVBoxLayout(page_7);
+        verticalLayout_58->setSpacing(0);
+        verticalLayout_58->setObjectName(QString::fromUtf8("verticalLayout_58"));
+        verticalLayout_58->setContentsMargins(6, 0, 6, 0);
+        osList = new QListWidget(page_7);
+        osList->setObjectName(QString::fromUtf8("osList"));
+        sizePolicy.setHeightForWidth(osList->sizePolicy().hasHeightForWidth());
+        osList->setSizePolicy(sizePolicy);
+        osList->setMinimumSize(QSize(0, 0));
+        osList->setMaximumSize(QSize(16777215, 16777215));
+        osList->setStyleSheet(QString::fromUtf8(""));
+        osList->setFrameShape(QFrame::NoFrame);
+
+        verticalLayout_58->addWidget(osList);
+
+        stackedWidget_3->addWidget(page_7);
+
+        verticalLayout->addWidget(stackedWidget_3);
 
         widget_44 = new QWidget(widget);
         widget_44->setObjectName(QString::fromUtf8("widget_44"));
@@ -2407,10 +2586,9 @@ public:
         frame_6->setObjectName(QString::fromUtf8("frame_6"));
         frame_6->setMinimumSize(QSize(0, 42));
         frame_6->setMaximumSize(QSize(16777215, 42));
-        frame_6->setStyleSheet(QString::fromUtf8("background: #3C3C56;\n"
+        frame_6->setStyleSheet(QString::fromUtf8("background: transparent;\n"
 "border-radius: 21px;\n"
 "border: 1px solid #A8A8A7;\n"
-"opacity: 0.5;\n"
 "\n"
 ""));
         frame_6->setFrameShape(QFrame::NoFrame);
@@ -2423,7 +2601,11 @@ public:
         msgEdit->setObjectName(QString::fromUtf8("msgEdit"));
         msgEdit->setMinimumSize(QSize(0, 0));
         msgEdit->setMaximumSize(QSize(16777215, 16777215));
-        msgEdit->setStyleSheet(QString::fromUtf8("border:none;"));
+        msgEdit->setStyleSheet(QString::fromUtf8("border:none;\n"
+"\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-size: 16px;\n"
+"color: #FFFFFF;"));
 
         horizontalLayout_6->addWidget(msgEdit);
 
@@ -2658,7 +2840,7 @@ public:
         scrollArea_4->setWidgetResizable(true);
         scrollAreaWidgetContents_4 = new QWidget();
         scrollAreaWidgetContents_4->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_4"));
-        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 407, 562));
+        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 83, 16));
         verticalLayout_42 = new QVBoxLayout(scrollAreaWidgetContents_4);
         verticalLayout_42->setSpacing(0);
         verticalLayout_42->setObjectName(QString::fromUtf8("verticalLayout_42"));
@@ -2720,10 +2902,10 @@ public:
 
         verticalLayout_33->addWidget(widget_43);
 
-        listWidget = new QListWidget(widget_35);
-        listWidget->setObjectName(QString::fromUtf8("listWidget"));
+        giftList = new QListWidget(widget_35);
+        giftList->setObjectName(QString::fromUtf8("giftList"));
 
-        verticalLayout_33->addWidget(listWidget);
+        verticalLayout_33->addWidget(giftList);
 
 
         verticalLayout_32->addWidget(widget_35);
@@ -2966,6 +3148,10 @@ public:
         micImage1_8->setText(QString());
         label_36->setText(QCoreApplication::translate("MainWindow", "8\345\217\267\351\272\246", nullptr));
         gifts_8->setText(QString());
+        allChatBtn->setText(QCoreApplication::translate("MainWindow", "\351\273\230\350\256\244", nullptr));
+        roomChatBtn->setText(QCoreApplication::translate("MainWindow", "\350\277\233\346\210\277", nullptr));
+        chatListBtn->setText(QCoreApplication::translate("MainWindow", "\350\201\212\345\244\251", nullptr));
+        osBtn->setText(QCoreApplication::translate("MainWindow", "\347\263\273\347\273\237", nullptr));
         emoBtn_2->setText(QString());
         emoBtn->setText(QString());
         imageBtn->setText(QCoreApplication::translate("MainWindow", "\350\241\250\346\203\205", nullptr));

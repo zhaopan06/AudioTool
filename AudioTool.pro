@@ -36,7 +36,10 @@ SOURCES += \
     Base/Http/HttpInterFace.cpp \
     Base/Http/HttpUserInfo.cpp \
     Base/IMSDK/TimInterface.cpp \
+    UI/ChatImageItem.cpp \
+    UI/ChatTextItem.cpp \
     UI/ContributeItem.cpp \
+    UI/GIftItem.cpp \
     UI/LoginPage.cpp \
     UI/MicseQuenceItem.cpp \
     UI/NewUserItem.cpp \
@@ -56,7 +59,10 @@ HEADERS += \
     Base/Http/HttpInterFace.h \
     Base/Http/HttpUserInfo.h \
     Base/IMSDK/TimInterface.h \
+    UI/ChatImageItem.h \
+    UI/ChatTextItem.h \
     UI/ContributeItem.h \
+    UI/GIftItem.h \
     UI/LoginPage.h \
     UI/MicseQuenceItem.h \
     UI/NewUserItem.h \
@@ -69,7 +75,10 @@ HEADERS += \
     control/click_label.h
 
 FORMS += \
+    UI/ChatImageItem.ui \
+    UI/ChatTextItem.ui \
     UI/ContributeItem.ui \
+    UI/GIftItem.ui \
     UI/LoginPage.ui \
     UI/MicseQuenceItem.ui \
     UI/NewUserItem.ui \
