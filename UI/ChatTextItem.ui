@@ -247,10 +247,7 @@ border-top-right-radius: 12px;
 border-bottom-right-radius: 12px;
 border-bottom-left-radius: 12px;
 
-font-family: &quot;微软雅黑&quot;;
-font-size: 16px;
-color: #FFFFFF;
-text-align: left;</string>
+</string>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <property name="leftMargin">

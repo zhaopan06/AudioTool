@@ -16,7 +16,7 @@ public:
     explicit ChatTextItem(QWidget *parent = nullptr);
     ~ChatTextItem();
 
-    void setData(QVariantMap data, QString msg);
+    void setData(QVariantMap data, QString msg, int type);
 
     void setImage(QVariantMap data, QString msg);
 

@@ -38,6 +38,8 @@ public:
 
     //上麦
     QVariantMap addMic(QString roomId, int type);
+    //自己下麦
+    QVariantMap downMic(QString roomId);
 
     //下载
     void downLoad(QString url, downLoadCallBack callBack);

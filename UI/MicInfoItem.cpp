@@ -39,6 +39,6 @@ void MicInfoItem::setData(QVariantMap data, int num)
 
     if(map["userId"].toString() == HttpUserInfo::instance()->getUserID())
     {
-        emit micInfo(data["status"].toInt());
+        emit setMyselfMicInfo(data["status"].toInt());
     }
 }

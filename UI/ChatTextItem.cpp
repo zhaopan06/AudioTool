@@ -22,7 +22,7 @@ ChatTextItem::~ChatTextItem()
     delete ui;
 }
 
-void ChatTextItem::setData(QVariantMap data,QString msg)
+void ChatTextItem::setData(QVariantMap data,QString msg, int type)
 {
     QVariantMap userLevelCompare = data["userLevelCompare"].toMap();
     QString level = userLevelCompare["level"].toString();
@@ -60,6 +60,21 @@ void ChatTextItem::setData(QVariantMap data,QString msg)
 
     //设置文字
     QLabel *label = new QLabel();
+    if(1 == type)
+    {
+        label->setStyleSheet("font-family: \"微软雅黑\";"
+                             "font-size: 16px;"
+                             "color: #FFFFFF;"
+                             "text-align: left;");
+    }
+    else if(12 == type)
+    {
+        label->setStyleSheet("font-family: \"微软雅黑\";"
+                             "font-size: 16px;"
+                             "color: rgba(237, 82, 90, 1);"
+                             "text-align: left;");
+    }
+
     ui->textLayout->addWidget(label);
     QString labelText = msg;
     labelText.replace("\n","<br />");

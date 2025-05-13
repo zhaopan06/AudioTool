@@ -219,10 +219,10 @@ void MainWindow::msg_notice(QVariantMap user, QString msg)
 
 }
 
-void MainWindow::msg_txt(QVariantMap user, QString msg)
+void MainWindow::msg_txt(QVariantMap user, QString msg, int type)
 {
     ChatTextItem *item1 = new ChatTextItem;
-    item1->setData(user, msg);
+    item1->setData(user, msg, type);
     QListWidgetItem *item = new QListWidgetItem();
     ui->msgList->addItem(item);
     ui->msgList->setItemWidget(item,item1);
@@ -232,7 +232,7 @@ void MainWindow::msg_txt(QVariantMap user, QString msg)
 
 
     ChatTextItem *item3 = new ChatTextItem;
-    item3->setData(user, msg);
+    item3->setData(user, msg, type);
     QListWidgetItem *item2 = new QListWidgetItem();
     ui->chatList->addItem(item2);
     ui->chatList->setItemWidget(item2,item3);
@@ -280,7 +280,7 @@ void MainWindow::msg_micInfo(QVariantMap data)
 {
     int mic_index = data["mic_index"].toString().toInt();
     auto item = m_micList.at(mic_index-1);
-    item->setData(data, mic_index);
+    item->setData(data, mic_index-1);
 }
 
 //发送文字消息
@@ -579,6 +579,7 @@ void MainWindow::enterTheToom(QVariantMap data)
         {
             QVariantMap micData = micInfoList.at(i).toMap();
             MicInfoItem *item = new MicInfoItem;
+            connect(item, &MicInfoItem::setMyselfMicInfo, this, &MainWindow::setMyselfMicInfo);
             item->setData(micData, i);
             int row = i / 4;
             int col = i % 4;
@@ -594,6 +595,20 @@ void MainWindow::enterTheToom(QVariantMap data)
 
         on_pushButton_2_clicked();
         ui->stackedWidget->setCurrentIndex(1);
+    }
+}
+
+void MainWindow::setMyselfMicInfo(int status)
+{
+    if(status >= 0)
+    {
+        ui->autioMicBtn->setChecked(true);
+        ui->autioMicBtn->setText(QStringLiteral("下麦"));
+    }
+    else
+    {
+        ui->autioMicBtn->setChecked(false);
+        ui->autioMicBtn->setText(QStringLiteral("上麦"));
     }
 }
 
@@ -717,6 +732,7 @@ void MainWindow::on_autioMicBtn_clicked()
     }
     else
     {
+        HttpInterFace::getInstance()->downMic(HttpUserInfo::instance()->getClassRoomID());
         ui->autioMicBtn->setText(QStringLiteral("上麦"));
     }   
 }

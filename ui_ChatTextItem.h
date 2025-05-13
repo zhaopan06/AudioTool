@@ -154,10 +154,7 @@ public:
 "border-bottom-right-radius: 12px;\n"
 "border-bottom-left-radius: 12px;\n"
 "\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-size: 16px;\n"
-"color: #FFFFFF;\n"
-"text-align: left;"));
+""));
         horizontalLayout_4 = new QHBoxLayout(widget_2);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
         horizontalLayout_4->setContentsMargins(12, 0, 12, 6);

@@ -208,6 +208,16 @@ QVariantMap HttpInterFace::addMic(QString roomId, int type)
     return httpsPost_syn(url,jsonMap);
 }
 
+QVariantMap HttpInterFace::downMic(QString roomId)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",roomId);
+    jsonMap.insert("type", 2);
+    jsonMap.insert("targetUserId", HttpUserInfo::instance()->getUserID());
+    QString url = BASE_API_URL + QString("/live/dealUpDownMic");
+    return httpsPost_syn(url,jsonMap);
+}
+
 QVariantMap HttpInterFace::createRoom(QString roomPhoto, QString roomName)
 {
     QVariantMap jsonMap;

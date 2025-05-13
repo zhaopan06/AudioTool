@@ -242,7 +242,14 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     case 1:
                     {
                         QVariantMap user = str_doc["user"].toVariant().toMap();
-                        emit msg_txt(user, content);
+                        emit msg_txt(user, content, type);
+                        break;
+                    }
+
+                    case 12://12 操作类型消息（例如：主持将xxx抱上麦。显示样式与普通消息一样，只是文本颜色不一样），
+                    {
+                        QVariantMap user = str_doc["user"].toVariant().toMap();
+                        emit msg_txt(user, content, type);
                         break;
                     }
 
@@ -322,13 +329,7 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                         QString imagePath = ":/images/emotion/icon_finger_" +QString::number(num) + ".png";
                         emit msg_finger(imagePath);
                         break;
-                    }
-                    case 12://12 操作类型消息（例如：主持将xxx抱上麦。显示样式与普通消息一样，只是文本颜色不一样），
-                    {
-                        qDebug()<<"1---"<<message_ob["body"].toString();
-                        break;
-                    }
-
+                    }                    
                     case 15://*15. 用户等级提升提示 （例如：恭喜 xxx 等级提升到多少级）
                     {
                         break;

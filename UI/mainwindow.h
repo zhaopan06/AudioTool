@@ -38,7 +38,7 @@ private slots:
     void loginIm(int code, QString msg);
 
     void msg_notice(QVariantMap user, QString msg);
-    void msg_txt(QVariantMap user, QString msg);
+    void msg_txt(QVariantMap user, QString msg, int type);
     void msg_image(QVariantMap user, QString path);
     void msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to);
     void msg_micInfo(QVariantMap data);
@@ -84,6 +84,7 @@ private slots:
 
     void setEmoTionItem(QString path, int type);
 
+    void setMyselfMicInfo(int status);
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;

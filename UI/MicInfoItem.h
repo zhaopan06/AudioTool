@@ -19,7 +19,7 @@ public:
     void setData(QVariantMap data, int num);
 
 signals:
-    void micInfo(int);
+    void setMyselfMicInfo(int);
 
 private:
     Ui::MicInfoItem *ui;
