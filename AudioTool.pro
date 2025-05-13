@@ -36,6 +36,7 @@ SOURCES += \
     Base/Http/HttpInterFace.cpp \
     Base/Http/HttpUserInfo.cpp \
     Base/IMSDK/TimInterface.cpp \
+    UI/ChatEmoTionItem.cpp \
     UI/ChatImageItem.cpp \
     UI/ChatImageMyItem.cpp \
     UI/ChatTextItem.cpp \
@@ -62,6 +63,7 @@ HEADERS += \
     Base/Http/HttpInterFace.h \
     Base/Http/HttpUserInfo.h \
     Base/IMSDK/TimInterface.h \
+    UI/ChatEmoTionItem.h \
     UI/ChatImageItem.h \
     UI/ChatImageMyItem.h \
     UI/ChatTextItem.h \
@@ -81,6 +83,7 @@ HEADERS += \
     control/click_label.h
 
 FORMS += \
+    UI/ChatEmoTionItem.ui \
     UI/ChatImageItem.ui \
     UI/ChatImageMyItem.ui \
     UI/ChatTextItem.ui \

@@ -179,12 +179,12 @@ void HttpInterFace::getPcNewUserSquareList(int pageNum, int pageSize, callBack c
     httpsGet_asy(url,params, callBack);
 }
 
-QVariantMap HttpInterFace::getCommonConfig()
+void HttpInterFace::getCommonConfig(callBack callBack)
 {
     QVariantMap jsonMap;
-    jsonMap.insert("systemConfigType", 1);
+    jsonMap.insert("systemConfigType",1);
     QString url = BASE_API_URL + QString("/common/getCommonConfig");
-    return httpsPost_syn(url,jsonMap);
+    httpsGet_asy(url,jsonMap, callBack);
 }
 
 QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)

@@ -83,3 +83,8 @@ void ChatTextItem::setData(QVariantMap data,QString msg)
         ui->widget_2->setFixedWidth(label->width() + 24);
     }
 }
+
+void ChatTextItem::setImage(QVariantMap data, QString msg)
+{
+
+}

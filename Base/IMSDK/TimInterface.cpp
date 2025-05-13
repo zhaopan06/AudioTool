@@ -359,18 +359,98 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                 break;
             }
             //礼物相关
+            /*
+            action 定义
+            100001->礼物  100002->飘屏  100004->排麦 取消排麦
+            100005->惩罚转盘  100006->麦位变化  100007->违规  100008->修改直播间  100009->用户信息修改
+            100010->用户装扮修改  100011->直播间用户权限变更  100012->热度
+            100013 ->排行榜变更 100014->刷新直播Banner  100015->现场模式  100016->活动
+            100020 ->PK 发起方申请 发起方主持弹出邀请倒计时
+            1000020->PK 发起方申请 接收方收到弹出 显示同意或者拒绝
+            100026 ->PK 发起方取消邀请 发起方主持弹窗消失 提示
+            1000026->PK 发起方 取消邀请 接收方主持收到 弹窗消失 提示
+            100027 ->PK 接收方拒绝 接收方主持 弹窗消失 提示
+            1000027->PK 接收方拒绝 发起方主持弹窗消失 提示
+            100021 ->PK 接收方同意PK 接收方收到 展示倒计时 页面变化
+            1000021->PK 接收方同意PK  发起方收到 展示倒计时 页面变化
+            这是im 收到消息后 解析根据 action 这个字段 做相应处理
+            */
             case TIMElemType::kTIMElem_GroupReport:
             {
+
                 QString giftMsg = elem["group_report_elem_user_data"].toString();
                 QJsonObject object = QJsonDocument::fromJson(giftMsg.toUtf8()).object();
-                QVariantMap fromUser =  object["data"].toObject()["fromUser"].toVariant().toMap();
-                QVariantList toUsers =  object["data"].toObject()["toUsers"].toVariant().toList();
-                QVariantMap gift =  object["data"].toObject()["gift"].toVariant().toMap();
+                int action = object["action"].toString().toInt();
+                qDebug()<<"action==="<<action;
 
-                for(QVariant var : toUsers)
+                switch (action) {
+                case 100001:
                 {
-                    emit msg_gift(fromUser, gift, var.toMap());
+                    QVariantMap fromUser =  object["data"].toObject()["fromUser"].toVariant().toMap();
+                    QVariantList toUsers =  object["data"].toObject()["toUsers"].toVariant().toList();
+                    QVariantMap gift =  object["data"].toObject()["gift"].toVariant().toMap();
+
+                    for(QVariant var : toUsers)
+                    {
+                        emit msg_gift(fromUser, gift, var.toMap());
+                    }
+                    break;
                 }
+                case 100004:
+                {
+                    QVariantList list =  object["data"].toObject()["micInfoList"].toVariant().toList();
+                    for(QVariant var : list)
+                    {
+
+                    }
+                    qDebug()<<"100004 object==="<<object;
+                    break;
+                }
+                case 100006:
+                {
+                    QVariantList list =  object["data"].toObject()["micInfoList"].toVariant().toList();
+                    for(QVariant var : list)
+                    {
+                        emit msg_micInfo(var.toMap());
+                    }
+                    qDebug()<<"100006 object==="<<object;
+                    break;
+                }
+                case 100008:
+                {
+                    qDebug()<<"100008 object==="<<object;
+                    break;
+                }
+                case 100009:
+                {
+                    qDebug()<<"100009 object==="<<object;
+                    break;
+                }
+                case 100010:
+                {
+                    qDebug()<<"100010 object==="<<object;
+                    break;
+                }
+                case 100011:
+                {
+                    qDebug()<<"100011 object==="<<object;
+                    break;
+                }
+                case 100012:
+                {
+                    qDebug()<<"object==="<<object;
+                    break;
+                }
+                case 100013:
+                {
+                    qDebug()<<"object==="<<object;
+                    break;
+                }
+                default:
+                    break;
+                }
+
+
                 break;
             }
             default:

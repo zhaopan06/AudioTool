@@ -167,6 +167,7 @@ void MainWindow::on_pushButton_2_clicked()
         connect(m_timInterface, &TimInterface::msg_txt, this, &MainWindow::msg_txt);
         connect(m_timInterface, &TimInterface::msg_image, this, &MainWindow::msg_image);
         connect(m_timInterface, &TimInterface::msg_gift, this, &MainWindow::msg_gift);
+        connect(m_timInterface, &TimInterface::msg_micInfo, this, &MainWindow::msg_micInfo);
     }
 }
 
@@ -274,6 +275,13 @@ void MainWindow::msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to)
     ui->giftList->setCurrentRow(ui->msgList->count()-1);
     ui->giftList->scrollToBottom();
 }
+//抱麦
+void MainWindow::msg_micInfo(QVariantMap data)
+{
+    int mic_index = data["mic_index"].toString().toInt();
+    auto item = m_micList.at(mic_index-1);
+    item->setData(data, mic_index);
+}
 
 //发送文字消息
 void MainWindow::on_sendBtn_clicked()
@@ -306,7 +314,7 @@ void MainWindow::on_sendBtn_clicked()
 
     ui->msgEdit->clear();
 }
- //发送图片
+//发送图片
 void MainWindow::on_imageBtn_clicked()
 {
     QString localPath = QFileDialog::getOpenFileName(0, QStringLiteral("选择图片"), "", QStringLiteral("jpg、png图片(*.jpg *.png)"));
@@ -387,6 +395,7 @@ void MainWindow::emotionClicked(QString path)
                 {
                     int diceRoll = QRandomGenerator::global()->bounded(1, 7);
                     m_timInterface->setSendJson(IMType_dice, QString::number(diceRoll));
+                    setEmoTionItem(path, 1);
                     break;
                 }
                 case 1://发送猜拳
@@ -394,15 +403,18 @@ void MainWindow::emotionClicked(QString path)
                     int diceRoll = QRandomGenerator::global()->bounded(1, 4);
                     qDebug()<<"diceRoll---"<<diceRoll;
                     m_timInterface->setSendJson(IMType_finger, QString::number(diceRoll));
+                    setEmoTionItem(path, 2);
                     break;
                 }
                 case 2://发送爆灯
                 {
+                    setEmoTionItem(path, 3);
                     m_timInterface->setSendJson(IMType_light, "");
                     break;
                 }
                 case 3://美味基
                 {
+                    setEmoTionItem(path, 4);
                     int diceRoll = QRandomGenerator::global()->bounded(1, 9);
                     qDebug()<<"diceRoll---"<<diceRoll;
                     m_timInterface->setSendJson(IMType_machine, QString::number(diceRoll));
@@ -463,6 +475,42 @@ void MainWindow::on_updateBtn_clicked()
 //进入房间
 void MainWindow::enterTheToom(QVariantMap data)
 {
+    HttpInterFace::getInstance()->getCommonConfig([&](const QVariant &data) {
+        QVariantMap roomWelcomeInfo = data.toMap()["data"].toMap();
+        QString msg = roomWelcomeInfo["roomWelcomeInfo"].toString();
+        QLabel *label = new QLabel;
+        label->setStyleSheet("font-family: \"微软雅黑\";"
+                             "font-size: 16px;"
+                             "color: #ED525A;");
+
+        label->setFixedWidth(476);
+        QString labelText = msg;
+        labelText.replace("\n","<br />");
+        QString textStyle = "<p style='line-height:22px'>" + labelText + "</p>";
+        label->setText(textStyle);
+        label->setWordWrap(true);
+        label->adjustSize();
+
+        QListWidgetItem *item = new QListWidgetItem();
+        ui->msgList->addItem(item);
+        ui->msgList->setItemWidget(item,label);
+        item->setSizeHint(QSize(ui->msgList->contentsRect().width(), label->height()));
+        ui->msgList->setCurrentRow(ui->msgList->count()-1);
+        ui->msgList->scrollToBottom();
+
+        QLabel *label1 = new QLabel();
+        label1->setFixedWidth(476);
+        label1->setText(label->text());
+        label1->setStyleSheet(label->styleSheet());
+        label1->setWordWrap(true);
+        QListWidgetItem *item1 = new QListWidgetItem();
+        ui->osList->addItem(item1);
+        ui->osList->setItemWidget(item1,label1);
+        item1->setSizeHint(QSize(ui->osList->contentsRect().width(), label1->height()));
+        ui->osList->setCurrentRow(ui->osList->count()-1);
+        ui->osList->scrollToBottom();
+    });
+
     QString id = data["id"].toString();
     int currentPage = 1;
     HttpInterFace::getInstance()->getOnlineInfo(id,currentPage, [&](const QVariant &data) {
@@ -662,21 +710,36 @@ void MainWindow::on_osBtn_clicked()
 
 void MainWindow::on_autioMicBtn_clicked()
 {
-    int type = 0;
     if(ui->autioMicBtn->isChecked())
     {
+        HttpInterFace::getInstance()->addMic(HttpUserInfo::instance()->getClassRoomID(),1);
         ui->autioMicBtn->setText(QStringLiteral("下麦"));
-        type = 0;
     }
     else
     {
         ui->autioMicBtn->setText(QStringLiteral("上麦"));
-        type = 1;
-    }
-    QVariantMap data =  HttpInterFace::getInstance()->addMic(HttpUserInfo::instance()->getClassRoomID(),type);
-    if(1 == data["code"].toInt())
-    {
+    }   
+}
 
-    }
+void MainWindow::setEmoTionItem(QString path, int type)
+{
+    ChatTextMyItem *item1 = new ChatTextMyItem;
+    item1->setEmotion(path, type);
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->msgList->addItem(item);
+    ui->msgList->setItemWidget(item,item1);
+    item->setSizeHint(QSize(ui->msgList->contentsRect().width(), item1->height()));
+    ui->msgList->setCurrentRow(ui->msgList->count()-1);
+    ui->msgList->scrollToBottom();
+
+
+    ChatTextMyItem *item3 = new ChatTextMyItem;
+    item3->setEmotion(path, type);
+    QListWidgetItem *item2 = new QListWidgetItem();
+    ui->chatList->addItem(item2);
+    ui->chatList->setItemWidget(item2,item3);
+    item2->setSizeHint(QSize(ui->chatList->contentsRect().width(), item3->height()));
+    ui->chatList->setCurrentRow(ui->chatList->count()-1);
+    ui->chatList->scrollToBottom();
 }
 

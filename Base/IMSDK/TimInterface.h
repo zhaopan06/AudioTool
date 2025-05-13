@@ -9,7 +9,7 @@
 /*
  *  message - type：消息类型 1 文本，2 图片，3音频，
  *  8 爆灯 9 emjio表情单图 10 骰子，11 划拳,
- *  12 操作类型消息（例如：主持将xxx抱上麦。显示样式与普通消息一样，只是文本颜色不一样），
+ *  12 操作类型消息（例如：主持将xxx抱上麦。显示样式与普通消息一样，只是文本颜色不一样），  系统消息
  *  13 通知类型消息
 （例如：xxx来了。无需显示发送者头像，需要显示用户等级）  15. 用户等级提升提示 （例如：恭喜 xxx 等级提升到多少级）16：pk通知    17：vip表情
  */
@@ -78,6 +78,7 @@ signals:
     void msg_mic(QString);//猜拳
 
 
+    void msg_micInfo(QVariantMap);
     void msg_gift(QVariantMap,  QVariantMap,  QVariantMap);
 
 

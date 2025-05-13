@@ -17,6 +17,9 @@ public:
     ~ChatTextItem();
 
     void setData(QVariantMap data, QString msg);
+
+    void setImage(QVariantMap data, QString msg);
+
 private:
     Ui::ChatTextItem *ui;
     QVariantMap m_data;

@@ -17,6 +17,10 @@ public:
     ~MicInfoItem();
 
     void setData(QVariantMap data, int num);
+
+signals:
+    void micInfo(int);
+
 private:
     Ui::MicInfoItem *ui;
 

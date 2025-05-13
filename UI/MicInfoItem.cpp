@@ -1,6 +1,7 @@
 ﻿#include "MicInfoItem.h"
 #include "ui_MicInfoItem.h"
 #include "HttpInterFace.h"
+#include "HttpUserInfo.h"
 
 MicInfoItem::MicInfoItem(QWidget *parent)
     : QDialog(parent)
@@ -16,12 +17,11 @@ MicInfoItem::~MicInfoItem()
 
 void MicInfoItem::setData(QVariantMap data, int num)
 {
+    QVariantMap map = data["member"].toMap();
     if(data["status"].toInt() >= 0)
     {
-        QVariantMap map = data["member"].toMap();
         ui->gift->setIcon(QIcon(":/images/mic_gift.png"));
         ui->gift->setText(map["cardiac"].toString());
-
         ui->name->setText(map["name"].toString());
 
         QString photo = map["photo"].toString();
@@ -30,5 +30,15 @@ void MicInfoItem::setData(QVariantMap data, int num)
         });
     }
     else
+    {
+        ui->gift->setIcon(QIcon(""));
+        ui->gift->setText("");
+        ui->image->setPixmap(QPixmap::fromImage(QImage(":/images/live_mic_path.png")));
         ui->name->setText(QString::number(num+1) +  tr("号麦"));
+    }
+
+    if(map["userId"].toString() == HttpUserInfo::instance()->getUserID())
+    {
+        emit micInfo(data["status"].toInt());
+    }
 }

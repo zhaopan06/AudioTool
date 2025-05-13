@@ -310,8 +310,8 @@ public:
     QPushButton *pushButton_15;
     QPushButton *pushButton_16;
     QButtonGroup *buttonGroup_3;
-    QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QMainWindow *MainWindow)
     {

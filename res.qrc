@@ -44,5 +44,9 @@
         <file>images/live_em_c.png</file>
         <file>images/live_gift_c.png</file>
         <file>images/mic_gift.png</file>
+        <file>images/gifts/pcliving.gif</file>
+        <file>images/gifts/finger.gif</file>
+        <file>images/gifts/mic.gif</file>
+        <file>images/gifts/dice.gif</file>
     </qresource>
 </RCC>

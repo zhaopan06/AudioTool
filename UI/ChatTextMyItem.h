@@ -17,6 +17,7 @@ public:
 
     void setData(QString path, QString msg);
 
+    void setEmotion(QString path, int type);
 private:
     Ui::ChatTextMyItem *ui;
 };

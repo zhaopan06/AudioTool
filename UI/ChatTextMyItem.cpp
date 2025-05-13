@@ -1,4 +1,6 @@
 ﻿#include "ChatTextMyItem.h"
+#include "qmovie.h"
+#include "qtimer.h"
 #include "ui_ChatTextMyItem.h"
 #include "HttpInterFace.h"
 
@@ -44,4 +46,47 @@ void ChatTextMyItem::setData(QString path, QString msg)
         label->adjustSize();
         ui->widget_2->setFixedWidth(label->width() + 30);
     }
+}
+
+void ChatTextMyItem::setEmotion(QString path, int type)
+{
+    HttpInterFace::getInstance()->downLoad(path, [&](const QString &path) {
+        this->ui->image->setPixmap(QPixmap::fromImage(QImage(path)));
+    });
+
+    QString giftPath;
+    switch (type) {
+    case 1://骰子
+    {
+        giftPath = ":/images/gifts/dice.gif";
+        break;
+    }
+    case 2:
+    {
+        giftPath = ":/images/gifts/finger.gif";
+        break;
+    }
+    case 3:
+    {
+        giftPath = ":/images/gifts/pcliving.gif";
+        break;
+    }
+    case 4:
+    {
+        giftPath = ":/images/gifts/mic.gif";
+        break;
+    }
+    default:
+        break;
+    }
+    QMovie *movie = new QMovie(":/animations/loading.gif");
+    QLabel *label = new QLabel();
+    ui->textLayout->addWidget(label);
+    label->setMovie(movie);
+    movie->start(); // 开始播放
+
+    QTimer::singleShot(30000, [movie, label, path]() {
+        movie->stop();
+        label->setPixmap(QPixmap::fromImage(QImage(path)));
+    });
 }
