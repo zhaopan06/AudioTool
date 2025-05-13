@@ -1,9 +1,10 @@
 ﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "Base/IMSDK/TimInterface.h"
+#include "MicInfoItem.h"
 #include "agorartcengineinterface.h"
 #include <QMainWindow>
-#include "TimInterface.h"
 #include "EmotionWidget.h"
 
 QT_BEGIN_NAMESPACE
@@ -31,10 +32,6 @@ protected:
 private slots:
     void joinedChannelSuccess(const QString& channel, unsigned int uid, int elapsed);
     void audioVolumeIndication(int uid,int value);
-
-    void createRoom();
-
-    void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
 
@@ -82,6 +79,8 @@ private slots:
 
     void on_imageBtn_clicked();
 
+    void on_autioMicBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;
@@ -91,5 +90,7 @@ private:
 
     QMenu *m_men = nullptr;
     EmotionWidget *m_emotionWidget = nullptr;
+
+    QVector<MicInfoItem*> m_micList;
 };
 #endif // MAINWINDOW_H

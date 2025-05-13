@@ -6,6 +6,7 @@
 #include "ContributeItem.h"
 #include "GIftItem.h"
 #include "Global.h"
+#include "MicInfoItem.h"
 #include "MicseQuenceItem.h"
 #include "NewUserPage.h"
 #include "qdebug.h"
@@ -34,11 +35,21 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gridLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     ui->micList->setAlignment(Qt::AlignTop);
     ui->contList->setAlignment(Qt::AlignTop);
+    ui->micLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 
     //设置listWidget无虚框
     ui->msgList->setFocusPolicy(Qt::NoFocus);
-    ui->msgList->setVerticalScrollMode(QListWidget::ScrollPerPixel);  // 平滑滚动
-    ui->msgList->verticalScrollBar()->setSingleStep(20);  // 设置滚轮步长
+    ui->msgList->setVerticalScrollMode(QListWidget::ScrollPerPixel);
+    ui->msgList->verticalScrollBar()->setSingleStep(20);
+    ui->enterRoomList->setFocusPolicy(Qt::NoFocus);
+    ui->enterRoomList->setVerticalScrollMode(QListWidget::ScrollPerPixel);
+    ui->enterRoomList->verticalScrollBar()->setSingleStep(20);
+    ui->chatList->setFocusPolicy(Qt::NoFocus);
+    ui->chatList->setVerticalScrollMode(QListWidget::ScrollPerPixel);
+    ui->chatList->verticalScrollBar()->setSingleStep(20);
+    ui->osList->setFocusPolicy(Qt::NoFocus);
+    ui->osList->setVerticalScrollMode(QListWidget::ScrollPerPixel);
+    ui->osList->verticalScrollBar()->setSingleStep(20);
 
     LoginPage login;
     if(login.exec() == QDialog::Accepted)
@@ -144,27 +155,6 @@ void MainWindow::audioVolumeIndication(int uid,int value)
 
 }
 
-//创建房间
-void MainWindow::createRoom()
-{
-    QVariantMap data =  HttpInterFace::getInstance()->createRoom("","PCTest");
-    qDebug()<<"data---"<<data;
-    if(1 == data["code"].toInt())
-    {
-    }
-}
-
-
-void MainWindow::on_pushButton_clicked()
-{
-    QVariantMap data =  HttpInterFace::getInstance()->addMic(30000003,1);
-    qDebug()<<"data---"<<data;
-    if(1 == data["code"].toInt())
-    {
-    }
-
-}
-
 void MainWindow::on_pushButton_2_clicked()
 {
     if(m_timInterface == nullptr)
@@ -189,7 +179,7 @@ void MainWindow::loginIm(int code, QString msg)
     }
     else
     {        
-        QString chatRoomld = HttpUserInfo::instance()->getRoomID();
+        QString chatRoomld = HttpUserInfo::instance()->getIMRoomID();
         m_timInterface->groupJoin(chatRoomld.toLatin1());
     }
 }
@@ -216,6 +206,7 @@ void MainWindow::msg_notice(QVariantMap user, QString msg)
     ui->msgList->scrollToBottom();
 
     QLabel *label1 = new QLabel();
+    label1->setFixedHeight(34);
     label1->setText(label->text());
     label1->setStyleSheet(label->styleSheet());
     QListWidgetItem *item = new QListWidgetItem();
@@ -231,13 +222,22 @@ void MainWindow::msg_txt(QVariantMap user, QString msg)
 {
     ChatTextItem *item1 = new ChatTextItem;
     item1->setData(user, msg);
-
     QListWidgetItem *item = new QListWidgetItem();
     ui->msgList->addItem(item);
     ui->msgList->setItemWidget(item,item1);
     item->setSizeHint(QSize(ui->msgList->contentsRect().width(), item1->height()));
     ui->msgList->setCurrentRow(ui->msgList->count()-1);
     ui->msgList->scrollToBottom();
+
+
+    ChatTextItem *item3 = new ChatTextItem;
+    item3->setData(user, msg);
+    QListWidgetItem *item2 = new QListWidgetItem();
+    ui->chatList->addItem(item2);
+    ui->chatList->setItemWidget(item2,item3);
+    item2->setSizeHint(QSize(ui->chatList->contentsRect().width(), item3->height()));
+    ui->chatList->setCurrentRow(ui->chatList->count()-1);
+    ui->chatList->scrollToBottom();
 }
 
 void MainWindow::msg_image(QVariantMap user, QString path)
@@ -251,6 +251,15 @@ void MainWindow::msg_image(QVariantMap user, QString path)
     item->setSizeHint(QSize(ui->msgList->contentsRect().width(), item1->height()));
     ui->msgList->setCurrentRow(ui->msgList->count()-1);
     ui->msgList->scrollToBottom();
+
+    ChatImageItem *item3 = new ChatImageItem;
+    item3->setData(user, path);
+    QListWidgetItem *item2 = new QListWidgetItem();
+    ui->chatList->addItem(item2);
+    ui->chatList->setItemWidget(item2,item3);
+    item2->setSizeHint(QSize(ui->chatList->contentsRect().width(), item3->height()));
+    ui->chatList->setCurrentRow(ui->chatList->count()-1);
+    ui->chatList->scrollToBottom();
 }
 
 void MainWindow::msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to)
@@ -266,7 +275,7 @@ void MainWindow::msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to)
     ui->giftList->scrollToBottom();
 }
 
-//发送消息
+//发送文字消息
 void MainWindow::on_sendBtn_clicked()
 {
     QString msg = ui->msgEdit->text();
@@ -277,13 +286,23 @@ void MainWindow::on_sendBtn_clicked()
 
     ChatTextMyItem *item1 = new ChatTextMyItem;
     item1->setData(photoUrl, msg);
-
     QListWidgetItem *item = new QListWidgetItem();
     ui->msgList->addItem(item);
     ui->msgList->setItemWidget(item,item1);
     item->setSizeHint(QSize(ui->msgList->contentsRect().width(), item1->height()));
     ui->msgList->setCurrentRow(ui->msgList->count()-1);
     ui->msgList->scrollToBottom();
+
+
+    ChatTextMyItem *item3 = new ChatTextMyItem;
+    item3->setData(photoUrl, msg);
+    QListWidgetItem *item2 = new QListWidgetItem();
+    ui->chatList->addItem(item2);
+    ui->chatList->setItemWidget(item2,item3);
+    item2->setSizeHint(QSize(ui->chatList->contentsRect().width(), item3->height()));
+    ui->chatList->setCurrentRow(ui->chatList->count()-1);
+    ui->chatList->scrollToBottom();
+
 
     ui->msgEdit->clear();
 }
@@ -317,6 +336,15 @@ void MainWindow::on_imageBtn_clicked()
     item->setSizeHint(QSize(ui->msgList->contentsRect().width(), item1->height()));
     ui->msgList->setCurrentRow(ui->msgList->count()-1);
     ui->msgList->scrollToBottom();
+
+    ChatImageMyItem *item3 = new ChatImageMyItem;
+    item3->setData(localPath, photoUrl);
+    QListWidgetItem *item2 = new QListWidgetItem();
+    ui->chatList->addItem(item2);
+    ui->chatList->setItemWidget(item2,item3);
+    item2->setSizeHint(QSize(ui->chatList->contentsRect().width(), item3->height()));
+    ui->chatList->setCurrentRow(ui->chatList->count()-1);
+    ui->chatList->scrollToBottom();
 }
 
 
@@ -437,7 +465,6 @@ void MainWindow::enterTheToom(QVariantMap data)
 {
     QString id = data["id"].toString();
     int currentPage = 1;
-
     HttpInterFace::getInstance()->getOnlineInfo(id,currentPage, [&](const QVariant &data) {
 
         QVariantMap onlineInfo =  data.toMap();
@@ -498,15 +525,26 @@ void MainWindow::enterTheToom(QVariantMap data)
         QString roomId = roomdata["roomId"].toString();
         ui->roomID->setText(QStringLiteral("ID：") + roomId);
 
-        //TODO 设置麦序
+        //设置麦序
         QVariantList micInfoList = roomdata["micInfoList"].toList();
         for(int i = 0; i < micInfoList.size(); i++)
         {
-            qDebug()<<"micinfo---"<<micInfoList.at(i);
+            QVariantMap micData = micInfoList.at(i).toMap();
+            MicInfoItem *item = new MicInfoItem;
+            item->setData(micData, i);
+            int row = i / 4;
+            int col = i % 4;
+            ui->micLayout->addWidget(item,row, col);
+            m_micList.append(item);
+
+            if(HttpUserInfo::instance()->getUserID() == micData["member"].toMap()["userId"].toString())
+            {
+                ui->autioMicBtn->setChecked(true);
+                ui->autioMicBtn->setText(QStringLiteral("下麦"));
+            }
         }
 
         on_pushButton_2_clicked();
-
         ui->stackedWidget->setCurrentIndex(1);
     }
 }
@@ -621,3 +659,24 @@ void MainWindow::on_osBtn_clicked()
 {
     ui->stackedWidget_3->setCurrentIndex(3);
 }
+
+void MainWindow::on_autioMicBtn_clicked()
+{
+    int type = 0;
+    if(ui->autioMicBtn->isChecked())
+    {
+        ui->autioMicBtn->setText(QStringLiteral("下麦"));
+        type = 0;
+    }
+    else
+    {
+        ui->autioMicBtn->setText(QStringLiteral("上麦"));
+        type = 1;
+    }
+    QVariantMap data =  HttpInterFace::getInstance()->addMic(HttpUserInfo::instance()->getClassRoomID(),type);
+    if(1 == data["code"].toInt())
+    {
+
+    }
+}
+

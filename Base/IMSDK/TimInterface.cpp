@@ -91,13 +91,13 @@ void TimInterface::setSendJson(IMType type, QString text)
     json_value_msg[kTIMMsgSender] = "user" + HttpUserInfo::instance()->getUserID();
     json_value_msg[kTIMMsgClientTime] = time(NULL);
     json_value_msg[kTIMMsgServerTime] = time(NULL);
-    json_value_msg[kTIMMsgConvId] = HttpUserInfo::instance()->getRoomID();
+    json_value_msg[kTIMMsgConvId] = HttpUserInfo::instance()->getIMRoomID();
     json_value_msg[kTIMMsgConvType] = kTIMConv_Group;
     json_value_msg["message_cloud_custom_str"] = setCustomJson(type,text);
 
     // 转换为 JSON 字符串
     QJsonDocument doc(QJsonObject::fromVariantMap(json_value_msg));    
-    sendMessage_group(HttpUserInfo::instance()->getRoomID().toLatin1(), doc.toJson(), this);
+    sendMessage_group(HttpUserInfo::instance()->getIMRoomID().toLatin1(), doc.toJson(), this);
 }
 
 void TimInterface::sendImage(QString path)
@@ -115,13 +115,13 @@ void TimInterface::sendImage(QString path)
     json_value_msg[kTIMMsgSender] = "user" + HttpUserInfo::instance()->getUserID();
     json_value_msg[kTIMMsgClientTime] = time(NULL);
     json_value_msg[kTIMMsgServerTime] = time(NULL);
-    json_value_msg[kTIMMsgConvId] = HttpUserInfo::instance()->getRoomID();
+    json_value_msg[kTIMMsgConvId] = HttpUserInfo::instance()->getIMRoomID();
     json_value_msg[kTIMMsgConvType] = kTIMConv_Group;
     json_value_msg["message_cloud_custom_str"] = setCustomJson(IMType_Image,"");
 
     // 转换为 JSON 字符串
     QJsonDocument doc(QJsonObject::fromVariantMap(json_value_msg));
-    sendMessage_group(HttpUserInfo::instance()->getRoomID().toLatin1(), doc.toJson(), this);
+    sendMessage_group(HttpUserInfo::instance()->getIMRoomID().toLatin1(), doc.toJson(), this);
 }
 
 QString TimInterface::setCustomJson(IMType imType, QString text)
@@ -278,8 +278,7 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
             case TIMElemType::kTIMElem_Custom:
             {                
                 if("groupMsg" == str_doc["tximMsgType"].toString())
-                {
-                    //TODO 这里处理自定义信息
+                {                    
                     QJsonObject message_ob = str_doc["message"].toObject();
                     int type = message_ob["type"].toInt();
                     qDebug()<<"body = "<<message_ob["body"];

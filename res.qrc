@@ -43,5 +43,6 @@
         <file>images/live_image_n.png</file>
         <file>images/live_em_c.png</file>
         <file>images/live_gift_c.png</file>
+        <file>images/mic_gift.png</file>
     </qresource>
 </RCC>

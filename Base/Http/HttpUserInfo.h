@@ -29,7 +29,10 @@ public:
     //设置房间信息
     void setRoomInfo(QVariantMap data);
     QVariantMap getRoomInfo();
-    QString getRoomID();   
+    //腾讯房间id
+    QString getIMRoomID();
+    //房间ID
+    QString getClassRoomID();
 
     //设置手机号区号和归属地信息
     void setPhoneAreaInfo(QVariant data);

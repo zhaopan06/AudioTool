@@ -37,7 +37,7 @@ public:
     QVariantMap joinRoom(int roomId, int entryType, QString subTopic);
 
     //上麦
-    QVariantMap addMic(int roomId, int type);
+    QVariantMap addMic(QString roomId, int type);
 
     //下载
     void downLoad(QString url, downLoadCallBack callBack);

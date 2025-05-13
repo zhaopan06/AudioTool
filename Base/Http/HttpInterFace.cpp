@@ -196,8 +196,10 @@ QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)
     QString url = BASE_API_URL + QString(LOGIN_URL);
     return httpsPost_syn(url,jsonMap);
 }
-
-QVariantMap HttpInterFace::addMic(int roomId, int type)
+/*
+ 操作类型 0-取消排麦 1-申请排麦
+*/
+QVariantMap HttpInterFace::addMic(QString roomId, int type)
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);

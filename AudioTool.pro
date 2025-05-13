@@ -43,6 +43,7 @@ SOURCES += \
     UI/ContributeItem.cpp \
     UI/GIftItem.cpp \
     UI/LoginPage.cpp \
+    UI/MicInfoItem.cpp \
     UI/MicseQuenceItem.cpp \
     UI/NewUserItem.cpp \
     UI/NewUserPage.cpp \
@@ -68,6 +69,7 @@ HEADERS += \
     UI/ContributeItem.h \
     UI/GIftItem.h \
     UI/LoginPage.h \
+    UI/MicInfoItem.h \
     UI/MicseQuenceItem.h \
     UI/NewUserItem.h \
     UI/NewUserPage.h \
@@ -86,6 +88,7 @@ FORMS += \
     UI/ContributeItem.ui \
     UI/GIftItem.ui \
     UI/LoginPage.ui \
+    UI/MicInfoItem.ui \
     UI/MicseQuenceItem.ui \
     UI/NewUserItem.ui \
     UI/NewUserPage.ui \

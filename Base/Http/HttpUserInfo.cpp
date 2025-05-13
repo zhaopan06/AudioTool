@@ -80,9 +80,14 @@ QVariantMap HttpUserInfo::getRoomInfo()
     return m_roomInfo;
 }
 
-QString HttpUserInfo::getRoomID()
+QString HttpUserInfo::getIMRoomID()
 {
     return m_chatRoomId;
+}
+
+QString HttpUserInfo::getClassRoomID()
+{
+    return m_roomInfo["roomId"].toString();
 }
 
 void HttpUserInfo::setPhoneAreaInfo(QVariant data)
