@@ -48,5 +48,7 @@
         <file>images/gifts/finger.gif</file>
         <file>images/gifts/mic.gif</file>
         <file>images/gifts/dice.gif</file>
+        <file>images/jinbi.png</file>
+        <file>images/nextBtn.png</file>
     </qresource>
 </RCC>

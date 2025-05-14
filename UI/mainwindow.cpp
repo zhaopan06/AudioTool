@@ -5,6 +5,7 @@
 #include "ChatTextMyItem.h"
 #include "ContributeItem.h"
 #include "GIftItem.h"
+#include "GiftPage.h"
 #include "Global.h"
 #include "MicInfoItem.h"
 #include "MicseQuenceItem.h"
@@ -757,5 +758,17 @@ void MainWindow::setEmoTionItem(QString path, int type)
     item2->setSizeHint(QSize(ui->chatList->contentsRect().width(), item3->height()));
     ui->chatList->setCurrentRow(ui->chatList->count()-1);
     ui->chatList->scrollToBottom();
+}
+
+
+void MainWindow::on_giftBtn_clicked()
+{
+    m_giftPage = new GiftPage(this);
+    m_giftPage->init();
+    QPoint point1;
+    point1.setX(ui->giftBtn->mapToGlobal(QPoint(0, 0)).rx() - 16);
+    point1.setY(ui->giftBtn->mapToGlobal(QPoint(0, 0)).ry() - m_giftPage->height() - 10);
+    m_giftPage->move(point1);
+    m_giftPage->show();
 }
 

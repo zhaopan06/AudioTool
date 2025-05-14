@@ -187,6 +187,13 @@ void HttpInterFace::getCommonConfig(callBack callBack)
     httpsGet_asy(url,jsonMap, callBack);
 }
 
+QVariantMap HttpInterFace::getGiftList()
+{
+    QVariantMap jsonMap;
+    QString url = BASE_API_URL + QString("/gift/v3/getGiftList");
+    return httpsGet_syn(url);
+}
+
 QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)
 {
     QVariantMap jsonMap;

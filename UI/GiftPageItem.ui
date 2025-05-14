@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GiftPageItem</class>
+ <widget class="QDialog" name="GiftPageItem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>112</width>
+    <height>131</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QWidget" name="widget_17" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>112</width>
+       <height>131</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>112</width>
+       <height>131</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QWidget{	
+border:none;
+}
+
+QWidget::hover{
+
+background: #261D47;
+border-radius: 17px;
+border: 2px solid rgba(240, 150, 242, 1);
+}
+</string>
+     </property>
+     <widget class="QLabel" name="name">
+      <property name="geometry">
+       <rect>
+        <x>1</x>
+        <y>74</y>
+        <width>110</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>110</width>
+        <height>19</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>110</width>
+        <height>19</height>
+       </size>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-family: &quot;微软雅黑&quot;;
+font-size: 13px;
+color: #FFFFFF;
+text-align: center;
+background:transparent;
+border:none;</string>
+      </property>
+      <property name="text">
+       <string>添加直播素材</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="image">
+      <property name="geometry">
+       <rect>
+        <x>21</x>
+        <y>3</y>
+        <width>69</width>
+        <height>69</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>69</width>
+        <height>69</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>69</width>
+        <height>69</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: transparent; 
+border:none;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="click_label" name="addSourceBtn_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>112</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>112</width>
+        <height>131</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>112</width>
+        <height>131</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: transparent; 
+border:none;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="price">
+      <property name="geometry">
+       <rect>
+        <x>1</x>
+        <y>96</y>
+        <width>110</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border:none;
+font-family: .&quot;微软雅黑&quot;;
+font-size: 13px;
+color: #858397;
+text-align: center;
+font-style: normal;
+background: transparent;</string>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../res.qrc">
+        <normaloff>:/images/jinbi.png</normaloff>:/images/jinbi.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>19</width>
+        <height>19</height>
+       </size>
+      </property>
+     </widget>
+     <zorder>addSourceBtn_2</zorder>
+     <zorder>name</zorder>
+     <zorder>image</zorder>
+     <zorder>price</zorder>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>click_label</class>
+   <extends>QLabel</extends>
+   <header location="global">click_label.h</header>
+   <slots>
+    <signal>clicked()</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../res.qrc"/>
+ </resources>
+ <connections/>
+</ui>

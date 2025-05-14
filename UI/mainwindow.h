@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "Base/IMSDK/TimInterface.h"
+#include "GiftPage.h"
 #include "MicInfoItem.h"
 #include "agorartcengineinterface.h"
 #include <QMainWindow>
@@ -85,6 +86,8 @@ private slots:
     void setEmoTionItem(QString path, int type);
 
     void setMyselfMicInfo(int status);
+    void on_giftBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;
@@ -94,6 +97,8 @@ private:
 
     QMenu *m_men = nullptr;
     EmotionWidget *m_emotionWidget = nullptr;
+
+    GiftPage *m_giftPage = nullptr;
 
     QVector<MicInfoItem*> m_micList;
 };

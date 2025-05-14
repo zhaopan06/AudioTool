@@ -58,6 +58,7 @@ public:
     void getContributeList(int type, int timeType, int size, QString roomId, callBack callBack);
     void getPcNewUserSquareList(int pageNum, int pageSize, callBack callBack);
     void getCommonConfig(callBack callBack);
+    QVariantMap getGiftList();
 
 private:
     explicit HttpInterFace(QObject *parent = nullptr);

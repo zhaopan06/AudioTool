@@ -43,6 +43,8 @@ SOURCES += \
     UI/ChatTextMyItem.cpp \
     UI/ContributeItem.cpp \
     UI/GIftItem.cpp \
+    UI/GiftPage.cpp \
+    UI/GiftPageItem.cpp \
     UI/LoginPage.cpp \
     UI/MicInfoItem.cpp \
     UI/MicseQuenceItem.cpp \
@@ -70,6 +72,8 @@ HEADERS += \
     UI/ChatTextMyItem.h \
     UI/ContributeItem.h \
     UI/GIftItem.h \
+    UI/GiftPage.h \
+    UI/GiftPageItem.h \
     UI/LoginPage.h \
     UI/MicInfoItem.h \
     UI/MicseQuenceItem.h \
@@ -90,6 +94,8 @@ FORMS += \
     UI/ChatTextMyItem.ui \
     UI/ContributeItem.ui \
     UI/GIftItem.ui \
+    UI/GiftPage.ui \
+    UI/GiftPageItem.ui \
     UI/LoginPage.ui \
     UI/MicInfoItem.ui \
     UI/MicseQuenceItem.ui \
