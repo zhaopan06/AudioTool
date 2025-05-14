@@ -54,7 +54,8 @@ SOURCES += \
     UI/RoomItem.cpp \
     UI/mainwindow.cpp \
     control/CRoundLabel.cpp \
-    control/EmotionWidget.cpp \
+    control/EmotionItem.cpp \
+    control/EmotionPage.cpp \
     control/click_label.cpp \
     main.cpp
 
@@ -83,7 +84,8 @@ HEADERS += \
     UI/RoomItem.h \
     UI/mainwindow.h \
     control/CRoundLabel.h \
-    control/EmotionWidget.h \
+    control/EmotionItem.h \
+    control/EmotionPage.h \
     control/click_label.h
 
 FORMS += \
@@ -104,7 +106,8 @@ FORMS += \
     UI/OnlineItem.ui \
     UI/RoomItem.ui \
     UI/mainwindow.ui \
-    control/EmotionWidget.ui
+    control/EmotionItem.ui \
+    control/EmotionPage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

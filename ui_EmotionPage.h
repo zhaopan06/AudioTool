@@ -1,16 +1,17 @@
 /********************************************************************************
-** Form generated from reading UI file 'EmotionWidget.ui'
+** Form generated from reading UI file 'EmotionPage.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_EMOTIONWIDGET_H
-#define UI_EMOTIONWIDGET_H
+#ifndef UI_EMOTIONPAGE_H
+#define UI_EMOTIONPAGE_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QDialog>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QScrollArea>
@@ -19,7 +20,7 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_EmotionWidget
+class Ui_EmotionPage
 {
 public:
     QVBoxLayout *verticalLayout;
@@ -30,76 +31,41 @@ public:
     QHBoxLayout *horizontalLayout;
     QGridLayout *gridLayout;
 
-    void setupUi(QWidget *EmotionWidget)
+    void setupUi(QDialog *EmotionPage)
     {
-        if (EmotionWidget->objectName().isEmpty())
-            EmotionWidget->setObjectName(QString::fromUtf8("EmotionWidget"));
-        EmotionWidget->resize(488, 500);
-        EmotionWidget->setMinimumSize(QSize(488, 500));
-        EmotionWidget->setStyleSheet(QString::fromUtf8(""));
-        verticalLayout = new QVBoxLayout(EmotionWidget);
+        if (EmotionPage->objectName().isEmpty())
+            EmotionPage->setObjectName(QString::fromUtf8("EmotionPage"));
+        EmotionPage->resize(488, 500);
+        EmotionPage->setMinimumSize(QSize(488, 500));
+        verticalLayout = new QVBoxLayout(EmotionPage);
         verticalLayout->setSpacing(0);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        widget = new QWidget(EmotionWidget);
+        widget = new QWidget(EmotionPage);
         widget->setObjectName(QString::fromUtf8("widget"));
         widget->setStyleSheet(QString::fromUtf8("background: #0B0A2B;\n"
 "border-radius: 20px 20px 12px 12px;"));
         verticalLayout_2 = new QVBoxLayout(widget);
         verticalLayout_2->setSpacing(0);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(16, 24, 6, 24);
+        verticalLayout_2->setContentsMargins(16, 24, 0, 24);
         scrollArea = new QScrollArea(widget);
         scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
-        scrollArea->setStyleSheet(QString::fromUtf8("background: qlineargradient(x1:0, y1:0, x2:0, y2:1, \n"
-"                    stop:0 #0B0A2B, stop:1 #19113D);\n"
-"\n"
-"border-radius: 12px;"));
+        scrollArea->setStyleSheet(QString::fromUtf8(""));
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 466, 452));
-        scrollAreaWidgetContents->setStyleSheet(QString::fromUtf8("QScrollBar:vertical\n"
-"{\n"
-"    width:8px;\n"
-"    background:transparent;\n"
-"    margin:0px,0px,0px,0px;\n"
-"    padding-top:0px;\n"
-"    padding-bottom:0px;\n"
-"    border-radius:4px;\n"
-"}\n"
-"QScrollBar::handle:vertical\n"
-"{\n"
-"    width:8px;\n"
-"    background: rgba(219,219,219,1);\n"
-"    border-radius:4px;\n"
-"    min-height:50;\n"
-"}\n"
-"QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical{background-color:none;}\n"
-"\n"
-"QScrollBar::add-line:vertical\n"
-"{\n"
-"    height:0px;width:0px;\n"
-"}\n"
-"QScrollBar::sub-line:vertical\n"
-"{\n"
-"    height:0px;width:0px;\n"
-"}\n"
-"QScrollBar:horizontal {\n"
-"        height:0px;\n"
-"}"));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 472, 452));
+        scrollAreaWidgetContents->setStyleSheet(QString::fromUtf8(""));
         horizontalLayout = new QHBoxLayout(scrollAreaWidgetContents);
         horizontalLayout->setSpacing(0);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
         gridLayout = new QGridLayout();
-        gridLayout->setSpacing(6);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setHorizontalSpacing(0);
+        gridLayout->setHorizontalSpacing(2);
         gridLayout->setVerticalSpacing(24);
+        gridLayout->setContentsMargins(0, -1, 0, -1);
 
         horizontalLayout->addLayout(gridLayout);
 
@@ -111,22 +77,22 @@ public:
         verticalLayout->addWidget(widget);
 
 
-        retranslateUi(EmotionWidget);
+        retranslateUi(EmotionPage);
 
-        QMetaObject::connectSlotsByName(EmotionWidget);
+        QMetaObject::connectSlotsByName(EmotionPage);
     } // setupUi
 
-    void retranslateUi(QWidget *EmotionWidget)
+    void retranslateUi(QDialog *EmotionPage)
     {
-        EmotionWidget->setWindowTitle(QCoreApplication::translate("EmotionWidget", "EmotionWidget", nullptr));
+        EmotionPage->setWindowTitle(QCoreApplication::translate("EmotionPage", "Dialog", nullptr));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class EmotionWidget: public Ui_EmotionWidget {};
+    class EmotionPage: public Ui_EmotionPage {};
 } // namespace Ui
 
 QT_END_NAMESPACE
 
-#endif // UI_EMOTIONWIDGET_H
+#endif // UI_EMOTIONPAGE_H

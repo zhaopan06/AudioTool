@@ -21,7 +21,7 @@ void ChatImageItem::setData(QVariantMap data, QString imageUrl)
 
     QString photo = data["photo"].toString();
     HttpInterFace::getInstance()->downLoad(photo, [&](const QString &path) {
-        this->ui->label->setPixmap(QPixmap::fromImage(QImage(path)));
+        this->ui->label->setPixmap(QPixmap(path));
     });
 
     HttpInterFace::getInstance()->downLoad(imageUrl, [&](const QString &path) {

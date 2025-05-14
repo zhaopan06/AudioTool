@@ -1,5 +1,6 @@
 ﻿#include "mainwindow.h"
 #include "Global.h"
+#include "qevent.h"
 #include <QApplication>
 #include <QMessageBox>
 

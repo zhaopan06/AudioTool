@@ -6,7 +6,7 @@
 #include "MicInfoItem.h"
 #include "agorartcengineinterface.h"
 #include <QMainWindow>
-#include "EmotionWidget.h"
+#include "EmotionPage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -48,7 +48,7 @@ private slots:
 
     void on_emoBtn_clicked();
 
-    void emotionClicked(QString path);
+    void emotionClicked(QVariantMap data);
     void on_closeBtn_clicked();
 
     void on_minBtn_clicked();
@@ -95,8 +95,7 @@ private:
     bool  m_bMoveing = false;
     QPoint m_pMovePosition = QPoint(0,0);
 
-    QMenu *m_men = nullptr;
-    EmotionWidget *m_emotionWidget = nullptr;
+    EmotionPage *m_emotionPage= nullptr;
 
     GiftPage *m_giftPage = nullptr;
 

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EmotionItem</class>
+ <widget class="QDialog" name="EmotionItem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>91</width>
+    <height>83</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>91</width>
+    <height>83</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>9</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="styleSheet">
+      <string notr="true">QWidget{	
+border:none;
+}
+
+QWidget::hover{
+
+background: #261D47;
+border-radius: 17px;
+border: 2px solid rgba(240, 150, 242, 1);
+}
+</string>
+     </property>
+     <widget class="QLabel" name="name">
+      <property name="geometry">
+       <rect>
+        <x>1</x>
+        <y>66</y>
+        <width>89</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>17</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>17</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font-family: &quot;微软雅黑&quot;;
+font-size: 12px;
+color: #FFFFFF;
+line-height: 17px;
+text-align: center;
+background:transparent;
+border:none;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="click_label" name="addSourceBtn_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>91</width>
+        <height>83</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>91</width>
+        <height>83</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>91</width>
+        <height>83</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: transparent; 
+border:none;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="image">
+      <property name="geometry">
+       <rect>
+        <x>18</x>
+        <y>3</y>
+        <width>55</width>
+        <height>54</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>55</width>
+        <height>54</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>55</width>
+        <height>54</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background:transparent;
+border:none;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <zorder>name</zorder>
+     <zorder>image</zorder>
+     <zorder>addSourceBtn_2</zorder>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>click_label</class>
+   <extends>QLabel</extends>
+   <header location="global">click_label.h</header>
+   <slots>
+    <signal>clicked()</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

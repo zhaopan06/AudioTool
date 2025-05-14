@@ -309,9 +309,9 @@ public:
     QPushButton *pushButton_14;
     QPushButton *pushButton_15;
     QPushButton *pushButton_16;
-    QButtonGroup *buttonGroup_3;
-    QButtonGroup *buttonGroup_2;
     QButtonGroup *buttonGroup;
+    QButtonGroup *buttonGroup_2;
+    QButtonGroup *buttonGroup_3;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -1980,8 +1980,8 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(msgList->sizePolicy().hasHeightForWidth());
         msgList->setSizePolicy(sizePolicy);
-        msgList->setMinimumSize(QSize(0, 0));
-        msgList->setMaximumSize(QSize(16777215, 16777215));
+        msgList->setMinimumSize(QSize(476, 0));
+        msgList->setMaximumSize(QSize(476, 16777215));
         msgList->setStyleSheet(QString::fromUtf8(""));
         msgList->setFrameShape(QFrame::NoFrame);
 
@@ -2034,8 +2034,8 @@ public:
         osList->setObjectName(QString::fromUtf8("osList"));
         sizePolicy.setHeightForWidth(osList->sizePolicy().hasHeightForWidth());
         osList->setSizePolicy(sizePolicy);
-        osList->setMinimumSize(QSize(0, 0));
-        osList->setMaximumSize(QSize(16777215, 16777215));
+        osList->setMinimumSize(QSize(476, 0));
+        osList->setMaximumSize(QSize(476, 16777215));
         osList->setStyleSheet(QString::fromUtf8(""));
         osList->setFrameShape(QFrame::NoFrame);
 

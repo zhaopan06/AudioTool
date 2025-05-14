@@ -359,26 +359,24 @@ void MainWindow::on_imageBtn_clicked()
 
 void MainWindow::on_emoBtn_clicked()
 {
-    if(nullptr == m_men)
+    if(nullptr == m_emotionPage)
     {
-        m_men = new QMenu;        
-        QHBoxLayout *hbox = new QHBoxLayout;
-        m_emotionWidget = new EmotionWidget(this);
-        m_emotionWidget->initChatEmotion();
-        connect(m_emotionWidget, SIGNAL(emotionClicked(QString)), this, SLOT(emotionClicked(QString)));
-        hbox->setMargin(0);
-        hbox->addWidget(m_emotionWidget);
-        m_men->setLayout(hbox);
+        m_emotionPage = new EmotionPage;
+        m_emotionPage->initChatEmotion();
+        connect(m_emotionPage, SIGNAL(emotionClicked(QVariantMap)), this, SLOT(emotionClicked(QVariantMap)));
     }
+
     QPoint point;
-    point.setX(ui->emoBtn->mapToGlobal(QPoint(0, 0)).rx());
-    point.setY(ui->emoBtn->mapToGlobal(QPoint(0, 0)).ry() - m_emotionWidget->height() - 10);
-    m_men->move(point);
-    m_men->exec();
+    point.setX(ui->giftBtn->mapToGlobal(QPoint(0, 0)).rx() - 16);
+    point.setY(ui->giftBtn->mapToGlobal(QPoint(0, 0)).ry() - m_emotionPage->height() - 10);
+    m_emotionPage->move(point);
+    m_emotionPage->show();
 }
 
-void MainWindow::emotionClicked(QString path)
+void MainWindow::emotionClicked(QVariantMap data)
 {
+    m_emotionPage->hide();
+    QString path = data["path"].toString();
     ui->sendBtn->setFocus();
     QString text;
     if(path.contains("/"))
@@ -763,8 +761,11 @@ void MainWindow::setEmoTionItem(QString path, int type)
 
 void MainWindow::on_giftBtn_clicked()
 {
-    m_giftPage = new GiftPage(this);
-    m_giftPage->init();
+    if(nullptr == m_giftPage)
+    {
+        m_giftPage = new GiftPage(this);
+        m_giftPage->init();
+    }
     QPoint point1;
     point1.setX(ui->giftBtn->mapToGlobal(QPoint(0, 0)).rx() - 16);
     point1.setY(ui->giftBtn->mapToGlobal(QPoint(0, 0)).ry() - m_giftPage->height() - 10);

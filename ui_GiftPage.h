@@ -199,7 +199,7 @@ public:
         scrollArea_2->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 458, 434));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 100, 30));
         verticalLayout_4 = new QVBoxLayout(scrollAreaWidgetContents_2);
         verticalLayout_4->setSpacing(0);
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
