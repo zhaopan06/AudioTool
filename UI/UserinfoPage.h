@@ -15,6 +15,11 @@ public:
     explicit UserinfoPage(QWidget *parent = nullptr);
     ~UserinfoPage();
 
+    void init(QString userID);
+
+private slots:
+    void on_closeBtn_clicked();
+
 private:
     Ui::UserinfoPage *ui;
 };

@@ -63,6 +63,7 @@ public:
     void getContributeList(int type, int timeType, int size, QString roomId, callBack callBack);
     void getPcNewUserSquareList(int pageNum, int pageSize, callBack callBack);
     void getCommonConfig(callBack callBack);
+    void getUserInfo(QString userId, callBack callBack);
     QVariantMap getGiftList();
 
 private:

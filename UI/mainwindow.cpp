@@ -10,6 +10,7 @@
 #include "MicInfoItem.h"
 #include "MicseQuenceItem.h"
 #include "NewUserPage.h"
+#include "UserinfoPage.h"
 #include "qdebug.h"
 #include "ui_mainwindow.h"
 #include "agorartcengineinterface.h"
@@ -475,7 +476,9 @@ void MainWindow::on_copyBtn_clicked()
 //刷新
 void MainWindow::on_updateBtn_clicked()
 {
-
+    UserinfoPage page;
+    page.init(HttpUserInfo::instance()->getUserID());
+    page.exec();
 }
 //进入房间
 void MainWindow::enterTheToom(QVariantMap data)
