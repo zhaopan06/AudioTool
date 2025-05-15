@@ -74,6 +74,8 @@ MainWindow::~MainWindow()
 void MainWindow::initUserUI()
 {
     ui->mic_stackedWidget->setCurrentIndex(0);
+    ui->autioMicBtn->show();
+    ui->downMicBtn->hide();
 
     QVariantMap data = HttpUserInfo::instance()->getLoginInfo();
     QString photoUrl = data["user"].toMap()["photo"].toString();
@@ -169,6 +171,7 @@ void MainWindow::on_pushButton_2_clicked()
         connect(m_timInterface, &TimInterface::msg_image, this, &MainWindow::msg_image);
         connect(m_timInterface, &TimInterface::msg_gift, this, &MainWindow::msg_gift);
         connect(m_timInterface, &TimInterface::msg_micInfo, this, &MainWindow::msg_micInfo);
+        connect(m_timInterface, &TimInterface::msg_updateMicList, this, &MainWindow::updateMicList);
     }
 }
 
@@ -277,11 +280,36 @@ void MainWindow::msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to)
     ui->giftList->scrollToBottom();
 }
 //抱麦
-void MainWindow::msg_micInfo(QVariantMap data)
+void MainWindow::msg_micInfo(QVariantList list)
 {
-    int mic_index = data["mic_index"].toString().toInt();
-    auto item = m_micList.at(mic_index-1);
-    item->setData(data, mic_index-1);
+    bool isUpMic = false;
+    foreach (auto var, list)
+    {
+        QVariantMap data = var.toMap();
+        int mic_index = data["mic_index"].toString().toInt();
+        auto item = m_micList.at(mic_index-1);
+        item->setData(data, mic_index-1);
+
+        //自己抱麦上去
+        if(data["member"].toMap()["userId"].toString() == HttpUserInfo::instance()->getUserID())
+        {            
+            int status = data["status"].toInt();
+            if(status >= 0)
+                isUpMic = true;
+            else
+                isUpMic = false;
+        }
+    }
+
+    //抱麦上去,改变rtc的状态
+    if(isUpMic)
+    {
+        qDebug()<<"true`11111111111";
+    }
+    else
+    {
+        qDebug()<<"false`11111111111";
+    }
 }
 
 //发送文字消息
@@ -390,38 +418,36 @@ void MainWindow::emotionClicked(QVariantMap data)
             {
                 switch (number)
                 {
-                case 0://发送骰子
+                case 0:
                 {
                     int diceRoll = QRandomGenerator::global()->bounded(1, 7);
                     m_timInterface->setSendJson(IMType_dice, QString::number(diceRoll));
-                    setEmoTionItem(path, 1);
+                    QString imagePath = "images/emotion/icon_dice_" + QString::number(diceRoll) + ".png";
+                    setEmoTionItem(imagePath, 1);
                     break;
                 }
-                case 1://发送猜拳
+                case 1:
                 {
                     int diceRoll = QRandomGenerator::global()->bounded(1, 4);
-                    qDebug()<<"diceRoll---"<<diceRoll;
+                    QString imagePath = "images/emotion/icon_finger_" + QString::number(diceRoll) + ".png";
                     m_timInterface->setSendJson(IMType_finger, QString::number(diceRoll));
-                    setEmoTionItem(path, 2);
+                    setEmoTionItem(imagePath, 2);
                     break;
                 }
-                case 2://发送爆灯
+                case 2:
                 {
                     setEmoTionItem(path, 3);
                     m_timInterface->setSendJson(IMType_light, "");
                     break;
                 }
-                case 3://美味基
+                case 3:
                 {
-                    setEmoTionItem(path, 4);
                     int diceRoll = QRandomGenerator::global()->bounded(1, 9);
-                    qDebug()<<"diceRoll---"<<diceRoll;
+                    QString imagePath = "images/emotion/icon_mic_" + QString::number(diceRoll) + ".png";
+                    setEmoTionItem(imagePath, 4);
                     m_timInterface->setSendJson(IMType_machine, QString::number(diceRoll));
-
                     break;
                 }
-                default:
-                    break;
                 }
             }
             else
@@ -511,6 +537,7 @@ void MainWindow::enterTheToom(QVariantMap data)
     });
 
     QString id = data["id"].toString();
+    g_roomID = id;
     int currentPage = 1;
     HttpInterFace::getInstance()->getOnlineInfo(id,currentPage, [&](const QVariant &data) {
 
@@ -526,25 +553,8 @@ void MainWindow::enterTheToom(QVariantMap data)
         }
 
     });
-    HttpInterFace::getInstance()->getMicApplyList(id, [&](const QVariant &data) {
 
-        QVariantMap info =  data.toMap();
-        QVariantList list = info["data"].toList();
-        if(list.size() > 0)
-            ui->mic_stackedWidget->setCurrentIndex(1);
-        else
-            ui->mic_stackedWidget->setCurrentIndex(0);
-
-        for(int i=0; i<list.size(); i++)
-        {
-            QVariantMap map = list.at(i).toMap();
-            MicseQuenceItem *item = new MicseQuenceItem();
-            item->setFixedSize(390,70);
-            item->setData(map, i+1);
-            ui->micList->addWidget(item);
-        }
-
-    });
+    updateMicList();
 
     if(m_agoraFace == nullptr)
     {
@@ -587,8 +597,8 @@ void MainWindow::enterTheToom(QVariantMap data)
 
             if(HttpUserInfo::instance()->getUserID() == micData["member"].toMap()["userId"].toString())
             {
-                ui->autioMicBtn->setChecked(true);
-                ui->autioMicBtn->setText(QStringLiteral("下麦"));
+                ui->downMicBtn->show();
+                ui->autioMicBtn->hide();
             }
         }
 
@@ -601,14 +611,19 @@ void MainWindow::setMyselfMicInfo(int status)
 {
     if(status >= 0)
     {
-        ui->autioMicBtn->setChecked(true);
-        ui->autioMicBtn->setText(QStringLiteral("下麦"));
+        ui->downMicBtn->show();
+        ui->autioMicBtn->hide();
+
+        m_agoraFace->setClientRole(CLIENT_ROLE_BROADCASTER);
     }
     else
     {
-        ui->autioMicBtn->setChecked(false);
+        ui->downMicBtn->hide();
+        ui->autioMicBtn->show();
         ui->autioMicBtn->setText(QStringLiteral("上麦"));
+        m_agoraFace->setClientRole(CLIENT_ROLE_AUDIENCE);
     }
+
 }
 
 //线上
@@ -722,20 +737,6 @@ void MainWindow::on_osBtn_clicked()
     ui->stackedWidget_3->setCurrentIndex(3);
 }
 
-void MainWindow::on_autioMicBtn_clicked()
-{
-    if(ui->autioMicBtn->isChecked())
-    {
-        HttpInterFace::getInstance()->addMic(HttpUserInfo::instance()->getClassRoomID(),1);
-        ui->autioMicBtn->setText(QStringLiteral("下麦"));
-    }
-    else
-    {
-        HttpInterFace::getInstance()->downMic(HttpUserInfo::instance()->getClassRoomID());
-        ui->autioMicBtn->setText(QStringLiteral("上麦"));
-    }   
-}
-
 void MainWindow::setEmoTionItem(QString path, int type)
 {
     ChatTextMyItem *item1 = new ChatTextMyItem;
@@ -771,5 +772,57 @@ void MainWindow::on_giftBtn_clicked()
     point1.setY(ui->giftBtn->mapToGlobal(QPoint(0, 0)).ry() - m_giftPage->height() - 10);
     m_giftPage->move(point1);
     m_giftPage->show();
+}
+
+void MainWindow::updateMicList()
+{
+    HttpInterFace::getInstance()->getMicApplyList(g_roomID, [&](const QVariant &data) {
+
+        cleanupLayout(ui->micList);
+        QVariantMap info =  data.toMap();
+        QVariantList list = info["data"].toList();
+        if(list.size() > 0)
+            ui->mic_stackedWidget->setCurrentIndex(1);
+        else
+            ui->mic_stackedWidget->setCurrentIndex(0);
+
+        for(int i=0; i<list.size(); i++)
+        {
+            QVariantMap map = list.at(i).toMap();
+            MicseQuenceItem *item = new MicseQuenceItem();
+            item->setFixedSize(390,70);
+            item->setData(map, i+1);
+            ui->micList->addWidget(item);
+
+            if(map["userId"].toString() == HttpUserInfo::instance()->getUserID())
+            {
+                ui->autioMicBtn->setChecked(true);
+                ui->autioMicBtn->setText(QStringLiteral("取消上麦"));
+            }
+        }
+
+    });
+}
+
+void MainWindow::on_autioMicBtn_clicked()
+{
+    if(ui->autioMicBtn->isChecked())
+    {
+        HttpInterFace::getInstance()->addMic(HttpUserInfo::instance()->getClassRoomID(),1);
+        ui->autioMicBtn->setText(QStringLiteral("取消上麦"));
+    }
+    else
+    {
+        HttpInterFace::getInstance()->addMic(HttpUserInfo::instance()->getClassRoomID(),0);
+        ui->autioMicBtn->setText(QStringLiteral("上麦"));
+    }
+}
+
+void MainWindow::on_downMicBtn_clicked()
+{
+    HttpInterFace::getInstance()->downMic(HttpUserInfo::instance()->getClassRoomID());
+    ui->downMicBtn->hide();
+    ui->autioMicBtn->show();
+    ui->autioMicBtn->setText(QStringLiteral("上麦"));
 }
 

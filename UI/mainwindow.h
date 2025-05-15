@@ -42,7 +42,7 @@ private slots:
     void msg_txt(QVariantMap user, QString msg, int type);
     void msg_image(QVariantMap user, QString path);
     void msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to);
-    void msg_micInfo(QVariantMap data);
+    void msg_micInfo(QVariantList list);
 
     void on_sendBtn_clicked();
 
@@ -87,6 +87,10 @@ private slots:
 
     void setMyselfMicInfo(int status);
     void on_giftBtn_clicked();
+
+    void updateMicList();
+
+    void on_downMicBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

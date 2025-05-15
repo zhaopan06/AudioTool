@@ -399,22 +399,14 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                 }
                 case 100004:
                 {
-                    QVariantList list =  object["data"].toObject()["micInfoList"].toVariant().toList();
-                    for(QVariant var : list)
-                    {
-
-                    }
-                    qDebug()<<"100004 object==="<<object;
+                    emit msg_updateMicList();
                     break;
                 }
                 case 100006:
                 {
                     QVariantList list =  object["data"].toObject()["micInfoList"].toVariant().toList();
-                    for(QVariant var : list)
-                    {
-                        emit msg_micInfo(var.toMap());
-                    }
-                    qDebug()<<"100006 object==="<<object;
+                    emit msg_micInfo(list);
+                    emit msg_updateMicList();
                     break;
                 }
                 case 100008:

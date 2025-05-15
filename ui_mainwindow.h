@@ -298,6 +298,7 @@ public:
     QHBoxLayout *horizontalLayout_18;
     QHBoxLayout *horizontalLayout_16;
     QPushButton *autioMicBtn;
+    QPushButton *downMicBtn;
     QPushButton *pushButton_5;
     QPushButton *pushButton_4;
     QPushButton *pushButton_6;
@@ -309,9 +310,9 @@ public:
     QPushButton *pushButton_14;
     QPushButton *pushButton_15;
     QPushButton *pushButton_16;
+    QButtonGroup *buttonGroup_3;
     QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
-    QButtonGroup *buttonGroup_3;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -2492,6 +2493,15 @@ public:
 
         horizontalLayout_16->addWidget(autioMicBtn);
 
+        downMicBtn = new QPushButton(widget_25);
+        downMicBtn->setObjectName(QString::fromUtf8("downMicBtn"));
+        downMicBtn->setMinimumSize(QSize(96, 36));
+        downMicBtn->setStyleSheet(QString::fromUtf8("background: #ED525A;\n"
+"border-radius: 18px;"));
+        downMicBtn->setCheckable(true);
+
+        horizontalLayout_16->addWidget(downMicBtn);
+
         pushButton_5 = new QPushButton(widget_25);
         pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
         pushButton_5->setMinimumSize(QSize(92, 36));
@@ -2685,6 +2695,7 @@ public:
         m_btn->setText(QCoreApplication::translate("MainWindow", "\346\234\210\346\246\234", nullptr));
         label_27->setText(QCoreApplication::translate("MainWindow", "\347\244\274\347\211\251\344\272\222\345\212\250", nullptr));
         autioMicBtn->setText(QCoreApplication::translate("MainWindow", "\344\270\212\351\272\246", nullptr));
+        downMicBtn->setText(QCoreApplication::translate("MainWindow", "\344\270\213\351\272\246", nullptr));
         pushButton_5->setText(QCoreApplication::translate("MainWindow", "\350\207\252\347\224\261\345\217\221\350\250\200", nullptr));
         pushButton_4->setText(QString());
         pushButton_6->setText(QString());

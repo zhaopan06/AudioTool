@@ -3,7 +3,6 @@
 #include "ui_GiftPage.h"
 #include "HttpInterFace.h"
 #include <windows.h>
-#include <QDesktopWidget>
 #include "HttpUserInfo.h"
 
 GiftPage::GiftPage(QWidget *parent)

@@ -393,7 +393,7 @@ QVariantMap HttpInterFace::httpPost_syn(QString url ,QVariantMap jsonMap)
     connect(m_pNetworkAccessManager, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
     eventloop.exec();
 
-    QByteArray responseData = reply->readAll();    
+    QByteArray responseData = reply->readAll();
     if(responseData.isEmpty())
     {
         return QVariantMap();

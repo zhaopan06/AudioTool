@@ -20,7 +20,8 @@ public:
 
 signals:
     void emotionClicked(QVariantMap);
-
+private:
+    bool nativeEvent(const QByteArray &eventType, void *message, long *result);
 
 private:
     QStringList m_emotionList;

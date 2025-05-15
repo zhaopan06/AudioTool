@@ -3,6 +3,8 @@
 #include "qtimer.h"
 #include "ui_ChatTextMyItem.h"
 #include "HttpInterFace.h"
+#include "HttpUserInfo.h"
+#include "Global.h"
 
 ChatTextMyItem::ChatTextMyItem(QWidget *parent)
     : QDialog(parent)
@@ -19,6 +21,7 @@ ChatTextMyItem::~ChatTextMyItem()
 
 void ChatTextMyItem::setData(QString path, QString msg)
 {
+    ui->widget->hide();
     HttpInterFace::getInstance()->downLoad(path, [&](const QString &path) {
         this->ui->image->setPixmap(QPixmap::fromImage(QImage(path)));
     });
@@ -50,7 +53,10 @@ void ChatTextMyItem::setData(QString path, QString msg)
 
 void ChatTextMyItem::setEmotion(QString path, int type)
 {
-    HttpInterFace::getInstance()->downLoad(path, [&](const QString &path) {
+    ui->widget_2->hide();
+    QVariantMap data = HttpUserInfo::instance()->getLoginInfo();
+    QString photoUrl = data["user"].toMap()["photo"].toString();
+    HttpInterFace::getInstance()->downLoad(photoUrl, [&](const QString &path) {
         this->ui->image->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
@@ -68,7 +74,7 @@ void ChatTextMyItem::setEmotion(QString path, int type)
     }
     case 3:
     {
-        giftPath = ":/images/gifts/pcliving.gif";
+        giftPath = ":/images/gifts/light.gif";
         break;
     }
     case 4:
@@ -76,17 +82,18 @@ void ChatTextMyItem::setEmotion(QString path, int type)
         giftPath = ":/images/gifts/mic.gif";
         break;
     }
+
     default:
         break;
     }
-    QMovie *movie = new QMovie(":/animations/loading.gif");
-    QLabel *label = new QLabel();
-    ui->textLayout->addWidget(label);
-    label->setMovie(movie);
-    movie->start(); // 开始播放
 
-    QTimer::singleShot(30000, [movie, label, path]() {
+    QMovie *movie = new QMovie(giftPath);
+    movie->setScaledSize(QSize(34,34));
+    ui->label->setMovie(movie);
+    movie->start();
+
+    QTimer::singleShot(3000, [movie, path, this]() {
         movie->stop();
-        label->setPixmap(QPixmap::fromImage(QImage(path)));
+        this->ui->label->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 }

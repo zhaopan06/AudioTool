@@ -11,6 +11,7 @@
 
 // 全局变量定义
 QString g_downloadImages ="";//需要下载图片得地址
+QString g_roomID ="";//需要下载图片得地址
 
 // 清空布局
 void cleanupLayout(QLayout *targetLayout)

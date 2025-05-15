@@ -78,10 +78,10 @@ signals:
     void msg_mic(QString);//猜拳
 
 
-    void msg_micInfo(QVariantMap);
+    void msg_micInfo(QVariantList);
     void msg_gift(QVariantMap,  QVariantMap,  QVariantMap);
 
-
+    void msg_updateMicList();
 private:
 
 

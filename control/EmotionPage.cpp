@@ -5,6 +5,7 @@
 #include "qjsondocument.h"
 #include <QTableWidgetItem>
 #include <QMovie>
+#include <windows.h>
 
 QVariant readJsonFile(const QString &filePath)
 {
@@ -63,4 +64,22 @@ void EmotionPage::initChatEmotion()
         item->setData(list.at(i).toMap());
         ui->gridLayout->addWidget(item,row, col);
     }
+}
+
+bool EmotionPage::nativeEvent(const QByteArray &eventType, void *message, long *result)
+{
+    if (eventType == "windows_generic_MSG")
+    {
+        MSG* msg = (MSG*)message;
+        switch(msg->message)
+        {
+        case WM_NCACTIVATE:
+            bool active = (bool)(msg->wParam);
+            if(!active)
+            {
+                this->hide();
+            }
+        }
+    }
+    return QWidget::nativeEvent(eventType, message, result);
 }

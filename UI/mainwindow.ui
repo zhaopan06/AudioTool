@@ -4558,6 +4558,26 @@ border-radius: 18px;</string>
                    </widget>
                   </item>
                   <item>
+                   <widget class="QPushButton" name="downMicBtn">
+                    <property name="minimumSize">
+                     <size>
+                      <width>96</width>
+                      <height>36</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background: #ED525A;
+border-radius: 18px;</string>
+                    </property>
+                    <property name="text">
+                     <string>下麦</string>
+                    </property>
+                    <property name="checkable">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <widget class="QPushButton" name="pushButton_5">
                     <property name="minimumSize">
                      <size>
@@ -4797,8 +4817,8 @@ border-radius: 18px;</string>
  </resources>
  <connections/>
  <buttongroups>
+  <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="buttonGroup_3"/>
  </buttongroups>
 </ui>

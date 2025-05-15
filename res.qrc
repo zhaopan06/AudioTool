@@ -50,5 +50,6 @@
         <file>images/gifts/dice.gif</file>
         <file>images/jinbi.png</file>
         <file>images/nextBtn.png</file>
+        <file>images/gifts/light.gif</file>
     </qresource>
 </RCC>

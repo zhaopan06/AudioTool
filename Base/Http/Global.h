@@ -8,7 +8,7 @@
 
 // 全局变量定义
 extern QString g_downloadImages;//需要下载图片得地址
-
+extern QString g_roomID;
 
 // 全局函数定义
 void cleanupLayout(QLayout *target);
