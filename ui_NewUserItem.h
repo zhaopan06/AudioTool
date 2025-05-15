@@ -43,7 +43,7 @@ public:
     {
         if (NewUserItem->objectName().isEmpty())
             NewUserItem->setObjectName(QString::fromUtf8("NewUserItem"));
-        NewUserItem->resize(710, 70);
+        NewUserItem->resize(710, 75);
         horizontalLayout = new QHBoxLayout(NewUserItem);
         horizontalLayout->setSpacing(12);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
@@ -63,8 +63,6 @@ public:
         label_2->setGeometry(QRect(0, 32, 40, 16));
         label_2->setStyleSheet(QString::fromUtf8("background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #D197FE, stop:1 #9752ED);\n"
 "border-radius: 8px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-size: 11px;\n"
 "color: #FFFFFF;\n"
 ""));
@@ -79,8 +77,7 @@ public:
         nameLab = new QLabel(NewUserItem);
         nameLab->setObjectName(QString::fromUtf8("nameLab"));
         nameLab->setMinimumSize(QSize(0, 22));
-        nameLab->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
+        nameLab->setStyleSheet(QString::fromUtf8("font-weight: 400;\n"
 "font-size: 16px;\n"
 "color: #FFFFFF;\n"
 "line-height: 22px;\n"
@@ -92,9 +89,7 @@ public:
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         label = new QLabel(NewUserItem);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
-"font-size: 12px;\n"
+        label->setStyleSheet(QString::fromUtf8("font-size: 12px;\n"
 "color: #A8A8A7;\n"
 "line-height: 17px;\n"
 "text-align: left;\n"
@@ -123,7 +118,6 @@ public:
 "background: rgba(245,151,255,0.2);\n"
 "border-radius: 16px;\n"
 "\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 500;\n"
 "font-size: 16px;\n"
 "color: #F597FF;\n"
@@ -136,7 +130,6 @@ public:
 "border-radius: 16px;\n"
 "background: #36383B;\n"
 "\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-size: 16px;\n"
 "color: rgba(255, 255, 255,0.5);\n"
 "\n"
@@ -152,8 +145,6 @@ public:
         pushButton_3->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "background: #36383B;\n"
 "border-radius: 16px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-size: 16px;\n"
 "color: #ffffff;\n"
 "}\n"
@@ -161,8 +152,6 @@ public:
 "QPushButton:checked {\n"
 "background: #36383B;\n"
 "border-radius: 16px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-size: 16px;\n"
 "color: rgba(255,255,255,0.5);\n"
 "\n"
@@ -180,8 +169,6 @@ public:
 "QPushButton {\n"
 "background: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5, stop:0 #D197FE, stop:1 #9752ED);\n"
 "border-radius: 16px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-size: 16px;\n"
 "color: #ffffff;\n"
 "}\n"
@@ -189,8 +176,6 @@ public:
 "QPushButton:checked {\n"
 "background: #36383B;\n"
 "border-radius: 16px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-size: 16px;\n"
 "color: #ffffff;\n"
 "\n"

@@ -215,10 +215,30 @@ QVariantMap HttpInterFace::addMic(QString roomId, int type)
     return httpsPost_syn(url,jsonMap);
 }
 
-QVariantMap HttpInterFace::downMic(QString roomId)
+QVariantMap HttpInterFace::b_upMic(QString roomId, QString targetUserId)
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);
+    jsonMap.insert("type", 0);
+    jsonMap.insert("targetUserId", targetUserId);
+    QString url = BASE_API_URL + QString("/live/dealUpDownMic");
+    return httpsPost_syn(url,jsonMap);
+}
+
+QVariantMap HttpInterFace::b_downMic(QString roomId, QString targetUserId)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",roomId);
+    jsonMap.insert("type", 1);
+    jsonMap.insert("targetUserId", targetUserId);
+    QString url = BASE_API_URL + QString("/live/dealUpDownMic");
+    return httpsPost_syn(url,jsonMap);
+}
+
+QVariantMap HttpInterFace::m_downMic()
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",HttpUserInfo::instance()->getClassRoomID());
     jsonMap.insert("type", 2);
     jsonMap.insert("targetUserId", HttpUserInfo::instance()->getUserID());
     QString url = BASE_API_URL + QString("/live/dealUpDownMic");

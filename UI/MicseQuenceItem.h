@@ -16,11 +16,13 @@ public:
     explicit MicseQuenceItem(QWidget *parent = nullptr);
     ~MicseQuenceItem();
 
-    void setData(QVariantMap data, int num);
+    void setData(QVariantMap data, int num, bool m_isManager);
 
 private slots:
     void on_micBtn_clicked();
 
+signals:
+    void upMicToUserID(QString, QString);
 private:
     Ui::MicseQuenceItem *ui;
     QVariantMap m_data;

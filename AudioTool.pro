@@ -52,10 +52,12 @@ SOURCES += \
     UI/NewUserPage.cpp \
     UI/OnlineItem.cpp \
     UI/RoomItem.cpp \
+    UI/UserinfoPage.cpp \
     UI/mainwindow.cpp \
     control/CRoundLabel.cpp \
     control/EmotionItem.cpp \
     control/EmotionPage.cpp \
+    control/MsgBox.cpp \
     control/click_label.cpp \
     main.cpp
 
@@ -82,10 +84,12 @@ HEADERS += \
     UI/NewUserPage.h \
     UI/OnlineItem.h \
     UI/RoomItem.h \
+    UI/UserinfoPage.h \
     UI/mainwindow.h \
     control/CRoundLabel.h \
     control/EmotionItem.h \
     control/EmotionPage.h \
+    control/MsgBox.h \
     control/click_label.h
 
 FORMS += \
@@ -105,9 +109,11 @@ FORMS += \
     UI/NewUserPage.ui \
     UI/OnlineItem.ui \
     UI/RoomItem.ui \
+    UI/UserinfoPage.ui \
     UI/mainwindow.ui \
     control/EmotionItem.ui \
-    control/EmotionPage.ui
+    control/EmotionPage.ui \
+    control/MsgBox.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

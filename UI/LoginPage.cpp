@@ -5,6 +5,7 @@
 #include "ui_LoginPage.h"
 #include "HttpInterFace.h"
 #include "HttpUserInfo.h"
+#include "MsgBox.h"
 
 LoginPage::LoginPage(QWidget *parent)
     : QDialog(parent)
@@ -273,7 +274,8 @@ void LoginPage::on_back_label_clicked()
 
 void LoginPage::on_login_btn_clicked()
 {
-    QVariantMap data = HttpInterFace::getInstance()->loginToServer("13333333333", "654321");
+    QString acc =  ui->cap_mobile->text();
+    QVariantMap data = HttpInterFace::getInstance()->loginToServer(acc, "654321");
     if(data["code"].toInt() == 1)
     {
         QJsonObject jsonObject = QJsonObject::fromVariantMap(data);        
@@ -282,13 +284,14 @@ void LoginPage::on_login_btn_clicked()
     }
     else
     {
-        qDebug()<<"login message ---"<<data["message"].toInt();
+        MsgBox::showMsg(NULL, tr("提示"), data["message"].toString());
     }
 }
 
 void LoginPage::on_next_page_btn_clicked()
-{    
-    QVariantMap Captchadata =  HttpInterFace::getInstance()->getCaptcha("13333333333","+86");
+{
+    QString acc =  ui->cap_mobile->text();
+    QVariantMap Captchadata =  HttpInterFace::getInstance()->getCaptcha(acc,"+86");
     if(Captchadata["code"].toInt() == 1)
     {
         QString str = ui->cap_mobile->text();
@@ -307,7 +310,11 @@ void LoginPage::on_next_page_btn_clicked()
     }
     else
     {
-        qDebug()<<"Captchadata message ---"<<Captchadata;
+        QString code = Captchadata["code"].toString();
+        if(code.isEmpty())
+            MsgBox::showMsg(NULL, tr("提示"),tr("网络连接失败，请重新登录"));
+        else
+            MsgBox::showMsg(NULL, tr("提示"), Captchadata["code"].toString());
     }
 }
 

@@ -34,6 +34,7 @@ public:
     QPushButton *pushButton;
     QLabel *user_lab;
     QSpacerItem *horizontalSpacer;
+    QLabel *label_2;
     QPushButton *micBtn;
 
     void setupUi(QDialog *MicseQuenceItem)
@@ -132,14 +133,25 @@ public:
 
         horizontalLayout->addLayout(verticalLayout);
 
+        label_2 = new QLabel(MicseQuenceItem);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setMinimumSize(QSize(77, 32));
+        label_2->setMaximumSize(QSize(16777215, 32));
+        label_2->setStyleSheet(QString::fromUtf8("background: #36383B;\n"
+"border-radius: 16px;\n"
+"font-size: 16px;\n"
+"color: #FFFFFF;\n"
+""));
+        label_2->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout->addWidget(label_2);
+
         micBtn = new QPushButton(MicseQuenceItem);
         micBtn->setObjectName(QString::fromUtf8("micBtn"));
         micBtn->setMinimumSize(QSize(77, 32));
         micBtn->setMaximumSize(QSize(77, 32));
         micBtn->setStyleSheet(QString::fromUtf8("background: #36383B;\n"
-"border-radius: 14px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"border-radius: 16px;\n"
 "font-size: 16px;\n"
 "color: #FFFFFF;\n"
 ""));
@@ -161,7 +173,8 @@ public:
         nameLab->setText(QCoreApplication::translate("MicseQuenceItem", "\347\224\250\346\210\267\346\230\265\347\247\260\345\215\240\344\275\215\345\215\240\344\275\215\345\215\240\344\275\215\345\215\240\344\275\215\345\215\240\342\200\246", nullptr));
         pushButton->setText(QCoreApplication::translate("MicseQuenceItem", "24", nullptr));
         user_lab->setText(QCoreApplication::translate("MicseQuenceItem", "8", nullptr));
-        micBtn->setText(QCoreApplication::translate("MicseQuenceItem", "\344\270\212\351\272\246", nullptr));
+        label_2->setText(QCoreApplication::translate("MicseQuenceItem", "\346\216\222\351\272\246\344\270\255", nullptr));
+        micBtn->setText(QCoreApplication::translate("MicseQuenceItem", "\346\212\261\344\270\212\351\272\246", nullptr));
     } // retranslateUi
 
 };

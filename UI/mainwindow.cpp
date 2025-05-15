@@ -23,6 +23,7 @@
 #include "OnlineItem.h"
 #include <QScrollBar>
 #include <QFileDialog>
+#include "MsgBox.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -279,37 +280,16 @@ void MainWindow::msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to)
     ui->giftList->setCurrentRow(ui->msgList->count()-1);
     ui->giftList->scrollToBottom();
 }
-//抱麦
+//麦位发生变化
 void MainWindow::msg_micInfo(QVariantList list)
-{
-    bool isUpMic = false;
+{  
     foreach (auto var, list)
     {
         QVariantMap data = var.toMap();
         int mic_index = data["mic_index"].toString().toInt();
-        auto item = m_micList.at(mic_index-1);
-        item->setData(data, mic_index-1);
-
-        //自己抱麦上去
-        if(data["member"].toMap()["userId"].toString() == HttpUserInfo::instance()->getUserID())
-        {            
-            int status = data["status"].toInt();
-            if(status >= 0)
-                isUpMic = true;
-            else
-                isUpMic = false;
-        }
-    }
-
-    //抱麦上去,改变rtc的状态
-    if(isUpMic)
-    {
-        qDebug()<<"true`11111111111";
-    }
-    else
-    {
-        qDebug()<<"false`11111111111";
-    }
+        MicInfoItem *item = m_micList.at(mic_index-1);
+        item->setData(data, mic_index-1);        
+    }  
 }
 
 //发送文字消息
@@ -552,9 +532,7 @@ void MainWindow::enterTheToom(QVariantMap data)
             ui->onlineList->addWidget(item);
         }
 
-    });
-
-    updateMicList();
+    });    
 
     if(m_agoraFace == nullptr)
     {
@@ -604,6 +582,12 @@ void MainWindow::enterTheToom(QVariantMap data)
 
         on_pushButton_2_clicked();
         ui->stackedWidget->setCurrentIndex(1);
+
+        QString multipleAuthoriation = roomdata["multipleAuthoriation"].toString();
+        QString type = multipleAuthoriation.at(1);
+        m_isManager = type.toInt();
+
+        updateMicList();
     }
 }
 
@@ -613,7 +597,6 @@ void MainWindow::setMyselfMicInfo(int status)
     {
         ui->downMicBtn->show();
         ui->autioMicBtn->hide();
-
         m_agoraFace->setClientRole(CLIENT_ROLE_BROADCASTER);
     }
     else
@@ -644,7 +627,7 @@ void MainWindow::on_squareBtn_clicked()
 void MainWindow::on_contributeBtn_clicked()
 {
     ui->stackedWidget_2->setCurrentIndex(1);
-
+    on_day_btn_clicked();
 }
 
 //日榜
@@ -790,8 +773,9 @@ void MainWindow::updateMicList()
         {
             QVariantMap map = list.at(i).toMap();
             MicseQuenceItem *item = new MicseQuenceItem();
+            connect(item, &MicseQuenceItem::upMicToUserID, this, &MainWindow::upMicToUserID);
             item->setFixedSize(390,70);
-            item->setData(map, i+1);
+            item->setData(map, i+1, m_isManager);
             ui->micList->addWidget(item);
 
             if(map["userId"].toString() == HttpUserInfo::instance()->getUserID())
@@ -802,6 +786,15 @@ void MainWindow::updateMicList()
         }
 
     });
+}
+
+void MainWindow::upMicToUserID(QString roomID, QString userID)
+{
+    QVariantMap data =  HttpInterFace::getInstance()->b_upMic(roomID, userID);
+    if(data["code"].toInt() != 1)
+    {
+        MsgBox::showMsg(NULL,tr("提示"), data["message"].toString());
+    }
 }
 
 void MainWindow::on_autioMicBtn_clicked()
@@ -820,9 +813,10 @@ void MainWindow::on_autioMicBtn_clicked()
 
 void MainWindow::on_downMicBtn_clicked()
 {
-    HttpInterFace::getInstance()->downMic(HttpUserInfo::instance()->getClassRoomID());
+    HttpInterFace::getInstance()->m_downMic();
     ui->downMicBtn->hide();
     ui->autioMicBtn->show();
+    ui->autioMicBtn->setChecked(false);
     ui->autioMicBtn->setText(QStringLiteral("上麦"));
 }
 

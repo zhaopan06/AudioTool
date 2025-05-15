@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>710</width>
-    <height>70</height>
+    <height>75</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -83,8 +83,6 @@
       <property name="styleSheet">
        <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #D197FE, stop:1 #9752ED);
 border-radius: 8px;
-
-font-family: &quot;微软雅黑&quot;;
 font-size: 11px;
 color: #FFFFFF;
 </string>
@@ -118,8 +116,7 @@ color: #FFFFFF;
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
+        <string notr="true">font-weight: 400;
 font-size: 16px;
 color: #FFFFFF;
 line-height: 22px;
@@ -135,9 +132,7 @@ font-style: normal;</string>
        <item>
         <widget class="QLabel" name="label">
          <property name="styleSheet">
-          <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
-font-size: 12px;
+          <string notr="true">font-size: 12px;
 color: #A8A8A7;
 line-height: 17px;
 text-align: left;
@@ -186,7 +181,6 @@ font-style: normal;</string>
 background: rgba(245,151,255,0.2);
 border-radius: 16px;
 
-font-family: &quot;微软雅黑&quot;;
 font-weight: 500;
 font-size: 16px;
 color: #F597FF;
@@ -199,7 +193,6 @@ QPushButton:checked {
 border-radius: 16px;
 background: #36383B;
 
-font-family: &quot;微软雅黑&quot;;
 font-size: 16px;
 color: rgba(255, 255, 255,0.5);
 
@@ -228,8 +221,6 @@ color: rgba(255, 255, 255,0.5);
         <string notr="true">QPushButton {
 background: #36383B;
 border-radius: 16px;
-
-font-family: &quot;微软雅黑&quot;;
 font-size: 16px;
 color: #ffffff;
 }
@@ -237,8 +228,6 @@ color: #ffffff;
 QPushButton:checked {
 background: #36383B;
 border-radius: 16px;
-
-font-family: &quot;微软雅黑&quot;;
 font-size: 16px;
 color: rgba(255,255,255,0.5);
 
@@ -269,8 +258,6 @@ color: rgba(255,255,255,0.5);
 QPushButton {
 background: qlineargradient(x1:0, y1:0.5, x2:1, y2:0.5, stop:0 #D197FE, stop:1 #9752ED);
 border-radius: 16px;
-
-font-family: &quot;微软雅黑&quot;;
 font-size: 16px;
 color: #ffffff;
 }
@@ -278,8 +265,6 @@ color: #ffffff;
 QPushButton:checked {
 background: #36383B;
 border-radius: 16px;
-
-font-family: &quot;微软雅黑&quot;;
 font-size: 16px;
 color: #ffffff;
 

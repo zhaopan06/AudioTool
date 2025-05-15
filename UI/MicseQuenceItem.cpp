@@ -1,6 +1,8 @@
 ﻿#include "MicseQuenceItem.h"
+#include "Global.h"
 #include "ui_MicseQuenceItem.h"
 #include "HttpInterFace.h"
+#include "HttpUserInfo.h"
 
 MicseQuenceItem::MicseQuenceItem(QWidget *parent)
     : QDialog(parent)
@@ -14,9 +16,10 @@ MicseQuenceItem::~MicseQuenceItem()
     delete ui;
 }
 
-void MicseQuenceItem::setData(QVariantMap data, int num)
+void MicseQuenceItem::setData(QVariantMap data, int num, bool m_isManager)
 {
     m_data = data;
+    showMapTojson(data);
 
     ui->label->setText(QString::number(num));
 
@@ -44,10 +47,17 @@ void MicseQuenceItem::setData(QVariantMap data, int num)
         this->ui->image->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
+    if(m_isManager)
+        ui->label_2->hide();
+    else
+        ui->micBtn->hide();
+
 }
-//上麦
+
 void MicseQuenceItem::on_micBtn_clicked()
 {
-
+    QString userID = m_data["userId"].toString();
+    QString roomID = HttpUserInfo::instance()->getClassRoomID();
+    emit upMicToUserID(roomID, userID);
 }
 

@@ -75,8 +75,6 @@ public:
         label_2->setGeometry(QRect(0, 32, 40, 16));
         label_2->setStyleSheet(QString::fromUtf8("background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #D197FE, stop:1 #9752ED);\n"
 "border-radius: 8px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-size: 11px;\n"
 "color: #FFFFFF;\n"
 ""));
@@ -91,8 +89,7 @@ public:
         nameLab = new QLabel(ContributeItem);
         nameLab->setObjectName(QString::fromUtf8("nameLab"));
         nameLab->setMinimumSize(QSize(0, 22));
-        nameLab->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
+        nameLab->setStyleSheet(QString::fromUtf8("font-weight: 400;\n"
 "font-size: 16px;\n"
 "color: #FFFFFF;\n"
 "line-height: 22px;\n"
@@ -114,9 +111,7 @@ public:
 
         label_3 = new QLabel(ContributeItem);
         label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
-"font-size: 14px;\n"
+        label_3->setStyleSheet(QString::fromUtf8("font-size: 14px;\n"
 "color: #A8A8A7;\n"
 "line-height: 20px;\n"
 "text-align: right;\n"
@@ -126,9 +121,7 @@ public:
 
         label_4 = new QLabel(ContributeItem);
         label_4->setObjectName(QString::fromUtf8("label_4"));
-        label_4->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
-"font-size: 14px;\n"
+        label_4->setStyleSheet(QString::fromUtf8("font-size: 14px;\n"
 "color: #ffffff;\n"
 "line-height: 20px;\n"
 "font-style: normal;"));

@@ -57,8 +57,7 @@ public:
         nameLab = new QLabel(OnlineItem);
         nameLab->setObjectName(QString::fromUtf8("nameLab"));
         nameLab->setMinimumSize(QSize(0, 22));
-        nameLab->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
+        nameLab->setStyleSheet(QString::fromUtf8("font-weight: 400;\n"
 "font-size: 16px;\n"
 "color: #FFFFFF;\n"
 "line-height: 22px;\n"
@@ -74,14 +73,9 @@ public:
         room_lab->setMaximumSize(QSize(38, 16));
         room_lab->setStyleSheet(QString::fromUtf8("background: qlineargradient(x1:1, y1:0, x2:0, y2:0, stop:0 #D197FE, stop:1 #9752ED);\n"
 "border-radius: 8px;\n"
-"\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
 "font-size: 11px;\n"
 "color: #FFFFFF;\n"
-"line-height: 16px;\n"
-"font-style: normal;"));
+"line-height: 16px;"));
         room_lab->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_2->addWidget(room_lab);
@@ -90,13 +84,11 @@ public:
         user_lab->setObjectName(QString::fromUtf8("user_lab"));
         user_lab->setMinimumSize(QSize(37, 16));
         user_lab->setMaximumSize(QSize(37, 16));
-        user_lab->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
+        user_lab->setStyleSheet(QString::fromUtf8("font-weight: 400;\n"
 "font-size: 10px;\n"
 "color: #FFFFFF;\n"
 "text-align: right;\n"
 "font-style: normal;\n"
-"\n"
 "background-image: url(:/images/live_lev.png);\n"
 "background-position: center;\n"
 "padding-right: 6px; \n"
@@ -121,9 +113,6 @@ public:
         user_btn->setMaximumSize(QSize(77, 32));
         user_btn->setStyleSheet(QString::fromUtf8("background: rgba(128,220,255,0.2);\n"
 "border-radius: 16px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
 "font-size: 14px;\n"
 "color: #80DCFF;\n"
 "line-height: 20px;\n"
@@ -141,11 +130,9 @@ public:
         room_btn->setMaximumSize(QSize(77, 32));
         room_btn->setStyleSheet(QString::fromUtf8("background: rgba(245,151,255,0.2);\n"
 "border-radius: 16px;\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 400;\n"
 "font-size: 14px;\n"
 "color: #F597FF;\n"
-"line-height: 20px;\n"
 "font-style: normal;"));
         QIcon icon1;
         icon1.addFile(QString::fromUtf8(":/images/live_inRoom.png"), QSize(), QIcon::Normal, QIcon::Off);

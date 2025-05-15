@@ -116,8 +116,6 @@ font-style: normal;</string>
       <property name="styleSheet">
        <string notr="true">background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #D197FE, stop:1 #9752ED);
 border-radius: 8px;
-
-font-family: &quot;微软雅黑&quot;;
 font-size: 11px;
 color: #FFFFFF;
 </string>
@@ -151,8 +149,7 @@ color: #FFFFFF;
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
+        <string notr="true">font-weight: 400;
 font-size: 16px;
 color: #FFFFFF;
 line-height: 22px;
@@ -185,9 +182,7 @@ font-style: normal;</string>
    <item>
     <widget class="QLabel" name="label_3">
      <property name="styleSheet">
-      <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
-font-size: 14px;
+      <string notr="true">font-size: 14px;
 color: #A8A8A7;
 line-height: 20px;
 text-align: right;
@@ -201,9 +196,7 @@ font-style: normal;</string>
    <item>
     <widget class="QLabel" name="label_4">
      <property name="styleSheet">
-      <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
-font-size: 14px;
+      <string notr="true">font-size: 14px;
 color: #ffffff;
 line-height: 20px;
 font-style: normal;</string>
