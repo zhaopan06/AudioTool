@@ -433,6 +433,7 @@ void MainWindow::emotionClicked(QVariantMap data)
             }
             else
             {
+                setEmoTionItem(path, 5);
                 //表情
                 if(number <= 21)
                     number --;

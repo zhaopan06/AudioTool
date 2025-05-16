@@ -64,6 +64,8 @@ public:
     void getPcNewUserSquareList(int pageNum, int pageSize, callBack callBack);
     void getCommonConfig(callBack callBack);
     void getUserInfo(QString userId, callBack callBack);
+    void getGiftWall(QString userID, int giftType, int isLighten, callBack callBack);
+    void getUserMedals(QString userID, callBack callBack);
     QVariantMap getGiftList();
 
 private:

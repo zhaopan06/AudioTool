@@ -1,6 +1,5 @@
 ﻿#include "GIftItem.h"
 #include "qdatetime.h"
-#include "qdebug.h"
 #include "ui_GIftItem.h"
 
 GIftItem::GIftItem(QWidget *parent)

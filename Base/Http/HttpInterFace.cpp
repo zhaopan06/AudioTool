@@ -194,6 +194,27 @@ void HttpInterFace::getUserInfo(QString userId, callBack callBack)
     QString url = BASE_API_URL + QString("/user/getUserInfo");
     httpsGet_asy(url,jsonMap, callBack);
 }
+/*
+ * 礼物类型，0=查询收到的礼物，1=查询送出去的礼物
+ * 是否点亮，1=已点亮数据，0=未点亮数据
+ */
+void HttpInterFace::getGiftWall(QString userId, int giftType, int isLighten, callBack callBack)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("userId",userId);
+    jsonMap.insert("isLighten",isLighten);
+    jsonMap.insert("giftType",giftType);
+    QString url = BASE_API_URL + QString("/gift/getGiftWall");
+    httpsGet_asy(url,jsonMap, callBack);
+}
+
+void HttpInterFace::getUserMedals(QString userId, callBack callBack)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("userId",userId);
+    QString url = BASE_API_URL + QString("/user/getUserMedals");
+    httpsGet_asy(url,jsonMap, callBack);
+}
 
 QVariantMap HttpInterFace::getGiftList()
 {

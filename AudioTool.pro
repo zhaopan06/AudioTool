@@ -53,6 +53,8 @@ SOURCES += \
     UI/OnlineItem.cpp \
     UI/RoomItem.cpp \
     UI/UserinfoPage.cpp \
+    UI/UserinfoPageGiftItem.cpp \
+    UI/UserinfoPageMedalItem.cpp \
     UI/mainwindow.cpp \
     control/CRoundLabel.cpp \
     control/EmotionItem.cpp \
@@ -85,6 +87,8 @@ HEADERS += \
     UI/OnlineItem.h \
     UI/RoomItem.h \
     UI/UserinfoPage.h \
+    UI/UserinfoPageGiftItem.h \
+    UI/UserinfoPageMedalItem.h \
     UI/mainwindow.h \
     control/CRoundLabel.h \
     control/EmotionItem.h \
@@ -110,6 +114,8 @@ FORMS += \
     UI/OnlineItem.ui \
     UI/RoomItem.ui \
     UI/UserinfoPage.ui \
+    UI/UserinfoPageGiftItem.ui \
+    UI/UserinfoPageMedalItem.ui \
     UI/mainwindow.ui \
     control/EmotionItem.ui \
     control/EmotionPage.ui \

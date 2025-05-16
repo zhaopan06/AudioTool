@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>UserinfoPageGiftItem</class>
+ <widget class="QDialog" name="UserinfoPageGiftItem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>100</width>
+    <height>159</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>100</width>
+    <height>159</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>100</width>
+     <height>116</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background: #222429;
+border-radius: 12px;</string>
+   </property>
+   <widget class="QLabel" name="image">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>8</y>
+      <width>76</width>
+      <height>76</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="giftPrice">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>90</y>
+      <width>100</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font-family: &quot;微软雅黑&quot;;
+font-weight: 400;
+font-size: 12px;
+color: #FFFFFF;</string>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="giftNum">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>142</y>
+     <width>100</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-family: &quot;微软雅黑&quot;;
+font-weight: 400;
+font-size: 12px;
+color: #A8A8A7;
+line-height: 17px;
+font-style: normal;</string>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="name">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>122</y>
+     <width>100</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-family: &quot;微软雅黑&quot;;
+font-weight: 500;
+font-size: 12px;
+color: #FFFFFF;
+line-height: 17px;</string>
+   </property>
+   <property name="text">
+    <string>name</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

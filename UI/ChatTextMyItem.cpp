@@ -60,6 +60,12 @@ void ChatTextMyItem::setEmotion(QString path, int type)
         this->ui->image->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
+    if(type > 4)
+    {
+        this->ui->label->setPixmap(QPixmap(path));
+        return;
+    }
+
     QString giftPath;
     switch (type) {
     case 1://骰子
