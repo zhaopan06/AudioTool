@@ -12,6 +12,9 @@ class NewUserPage : public QDialog
     Q_OBJECT
 
 public:
+    static NewUserPage* getInstance();
+
+private:
     explicit NewUserPage(QWidget *parent = nullptr);
     ~NewUserPage();
 
@@ -29,6 +32,7 @@ private slots:
 
 private:
     Ui::NewUserPage *ui;
+    static NewUserPage *pNewUserPageFace;
     bool  m_bMoveing = false;
     QPoint m_pMovePosition = QPoint(0,0);
 };

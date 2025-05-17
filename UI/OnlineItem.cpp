@@ -1,26 +1,66 @@
 ﻿#include "OnlineItem.h"
-#include "qdebug.h"
+#include "UserinfoPage.h"
 #include "ui_OnlineItem.h"
 #include "HttpInterFace.h"
+#include <QScreen>
 
 OnlineItem::OnlineItem(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::OnlineItem)
 {
     ui->setupUi(this);
+    ui->image->installEventFilter(this);
 }
 
 OnlineItem::~OnlineItem()
 {
     delete ui;
 }
+
+bool OnlineItem::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == ui->image)
+    {
+        if (event->type() == QEvent::Enter)
+        {
+            QPoint mouseGlobalPos = QCursor::pos();
+            int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
+            bool isMouseInLowerHalf = (mouseGlobalPos.y() > screenHeight / 2 - 80);
+            QPoint labelGlobalPos = ui->image->mapToGlobal(QPoint(0, 0));
+            UserinfoPage *page = UserinfoPage::getInstance();
+            page->init(m_data["userId"].toString());
+            QPoint point1;
+            if(isMouseInLowerHalf)
+            {
+                point1.setX(labelGlobalPos.rx() - page->width());
+                point1.setY(labelGlobalPos.ry() - page->height()/2);
+            }
+            else
+            {
+                point1.setX(labelGlobalPos.rx() - page->width());
+                point1.setY(labelGlobalPos.ry());
+            }
+            page->move(point1);
+            page->show();
+            return true;
+        }
+        else if (event->type() == QEvent::Leave)
+        {
+            QPoint mouseGlobalPos = QCursor::pos();
+            QRect widgetAGeometry = UserinfoPage::getInstance()->geometry();
+            if (!widgetAGeometry.contains(mouseGlobalPos))
+            {
+                UserinfoPage::getInstance()->uninit();
+            }
+
+            return true;
+        }
+    }
+    return QWidget::eventFilter(watched, event);
+}
 /*
- *
 status;//1-8代表1-8号麦，-1=在房间，-2=在线并且最近来过，-3=离线并最近来过  这是在线列表中status
-
-
 -1 在房间  -2 在线 -3 离线
-
  */
 void OnlineItem::setData(QVariantMap data, QString id)
 {
@@ -64,13 +104,9 @@ void OnlineItem::setData(QVariantMap data, QString id)
         QString str =  QString::number(status) + QStringLiteral("号麦");
         ui->user_btn->setText(str);
     }
+
     if(status == -2)
     {
     }
-    if(status == -2)
-    {
-
-    }
-
     m_data = data;
 }

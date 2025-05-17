@@ -7,6 +7,16 @@
 #include "MsgBox.h"
 #include "qevent.h"
 
+UserinfoPage* UserinfoPage::pUserinfoPageFace = NULL;
+UserinfoPage *UserinfoPage::getInstance()
+{
+    if(pUserinfoPageFace == NULL)
+    {
+        pUserinfoPageFace = new UserinfoPage();
+    }
+    return pUserinfoPageFace;
+}
+
 UserinfoPage::UserinfoPage(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::UserinfoPage)
@@ -47,6 +57,13 @@ void UserinfoPage::mouseMoveEvent(QMouseEvent* event)
 void UserinfoPage::mouseReleaseEvent(QMouseEvent *event)
 {
     m_bMoveing = false;
+}
+
+void UserinfoPage::leaveEvent(QEvent *event)
+{
+    Q_UNUSED(event);
+    qDebug() << tr("鼠标已移出 Label");
+    close();
 }
 
 void UserinfoPage::init(QString userID)
@@ -113,14 +130,42 @@ void UserinfoPage::init(QString userID)
         {
             QString src = data["imgTag"].toList().at(0).toMap()["src"].toString();
             HttpInterFace::getInstance()->downLoad(src, [&](const QString &path) {
-                this->ui->label_14->setPixmap(QPixmap(path));
+
+                QPixmap pixmap = QPixmap(path);
+                QPixmap scaledPixmap = pixmap.scaled(
+                    this->ui->label_14->size(),
+                    Qt::KeepAspectRatio,
+                    Qt::SmoothTransformation
+                    );
+
+                this->ui->label_14->setPixmap(scaledPixmap);
             });
         }
     });
 }
 
+void UserinfoPage::uninit()
+{
+    on_closeBtn_clicked();
+}
+
 void UserinfoPage::on_closeBtn_clicked()
 {
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->big_image->setPixmap(QPixmap());
+    ui->image->setPixmap(QPixmap());
+    ui->label_14->setPixmap(QPixmap());
+    ui->name->setText("");
+    ui->constellation->setText("");
+    ui->age->setText("");
+    ui->label_9->setText("");
+    ui->isOnline->setText(tr("离线"));
+    ui->userLevel->setText("");
+    ui->userId->setText("");
+    ui->location->setText("");
+    ui->fansNum->setText("");
+    ui->playDayNum->setText("");
+    ui->intro->setText(tr("请填写个性签名"));
     close();
 }
 

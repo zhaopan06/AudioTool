@@ -3890,7 +3890,6 @@ border: 1px solid #A8A8A7;
                              </property>
                              <property name="styleSheet">
                               <string notr="true">border:none;
-
 font-family: &quot;微软雅黑&quot;;
 font-size: 16px;
 color: #FFFFFF;</string>
@@ -4817,8 +4816,8 @@ border-radius: 18px;</string>
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup_3"/>
  </buttongroups>
 </ui>

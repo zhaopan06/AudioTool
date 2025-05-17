@@ -18,7 +18,7 @@ void UserinfoPageGiftItem::setData(QVariantMap data)
 {
     ui->name->setText(data["giftName"].toString());
     ui->giftPrice->setText(data["giftPrice"].toString());
-    ui->giftNum->setText(data["giftNum"].toString());
+    ui->giftNum->setText("x" + data["giftNum"].toString());
 
     QString photo = data["giftIcon"].toString();
     HttpInterFace::getInstance()->downLoad(photo, [&](const QString &path) {

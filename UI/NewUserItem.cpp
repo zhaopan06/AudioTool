@@ -1,17 +1,64 @@
 ﻿#include "NewUserItem.h"
+#include "Global.h"
 #include "ui_NewUserItem.h"
 #include "HttpInterFace.h"
+#include "UserinfoPage.h"
+#include <QScreen>
 
 NewUserItem::NewUserItem(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::NewUserItem)
 {
     ui->setupUi(this);
+    ui->image->installEventFilter(this);
 }
 
 NewUserItem::~NewUserItem()
 {
     delete ui;
+}
+
+bool NewUserItem::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == ui->image)
+    {
+        if (event->type() == QEvent::Enter)
+        {
+            QPoint mouseGlobalPos = QCursor::pos();
+            int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
+            bool isMouseInLowerHalf = (mouseGlobalPos.y() > screenHeight / 2 - 80);
+            QPoint labelGlobalPos = ui->image->mapToGlobal(QPoint(0, 0));
+            UserinfoPage *page = UserinfoPage::getInstance();
+            showMapTojson(m_data);
+            page->init(m_data["id"].toString());
+            QPoint point1;
+            if(isMouseInLowerHalf)
+            {
+                point1.setX(labelGlobalPos.rx() - page->width());
+                point1.setY(labelGlobalPos.ry() - page->height()/2);
+            }
+            else
+            {
+                point1.setX(labelGlobalPos.rx() - page->width());
+                point1.setY(labelGlobalPos.ry());
+            }
+            page->move(point1);
+            page->show();
+            return true;
+        }
+        else if (event->type() == QEvent::Leave)
+        {
+            QPoint mouseGlobalPos = QCursor::pos();
+            QRect widgetAGeometry = UserinfoPage::getInstance()->geometry();
+            if (!widgetAGeometry.contains(mouseGlobalPos))
+            {
+                UserinfoPage::getInstance()->uninit();
+            }
+
+            return true;
+        }
+    }
+    return QWidget::eventFilter(watched, event);
 }
 
 void NewUserItem::setData(QVariantMap data)

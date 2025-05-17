@@ -18,8 +18,12 @@ public:
 
     void setData(QVariantMap data);
 
+protected:
+    bool eventFilter(QObject *watched, QEvent *event);
+
 private:
     Ui::ContributeItem *ui;
+    QVariantMap m_data;
 };
 
 #endif // CONTRIBUTEITEM_H

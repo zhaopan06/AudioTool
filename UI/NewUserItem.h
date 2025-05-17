@@ -24,6 +24,9 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+protected:
+    bool eventFilter(QObject *watched, QEvent *event);
+
 private:
     Ui::NewUserItem *ui;
     QVariantMap m_data;

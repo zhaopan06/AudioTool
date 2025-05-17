@@ -17,9 +17,12 @@ public:
     ~OnlineItem();
     void  setData(QVariantMap data, QString id);
 
+protected:
+    bool eventFilter(QObject *watched, QEvent *event);
+
 private:
     Ui::OnlineItem *ui;
-    QVariantMap m_data;
+    QVariantMap m_data;    
 };
 
 #endif // ONLINEITEM_H

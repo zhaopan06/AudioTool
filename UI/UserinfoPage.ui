@@ -485,7 +485,7 @@ padding-right: 6px;
  text-align: right;</string>
                    </property>
                    <property name="text">
-                    <string>8</string>
+                    <string/>
                    </property>
                    <property name="pixmap">
                     <pixmap resource="../res.qrc">:/images/live_lev.png</pixmap>
@@ -1055,7 +1055,7 @@ margin-top: -1px;</string>
                  <string/>
                 </property>
                 <property name="scaledContents">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -1537,8 +1537,8 @@ font-style: normal;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>442</width>
-               <height>557</height>
+               <width>100</width>
+               <height>30</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -1693,8 +1693,8 @@ font-style: normal;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>442</width>
-               <height>606</height>
+               <width>100</width>
+               <height>30</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -1845,7 +1845,7 @@ margin-top: -1px;</string>
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>

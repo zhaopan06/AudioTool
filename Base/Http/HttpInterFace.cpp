@@ -40,7 +40,7 @@ HttpInterFace::~HttpInterFace()
 
 }
 
-QVariantMap HttpInterFace:: getCaptcha(QString phone,QString region_code)
+void  HttpInterFace::getCaptcha(QString phone,QString region_code, callBack callback)
 {
     QVariantMap jsonMap;
     jsonMap.insert("smsType", 1);
@@ -48,7 +48,7 @@ QVariantMap HttpInterFace:: getCaptcha(QString phone,QString region_code)
     jsonMap.insert("phone",phone);
 
     const QString strUrl = QString(BASE_API_URL) + "/sms/send";
-    return httpPost_syn(strUrl,jsonMap);
+    httpPost_asy(strUrl, jsonMap, callback);
 }
 
 void HttpInterFace::uploadFile(QString filePath, QString scenes , callBack callback)
@@ -221,6 +221,22 @@ QVariantMap HttpInterFace::getGiftList()
     QVariantMap jsonMap;
     QString url = BASE_API_URL + QString("/gift/v3/getGiftList");
     return httpsGet_syn(url);
+}
+
+void HttpInterFace::clearCardiacValue(QString roomId, callBack callBack)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",roomId);
+    QString url = BASE_API_URL + QString("/live/getUserMedals");
+    httpsGet_asy(url,jsonMap, callBack);
+}
+
+void HttpInterFace::noticeFans(QString roomId, callBack callBack)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",roomId);
+    QString url = BASE_API_URL + QString("/room/noticeFans");
+    httpsGet_asy(url,jsonMap, callBack);
 }
 
 QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)

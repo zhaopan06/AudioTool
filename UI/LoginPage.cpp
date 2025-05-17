@@ -291,31 +291,36 @@ void LoginPage::on_login_btn_clicked()
 void LoginPage::on_next_page_btn_clicked()
 {
     QString acc =  ui->cap_mobile->text();
-    QVariantMap Captchadata =  HttpInterFace::getInstance()->getCaptcha(acc,"+86");
-    if(Captchadata["code"].toInt() == 1)
-    {
-        QString str = ui->cap_mobile->text();
-        str = "+86" + str.left(3) + "***" + str.right(2);
-        ui->label_9->setText(str);
-        ui->stackedWidget_2->setCurrentIndex(1);
+    HttpInterFace::getInstance()->getCaptcha(acc,"+86", [&](const QVariant &data){
 
-        m_time = 60;
-        m_timer.start(1000);
-        ui->code_label->setVisible(true);
-        QString label = QString::number(m_time) + tr("秒后可重新获取验证码");
-        ui->code_label->setText(label);
+        QVariantMap Captchadata = data.toMap();
+        if(Captchadata["code"].toInt() == 1)
+        {
+            QString str = ui->cap_mobile->text();
+            str = "+86" + str.left(3) + "***" + str.right(2);
+            ui->label_9->setText(str);
+            ui->stackedWidget_2->setCurrentIndex(1);
 
-        ui->code_label_click->setVisible(false);
-        ui->lineEdit->setFocus();
-    }
-    else
-    {
-        QString code = Captchadata["code"].toString();
-        if(code.isEmpty())
-            MsgBox::showMsg(NULL, tr("提示"),tr("网络连接失败，请重新登录"));
+            m_time = 60;
+            m_timer.start(1000);
+            ui->code_label->setVisible(true);
+            QString label = QString::number(m_time) + tr("秒后可重新获取验证码");
+            ui->code_label->setText(label);
+
+            ui->code_label_click->setVisible(false);
+            ui->lineEdit->setFocus();
+        }
         else
-            MsgBox::showMsg(NULL, tr("提示"), Captchadata["code"].toString());
-    }
+        {
+            QString code = Captchadata["code"].toString();
+            if(code.isEmpty())
+                MsgBox::showMsg(NULL, tr("提示"),tr("网络连接失败，请重新登录"));
+            else
+                MsgBox::showMsg(NULL, tr("提示"), Captchadata["code"].toString());
+        }
+
+    });
+
 }
 
 //获取帮助

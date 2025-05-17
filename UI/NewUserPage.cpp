@@ -5,6 +5,17 @@
 #include "ui_NewUserPage.h"
 #include "HttpInterFace.h"
 
+NewUserPage* NewUserPage::pNewUserPageFace = NULL;
+NewUserPage *NewUserPage::getInstance()
+{
+    if(pNewUserPageFace == NULL)
+    {
+        pNewUserPageFace = new NewUserPage();
+        pNewUserPageFace->init();
+    }
+    return pNewUserPageFace;
+}
+
 NewUserPage::NewUserPage(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::NewUserPage)

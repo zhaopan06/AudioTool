@@ -28,7 +28,7 @@ class HttpInterFace : public QObject
 public:
     static HttpInterFace* getInstance();
     //获取验证码
-    QVariantMap getCaptcha(QString phone,QString region_code);
+    void getCaptcha(QString phone,QString region_code, callBack callback);
 
     QVariantMap loginToServer(QString account, QString passwd);
 
@@ -66,7 +66,11 @@ public:
     void getUserInfo(QString userId, callBack callBack);
     void getGiftWall(QString userID, int giftType, int isLighten, callBack callBack);
     void getUserMedals(QString userID, callBack callBack);
+    void clearCardiacValue(QString roomId, callBack callBack);
+    void noticeFans(QString roomId, callBack callBack);
+
     QVariantMap getGiftList();
+
 
 private:
     explicit HttpInterFace(QObject *parent = nullptr);

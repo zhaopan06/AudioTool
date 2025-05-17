@@ -93,6 +93,7 @@ HEADERS += \
     control/CRoundLabel.h \
     control/EmotionItem.h \
     control/EmotionPage.h \
+    control/ImagePasteTextEdit.h \
     control/MsgBox.h \
     control/click_label.h
 

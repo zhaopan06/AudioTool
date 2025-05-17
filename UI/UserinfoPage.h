@@ -12,15 +12,18 @@ class UserinfoPage : public QDialog
     Q_OBJECT
 
 public:
-    explicit UserinfoPage(QWidget *parent = nullptr);
-    ~UserinfoPage();
-
+    static UserinfoPage* getInstance();
     void init(QString userID);
+    void uninit();
+private:
+    explicit UserinfoPage(QWidget *parent = nullptr);
+    ~UserinfoPage();    
 
 protected:
     void mouseMoveEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent *event);
+    void leaveEvent(QEvent *event)override;
 
 private slots:
     void on_closeBtn_clicked();
@@ -44,6 +47,7 @@ private:
 
 private:
     Ui::UserinfoPage *ui;
+    static UserinfoPage *pUserinfoPageFace;
     bool  m_bMoveing = false;
     QPoint m_pMovePosition = QPoint(0,0);
     QString m_userId;

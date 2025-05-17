@@ -93,6 +93,10 @@ private slots:
     void on_downMicBtn_clicked();
 
     void upMicToUserID(QString roomID, QString userID);
+    void on_pushButton_18_clicked();
+
+    void on_pushButton_17_clicked();
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;
@@ -103,7 +107,8 @@ private:
     EmotionPage *m_emotionPage= nullptr;
 
     GiftPage *m_giftPage = nullptr;
-    bool m_isManager;
+    bool m_isManager;//是否管理
+    bool m_isHomeowner;//是否房主
     QVector<MicInfoItem*> m_micList;
 };
 #endif // MAINWINDOW_H

@@ -310,9 +310,9 @@ public:
     QPushButton *pushButton_14;
     QPushButton *pushButton_15;
     QPushButton *pushButton_16;
-    QButtonGroup *buttonGroup_3;
     QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
+    QButtonGroup *buttonGroup_3;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -2143,7 +2143,6 @@ public:
         msgEdit->setMinimumSize(QSize(0, 0));
         msgEdit->setMaximumSize(QSize(16777215, 16777215));
         msgEdit->setStyleSheet(QString::fromUtf8("border:none;\n"
-"\n"
 "font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-size: 16px;\n"
 "color: #FFFFFF;"));

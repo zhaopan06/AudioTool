@@ -138,8 +138,8 @@ public:
     QPushButton *Attention;
     QPushButton *pushButton_3;
     QButtonGroup *buttonGroup;
-    QButtonGroup *buttonGroup_2;
     QButtonGroup *buttonGroup_3;
+    QButtonGroup *buttonGroup_2;
 
     void setupUi(QDialog *UserinfoPage)
     {
@@ -600,7 +600,7 @@ public:
         label_14->setObjectName(QString::fromUtf8("label_14"));
         label_14->setMinimumSize(QSize(65, 18));
         label_14->setMaximumSize(QSize(65, 18));
-        label_14->setScaledContents(true);
+        label_14->setScaledContents(false);
 
         horizontalLayout_8->addWidget(label_14);
 
@@ -856,7 +856,7 @@ public:
         scrollArea_2->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 442, 557));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 100, 30));
         verticalLayout_9 = new QVBoxLayout(scrollAreaWidgetContents_2);
         verticalLayout_9->setSpacing(0);
         verticalLayout_9->setObjectName(QString::fromUtf8("verticalLayout_9"));
@@ -934,7 +934,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 442, 606));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 100, 30));
         verticalLayout_12 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_12->setSpacing(0);
         verticalLayout_12->setObjectName(QString::fromUtf8("verticalLayout_12"));
@@ -1025,7 +1025,7 @@ public:
         image->setText(QString());
         name->setText(QCoreApplication::translate("UserinfoPage", "Rx. \345\207\214\344\271\261", nullptr));
         age->setText(QCoreApplication::translate("UserinfoPage", "8", nullptr));
-        userLevel->setText(QCoreApplication::translate("UserinfoPage", "8", nullptr));
+        userLevel->setText(QString());
         constellation->setText(QCoreApplication::translate("UserinfoPage", "\345\244\204\345\245\263\345\272\247", nullptr));
         isOnline->setText(QCoreApplication::translate("UserinfoPage", "\347\246\273\347\272\277", nullptr));
         userId->setText(QCoreApplication::translate("UserinfoPage", "ID\357\274\2322010590", nullptr));

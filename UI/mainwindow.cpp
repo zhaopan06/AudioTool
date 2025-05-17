@@ -477,9 +477,7 @@ void MainWindow::on_copyBtn_clicked()
 //刷新
 void MainWindow::on_updateBtn_clicked()
 {
-    UserinfoPage page;
-    page.init(HttpUserInfo::instance()->getUserID());
-    page.exec();
+
 }
 //进入房间
 void MainWindow::enterTheToom(QVariantMap data)
@@ -590,6 +588,19 @@ void MainWindow::enterTheToom(QVariantMap data)
         QString multipleAuthoriation = roomdata["multipleAuthoriation"].toString();
         QString type = multipleAuthoriation.at(1);
         m_isManager = type.toInt();
+        if(!m_isManager)
+        {
+            ui->imageBtn->hide();
+        }
+        type = multipleAuthoriation.at(0);
+        if(type.toInt() == 2)
+            m_isHomeowner = true;
+        else
+            m_isHomeowner = false;
+        if(!m_isHomeowner)
+        {
+            ui->pushButton_24->hide();            
+        }
 
         updateMicList();
     }
@@ -622,9 +633,7 @@ void MainWindow::on_onlineBtn_clicked()
 //萌新
 void MainWindow::on_squareBtn_clicked()
 {
-    NewUserPage page;
-    page.init();
-    page.exec();
+    NewUserPage::getInstance()->show();
 }
 
 //贡献
@@ -822,5 +831,39 @@ void MainWindow::on_downMicBtn_clicked()
     ui->autioMicBtn->show();
     ui->autioMicBtn->setChecked(false);
     ui->autioMicBtn->setText(QStringLiteral("上麦"));
+}
+
+
+void MainWindow::on_pushButton_18_clicked()
+{
+    if(!m_isManager)
+    {
+        MsgBox::showMsg(NULL,tr("提示"), tr("只有房主+主持身份用户可以使用该功能"));
+    }
+    else
+    {
+        if(QDialog::Accepted == MsgBox::showMsg(NULL,tr("提示"), tr("是否清空全麦魅力值"),MsgBox::QUERYDIALOG))
+        {
+            HttpInterFace::getInstance()->clearCardiacValue(g_roomID, [&](const QVariant &map) {
+                QVariantMap data = map.toMap();
+                if(data["code"].toInt() != 1)
+                {
+                    MsgBox::showMsg(NULL,tr("提示"), data["message"].toString());
+                    showMapTojson(data);
+                }
+            });
+        }
+    }
+}
+
+void MainWindow::on_pushButton_17_clicked()
+{
+    HttpInterFace::getInstance()->noticeFans(g_roomID, [&](const QVariant &map) {
+        QVariantMap data = map.toMap();
+        if(data["code"].toInt() != 1)
+        {
+            MsgBox::showMsg(NULL,tr("提示"), data["message"].toString());
+        }
+    });
 }
 
