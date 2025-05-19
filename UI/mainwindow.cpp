@@ -12,6 +12,7 @@
 #include "NewUserPage.h"
 #include "UserinfoPage.h"
 #include "qdebug.h"
+#include "qmimedata.h"
 #include "ui_mainwindow.h"
 #include "agorartcengineinterface.h"
 #include "Base/Http/HttpInterFace.h"
@@ -75,6 +76,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::initUserUI()
 {
+    initAgora();
     ui->mic_stackedWidget->setCurrentIndex(0);
     ui->autioMicBtn->show();
     ui->downMicBtn->hide();
@@ -160,13 +162,39 @@ void MainWindow::audioVolumeIndication(int uid,int value)
 
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::reconnect()
+{
+    if(0 == m_agoraFace->leaveChannel())
+    {        
+        QVariantMap roomdata =  HttpInterFace::getInstance()->joinRoom(g_roomID.toInt(), 1 , "");
+        if(1 == roomdata["code"].toInt())
+        {
+            roomdata = roomdata["data"].toMap();
+            QString rtcToken = roomdata["rtcToken"].toString();
+            QString chatRoomId = roomdata["roomId"].toString();
+            int userId = roomdata["userInfoResponse"].toMap()["userId"].toInt();
+
+            m_agoraFace->joinChannel(rtcToken, chatRoomId, userId);
+            m_agoraFace->setChannelProfile(agora::CHANNEL_PROFILE_COMMUNICATION);
+            m_agoraFace->enableLoopbackRecording(true);
+        }
+        else
+            MsgBox::showMsg(NULL,tr("提示"), roomdata["message"].toString());
+    }
+    else
+    {
+        MsgBox::showMsg(NULL,tr("提示"), tr("声网内部错误，请重启程序"));
+    }
+}
+
+void MainWindow::initTim()
 {
     if(m_timInterface == nullptr)
     {
         m_timInterface = new TimInterface;
         m_timInterface->initSDK();
 
+        connect(m_timInterface, &TimInterface::msg_liveClose, this, &MainWindow::msg_liveClose);
         connect(m_timInterface, &TimInterface::loginStatus, this, &MainWindow::loginIm);
         connect(m_timInterface, &TimInterface::msg_notice, this, &MainWindow::msg_notice);
         connect(m_timInterface, &TimInterface::msg_txt, this, &MainWindow::msg_txt);
@@ -174,6 +202,7 @@ void MainWindow::on_pushButton_2_clicked()
         connect(m_timInterface, &TimInterface::msg_gift, this, &MainWindow::msg_gift);
         connect(m_timInterface, &TimInterface::msg_micInfo, this, &MainWindow::msg_micInfo);
         connect(m_timInterface, &TimInterface::msg_updateMicList, this, &MainWindow::updateMicList);
+        connect(m_timInterface, &TimInterface::msg_uninit, this, &MainWindow::msg_uninit);
     }
 }
 
@@ -189,6 +218,11 @@ void MainWindow::loginIm(int code, QString msg)
         QString chatRoomld = HttpUserInfo::instance()->getIMRoomID();
         m_timInterface->groupJoin(chatRoomld.toLatin1());
     }
+}
+
+void MainWindow::msg_liveClose()
+{
+    ui->stackedWidget->setCurrentIndex(0);
 }
 
 void MainWindow::msg_notice(QVariantMap user, QString msg)
@@ -277,9 +311,16 @@ void MainWindow::msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to)
     ui->giftList->addItem(item1);
     ui->giftList->setItemWidget(item1,item);
     item1->setSizeHint(QSize(ui->msgList->contentsRect().width(), item->height()));
-
     ui->giftList->setCurrentRow(ui->msgList->count()-1);
     ui->giftList->scrollToBottom();
+
+    foreach (auto var, m_micList)
+    {
+        if(to["userId"].toString() == var->getUserId())
+        {
+            var->updateData(to);
+        }
+    }
 }
 //麦位发生变化
 void MainWindow::msg_micInfo(QVariantList list)
@@ -311,7 +352,6 @@ void MainWindow::on_sendBtn_clicked()
     ui->msgList->setCurrentRow(ui->msgList->count()-1);
     ui->msgList->scrollToBottom();
 
-
     ChatTextMyItem *item3 = new ChatTextMyItem;
     item3->setData(photoUrl, msg);
     QListWidgetItem *item2 = new QListWidgetItem();
@@ -320,7 +360,6 @@ void MainWindow::on_sendBtn_clicked()
     item2->setSizeHint(QSize(ui->chatList->contentsRect().width(), item3->height()));
     ui->chatList->setCurrentRow(ui->chatList->count()-1);
     ui->chatList->scrollToBottom();
-
 
     ui->msgEdit->clear();
 }
@@ -332,14 +371,14 @@ void MainWindow::on_imageBtn_clicked()
     {
         return;
     }
-    QFile file(localPath);
-    if (!file.open(QIODevice::ReadOnly)) return;
-    if(file.size() > 1024*1024*10)
-    {
-        file.close();
-        return;
-    }
-    file.close();
+    //    QFile file(localPath);
+    //    if (!file.open(QIODevice::ReadOnly)) return;
+    //    if(file.size() > 1024*1024*10)
+    //    {
+    //        file.close();
+    //        return;
+    //    }
+    //    file.close();
 
     m_timInterface->sendImage(localPath);
 
@@ -482,77 +521,18 @@ void MainWindow::on_updateBtn_clicked()
 //进入房间
 void MainWindow::enterTheToom(QVariantMap data)
 {
-    HttpInterFace::getInstance()->getCommonConfig([&](const QVariant &data) {
-        QVariantMap roomWelcomeInfo = data.toMap()["data"].toMap();
-        QString msg = roomWelcomeInfo["roomWelcomeInfo"].toString();
-        QLabel *label = new QLabel;
-        label->setStyleSheet("font-family: \"微软雅黑\";"
-                             "font-size: 16px;"
-                             "color: #ED525A;");
-
-        label->setFixedWidth(476);
-        QString labelText = msg;
-        labelText.replace("\n","<br />");
-        QString textStyle = "<p style='line-height:22px'>" + labelText + "</p>";
-        label->setText(textStyle);
-        label->setWordWrap(true);
-        label->adjustSize();
-
-        QListWidgetItem *item = new QListWidgetItem();
-        ui->msgList->addItem(item);
-        ui->msgList->setItemWidget(item,label);
-        item->setSizeHint(QSize(ui->msgList->contentsRect().width(), label->height()));
-        ui->msgList->setCurrentRow(ui->msgList->count()-1);
-        ui->msgList->scrollToBottom();
-
-        QLabel *label1 = new QLabel();
-        label1->setFixedWidth(476);
-        label1->setText(label->text());
-        label1->setStyleSheet(label->styleSheet());
-        label1->setWordWrap(true);
-        QListWidgetItem *item1 = new QListWidgetItem();
-        ui->osList->addItem(item1);
-        ui->osList->setItemWidget(item1,label1);
-        item1->setSizeHint(QSize(ui->osList->contentsRect().width(), label1->height()));
-        ui->osList->setCurrentRow(ui->osList->count()-1);
-        ui->osList->scrollToBottom();
-    });
-
     QString id = data["id"].toString();
     g_roomID = id;
-    int currentPage = 1;
-    HttpInterFace::getInstance()->getOnlineInfo(id,currentPage, [&](const QVariant &data) {
-
-        QVariantMap onlineInfo =  data.toMap();
-        QVariantList list = onlineInfo["data"].toList();
-        for(QVariant var : list)
-        {
-            QVariantMap map = var.toMap();
-            OnlineItem *item = new OnlineItem();
-            item->setFixedSize(390,70);
-            item->setData(map,id);
-            ui->onlineList->addWidget(item);
-        }
-
-    });    
-
-    if(m_agoraFace == nullptr)
-    {
-        m_agoraFace = new AgoraRtcEngineInterface;
-        m_agoraFace->vInitAgoraSdk();
-        connect(m_agoraFace, &AgoraRtcEngineInterface::joinedChannelSuccess, this, &MainWindow::joinedChannelSuccess);
-        connect(m_agoraFace, &AgoraRtcEngineInterface::audioVolumeIndication, this, &MainWindow::audioVolumeIndication);
-    }
 
     QVariantMap roomdata =  HttpInterFace::getInstance()->joinRoom(id.toInt(), 1 , "");
     if(1 == roomdata["code"].toInt())
     {
         roomdata = roomdata["data"].toMap();
+        HttpUserInfo::instance()->setRoomInfo(roomdata);
+
         QString rtcToken = roomdata["rtcToken"].toString();
         QString chatRoomId = roomdata["roomId"].toString();
         int userId = roomdata["userInfoResponse"].toMap()["userId"].toInt();
-        HttpUserInfo::instance()->setRoomInfo(roomdata);
-
         m_agoraFace->joinChannel(rtcToken, chatRoomId, userId);
         m_agoraFace->setChannelProfile(agora::CHANNEL_PROFILE_COMMUNICATION);
         m_agoraFace->enableLoopbackRecording(true);
@@ -582,7 +562,7 @@ void MainWindow::enterTheToom(QVariantMap data)
             }
         }
 
-        on_pushButton_2_clicked();
+        initTim();
         ui->stackedWidget->setCurrentIndex(1);
 
         QString multipleAuthoriation = roomdata["multipleAuthoriation"].toString();
@@ -599,10 +579,79 @@ void MainWindow::enterTheToom(QVariantMap data)
             m_isHomeowner = false;
         if(!m_isHomeowner)
         {
-            ui->pushButton_24->hide();            
+            ui->pushButton_24->hide();
         }
 
         updateMicList();
+
+
+        HttpInterFace::getInstance()->getCommonConfig([&](const QVariant &data) {
+            QVariantMap roomWelcomeInfo = data.toMap()["data"].toMap();
+            QString msg = roomWelcomeInfo["roomWelcomeInfo"].toString();
+            QLabel *label = new QLabel;
+            label->setStyleSheet("font-family: \"微软雅黑\";"
+                                 "font-size: 16px;"
+                                 "color: #ED525A;");
+
+            label->setFixedWidth(476);
+            QString labelText = msg;
+            labelText.replace("\n","<br />");
+            QString textStyle = "<p style='line-height:22px'>" + labelText + "</p>";
+            label->setText(textStyle);
+            label->setWordWrap(true);
+            label->adjustSize();
+
+            QListWidgetItem *item = new QListWidgetItem();
+            ui->msgList->addItem(item);
+            ui->msgList->setItemWidget(item,label);
+            item->setSizeHint(QSize(ui->msgList->contentsRect().width(), label->height()));
+            ui->msgList->setCurrentRow(ui->msgList->count()-1);
+            ui->msgList->scrollToBottom();
+
+            QLabel *label1 = new QLabel();
+            label1->setFixedWidth(476);
+            label1->setText(label->text());
+            label1->setStyleSheet(label->styleSheet());
+            label1->setWordWrap(true);
+            QListWidgetItem *item1 = new QListWidgetItem();
+            ui->osList->addItem(item1);
+            ui->osList->setItemWidget(item1,label1);
+            item1->setSizeHint(QSize(ui->osList->contentsRect().width(), label1->height()));
+            ui->osList->setCurrentRow(ui->osList->count()-1);
+            ui->osList->scrollToBottom();
+        });
+
+        int currentPage = 1;
+        HttpInterFace::getInstance()->getOnlineInfo(g_roomID,currentPage, [&](const QVariant &data) {
+
+            QVariantMap onlineInfo =  data.toMap();
+            QVariantList list = onlineInfo["data"].toList();
+            for(QVariant var : list)
+            {
+                QVariantMap map = var.toMap();
+                OnlineItem *item = new OnlineItem();
+                item->setFixedSize(390,70);
+                item->setData(map,id);
+                ui->onlineList->addWidget(item);
+            }
+
+        });
+    }
+    else
+    {
+        MsgBox::showMsg(NULL,tr("提示"), roomdata["message"].toString());
+    }
+}
+
+void MainWindow::initAgora()
+{
+    if(m_agoraFace == nullptr)
+    {
+        m_agoraFace = new AgoraRtcEngineInterface;
+        m_agoraFace->vInitAgoraSdk();
+        connect(m_agoraFace, &AgoraRtcEngineInterface::joinedChannelSuccess, this, &MainWindow::joinedChannelSuccess);
+        connect(m_agoraFace, &AgoraRtcEngineInterface::audioVolumeIndication, this, &MainWindow::audioVolumeIndication);
+        connect(m_agoraFace, &AgoraRtcEngineInterface::reconnect, this, &MainWindow::reconnect);
     }
 }
 
@@ -801,6 +850,39 @@ void MainWindow::updateMicList()
     });
 }
 
+void MainWindow::msg_uninit()
+{
+    QLabel* label = new QLabel;
+    label->setStyleSheet("font-family: \"微软雅黑\";"
+                         "font-weight: 400;"
+                         "font-size: 16px;"
+                         "color: #A8A8A7;"
+                         "line-height: 22px;"
+                         "text-align: left;"
+                         "font-style: normal;");
+    label->setFixedHeight(34);
+    label->setText(tr("暂不支持该消息，请升级最新版本以获得完整功能体验"));
+
+
+    QListWidgetItem *item1 = new QListWidgetItem();
+    ui->msgList->addItem(item1);
+    ui->msgList->setItemWidget(item1,label);
+    item1->setSizeHint(QSize(ui->msgList->contentsRect().width(), label->height()));
+    ui->msgList->setCurrentRow(ui->msgList->count()-1);
+    ui->msgList->scrollToBottom();
+
+    QLabel *label1 = new QLabel();
+    label1->setFixedHeight(34);
+    label1->setText(label->text());
+    label1->setStyleSheet(label->styleSheet());
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->enterRoomList->addItem(item);
+    ui->enterRoomList->setItemWidget(item,label1);
+    item->setSizeHint(QSize(ui->enterRoomList->contentsRect().width(), label1->height()));
+    ui->enterRoomList->setCurrentRow(ui->enterRoomList->count()-1);
+    ui->enterRoomList->scrollToBottom();
+}
+
 void MainWindow::upMicToUserID(QString roomID, QString userID)
 {
     QVariantMap data =  HttpInterFace::getInstance()->b_upMic(roomID, userID);
@@ -865,5 +947,40 @@ void MainWindow::on_pushButton_17_clicked()
             MsgBox::showMsg(NULL,tr("提示"), data["message"].toString());
         }
     });
+}
+
+void MainWindow::on_msgEdit_sendImage(const QString &localPath)
+{
+    m_timInterface->sendImage(localPath);
+
+    QVariantMap data = HttpUserInfo::instance()->getLoginInfo();
+    QString photoUrl = data["user"].toMap()["photo"].toString();
+    ChatImageMyItem *item1 = new ChatImageMyItem;
+    item1->setData(localPath,photoUrl);
+
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->msgList->addItem(item);
+    ui->msgList->setItemWidget(item,item1);
+    item->setSizeHint(QSize(ui->msgList->contentsRect().width(), item1->height()));
+    ui->msgList->setCurrentRow(ui->msgList->count()-1);
+    ui->msgList->scrollToBottom();
+
+    ChatImageMyItem *item3 = new ChatImageMyItem;
+    item3->setData(localPath, photoUrl);
+    QListWidgetItem *item2 = new QListWidgetItem();
+    ui->chatList->addItem(item2);
+    ui->chatList->setItemWidget(item2,item3);
+    item2->setSizeHint(QSize(ui->chatList->contentsRect().width(), item3->height()));
+    ui->chatList->setCurrentRow(ui->chatList->count()-1);
+    ui->chatList->scrollToBottom();
+}
+
+
+void MainWindow::on_msgEdit_textChanged(const QString &arg1)
+{
+    if(ui->msgEdit->isImageFile(arg1))
+    {
+        ui->msgEdit->clear();
+    }
 }
 

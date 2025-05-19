@@ -32,8 +32,6 @@ public:
 
     QVariantMap loginToServer(QString account, QString passwd);
 
-    QVariantMap createRoom(QString roomPhoto, QString roomName);
-
     QVariantMap joinRoom(int roomId, int entryType, QString subTopic);
 
     //上麦
@@ -76,19 +74,15 @@ private:
     explicit HttpInterFace(QObject *parent = nullptr);
     ~HttpInterFace();
 
-    QVariantMap httpsGet_syn(QString url);
+
 
     QVariantMap httpsPut_syn(QString url, QVariantMap jsonMap);
 
+    QVariantMap httpsGet_syn(QString url);
     void httpsGet_asy(QString url, QVariantMap jsonMap, callBack callback);//get异步
-    void httpPost_asy(QString url , QVariantMap jsonMap, callBack callback);//Post异步
-    void httpsPost_asy(QString url , QVariantMap jsonMap);//异步
 
-    QVariantMap httpPost_syn(QString url , QVariantMap jsonMap);
     QVariantMap httpsPost_syn(QString url ,QVariantMap jsonMap);//同步
-
-private slots:
-    void replyFinished(QNetworkReply *reply);
+    void httpPost_asy(QString url , QVariantMap jsonMap, callBack callback);//Post异步
 
 private:
     QNetworkAccessManager* m_pNetworkAccessManager; //同步

@@ -17,7 +17,8 @@ public:
     ~MicInfoItem();
 
     void setData(QVariantMap data, int num);
-
+    QString getUserId();
+    void updateData(QVariantMap data);
 signals:
     void setMyselfMicInfo(int);
 

@@ -9,6 +9,7 @@
 #include "Global.h"
 #include "HttpUserInfo.h"
 #include <QUrlQuery>
+#include "MsgBox.h"
 
 HttpInterFace* HttpInterFace::pHttpInterFace = NULL;
 HttpInterFace *HttpInterFace::getInstance()
@@ -227,8 +228,8 @@ void HttpInterFace::clearCardiacValue(QString roomId, callBack callBack)
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);
-    QString url = BASE_API_URL + QString("/live/getUserMedals");
-    httpsGet_asy(url,jsonMap, callBack);
+    QString url = BASE_API_URL + QString("/live/clearCardiacValue");
+    httpPost_asy(url,jsonMap, callBack);
 }
 
 void HttpInterFace::noticeFans(QString roomId, callBack callBack)
@@ -290,15 +291,6 @@ QVariantMap HttpInterFace::m_downMic()
     return httpsPost_syn(url,jsonMap);
 }
 
-QVariantMap HttpInterFace::createRoom(QString roomPhoto, QString roomName)
-{
-    QVariantMap jsonMap;
-    jsonMap.insert("roomPhoto",roomPhoto);
-    jsonMap.insert("roomName", roomName);
-    QString url = BASE_API_URL + QString("/live/createLiveRoom");
-    return httpsPost_syn(url,jsonMap);
-}
-
 QVariantMap HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic)
 {
     QVariantMap jsonMap;
@@ -338,6 +330,11 @@ QVariantMap HttpInterFace::httpsPut_syn(QString url, QVariantMap jsonMap)
     }
     QJsonParseError json_error;
     QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
+    if(json_error.error != QJsonParseError::NoError)
+    {
+        MsgBox::showMsg(NULL,tr("提示"), json_error.errorString());
+        return QVariantMap();
+    }
     QVariantMap map = jsonDocument.toVariant().toMap();
     return map;
 }
@@ -372,6 +369,16 @@ void HttpInterFace::httpsGet_asy(QString url, QVariantMap jsonMap, callBack call
             QByteArray responseData = reply->readAll();
             QJsonParseError json_error;
             QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
+            if(json_error.error != QJsonParseError::NoError)
+            {
+                MsgBox::showMsg(NULL,tr("提示"), json_error.errorString());
+                return;
+            }
+            if(jsonDocument["code"].toInt() != 1)
+            {
+                MsgBox::showMsg(NULL,tr("提示"), jsonDocument["message"].toString());
+                return;
+            }
             callback(jsonDocument.toVariant());
             reply->deleteLater();});
     };
@@ -414,6 +421,16 @@ QVariantMap HttpInterFace::httpsGet_syn(QString url)
     }
     QJsonParseError json_error;
     QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
+    if(json_error.error != QJsonParseError::NoError)
+    {
+        MsgBox::showMsg(NULL,tr("提示"), json_error.errorString());
+        return QVariantMap();
+    }
+    if(jsonDocument["code"].toInt() != 1)
+    {
+        MsgBox::showMsg(NULL,tr("提示"), jsonDocument["message"].toString());
+        return QVariantMap();
+    }
     QVariantMap map = jsonDocument.toVariant().toMap();
     return map;
 }
@@ -423,6 +440,13 @@ void HttpInterFace::httpPost_asy(QString url , QVariantMap jsonMap, callBack cal
     QNetworkRequest request;
     request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
     request.setUrl(QUrl(url));
+
+    if(!HttpUserInfo::instance()->gettoken().isEmpty())
+    {
+        request.setRawHeader("token", HttpUserInfo::instance()->gettoken().toLatin1());
+    }
+    else
+        request.setRawHeader("token", "0");
 
     QByteArray postData = QJsonDocument::fromVariant(jsonMap).toJson();
 
@@ -434,40 +458,20 @@ void HttpInterFace::httpPost_asy(QString url , QVariantMap jsonMap, callBack cal
             QByteArray responseData = reply->readAll();
             QJsonParseError json_error;
             QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
+            if(json_error.error != QJsonParseError::NoError)
+            {
+                MsgBox::showMsg(NULL,tr("提示"), json_error.errorString());
+                return;
+            }
+            if(jsonDocument["code"].toInt() != 1)
+            {
+                MsgBox::showMsg(NULL,tr("提示"), jsonDocument["message"].toString());
+                return;
+            }
             callback(jsonDocument.toVariant());
             reply->deleteLater();});
     };
     processResponse();
-}
-
-QVariantMap HttpInterFace::httpPost_syn(QString url ,QVariantMap jsonMap)
-{
-    QNetworkRequest request;
-    request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
-    request.setUrl(QUrl(url));
-
-    QByteArray postData = QJsonDocument::fromVariant(jsonMap).toJson();
-    QNetworkReply *reply = m_pNetworkAccessManager->post(request, postData);
-    if (NULL == reply)
-    {
-        delete m_pNetworkAccessManager;
-        return QVariantMap();
-    }
-
-    QEventLoop eventloop;
-    connect(m_pNetworkAccessManager, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
-    eventloop.exec();
-
-    QByteArray responseData = reply->readAll();
-    if(responseData.isEmpty())
-    {
-        return QVariantMap();
-    }
-    QJsonParseError json_error;
-    QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
-    QVariantMap map = jsonDocument.toVariant().toMap();
-    reply->deleteLater();
-    return map;
 }
 
 QVariantMap HttpInterFace::httpsPost_syn(QString url ,QVariantMap jsonMap)
@@ -510,36 +514,17 @@ QVariantMap HttpInterFace::httpsPost_syn(QString url ,QVariantMap jsonMap)
     }
     QJsonParseError json_error;
     QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
+    if(json_error.error != QJsonParseError::NoError)
+    {
+        MsgBox::showMsg(NULL,tr("提示"), json_error.errorString());
+        return QVariantMap();
+    }
+    if(jsonDocument["code"].toInt() != 1)
+    {
+        MsgBox::showMsg(NULL,tr("提示"), jsonDocument["message"].toString());
+        return QVariantMap();
+    }
     QVariantMap map = jsonDocument.toVariant().toMap();
     return map;
 }
 
-void HttpInterFace::httpsPost_asy(QString url ,QVariantMap jsonMap)
-{
-    QByteArray postData = QJsonDocument::fromVariant(jsonMap).toJson();
-
-    QNetworkRequest request;
-    QSslConfiguration config;
-    config.setPeerVerifyMode(QSslSocket::VerifyNone);
-    config.setProtocol(QSsl::TlsV1_2);
-    request.setSslConfiguration(config);
-    request.setRawHeader("Authorization",m_authorization.toUtf8());
-    request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
-    request.setHeader(QNetworkRequest::ContentLengthHeader, postData.length());
-    request.setUrl(QUrl(url));
-
-    m_http_asy->post(request, postData);
-}
-
-void HttpInterFace::replyFinished(QNetworkReply *reply)
-{
-    if(reply->url().toString().contains(LOGIN_URL))
-    {
-
-    }
-    else if(reply->url().toString().contains(LOGIN_URL))
-    {
-
-    }
-    reply->deleteLater();
-}

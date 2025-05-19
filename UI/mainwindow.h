@@ -24,7 +24,8 @@ public:
 
 private:
     void initUserUI();
-
+    void initTim();
+    void initAgora();
 protected:
     void mouseMoveEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
@@ -33,11 +34,11 @@ protected:
 private slots:
     void joinedChannelSuccess(const QString& channel, unsigned int uid, int elapsed);
     void audioVolumeIndication(int uid,int value);
-
-    void on_pushButton_2_clicked();
+    void reconnect();    
 
     void loginIm(int code, QString msg);
 
+    void msg_liveClose();
     void msg_notice(QVariantMap user, QString msg);
     void msg_txt(QVariantMap user, QString msg, int type);
     void msg_image(QVariantMap user, QString path);
@@ -89,6 +90,7 @@ private slots:
     void on_giftBtn_clicked();
 
     void updateMicList();
+    void msg_uninit();
 
     void on_downMicBtn_clicked();
 
@@ -96,6 +98,10 @@ private slots:
     void on_pushButton_18_clicked();
 
     void on_pushButton_17_clicked();
+
+    void on_msgEdit_sendImage(const QString &localPath);
+
+    void on_msgEdit_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

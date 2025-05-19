@@ -75,7 +75,8 @@ public:
         image->setMaximumSize(QSize(69, 69));
         image->setStyleSheet(QString::fromUtf8("background-color: transparent; \n"
 "border:none;"));
-        image->setScaledContents(true);
+        image->setScaledContents(false);
+        image->setAlignment(Qt::AlignCenter);
         addSourceBtn_2 = new click_label(widget_17);
         addSourceBtn_2->setObjectName(QString::fromUtf8("addSourceBtn_2"));
         addSourceBtn_2->setGeometry(QRect(0, 0, 112, 131));

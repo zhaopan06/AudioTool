@@ -18,9 +18,13 @@ public:
 
     void setData(QVariantMap data);
 
+protected:
+    void enterEvent(QEvent* event);
+    void leaveEvent(QEvent *event);
 private:
     Ui::GiftPageItem *ui;
     QVariantMap m_data;
+    QString m_path;
 };
 
 #endif // GIFTPAGEITEM_H

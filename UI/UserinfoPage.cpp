@@ -62,7 +62,6 @@ void UserinfoPage::mouseReleaseEvent(QMouseEvent *event)
 void UserinfoPage::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
-    qDebug() << tr("鼠标已移出 Label");
     close();
 }
 

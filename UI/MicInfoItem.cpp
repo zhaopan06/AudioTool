@@ -20,6 +20,12 @@ void MicInfoItem::setData(QVariantMap data, int num)
     QVariantMap map = data["member"].toMap();
     if(data["status"].toInt() >= 0)
     {
+        if(map.empty())
+        {
+            ui->name->setText(QString::number(num+1) +  tr("号麦"));
+            return;
+        }
+
         ui->gift->setIcon(QIcon(":/images/mic_gift.png"));
         ui->gift->setText(map["cardiac"].toString());
         ui->name->setText(map["name"].toString());
@@ -41,4 +47,16 @@ void MicInfoItem::setData(QVariantMap data, int num)
     {
         emit setMyselfMicInfo(data["status"].toInt());
     }
+
+    m_data = map;
+}
+
+QString MicInfoItem::getUserId()
+{
+    return m_data["userId"].toString();
+}
+
+void MicInfoItem::updateData(QVariantMap data)
+{
+    ui->gift->setText(data["cardiac"].toString());
 }

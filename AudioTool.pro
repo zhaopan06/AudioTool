@@ -59,6 +59,7 @@ SOURCES += \
     control/CRoundLabel.cpp \
     control/EmotionItem.cpp \
     control/EmotionPage.cpp \
+    control/ImageDialog.cpp \
     control/MsgBox.cpp \
     control/click_label.cpp \
     main.cpp
@@ -93,7 +94,8 @@ HEADERS += \
     control/CRoundLabel.h \
     control/EmotionItem.h \
     control/EmotionPage.h \
-    control/ImagePasteTextEdit.h \
+    control/ImageDialog.h \
+    control/ImageDropLineEdit.h \
     control/MsgBox.h \
     control/click_label.h
 
@@ -120,6 +122,7 @@ FORMS += \
     UI/mainwindow.ui \
     control/EmotionItem.ui \
     control/EmotionPage.ui \
+    control/ImageDialog.ui \
     control/MsgBox.ui
 
 # Default rules for deployment.

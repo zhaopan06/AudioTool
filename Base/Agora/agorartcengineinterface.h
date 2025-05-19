@@ -95,6 +95,8 @@ signals:
     void audioVolumeIndication(int uid,int value);
     // 推流中断的回调
     void rtmpStreamingStateChanged(const char *url, int state, int errCode);
+    //断开连接
+    void reconnect();
 
 private:
     friend class AgoraRtcEngineInterfaceEvent;

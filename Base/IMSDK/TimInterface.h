@@ -66,6 +66,7 @@ private:
     void getMSGTojson(QByteArray msg);
 
 signals:
+    void msg_liveClose();
     void loginStatus(int,QString);
     void newMes();
 
@@ -80,8 +81,10 @@ signals:
 
     void msg_micInfo(QVariantList);
     void msg_gift(QVariantMap,  QVariantMap,  QVariantMap);
-
+    void updateContribute();
     void msg_updateMicList();
+
+    void msg_uninit();
 private:
 
 

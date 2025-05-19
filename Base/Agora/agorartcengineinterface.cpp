@@ -56,6 +56,13 @@ public:
     {
         qDebug()<<"err---"<<err<<"msg---"<<QString::fromLatin1(msg);
     }
+    virtual void onConnectionStateChanged( CONNECTION_STATE_TYPE state, CONNECTION_CHANGED_REASON_TYPE reason) override
+    {
+        if(CONNECTION_STATE_FAILED == state)
+        {
+            emit m_engine.reconnect();
+        }
+    }
 };
 
 

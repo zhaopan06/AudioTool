@@ -18,7 +18,6 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
@@ -27,6 +26,7 @@
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "ImageDropLineEdit.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -257,7 +257,7 @@ public:
     QSpacerItem *horizontalSpacer_12;
     QFrame *frame_6;
     QHBoxLayout *horizontalLayout_6;
-    QLineEdit *msgEdit;
+    ImageDropLineEdit *msgEdit;
     QPushButton *sendBtn;
     QWidget *widget_13;
     QVBoxLayout *verticalLayout_32;
@@ -2138,7 +2138,7 @@ public:
         horizontalLayout_6->setSpacing(10);
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
         horizontalLayout_6->setContentsMargins(16, 0, 10, 0);
-        msgEdit = new QLineEdit(frame_6);
+        msgEdit = new ImageDropLineEdit(frame_6);
         msgEdit->setObjectName(QString::fromUtf8("msgEdit"));
         msgEdit->setMinimumSize(QSize(0, 0));
         msgEdit->setMaximumSize(QSize(16777215, 16777215));

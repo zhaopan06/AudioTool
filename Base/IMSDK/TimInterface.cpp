@@ -4,6 +4,7 @@
 #include "HttpUserInfo.h"
 #include <QJsonObject>
 #include <QJsonDocument>
+#include "MsgBox.h"
 
 TimInterface::TimInterface()
 {
@@ -28,6 +29,14 @@ int TimInterface::initSDK()
     QString IMtoken = HttpUserInfo::instance()->getImToken();
     login(ImUserID.toLatin1(), IMtoken.toLatin1());
     initRecvNewMsgCallback();
+
+    TIMSetKickedOfflineCallback([](const void* user_data) {
+        MsgBox::showMsg(NULL,tr("提示"), tr("被踢下线，请重启登录"));
+    }, this);
+
+    TIMSetUserSigExpiredCallback([](const void* user_data) {
+        MsgBox::showMsg(NULL,tr("提示"), tr("IMToken过期，请重启登录"));
+    }, this);
     return code;
 }
 
@@ -224,6 +233,15 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
             QString str_content = msg_obj["message_cloud_custom_str"].toString();
             QJsonObject str_doc = QJsonDocument::fromJson(str_content.toUtf8()).object();
 
+            if("onlinePush" == str_doc["tximMsgType"].toString())
+            {
+                if(20 == str_doc["clickType"].toInt())
+                {
+                    //回到首页
+                    emit msg_liveClose();
+                }
+            }
+
             QJsonObject elem = elem_value.toObject();
             uint32_t elem_type = elem["elem_type"].toInt();
             switch (elem_type) {
@@ -288,7 +306,7 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                 {                    
                     QJsonObject message_ob = str_doc["message"].toObject();
                     int type = message_ob["type"].toInt();
-                    qDebug()<<"body = "<<message_ob["body"];
+                    qDebug()<<"body = "<<message_ob["body"]<<" type=="<<type;
 
                     switch (type) {
                     case 8://爆灯
@@ -350,6 +368,7 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                         break;
                     }
                     default:
+                        emit msg_uninit();
                         break;
                     }
                 }
@@ -381,9 +400,7 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
 
                 QString giftMsg = elem["group_report_elem_user_data"].toString();
                 QJsonObject object = QJsonDocument::fromJson(giftMsg.toUtf8()).object();
-                int action = object["action"].toString().toInt();
-                qDebug()<<"action==="<<action;
-
+                int action = object["action"].toString().toInt();               
                 switch (action) {
                 case 100001:
                 {
@@ -429,26 +446,34 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     qDebug()<<"100011 object==="<<object;
                     break;
                 }
-                case 100012:
+                case 100012://100012->热度
                 {
-                    qDebug()<<"object==="<<object;
+                    qDebug()<<"100012 object==="<<object;
                     break;
                 }
-                case 100013:
+                case 100013://100013 ->排行榜变更
                 {
-                    qDebug()<<"object==="<<object;
+                    qDebug()<<"100013 object==="<<object;
+                    emit updateContribute();
                     break;
                 }
                 default:
+                {
+                    if(action > 100000)
+                    {
+                        qDebug() << "kTIMElem_GroupReport message element type:" << action;
+                        emit msg_uninit();
+                    }
                     break;
                 }
-
-
+                }
                 break;
             }
             default:
+            {
                 qDebug() << "Unknown message element type:" << elem_type;
                 break;
+            }
             }
         }
     }
