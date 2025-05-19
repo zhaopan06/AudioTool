@@ -222,6 +222,18 @@ void MainWindow::loginIm(int code, QString msg)
 
 void MainWindow::msg_liveClose()
 {
+    cleanupLayout(ui->micLayout);
+    cleanupLayout(ui->onlineList);
+    cleanupLayout(ui->contList);
+    cleanupLayout(ui->micList);
+
+    ui->msgList->clear();
+    ui->osList->clear();
+    ui->chatList->clear();
+    ui->enterRoomList->clear();
+    ui->giftList->clear();
+
+    m_timInterface->logout();
     ui->stackedWidget->setCurrentIndex(0);
 }
 
@@ -524,6 +536,22 @@ void MainWindow::enterTheToom(QVariantMap data)
     QString id = data["id"].toString();
     g_roomID = id;
 
+    int currentPage = 1;
+    HttpInterFace::getInstance()->getOnlineInfo(g_roomID,currentPage, [&](const QVariant &data) {
+
+        QVariantMap onlineInfo =  data.toMap();
+        QVariantList list = onlineInfo["data"].toList();
+        for(QVariant var : list)
+        {
+            QVariantMap map = var.toMap();
+            OnlineItem *item = new OnlineItem();
+            item->setFixedSize(390,70);
+            item->setData(map,id);
+            ui->onlineList->addWidget(item);
+        }
+
+    });
+
     QVariantMap roomdata =  HttpInterFace::getInstance()->joinRoom(id.toInt(), 1 , "");
     if(1 == roomdata["code"].toInt())
     {
@@ -544,6 +572,8 @@ void MainWindow::enterTheToom(QVariantMap data)
 
         //设置麦序
         QVariantList micInfoList = roomdata["micInfoList"].toList();
+        cleanupLayout(ui->micLayout);
+        m_micList.clear();
         for(int i = 0; i < micInfoList.size(); i++)
         {
             QVariantMap micData = micInfoList.at(i).toMap();
@@ -563,6 +593,7 @@ void MainWindow::enterTheToom(QVariantMap data)
         }
 
         initTim();
+        m_timInterface->login();
         ui->stackedWidget->setCurrentIndex(1);
 
         QString multipleAuthoriation = roomdata["multipleAuthoriation"].toString();
@@ -584,7 +615,6 @@ void MainWindow::enterTheToom(QVariantMap data)
 
         updateMicList();
 
-
         HttpInterFace::getInstance()->getCommonConfig([&](const QVariant &data) {
             QVariantMap roomWelcomeInfo = data.toMap()["data"].toMap();
             QString msg = roomWelcomeInfo["roomWelcomeInfo"].toString();
@@ -599,7 +629,7 @@ void MainWindow::enterTheToom(QVariantMap data)
             QString textStyle = "<p style='line-height:22px'>" + labelText + "</p>";
             label->setText(textStyle);
             label->setWordWrap(true);
-            label->adjustSize();
+            label->adjustSize();           
 
             QListWidgetItem *item = new QListWidgetItem();
             ui->msgList->addItem(item);
@@ -620,26 +650,6 @@ void MainWindow::enterTheToom(QVariantMap data)
             ui->osList->setCurrentRow(ui->osList->count()-1);
             ui->osList->scrollToBottom();
         });
-
-        int currentPage = 1;
-        HttpInterFace::getInstance()->getOnlineInfo(g_roomID,currentPage, [&](const QVariant &data) {
-
-            QVariantMap onlineInfo =  data.toMap();
-            QVariantList list = onlineInfo["data"].toList();
-            for(QVariant var : list)
-            {
-                QVariantMap map = var.toMap();
-                OnlineItem *item = new OnlineItem();
-                item->setFixedSize(390,70);
-                item->setData(map,id);
-                ui->onlineList->addWidget(item);
-            }
-
-        });
-    }
-    else
-    {
-        MsgBox::showMsg(NULL,tr("提示"), roomdata["message"].toString());
     }
 }
 
@@ -931,7 +941,6 @@ void MainWindow::on_pushButton_18_clicked()
                 if(data["code"].toInt() != 1)
                 {
                     MsgBox::showMsg(NULL,tr("提示"), data["message"].toString());
-                    showMapTojson(data);
                 }
             });
         }

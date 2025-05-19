@@ -19,7 +19,6 @@ MicseQuenceItem::~MicseQuenceItem()
 void MicseQuenceItem::setData(QVariantMap data, int num, bool m_isManager)
 {
     m_data = data;
-    showMapTojson(data);
 
     ui->label->setText(QString::number(num));
 

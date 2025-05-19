@@ -44,9 +44,9 @@ public:
     void initRecvNewMsgCallback();
 
     //登录
-    int  login(const char *user_id, const char *IMtoken);
+    int  login();
     //登出
-    int  logout(TIMCommCallback	cb, const void *user_data);
+    int  logout();
     //c2c发送消息
     int sendMessage_c2c(const char* conv_id, const char* json_msg_param, const void* user_data);
 

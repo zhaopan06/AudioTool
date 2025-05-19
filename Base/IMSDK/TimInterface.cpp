@@ -25,9 +25,6 @@ int TimInterface::initSDK()
     {
         qDebug()<<"TIMInit error code----------"<<code;
     }
-    QString ImUserID = "user" + HttpUserInfo::instance()->getUserID();
-    QString IMtoken = HttpUserInfo::instance()->getImToken();
-    login(ImUserID.toLatin1(), IMtoken.toLatin1());
     initRecvNewMsgCallback();
 
     TIMSetKickedOfflineCallback([](const void* user_data) {
@@ -45,19 +42,27 @@ QString TimInterface::getSDKVersion()
     return TIMGetSDKVersion();
 }
 
-int TimInterface::login(const char *user_id, const char *IMtoken)
+int TimInterface::login()
 {
     TIMCommCallback callback = [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
         TimInterface* ths = (TimInterface*)user_data;
 
         emit ths->loginStatus(code, desc);
     };
-    return TIMLogin(user_id, IMtoken, callback, this);
+
+    QString ImUserID = "user" + HttpUserInfo::instance()->getUserID();
+    QString IMtoken = HttpUserInfo::instance()->getImToken();
+    return TIMLogin(ImUserID.toLatin1(), IMtoken.toLatin1(), callback, this);
 }
 
-int  TimInterface::logout(TIMCommCallback cb, const void *user_data)
+int  TimInterface::logout()
 {
-    return TIMLogout(cb, user_data);
+    TIMCommCallback callback = [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
+
+        qDebug()<<"logout code---"<<code;
+
+    };
+    return TIMLogout(callback, this);
 }
 
 int TimInterface::sendMessage_group(const char *conv_id, const char *json_msg_param, const void *user_data)

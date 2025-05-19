@@ -1,8 +1,8 @@
 ﻿#include "ChatTextItem.h"
 #include "ui_ChatTextItem.h"
 #include "HttpInterFace.h"
-
-
+#include <QRegularExpression>
+#include "Global.h"
 #include <QLabel>
 #include <QApplication>
 #include <QVBoxLayout>
@@ -60,14 +60,8 @@ void ChatTextItem::setData(QVariantMap data,QString msg, int type)
 
     //设置文字
     QLabel *label = new QLabel();
-    if(1 == type)
-    {
-        label->setStyleSheet("font-family: \"微软雅黑\";"
-                             "font-size: 16px;"
-                             "color: #FFFFFF;"
-                             "text-align: left;");
-    }
-    else if(12 == type)
+    label->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+    if(12 == type)
     {
         label->setStyleSheet("font-family: \"微软雅黑\";"
                              "font-size: 16px;"
@@ -77,6 +71,7 @@ void ChatTextItem::setData(QVariantMap data,QString msg, int type)
 
     ui->textLayout->addWidget(label);
     QString labelText = msg;
+    labelText = replaceEmojiTagsSimple(labelText);
     labelText.replace("\n","<br />");
     QString textStyle = "<p style='line-height:22px'>" + labelText + "</p>";
     label->setText(textStyle);
@@ -89,8 +84,7 @@ void ChatTextItem::setData(QVariantMap data,QString msg, int type)
         ui->widget_2->setFixedWidth(395);
         label->setWordWrap(true);
         label->adjustSize();
-        label->setFixedHeight(label->height() - 24);
-        this->setFixedHeight(label->height() + 64);
+        this->adjustSize();
     }
     else
     {

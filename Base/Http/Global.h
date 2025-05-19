@@ -19,7 +19,7 @@ void CreateDir();//创建文件夹
 qint32 getWebTime();
 QString mapDownloadImagePath(QString url);
 void showMapTojson(QVariantMap data);
-
+QString replaceEmojiTagsSimple(const QString &text);
 
 
 

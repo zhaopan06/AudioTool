@@ -66,7 +66,7 @@ public:
 "text-align: right;"));
         horizontalLayout_4 = new QHBoxLayout(widget_2);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        horizontalLayout_4->setContentsMargins(12, 0, 12, 6);
+        horizontalLayout_4->setContentsMargins(12, 6, 12, 6);
         textLayout = new QHBoxLayout();
         textLayout->setSpacing(0);
         textLayout->setObjectName(QString::fromUtf8("textLayout"));

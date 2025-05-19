@@ -28,8 +28,7 @@ bool NewUserItem::eventFilter(QObject *watched, QEvent *event)
             int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
             bool isMouseInLowerHalf = (mouseGlobalPos.y() > screenHeight / 2 - 80);
             QPoint labelGlobalPos = ui->image->mapToGlobal(QPoint(0, 0));
-            UserinfoPage *page = UserinfoPage::getInstance();
-            showMapTojson(m_data);
+            UserinfoPage *page = UserinfoPage::getInstance();            
             page->init(m_data["id"].toString());
             QPoint point1;
             if(isMouseInLowerHalf)

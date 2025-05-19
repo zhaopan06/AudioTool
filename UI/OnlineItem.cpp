@@ -72,7 +72,7 @@ void OnlineItem::setData(QVariantMap data, QString id)
 
     QString photo = data["photo"].toString();
     HttpInterFace::getInstance()->downLoad(photo, [&](const QString &path) {
-        this->ui->image->setPixmap(QPixmap::fromImage(QImage(path)));
+        this->ui->image->setPixmap(QPixmap(path));
     });
 
     int status = data["status"].toInt();

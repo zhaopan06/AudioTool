@@ -28,8 +28,10 @@ void ChatTextMyItem::setData(QString path, QString msg)
 
     //设置文字
     QLabel *label = new QLabel();
+    label->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
     ui->textLayout->addWidget(label);
     QString labelText = msg;
+    labelText = replaceEmojiTagsSimple(labelText);
     labelText.replace("\n","<br />");
     QString textStyle = "<p style='line-height:22px'>" + labelText + "</p>";
     label->setText(textStyle);
@@ -42,12 +44,12 @@ void ChatTextMyItem::setData(QString path, QString msg)
         ui->widget_2->setFixedWidth(395);
         label->setWordWrap(true);
         label->adjustSize();
-        this->setFixedHeight(label->height() + 30);
+        this->adjustSize();
     }
     else
     {
         label->adjustSize();
-        ui->widget_2->setFixedWidth(label->width() + 30);
+        ui->widget_2->setFixedWidth(label->width() + 24);
     }
 }
 
