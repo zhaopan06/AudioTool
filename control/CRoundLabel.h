@@ -1,4 +1,4 @@
-#ifndef ROUNDLABEL_H
+﻿#ifndef ROUNDLABEL_H
 #define ROUNDLABEL_H
 #include <QLabel>
 class CRoundLabel:public QLabel
@@ -8,6 +8,7 @@ public:
     CRoundLabel(QWidget* parent=0);
 signals:
     void clicked();
+    void rightClicked();
 protected:
     void paintEvent(QPaintEvent *e);    
     void enterEvent(QEvent* event);

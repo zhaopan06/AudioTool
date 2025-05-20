@@ -1,4 +1,6 @@
 ﻿#include "CRoundLabel.h"
+#include "qdebug.h"
+#include "qevent.h"
 #include <QPainter>
 #include <QPainterPath>
 CRoundLabel::CRoundLabel(QWidget *parent):QLabel(parent)
@@ -33,6 +35,14 @@ void CRoundLabel::leaveEvent(QEvent *event)
     update();
 }
 void CRoundLabel::mousePressEvent(QMouseEvent *ev)
-{
-    emit clicked();
+{    
+    if(ev->button() == Qt::LeftButton)
+    {
+        emit clicked();
+    }
+    else if(ev->button() == Qt::RightButton)
+    {
+        qDebug() << "右键按下";
+        emit rightClicked();
+    }
 }

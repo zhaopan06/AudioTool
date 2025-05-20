@@ -22,6 +22,9 @@ public:
 signals:
     void setMyselfMicInfo(int);
 
+private slots:
+    void on_image_rightClicked();
+
 private:
     Ui::MicInfoItem *ui;
 

@@ -60,6 +60,8 @@ SOURCES += \
     control/EmotionItem.cpp \
     control/EmotionPage.cpp \
     control/ImageDialog.cpp \
+    control/MenuHomeownerRight.cpp \
+    control/MenuManagerRight.cpp \
     control/MsgBox.cpp \
     control/click_label.cpp \
     main.cpp
@@ -96,6 +98,8 @@ HEADERS += \
     control/EmotionPage.h \
     control/ImageDialog.h \
     control/ImageDropLineEdit.h \
+    control/MenuHomeownerRight.h \
+    control/MenuManagerRight.h \
     control/MsgBox.h \
     control/click_label.h
 
@@ -123,6 +127,8 @@ FORMS += \
     control/EmotionItem.ui \
     control/EmotionPage.ui \
     control/ImageDialog.ui \
+    control/MenuHomeownerRight.ui \
+    control/MenuManagerRight.ui \
     control/MsgBox.ui
 
 # Default rules for deployment.

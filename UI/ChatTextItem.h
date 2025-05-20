@@ -20,6 +20,7 @@ public:
 
     void setImage(QVariantMap data, QString msg);
 
+    void setEmotion(QVariantMap data, QString path, int type);
 private:
     Ui::ChatTextItem *ui;
     QVariantMap m_data;

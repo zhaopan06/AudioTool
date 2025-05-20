@@ -1,4 +1,6 @@
 ﻿#include "ChatTextItem.h"
+#include "qmovie.h"
+#include "qtimer.h"
 #include "ui_ChatTextItem.h"
 #include "HttpInterFace.h"
 #include <QRegularExpression>
@@ -96,4 +98,90 @@ void ChatTextItem::setData(QVariantMap data,QString msg, int type)
 void ChatTextItem::setImage(QVariantMap data, QString msg)
 {
 
+}
+
+void ChatTextItem::setEmotion(QVariantMap data, QString path, int type)
+{
+    QVariantMap userLevelCompare = data["userLevelCompare"].toMap();
+    QString level = userLevelCompare["level"].toString();
+    ui->user_lab->setText(level);
+
+    QString multipleAuthoriation = data["multipleAuthoriation"].toString();
+    if(multipleAuthoriation.size() > 6)
+    {
+        int num = QString(multipleAuthoriation.at(0)).toInt();
+        if(2 == num)
+        {
+            ui->label_3->setText(tr("房主"));
+        }
+        else
+        {
+            num = QString(multipleAuthoriation.at(2)).toInt();
+            if(1 == num)
+            {
+                ui->label_3->setText(tr("管理"));
+            }
+            else
+            {
+                ui->label_3->hide();
+            }
+        }
+    }
+
+    QString name = data["name"].toString();
+    ui->nameLab->setText(name);
+
+    QString photo = data["photo"].toString();
+    HttpInterFace::getInstance()->downLoad(photo, [&](const QString &path) {
+        this->ui->image->setPixmap(QPixmap::fromImage(QImage(path)));
+    });
+
+    //设置表情
+    QLabel *label = new QLabel();
+    label->setFixedSize(34,34);
+    label->setScaledContents(true);
+    ui->textLayout->addWidget(label);
+    this->adjustSize();
+    if(type > 4)
+    {
+        label->setPixmap(QPixmap(path));
+        return;
+    }
+
+    QString giftPath;
+    switch (type) {
+    case 1://骰子
+    {
+        giftPath = ":/images/gifts/dice.gif";
+        break;
+    }
+    case 2:
+    {
+        giftPath = ":/images/gifts/finger.gif";
+        break;
+    }
+    case 3:
+    {
+        giftPath = ":/images/gifts/light.gif";
+        break;
+    }
+    case 4:
+    {
+        giftPath = ":/images/gifts/mic.gif";
+        break;
+    }
+
+    default:
+        break;
+    }
+
+    QMovie *movie = new QMovie(giftPath);
+    movie->setScaledSize(QSize(34,34));
+    label->setMovie(movie);
+    movie->start();
+
+    QTimer::singleShot(3000, [label, movie, path]() {
+        movie->stop();
+        label->setPixmap(QPixmap::fromImage(QImage(path)));
+    });
 }

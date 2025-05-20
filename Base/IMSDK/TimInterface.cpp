@@ -312,12 +312,13 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     QJsonObject message_ob = str_doc["message"].toObject();
                     int type = message_ob["type"].toInt();
                     qDebug()<<"body = "<<message_ob["body"]<<" type=="<<type;
+                    QVariantMap user = str_doc["user"].toVariant().toMap();
 
                     switch (type) {
                     case 8://爆灯
                     {
-                        QString imagePath = ":/images/emotion/vc_emoji_2.png";
-                        emit msg_emotion(imagePath);
+                        QString imagePath = "images/emotion/vc_emoji_2.png";
+                        emit msg_emotion(user, imagePath, 3);
                         break;
                     }
                     case 9://9 emjio表情单图
@@ -335,24 +336,31 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                         else if(number >= 38 && number < 40)
                             number -= 4 ;
 
-                        QString imagePath = ":/images/emotion/vc_emoji_" + QString::number(number) + ".png";
-                        emit msg_emotion(imagePath);                        
+                        QString imagePath = "images/emotion/vc_emoji_" + QString::number(number) + ".png";
+                        emit msg_emotion(user, imagePath, 5);
                         break;
                     }
                     case 10://10 骰子
                     {
                         int num = message_ob["body"].toString().toInt();
-                        QString imagePath = ":/images/emotion/icon_dice_" +QString::number(num) + ".png";
-                        emit msg_dice(imagePath);
+                        QString imagePath = "images/emotion/icon_dice_" +QString::number(num) + ".png";
+                        emit msg_emotion(user, imagePath, 1);
                         break;
                     }
                     case 11://11 划拳
                     {
                         int num = message_ob["body"].toString().toInt();
-                        QString imagePath = ":/images/emotion/icon_finger_" +QString::number(num) + ".png";
-                        emit msg_finger(imagePath);
+                        QString imagePath = "images/emotion/icon_finger_" +QString::number(num) + ".png";
+                        emit msg_emotion(user, imagePath, 2);
                         break;
-                    }                    
+                    }
+                    case 18://麦味机
+                    {
+                        int num = message_ob["body"].toString().toInt();
+                        QString imagePath = "images/emotion/icon_mic_" +QString::number(num) + ".png";
+                        emit msg_emotion(user, imagePath, 4);
+                        break;
+                    }
                     case 15://*15. 用户等级提升提示 （例如：恭喜 xxx 等级提升到多少级）
                     {
                         break;
@@ -365,16 +373,15 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     {
                         break;
                     }
-                    case 18://麦味机
+                    default:
                     {
-                        int num = message_ob["body"].toString().toInt();
-                        QString imagePath = ":/images/emotion/icon_mic_" +QString::number(num) + ".png";
-                        emit msg_dice(imagePath);
+                        if(type > 0)
+                        {
+                            qDebug() << "kTIMElem_Custom message element type:" << type;
+                            emit msg_uninit();
+                        }
                         break;
                     }
-                    default:
-                        emit msg_uninit();
-                        break;
                     }
                 }
                 break;

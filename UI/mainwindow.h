@@ -44,6 +44,7 @@ private slots:
     void msg_image(QVariantMap user, QString path);
     void msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to);
     void msg_micInfo(QVariantList list);
+    void msg_emotion(QVariantMap user, QString path, int type);
 
     void on_sendBtn_clicked();
 
@@ -102,6 +103,8 @@ private slots:
     void on_msgEdit_sendImage(const QString &localPath);
 
     void on_msgEdit_textChanged(const QString &arg1);
+
+    void on_closeLiveBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -221,6 +221,9 @@ text-align: right;</string>
    <class>CRoundLabel</class>
    <extends>QLabel</extends>
    <header location="global">CRoundLabel.h</header>
+   <slots>
+    <signal>rightClicked()</signal>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>

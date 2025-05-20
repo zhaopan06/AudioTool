@@ -10,9 +10,7 @@
 #include "MicInfoItem.h"
 #include "MicseQuenceItem.h"
 #include "NewUserPage.h"
-#include "UserinfoPage.h"
 #include "qdebug.h"
-#include "qmimedata.h"
 #include "ui_mainwindow.h"
 #include "agorartcengineinterface.h"
 #include "Base/Http/HttpInterFace.h"
@@ -203,6 +201,7 @@ void MainWindow::initTim()
         connect(m_timInterface, &TimInterface::msg_micInfo, this, &MainWindow::msg_micInfo);
         connect(m_timInterface, &TimInterface::msg_updateMicList, this, &MainWindow::updateMicList);
         connect(m_timInterface, &TimInterface::msg_uninit, this, &MainWindow::msg_uninit);
+        connect(m_timInterface, &TimInterface::msg_emotion, this, &MainWindow::msg_emotion);
     }
 }
 
@@ -344,6 +343,28 @@ void MainWindow::msg_micInfo(QVariantList list)
         MicInfoItem *item = m_micList.at(mic_index-1);
         item->setData(data, mic_index-1);        
     }  
+}
+
+void MainWindow::msg_emotion(QVariantMap user, QString path, int type)
+{
+    ChatTextItem *item1 = new ChatTextItem;
+    item1->setEmotion(user, path, type);
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->msgList->addItem(item);
+    ui->msgList->setItemWidget(item,item1);
+    item->setSizeHint(QSize(ui->msgList->contentsRect().width(), item1->height()));
+    ui->msgList->setCurrentRow(ui->msgList->count()-1);
+    ui->msgList->scrollToBottom();
+
+
+    ChatTextItem *item3 = new ChatTextItem;
+    item3->setEmotion(user, path, type);
+    QListWidgetItem *item2 = new QListWidgetItem();
+    ui->chatList->addItem(item2);
+    ui->chatList->setItemWidget(item2,item3);
+    item2->setSizeHint(QSize(ui->chatList->contentsRect().width(), item3->height()));
+    ui->chatList->setCurrentRow(ui->chatList->count()-1);
+    ui->chatList->scrollToBottom();
 }
 
 //发送文字消息
@@ -610,7 +631,7 @@ void MainWindow::enterTheToom(QVariantMap data)
             m_isHomeowner = false;
         if(!m_isHomeowner)
         {
-            ui->pushButton_24->hide();
+            ui->closeLiveBtn->hide();
         }
 
         updateMicList();
@@ -990,6 +1011,16 @@ void MainWindow::on_msgEdit_textChanged(const QString &arg1)
     if(ui->msgEdit->isImageFile(arg1))
     {
         ui->msgEdit->clear();
+    }
+}
+
+
+void MainWindow::on_closeLiveBtn_clicked()
+{
+    QVariantMap data = HttpInterFace::getInstance()->closeRoom(g_roomID);
+    if(data["code"].toInt() == 1)
+    {
+        msg_liveClose();
     }
 }
 

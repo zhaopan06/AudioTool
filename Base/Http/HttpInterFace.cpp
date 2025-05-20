@@ -301,6 +301,14 @@ QVariantMap HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic)
     return httpsPost_syn(url,jsonMap);
 }
 
+QVariantMap HttpInterFace::closeRoom(QString roomId)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",roomId);
+    QString url = BASE_API_URL + QString("/room/closeVoiceRoom");
+    return httpsPost_syn(url,jsonMap);
+}
+
 QVariantMap HttpInterFace::httpsPut_syn(QString url, QVariantMap jsonMap)
 {
     QNetworkRequest request;

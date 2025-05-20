@@ -60,3 +60,9 @@ void MicInfoItem::updateData(QVariantMap data)
 {
     ui->gift->setText(data["cardiac"].toString());
 }
+
+void MicInfoItem::on_image_rightClicked()
+{
+
+}
+

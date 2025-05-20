@@ -34,6 +34,7 @@ public:
 
     QVariantMap joinRoom(int roomId, int entryType, QString subTopic);
 
+    QVariantMap closeRoom(QString roomId);
     //上麦
     QVariantMap addMic(QString roomId, int type);
 

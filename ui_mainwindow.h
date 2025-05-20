@@ -221,7 +221,7 @@ public:
     QVBoxLayout *verticalLayout_45;
     QHBoxLayout *horizontalLayout_42;
     QPushButton *pushButton_25;
-    QPushButton *pushButton_24;
+    QPushButton *closeLiveBtn;
     QSpacerItem *verticalSpacer_6;
     QWidget *widget_55;
     QVBoxLayout *verticalLayout_46;
@@ -310,9 +310,9 @@ public:
     QPushButton *pushButton_14;
     QPushButton *pushButton_15;
     QPushButton *pushButton_16;
+    QButtonGroup *buttonGroup_3;
     QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
-    QButtonGroup *buttonGroup_3;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -1813,12 +1813,12 @@ public:
 
         horizontalLayout_42->addWidget(pushButton_25);
 
-        pushButton_24 = new QPushButton(widget_54);
-        pushButton_24->setObjectName(QString::fromUtf8("pushButton_24"));
-        pushButton_24->setMinimumSize(QSize(96, 36));
-        pushButton_24->setStyleSheet(QString::fromUtf8("background: #ED525A;\n"
+        closeLiveBtn = new QPushButton(widget_54);
+        closeLiveBtn->setObjectName(QString::fromUtf8("closeLiveBtn"));
+        closeLiveBtn->setMinimumSize(QSize(96, 36));
+        closeLiveBtn->setStyleSheet(QString::fromUtf8("background: #ED525A;\n"
 "border-radius: 18px;\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"\n"
 "font-weight: 500;\n"
 "font-size: 16px;\n"
 "color: #FFFFFF;\n"
@@ -1826,7 +1826,7 @@ public:
 "text-align: center;\n"
 "font-style: normal;"));
 
-        horizontalLayout_42->addWidget(pushButton_24);
+        horizontalLayout_42->addWidget(closeLiveBtn);
 
 
         verticalLayout_45->addLayout(horizontalLayout_42);
@@ -2672,7 +2672,7 @@ public:
         pushButton_27->setText(QCoreApplication::translate("MainWindow", "\347\233\264\346\222\255\344\270\255", nullptr));
         roomID->setText(QCoreApplication::translate("MainWindow", "ID\357\274\232203899646", nullptr));
         pushButton_25->setText(QString());
-        pushButton_24->setText(QCoreApplication::translate("MainWindow", "\345\205\263\351\227\255\347\233\264\346\222\255", nullptr));
+        closeLiveBtn->setText(QCoreApplication::translate("MainWindow", "\345\205\263\351\227\255\347\233\264\346\222\255", nullptr));
         allChatBtn->setText(QCoreApplication::translate("MainWindow", "\351\273\230\350\256\244", nullptr));
         roomChatBtn->setText(QCoreApplication::translate("MainWindow", "\350\277\233\346\210\277", nullptr));
         chatListBtn->setText(QCoreApplication::translate("MainWindow", "\350\201\212\345\244\251", nullptr));

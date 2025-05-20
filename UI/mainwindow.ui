@@ -3193,7 +3193,7 @@ font-style: normal;</string>
                              </widget>
                             </item>
                             <item>
-                             <widget class="QPushButton" name="pushButton_24">
+                             <widget class="QPushButton" name="closeLiveBtn">
                               <property name="minimumSize">
                                <size>
                                 <width>96</width>
@@ -3203,7 +3203,7 @@ font-style: normal;</string>
                               <property name="styleSheet">
                                <string notr="true">background: #ED525A;
 border-radius: 18px;
-font-family: &quot;微软雅黑&quot;;
+
 font-weight: 500;
 font-size: 16px;
 color: #FFFFFF;
@@ -4821,8 +4821,8 @@ border-radius: 18px;</string>
  </resources>
  <connections/>
  <buttongroups>
+  <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="buttonGroup_3"/>
  </buttongroups>
 </ui>
