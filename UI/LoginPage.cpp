@@ -1,6 +1,4 @@
 ﻿#include "LoginPage.h"
-#include "qdebug.h"
-#include "qjsondocument.h"
 #include "qjsonobject.h"
 #include "ui_LoginPage.h"
 #include "HttpInterFace.h"
