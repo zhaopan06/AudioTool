@@ -299,10 +299,12 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     {
                         QVariantMap user = str_doc["user"].toVariant().toMap();
                         QString path = elem["image_elem_thumb_url"].toString();
-                        emit msg_image(user, path);
+                        QString largePath = elem["image_elem_large_url"].toString();
+                        emit msg_image(user, path, largePath);
                     }
                     }
                 }
+                break;
             }
 
             case TIMElemType::kTIMElem_Custom:
@@ -371,6 +373,9 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     }
                     case 17://*17：vip表情
                     {
+                        QString vipurl = message_ob["vipurl"].toString();
+                        qDebug()<<"vip---"<<vipurl;
+                        emit msg_vip(user, vipurl);
                         break;
                     }
                     default:

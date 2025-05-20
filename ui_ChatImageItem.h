@@ -145,7 +145,7 @@ public:
         image->setMinimumSize(QSize(150, 150));
         image->setMaximumSize(QSize(150, 150));
         image->setStyleSheet(QString::fromUtf8("border-radius: 16px;"));
-        image->setAlignment(Qt::AlignCenter);
+        image->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
 
         horizontalLayout->addWidget(image);
 

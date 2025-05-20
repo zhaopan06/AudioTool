@@ -41,10 +41,12 @@ private slots:
     void msg_liveClose();
     void msg_notice(QVariantMap user, QString msg);
     void msg_txt(QVariantMap user, QString msg, int type);
-    void msg_image(QVariantMap user, QString path);
+    void msg_image(QVariantMap user, QString path, QString largePath);
     void msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to);
     void msg_micInfo(QVariantList list);
     void msg_emotion(QVariantMap user, QString path, int type);
+    void msg_vip(QVariantMap user, QString url);
+
 
     void on_sendBtn_clicked();
 

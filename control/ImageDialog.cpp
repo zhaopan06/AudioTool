@@ -1,19 +1,18 @@
-#include "ImageDialog.h"
+ï»¿#include "ImageDialog.h"
 #include "ui_ImageDialog.h"
 #include <QPainter>
 #include <QDebug>
 #include <QImageIOHandler>
 #include <QImageReader>
+#include "HttpInterFace.h"
 
 ImageDialog::ImageDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ImageDialog)
 {
     ui->setupUi(this);
-    this->setWindowFlags(Qt::FramelessWindowHint);
+    setAttribute(Qt::WA_TranslucentBackground, true);
     this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-    ui->left->hide();
-    ui->right->hide();
 }
 
 ImageDialog::~ImageDialog()
@@ -25,15 +24,8 @@ void ImageDialog::paintEvent(QPaintEvent *event)
 
 }
 
-void ImageDialog::setImageList(QStringList list)
-{
-    ui->left->show();
-    ui->right->show();    
-}
-
 void ImageDialog::fileDownloaded(bool success, QString path)
 {
-    // Èç¹ûÏÂÔØ²»³É¹¦Ôò²»ÏÔÊ¾
     if (!success)
     {
         return;
@@ -74,25 +66,50 @@ void ImageDialog::setPath(QString path)
 
     pix = pix.scaled(ui->image->width(),ui->image->height(),Qt::KeepAspectRatio, Qt::SmoothTransformation);
     ui->image->setPixmap( pix );
-
-//    QPixmap pix(path);
-//    pix = pix.scaled(818,552,Qt::KeepAspectRatio, Qt::SmoothTransformation);
-//    ui->image->setPixmap( pix );
-    show();
-    activateWindow();
-
 }
+
+void ImageDialog::setUrlPath(QString pathUrl)
+{
+    HttpInterFace::getInstance()->downLoad(pathUrl, [&](const QString &path) {
+
+        m_path = path;
+        QPixmap pix(path);
+
+        QImageReader reader(path);
+        QImageIOHandler::Transformations transformation = reader.transformation();
+        if(transformation == QImageIOHandler::TransformationRotate90)
+        {
+            QMatrix matrix;
+            matrix.rotate(90);
+            pix = pix.transformed(matrix,Qt::SmoothTransformation);
+        }
+        if(transformation == QImageIOHandler::TransformationRotate180)
+        {
+            QMatrix matrix;
+            matrix.rotate(180);
+            pix = pix.transformed(matrix,Qt::SmoothTransformation);
+        }
+        if(transformation == QImageIOHandler::TransformationRotate270)
+        {
+            QMatrix matrix;
+            matrix.rotate(270);
+            pix = pix.transformed(matrix,Qt::SmoothTransformation);
+        }
+
+        pix = pix.scaled(ui->image->width(),ui->image->height(),Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        ui->image->setPixmap( pix );
+    });
+}
+
 void ImageDialog::setPix(QPixmap pix)
 {
     pix = pix.scaled(ui->image->width(),ui->image->height(),Qt::KeepAspectRatio, Qt::SmoothTransformation);
     ui->image->setPixmap( pix );
-    show();
-    activateWindow();
 }
 
 void ImageDialog::on_close_clicked()
 {
-    this->hide();
+    accept();
 }
 
 void ImageDialog::on_left_clicked()

@@ -202,6 +202,7 @@ void MainWindow::initTim()
         connect(m_timInterface, &TimInterface::msg_updateMicList, this, &MainWindow::updateMicList);
         connect(m_timInterface, &TimInterface::msg_uninit, this, &MainWindow::msg_uninit);
         connect(m_timInterface, &TimInterface::msg_emotion, this, &MainWindow::msg_emotion);
+        connect(m_timInterface, &TimInterface::msg_vip, this, &MainWindow::msg_vip);
     }
 }
 
@@ -292,10 +293,10 @@ void MainWindow::msg_txt(QVariantMap user, QString msg, int type)
     ui->chatList->scrollToBottom();
 }
 
-void MainWindow::msg_image(QVariantMap user, QString path)
+void MainWindow::msg_image(QVariantMap user, QString path, QString largePath)
 {
     ChatImageItem *item1 = new ChatImageItem;
-    item1->setData(user, path);
+    item1->setData(user, path, largePath);
 
     QListWidgetItem *item = new QListWidgetItem();
     ui->msgList->addItem(item);
@@ -305,7 +306,7 @@ void MainWindow::msg_image(QVariantMap user, QString path)
     ui->msgList->scrollToBottom();
 
     ChatImageItem *item3 = new ChatImageItem;
-    item3->setData(user, path);
+    item3->setData(user, path, largePath);
     QListWidgetItem *item2 = new QListWidgetItem();
     ui->chatList->addItem(item2);
     ui->chatList->setItemWidget(item2,item3);
@@ -343,6 +344,29 @@ void MainWindow::msg_micInfo(QVariantList list)
         MicInfoItem *item = m_micList.at(mic_index-1);
         item->setData(data, mic_index-1);        
     }  
+}
+
+void MainWindow::msg_vip(QVariantMap user, QString url)
+{
+    ChatImageItem *item1 = new ChatImageItem;
+    item1->setGiftPath(user, url);
+
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->msgList->addItem(item);
+    ui->msgList->setItemWidget(item,item1);
+    item->setSizeHint(QSize(ui->msgList->contentsRect().width(), item1->height()));
+    ui->msgList->setCurrentRow(ui->msgList->count()-1);
+    ui->msgList->scrollToBottom();
+
+    ChatImageItem *item3 = new ChatImageItem;
+    item3->setGiftPath(user, url);
+    QListWidgetItem *item2 = new QListWidgetItem();
+    ui->chatList->addItem(item2);
+    ui->chatList->setItemWidget(item2,item3);
+    item2->setSizeHint(QSize(ui->chatList->contentsRect().width(), item3->height()));
+    ui->chatList->setCurrentRow(ui->chatList->count()-1);
+    ui->chatList->scrollToBottom();
+
 }
 
 void MainWindow::msg_emotion(QVariantMap user, QString path, int type)

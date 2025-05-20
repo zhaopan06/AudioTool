@@ -22,11 +22,16 @@ private slots:
 
     void on_gift1Btn_clicked();
 
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
 private:
     bool nativeEvent(const QByteArray &eventType, void *message, long *result);
 
 private:
     Ui::GiftPage *ui;
+    QVariantList m_list;
 };
 
 #endif // GIFTPAGE_H

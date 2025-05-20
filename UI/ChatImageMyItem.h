@@ -16,8 +16,12 @@ public:
     ~ChatImageMyItem();
 
     void setData(QString image, QString photo);
+private slots:
+    void on_image_clicked();
+
 private:
     Ui::ChatImageMyItem *ui;
+    QString m_path;
 };
 
 #endif // CHATIMAGEMYITEM_H

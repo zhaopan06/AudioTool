@@ -36,6 +36,8 @@ public:
     QHBoxLayout *horizontalLayout_39;
     QPushButton *giftBtn;
     QPushButton *gift1Btn;
+    QPushButton *pushButton_2;
+    QPushButton *pushButton_3;
     QSpacerItem *horizontalSpacer_15;
     QHBoxLayout *horizontalLayout;
     QLabel *label;
@@ -117,6 +119,20 @@ public:
         gift1Btn->setChecked(false);
 
         horizontalLayout_39->addWidget(gift1Btn);
+
+        pushButton_2 = new QPushButton(widget_58);
+        buttonGroup->addButton(pushButton_2);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        pushButton_2->setCheckable(true);
+
+        horizontalLayout_39->addWidget(pushButton_2);
+
+        pushButton_3 = new QPushButton(widget_58);
+        buttonGroup->addButton(pushButton_3);
+        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        pushButton_3->setCheckable(true);
+
+        horizontalLayout_39->addWidget(pushButton_3);
 
         horizontalSpacer_15 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -232,6 +248,8 @@ public:
         GiftPage->setWindowTitle(QCoreApplication::translate("GiftPage", "Dialog", nullptr));
         giftBtn->setText(QCoreApplication::translate("GiftPage", "\347\244\274\347\211\251", nullptr));
         gift1Btn->setText(QCoreApplication::translate("GiftPage", "\347\244\274\347\233\222", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("GiftPage", "VIP", nullptr));
+        pushButton_3->setText(QCoreApplication::translate("GiftPage", "\350\203\214\345\214\205", nullptr));
         label->setText(QString());
         label_2->setText(QCoreApplication::translate("GiftPage", "886", nullptr));
         pushButton->setText(QString());

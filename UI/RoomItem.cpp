@@ -29,7 +29,8 @@ void RoomItem::setData(QVariantMap roomInfo)
 
     QString fPhotoUrl = roomInfo["photo"].toString();
     HttpInterFace::getInstance()->downLoad(fPhotoUrl, [&](const QString &path) {
-        this->ui->imageLab->setPixmap(QPixmap::fromImage(QImage(path)));
+        ui->imageLab->setPixmap(QPixmap(path));
+        ui->imageLab->setRadius(16);
     });
 }
 

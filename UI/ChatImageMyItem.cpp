@@ -1,4 +1,5 @@
 ﻿#include "ChatImageMyItem.h"
+#include "ImageDialog.h"
 #include "ui_ChatImageMyItem.h"
 #include "HttpInterFace.h"
 
@@ -26,4 +27,12 @@ void ChatImageMyItem::setData(QString image, QString photo)
     ui->image->setFixedHeight(pix.height());
     ui->image->setPixmap(pix);
     ui->image->setRadius(16);
+    m_path = image;
+}
+
+void ChatImageMyItem::on_image_clicked()
+{
+    ImageDialog page;
+    page.setPath(m_path);
+    page.exec();
 }

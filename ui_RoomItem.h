@@ -10,10 +10,13 @@
 #define UI_ROOMITEM_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QWidget>
 #include <click_label.h>
 
@@ -25,10 +28,10 @@ public:
     click_label *imageLab;
     QLabel *roomName;
     QLabel *userName;
-    QWidget *widget;
-    QHBoxLayout *horizontalLayout;
-    QLabel *label_4;
-    QLabel *hotValue;
+    QWidget *widget_2;
+    QHBoxLayout *horizontalLayout_2;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *hotValue;
 
     void setupUi(QDialog *RoomItem)
     {
@@ -62,41 +65,45 @@ public:
 "line-height: 17px;\n"
 "text-align: left;\n"
 "font-style: normal;"));
-        widget = new QWidget(RoomItem);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(101, 0, 55, 33));
-        widget->setMinimumSize(QSize(55, 28));
-        widget->setStyleSheet(QString::fromUtf8("background: #161616;\n"
-"\n"
-"\n"
-"border-top-left-radius: 0;\n"
-"    border-top-right-radius: 16px;\n"
-"    border-bottom-right-radius: 0;\n"
-"    border-bottom-left-radius: 16px;\n"
-"\n"
-"opacity: 0.5;"));
-        horizontalLayout = new QHBoxLayout(widget);
-        horizontalLayout->setSpacing(0);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalLayout->setContentsMargins(8, 6, 0, -1);
-        label_4 = new QLabel(widget);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-        label_4->setMaximumSize(QSize(16, 16));
-        label_4->setPixmap(QPixmap(QString::fromUtf8(":/images/icon_number.png")));
+        widget_2 = new QWidget(RoomItem);
+        widget_2->setObjectName(QString::fromUtf8("widget_2"));
+        widget_2->setGeometry(QRect(0, 0, 156, 28));
+        widget_2->setStyleSheet(QString::fromUtf8("background: transparent;\n"
+"border: none;"));
+        horizontalLayout_2 = new QHBoxLayout(widget_2);
+        horizontalLayout_2->setSpacing(0);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        horizontalSpacer = new QSpacerItem(77, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout->addWidget(label_4);
+        horizontalLayout_2->addItem(horizontalSpacer);
 
-        hotValue = new QLabel(widget);
+        hotValue = new QPushButton(widget_2);
         hotValue->setObjectName(QString::fromUtf8("hotValue"));
+        hotValue->setMinimumSize(QSize(0, 28));
         hotValue->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 400;\n"
 "font-size: 14px;\n"
 "color: #FFFFFF;\n"
 "line-height: 20px;\n"
 "text-align: left;\n"
-"font-style: normal;"));
+"font-style: normal;\n"
+"\n"
+"background: rgba(22, 22, 22, 0.5);\n"
+"border-top-left-radius: 0;\n"
+"border-top-right-radius: 16px;\n"
+"border-bottom-right-radius: 0;\n"
+"border-bottom-left-radius: 16px;\n"
+"\n"
+"padding-top: 4px;\n"
+"padding-bottom: 4px; \n"
+"padding-left: 8px; \n"
+"padding-right: 8px; "));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/images/icon_number.png"), QSize(), QIcon::Normal, QIcon::Off);
+        hotValue->setIcon(icon);
 
-        horizontalLayout->addWidget(hotValue);
+        horizontalLayout_2->addWidget(hotValue);
 
 
         retranslateUi(RoomItem);
@@ -110,8 +117,7 @@ public:
         imageLab->setText(QString());
         roomName->setText(QCoreApplication::translate("RoomItem", "\346\265\252\346\274\253\346\273\241\345\261\213-\344\273\231\345\245\263\351\201\277\351\243\216\346\270\257", nullptr));
         userName->setText(QCoreApplication::translate("RoomItem", "\346\210\277\344\270\273\357\274\232\342\226\201\345\200\224\345\274\272\343\201\223\347\224\267\345\255\251\343\201\206", nullptr));
-        label_4->setText(QString());
-        hotValue->setText(QCoreApplication::translate("RoomItem", "138", nullptr));
+        hotValue->setText(QCoreApplication::translate("RoomItem", "11111", nullptr));
     } // retranslateUi
 
 };

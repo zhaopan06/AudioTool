@@ -1,5 +1,6 @@
 ﻿#include "GiftPage.h"
 #include "GiftPageItem.h"
+#include "Global.h"
 #include "ui_GiftPage.h"
 #include "HttpInterFace.h"
 #include <windows.h>
@@ -44,6 +45,7 @@ void GiftPage::init()
     QString roomID = HttpUserInfo::instance()->getClassRoomID();
     QVariantMap data = HttpInterFace::getInstance()->getGiftList();
     QVariantList list = data["data"].toMap()["giftResponseVos"].toList();
+    m_list = list;
     foreach (QVariant var, list)
     {
         if(QStringLiteral("礼物") ==  var.toMap()["name"].toString())
@@ -59,23 +61,7 @@ void GiftPage::init()
                 ui->gridLayout->addWidget(item,row, col);
             }
         }
-    }
-    foreach (QVariant var, list)
-    {
-        if(QStringLiteral("礼盒") ==  var.toMap()["name"].toString())
-        {
-            QVariantList list = var.toMap()["giftResponseList"].toList();
-            for (int var = 0; var < list.size(); ++var)
-            {
-                GiftPageItem *item = new GiftPageItem;
-                item->setData(list.at(var).toMap());
-
-                int row = var / 4;
-                int col = var % 4;
-                ui->gridLayout_2->addWidget(item,row, col);
-            }
-        }
-    }
+    }   
 
     ui->label_2->setText(data["data"].toMap()["balance"].toString());
 }
@@ -95,9 +81,68 @@ void GiftPage::on_giftBtn_clicked()
 
 void GiftPage::on_gift1Btn_clicked()
 {
-   ui->stackedWidget->setCurrentIndex(1);
+    ui->stackedWidget->setCurrentIndex(1);
+    cleanupLayout(ui->gridLayout_2);
+    foreach (QVariant var, m_list)
+    {
+        if(QStringLiteral("礼盒") ==  var.toMap()["name"].toString())
+        {
+            QVariantList list = var.toMap()["giftResponseList"].toList();
+            for (int var = 0; var < list.size(); ++var)
+            {
+                GiftPageItem *item = new GiftPageItem;
+                item->setData(list.at(var).toMap());
+
+                int row = var / 4;
+                int col = var % 4;
+                ui->gridLayout_2->addWidget(item,row, col);
+            }
+        }
+    }
+}
+
+void GiftPage::on_pushButton_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+    cleanupLayout(ui->gridLayout_2);
+    foreach (QVariant var, m_list)
+    {
+        if(QStringLiteral("VIP") ==  var.toMap()["name"].toString())
+        {
+            QVariantList list = var.toMap()["giftResponseList"].toList();
+            for (int var = 0; var < list.size(); ++var)
+            {
+                GiftPageItem *item = new GiftPageItem;
+                item->setData(list.at(var).toMap());
+
+                int row = var / 4;
+                int col = var % 4;
+                ui->gridLayout_2->addWidget(item,row, col);
+            }
+        }
+    }
 }
 
 
+void GiftPage::on_pushButton_3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+    cleanupLayout(ui->gridLayout_2);
+    foreach (QVariant var, m_list)
+    {
+        if(QStringLiteral("背包") ==  var.toMap()["name"].toString())
+        {
+            QVariantList list = var.toMap()["giftResponseList"].toList();
+            for (int var = 0; var < list.size(); ++var)
+            {
+                GiftPageItem *item = new GiftPageItem;
+                item->setData(list.at(var).toMap());
 
+                int row = var / 4;
+                int col = var % 4;
+                ui->gridLayout_2->addWidget(item,row, col);
+            }
+        }
+    }
+}
 

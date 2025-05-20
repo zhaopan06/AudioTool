@@ -239,7 +239,7 @@ padding-right: 6px;
         <string/>
        </property>
        <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -262,14 +262,17 @@ padding-right: 6px;
  </widget>
  <customwidgets>
   <customwidget>
-   <class>CRoundLabel</class>
-   <extends>QLabel</extends>
-   <header location="global">CRoundLabel.h</header>
-  </customwidget>
-  <customwidget>
    <class>click_label</class>
    <extends>QLabel</extends>
    <header location="global">click_label.h</header>
+   <slots>
+    <signal>clicked()</signal>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>CRoundLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">CRoundLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

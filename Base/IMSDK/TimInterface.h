@@ -72,11 +72,9 @@ signals:
 
     void msg_notice(QVariantMap, QString);
     void msg_emotion(QVariantMap, QString,int);//表情
-    void msg_image(QVariantMap, QString);
+    void msg_image(QVariantMap, QString, QString);
     void msg_txt(QVariantMap, QString, int);//文字
-    void msg_dice(QString);//骰子
-    void msg_finger(QString);//猜拳
-    void msg_mic(QString);//猜拳
+    void msg_vip(QVariantMap, QString url);
 
 
     void msg_micInfo(QVariantList);

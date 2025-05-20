@@ -282,10 +282,6 @@ void LoginPage::on_login_btn_clicked()
         HttpUserInfo::instance()->setLoginInfo(data["data"].toMap());
         accept();
     }
-    else
-    {
-        MsgBox::showMsg(NULL, tr("提示"), data["message"].toString());
-    }
 }
 
 void LoginPage::on_next_page_btn_clicked()
