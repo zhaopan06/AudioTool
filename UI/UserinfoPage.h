@@ -13,17 +13,19 @@ class UserinfoPage : public QDialog
 
 public:
     static UserinfoPage* getInstance();
+    ~UserinfoPage();
     void init(QString userID);
     void uninit();
+
 private:
     explicit UserinfoPage(QWidget *parent = nullptr);
-    ~UserinfoPage();    
 
 protected:
     void mouseMoveEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent *event);
     void leaveEvent(QEvent *event)override;
+    bool nativeEvent(const QByteArray &eventType, void *message, long *result);
 
 private slots:
     void on_closeBtn_clicked();

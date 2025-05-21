@@ -38,13 +38,15 @@ public:
     //上麦
     QVariantMap addMic(QString roomId, int type);
 
-    //抱下麦
+    //抱上麦
     QVariantMap b_upMic(QString roomId, QString targetUserId);
     //抱下麦
     QVariantMap b_downMic(QString roomId, QString targetUserId);
     //自己下麦
     QVariantMap m_downMic();
+    QVariantMap micOpenOrClose(QString roomId, QString targetUserId, int type);
 
+    QVariantMap settingEmceeOrAdmin(int settingType, QString targetUserId);
 
     void downLoad(QString url, downLoadCallBack callBack);
     //上传图片

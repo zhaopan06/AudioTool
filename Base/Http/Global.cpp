@@ -10,9 +10,11 @@
 #include <QStandardPaths>
 
 // 全局变量定义
-QString g_downloadImages ="";//需要下载图片得地址
-QString g_roomID ="";//需要下载图片得地址
-
+QString g_downloadImages = "";
+QString g_roomID = "";
+QString g_multipleAuthoriation = "";
+bool g_isManager = false;
+bool g_isHomeowner = false;
 // 清空布局
 void cleanupLayout(QLayout *targetLayout)
 {

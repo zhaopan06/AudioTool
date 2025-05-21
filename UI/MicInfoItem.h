@@ -19,6 +19,7 @@ public:
     void setData(QVariantMap data, int num);
     QString getUserId();
     void updateData(QVariantMap data);
+    void updateMultipleAuthoriation(QString str);
 signals:
     void setMyselfMicInfo(int);
 
@@ -27,7 +28,7 @@ private slots:
 
 private:
     Ui::MicInfoItem *ui;
-
+    QString m_multipleAuthoriation;
     QVariantMap m_data;
 };
 

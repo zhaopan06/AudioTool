@@ -290,6 +290,26 @@ QVariantMap HttpInterFace::m_downMic()
     QString url = BASE_API_URL + QString("/live/dealUpDownMic");
     return httpsPost_syn(url,jsonMap);
 }
+//操作类型 0-开麦 1-闭麦
+QVariantMap HttpInterFace::micOpenOrClose(QString roomId, QString targetUserId, int type)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",HttpUserInfo::instance()->getClassRoomID());
+    jsonMap.insert("type", type);
+    jsonMap.insert("targetUserId", targetUserId);
+    QString url = BASE_API_URL + QString("/live/micOpenOrClose");
+    return httpsPost_syn(url,jsonMap);
+}
+//主机有房主才能设置
+/*设置类型，0=设置支持人，1=设置房间管理员，2=移除主持人，3=移除房间管理员,4=拉黑，5=解除拉黑*/
+QVariantMap HttpInterFace::settingEmceeOrAdmin(int settingType, QString targetUserId)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("settingType", settingType);
+    jsonMap.insert("targetUserId", targetUserId);
+    QString url = BASE_API_URL + QString("/room/settingEmceeOrAdmin");
+    return httpsPost_syn(url,jsonMap);
+}
 
 QVariantMap HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic)
 {

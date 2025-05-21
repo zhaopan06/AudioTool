@@ -262,6 +262,12 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     int type = message_ob["type"].toInt();
                     qDebug()<<"text body = "<<type;
                     switch (type) {
+                    case 0:
+                    {
+                        QVariantMap user = str_doc["ext"].toObject()["user"].toVariant().toMap();
+                        emit msg_txt(user, content, 12);
+                        break;
+                    }
                     case 1:
                     {
                         QVariantMap user = str_doc["user"].toVariant().toMap();
@@ -460,6 +466,7 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                 }
                 case 100011:
                 {
+                    emit msg_multipleAuthoriation(object.toVariantMap());
                     qDebug()<<"100011 object==="<<object;
                     break;
                 }

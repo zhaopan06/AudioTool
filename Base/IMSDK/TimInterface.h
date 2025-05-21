@@ -82,6 +82,8 @@ signals:
     void updateContribute();
     void msg_updateMicList();
 
+    void msg_multipleAuthoriation(QVariantMap);
+
     void msg_uninit();
 private:
 

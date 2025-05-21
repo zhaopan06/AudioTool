@@ -4,8 +4,8 @@
 #include "UserinfoPageMedalItem.h"
 #include "ui_UserinfoPage.h"
 #include "HttpInterFace.h"
-#include "MsgBox.h"
 #include "qevent.h"
+#include <windows.h>
 
 UserinfoPage* UserinfoPage::pUserinfoPageFace = NULL;
 UserinfoPage *UserinfoPage::getInstance()
@@ -63,6 +63,24 @@ void UserinfoPage::leaveEvent(QEvent *event)
 {
     Q_UNUSED(event);
     close();
+}
+
+bool UserinfoPage::nativeEvent(const QByteArray &eventType, void *message, long *result)
+{
+    if (eventType == "windows_generic_MSG")
+    {
+        MSG* msg = (MSG*)message;
+        switch(msg->message)
+        {
+        case WM_NCACTIVATE:
+            bool active = (bool)(msg->wParam);
+            if(!active)
+            {
+                this->hide();
+            }
+        }
+    }
+    return QWidget::nativeEvent(eventType, message, result);
 }
 
 void UserinfoPage::init(QString userID)
@@ -185,13 +203,7 @@ void UserinfoPage::on_squareBtn_clicked()
 void UserinfoPage::on_contributeBtn_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
-    HttpInterFace::getInstance()->getUserMedals(m_userId, [&](const QVariant &map) {
-
-        if(map.toMap()["code"].toInt() != 1)
-        {
-            MsgBox::showMsg(NULL, tr("提示"), map.toMap()["message"].toString());
-            return;
-        }
+    HttpInterFace::getInstance()->getUserMedals(m_userId, [&](const QVariant &map) {        
 
         QVariantList list = map.toMap()["data"].toList();
         for(int i=0; i<list.size(); ++i)

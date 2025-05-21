@@ -46,13 +46,10 @@ void MsgBox::on_cancelBtn_clicked()
 
 int MsgBox::showMsg(QWidget *parent, const QString &title, const QString &msg, BTN_MODE mode)
 {
-    MsgBox msgBox(title, msg, mode, parent);
-
- //   QPoint point;
- //   point.setX(minWindow->x() + (minWindow->width() - msgBox.width())/2);
- //   point.setY(minWindow->y() + (minWindow->height() - msgBox.height())/2);
- //   msgBox.move(point);
-
+    QString newMsg = msg;
+    if(newMsg.isEmpty())
+        newMsg =  tr("网络错误");
+    MsgBox msgBox(title, newMsg, mode, parent);
     return msgBox.exec();
 }
 

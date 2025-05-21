@@ -203,6 +203,7 @@ void MainWindow::initTim()
         connect(m_timInterface, &TimInterface::msg_uninit, this, &MainWindow::msg_uninit);
         connect(m_timInterface, &TimInterface::msg_emotion, this, &MainWindow::msg_emotion);
         connect(m_timInterface, &TimInterface::msg_vip, this, &MainWindow::msg_vip);
+        connect(m_timInterface, &TimInterface::msg_multipleAuthoriation, this, &MainWindow::msg_multipleAuthoriation);
     }
 }
 
@@ -222,6 +223,9 @@ void MainWindow::loginIm(int code, QString msg)
 
 void MainWindow::msg_liveClose()
 {
+    g_multipleAuthoriation = "";
+    g_isManager = false;
+    g_isHomeowner = false;
     cleanupLayout(ui->micLayout);
     cleanupLayout(ui->onlineList);
     cleanupLayout(ui->contList);
@@ -344,6 +348,37 @@ void MainWindow::msg_micInfo(QVariantList list)
         MicInfoItem *item = m_micList.at(mic_index-1);
         item->setData(data, mic_index-1);        
     }  
+}
+
+void MainWindow::msg_multipleAuthoriation(QVariantMap data)
+{
+    foreach (auto var, m_micList)
+    {
+        if(var->getUserId() == data["data"].toMap()["pushData"].toMap()["targetUserId"].toString())
+        {
+            var->updateMultipleAuthoriation(data["data"].toMap()["pushData"].toMap()["multipleAuthoriation"].toString());
+        }
+        if(data["data"].toMap()["pushData"].toMap()["targetUserId"].toString() == HttpUserInfo::instance()->getUserID())
+        {
+            QString multipleAuthoriation = data["data"].toMap()["pushData"].toMap()["multipleAuthoriation"].toString();
+            g_multipleAuthoriation = multipleAuthoriation;
+            QString type = multipleAuthoriation.at(1);
+            g_isManager = type.toInt();
+            if(!g_isManager)
+            {
+                ui->imageBtn->hide();
+            }
+            type = multipleAuthoriation.at(0);
+            if(type.toInt() == 2)
+                g_isHomeowner = true;
+            else
+                g_isHomeowner = false;
+            if(!g_isHomeowner)
+            {
+                ui->closeLiveBtn->hide();
+            }
+        }
+    }
 }
 
 void MainWindow::msg_vip(QVariantMap user, QString url)
@@ -642,18 +677,23 @@ void MainWindow::enterTheToom(QVariantMap data)
         ui->stackedWidget->setCurrentIndex(1);
 
         QString multipleAuthoriation = roomdata["multipleAuthoriation"].toString();
+        g_multipleAuthoriation = multipleAuthoriation;
         QString type = multipleAuthoriation.at(1);
-        m_isManager = type.toInt();
-        if(!m_isManager)
+        QString type1 = multipleAuthoriation.at(2);
+        if(type.toInt() == 1 || type.toInt() == 1)
+            g_isManager = true;
+        else
         {
             ui->imageBtn->hide();
+            g_isManager = false;
         }
+
         type = multipleAuthoriation.at(0);
         if(type.toInt() == 2)
-            m_isHomeowner = true;
+            g_isHomeowner = true;
         else
-            m_isHomeowner = false;
-        if(!m_isHomeowner)
+            g_isHomeowner = false;
+        if(!g_isHomeowner)
         {
             ui->closeLiveBtn->hide();
         }
@@ -716,7 +756,10 @@ void MainWindow::setMyselfMicInfo(int status)
     {
         ui->downMicBtn->show();
         ui->autioMicBtn->hide();
-        m_agoraFace->setClientRole(CLIENT_ROLE_BROADCASTER);
+        if(status == 0)
+            m_agoraFace->setClientRole(CLIENT_ROLE_BROADCASTER);
+        if(status == 1)
+            m_agoraFace->setClientRole(CLIENT_ROLE_AUDIENCE);
     }
     else
     {
@@ -892,7 +935,7 @@ void MainWindow::updateMicList()
             MicseQuenceItem *item = new MicseQuenceItem();
             connect(item, &MicseQuenceItem::upMicToUserID, this, &MainWindow::upMicToUserID);
             item->setFixedSize(390,70);
-            item->setData(map, i+1, m_isManager);
+            item->setData(map, i+1, g_isManager);
             ui->micList->addWidget(item);
 
             if(map["userId"].toString() == HttpUserInfo::instance()->getUserID())
@@ -940,11 +983,7 @@ void MainWindow::msg_uninit()
 
 void MainWindow::upMicToUserID(QString roomID, QString userID)
 {
-    QVariantMap data =  HttpInterFace::getInstance()->b_upMic(roomID, userID);
-    if(data["code"].toInt() != 1)
-    {
-        MsgBox::showMsg(NULL,tr("提示"), data["message"].toString());
-    }
+    HttpInterFace::getInstance()->b_upMic(roomID, userID);
 }
 
 void MainWindow::on_autioMicBtn_clicked()
@@ -973,7 +1012,7 @@ void MainWindow::on_downMicBtn_clicked()
 
 void MainWindow::on_pushButton_18_clicked()
 {
-    if(!m_isManager)
+    if(!g_isManager)
     {
         MsgBox::showMsg(NULL,tr("提示"), tr("只有房主+主持身份用户可以使用该功能"));
     }
@@ -982,11 +1021,7 @@ void MainWindow::on_pushButton_18_clicked()
         if(QDialog::Accepted == MsgBox::showMsg(NULL,tr("提示"), tr("是否清空全麦魅力值"),MsgBox::QUERYDIALOG))
         {
             HttpInterFace::getInstance()->clearCardiacValue(g_roomID, [&](const QVariant &map) {
-                QVariantMap data = map.toMap();
-                if(data["code"].toInt() != 1)
-                {
-                    MsgBox::showMsg(NULL,tr("提示"), data["message"].toString());
-                }
+
             });
         }
     }

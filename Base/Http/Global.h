@@ -9,6 +9,9 @@
 // 全局变量定义
 extern QString g_downloadImages;//需要下载图片得地址
 extern QString g_roomID;
+extern QString g_multipleAuthoriation;
+extern bool g_isManager;//是否管理
+extern bool g_isHomeowner;//是否房主
 
 // 全局函数定义
 void cleanupLayout(QLayout *target);

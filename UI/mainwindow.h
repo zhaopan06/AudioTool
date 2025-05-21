@@ -46,7 +46,7 @@ private slots:
     void msg_micInfo(QVariantList list);
     void msg_emotion(QVariantMap user, QString path, int type);
     void msg_vip(QVariantMap user, QString url);
-
+    void msg_multipleAuthoriation(QVariantMap data);
 
     void on_sendBtn_clicked();
 
@@ -117,9 +117,7 @@ private:
 
     EmotionPage *m_emotionPage= nullptr;
 
-    GiftPage *m_giftPage = nullptr;
-    bool m_isManager;//是否管理
-    bool m_isHomeowner;//是否房主
+    GiftPage *m_giftPage = nullptr;    
     QVector<MicInfoItem*> m_micList;
 };
 #endif // MAINWINDOW_H
