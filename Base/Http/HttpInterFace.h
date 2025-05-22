@@ -45,6 +45,7 @@ public:
     //自己下麦
     QVariantMap m_downMic();
     QVariantMap micOpenOrClose(QString roomId, QString targetUserId, int type);
+    QVariantMap lockMic(int type, int seat);
 
     QVariantMap settingEmceeOrAdmin(int settingType, QString targetUserId);
 

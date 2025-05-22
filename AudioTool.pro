@@ -61,6 +61,7 @@ SOURCES += \
     control/EmotionPage.cpp \
     control/ImageDialog.cpp \
     control/MenuHomeownerRight.cpp \
+    control/MenuLockRight.cpp \
     control/MenuManagerRight.cpp \
     control/MsgBox.cpp \
     control/click_label.cpp \
@@ -99,6 +100,7 @@ HEADERS += \
     control/ImageDialog.h \
     control/ImageDropLineEdit.h \
     control/MenuHomeownerRight.h \
+    control/MenuLockRight.h \
     control/MenuManagerRight.h \
     control/MsgBox.h \
     control/click_label.h
@@ -128,6 +130,7 @@ FORMS += \
     control/EmotionPage.ui \
     control/ImageDialog.ui \
     control/MenuHomeownerRight.ui \
+    control/MenuLockRight.ui \
     control/MenuManagerRight.ui \
     control/MsgBox.ui
 

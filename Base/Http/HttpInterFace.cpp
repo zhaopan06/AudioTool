@@ -294,6 +294,17 @@ QVariantMap HttpInterFace::micOpenOrClose(QString roomId, QString targetUserId, 
     QString url = BASE_API_URL + QString("/live/micOpenOrClose");
     return httpsPost_syn(url,jsonMap);
 }
+//操作类型 0-解除闭麦 1-锁麦
+QVariantMap HttpInterFace::lockMic(int type, int seat)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",HttpUserInfo::instance()->getClassRoomID());
+    jsonMap.insert("type", type);
+    jsonMap.insert("seat", seat);
+    QString url = BASE_API_URL + QString("/live/micLock");
+    return httpsPost_syn(url,jsonMap);
+}
+
 //主机有房主才能设置
 /*设置类型，0=设置支持人，1=设置房间管理员，2=移除主持人，3=移除房间管理员,4=拉黑，5=解除拉黑*/
 QVariantMap HttpInterFace::settingEmceeOrAdmin(int settingType, QString targetUserId)

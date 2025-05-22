@@ -1,6 +1,7 @@
 ﻿#include "MicInfoItem.h"
 #include "Global.h"
 #include "MenuHomeownerRight.h"
+#include "MenuLockRight.h"
 #include "UserinfoPage.h"
 #include "ui_MicInfoItem.h"
 #include "HttpInterFace.h"
@@ -21,6 +22,16 @@ MicInfoItem::~MicInfoItem()
 
 void MicInfoItem::setData(QVariantMap data, int num)
 {
+    m_data = data;
+    if(3 == m_data["status"].toInt())//锁麦状态
+    {
+        ui->gift->setIcon(QIcon(""));
+        ui->gift->setText("");
+        //TODO 设置锁麦图标
+        ui->image->setPixmap(QPixmap::fromImage(QImage(":/images/live_mic_path.png")));
+        ui->name->setText(QString::number(num+1) +  tr("号麦"));
+        return;
+    }
     QVariantMap map = data["member"].toMap();
     if(data["status"].toInt() >= 0)
     {
@@ -52,7 +63,6 @@ void MicInfoItem::setData(QVariantMap data, int num)
         emit setMyselfMicInfo(data["status"].toInt());
     }
 
-    m_data = data;
     m_multipleAuthoriation = m_data["member"].toMap()["multipleAuthoriation"].toString();
 }
 
@@ -72,15 +82,19 @@ void MicInfoItem::updateMultipleAuthoriation(QString str)
 }
 
 void MicInfoItem::on_image_rightClicked()
-{
+{    
      QPoint point = QCursor::pos();
     if(-1 == m_data["status"].toInt())//空闲
     {
-
+         MenuLockRight::getInstance()->setData(m_data);
+         MenuLockRight::getInstance()->move(point);
+         MenuLockRight::getInstance()->show();
     }
     else if(3 == m_data["status"].toInt())//锁麦状态
-    {
-
+    {        
+        MenuLockRight::getInstance()->setData(m_data);
+        MenuLockRight::getInstance()->move(point);
+        MenuLockRight::getInstance()->show();
     }
     else
     {        
