@@ -137,9 +137,9 @@ public:
     QSpacerItem *horizontalSpacer_7;
     QPushButton *Attention;
     QPushButton *pushButton_3;
-    QButtonGroup *buttonGroup;
-    QButtonGroup *buttonGroup_3;
     QButtonGroup *buttonGroup_2;
+    QButtonGroup *buttonGroup_3;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QDialog *UserinfoPage)
     {
@@ -856,7 +856,7 @@ public:
         scrollArea_2->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_2"));
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 100, 30));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 61, 16));
         verticalLayout_9 = new QVBoxLayout(scrollAreaWidgetContents_2);
         verticalLayout_9->setSpacing(0);
         verticalLayout_9->setObjectName(QString::fromUtf8("verticalLayout_9"));
@@ -934,7 +934,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 100, 30));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 442, 582));
         verticalLayout_12 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_12->setSpacing(0);
         verticalLayout_12->setObjectName(QString::fromUtf8("verticalLayout_12"));

@@ -680,7 +680,7 @@ void MainWindow::enterTheToom(QVariantMap data)
         g_multipleAuthoriation = multipleAuthoriation;
         QString type = multipleAuthoriation.at(1);
         QString type1 = multipleAuthoriation.at(2);
-        if(type.toInt() == 1 || type.toInt() == 1)
+        if(type.toInt() == 1 || type1.toInt() == 1)
             g_isManager = true;
         else
         {

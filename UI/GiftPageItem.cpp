@@ -1,4 +1,5 @@
 ﻿#include "GiftPageItem.h"
+#include "Global.h"
 #include "ui_GiftPageItem.h"
 #include "HttpInterFace.h"
 
@@ -24,6 +25,30 @@ void GiftPageItem::setData(QVariantMap data)
         ui->image->setPixmap(pix);
         m_path = path;
     });
+
+    QString cornerMarkIcon = data["cornerMarkIcon"].toString();
+    if(!cornerMarkIcon.isEmpty())
+    {
+        HttpInterFace::getInstance()->downLoad(cornerMarkIcon, [&](const QString &path) {
+            QPixmap pix(path);
+            pix = pix.scaled(ui->label->width(),ui->label->height(),Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            ui->label->setPixmap(pix);
+        });
+    }
+
+    if(data["lockFlag"].toInt() == 0)
+    {
+        ui->lockImage->hide();
+    }
+
+    QString giftTag = data["giftTag"].toString();
+    if(!giftTag.isEmpty())
+    {
+        ui->giftTag->setText(giftTag);
+    }
+    else
+        ui->widget->hide();
+
 }
 
 void GiftPageItem::enterEvent(QEvent *event)

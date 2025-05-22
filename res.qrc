@@ -56,5 +56,7 @@
         <file>images/HI.png</file>
         <file>images/icon_取消关注.png</file>
         <file>images/gifts/sound.gif</file>
+        <file>images/icon_锁.png</file>
+        <file>images/限定.png</file>
     </qresource>
 </RCC>

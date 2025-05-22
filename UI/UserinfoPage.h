@@ -44,6 +44,8 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_Attention_clicked();
+
 private:
     void updateGift(int type, int type1);
 
@@ -54,6 +56,7 @@ private:
     QPoint m_pMovePosition = QPoint(0,0);
     QString m_userId;
     int m_type;
+    bool m_isFollow;
 };
 
 #endif // USERINFOPAGE_H

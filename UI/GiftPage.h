@@ -32,6 +32,8 @@ private:
 private:
     Ui::GiftPage *ui;
     QVariantList m_list;
+    int m_number;
+    QVariantList m_giftList;
 };
 
 #endif // GIFTPAGE_H

@@ -121,10 +121,14 @@ void UserinfoPage::init(QString userID)
         int isAttention = data["isAttention"].toInt();
         if(0 == isAttention)//是否已关注该用户，1是，0否,-1=查看自己资料，无需展示关注按钮
         {
+            m_isFollow = false;
+            ui->Attention->show();
             ui->Attention->setText(tr("关注"));
         }
         else if(1 == isAttention)
         {
+            m_isFollow = true;
+            ui->Attention->show();
             ui->Attention->setText(tr("取消关注"));
         }
         else
@@ -275,5 +279,26 @@ void UserinfoPage::on_pushButton_4_clicked()
     int type = 0;
     ui->sendBtn->isChecked()? type = 1: type=0;
     updateGift(type, 0);
+}
+
+//关注
+void UserinfoPage::on_Attention_clicked()
+{
+    int isFollow = 0;
+    if(!m_isFollow)
+    {
+        isFollow = 1;
+    }
+    QVariantMap data = HttpInterFace::getInstance()->followUser(m_userId, isFollow);
+
+    if(0 == isFollow)
+    {
+        ui->Attention->setText(QStringLiteral("关注"));
+    }
+    if(1 == isFollow)
+    {
+        ui->Attention->setText(QStringLiteral("取消关注"));
+    }
+    m_isFollow = !m_isFollow;
 }
 

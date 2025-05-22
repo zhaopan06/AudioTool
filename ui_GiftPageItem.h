@@ -9,10 +9,12 @@
 #ifndef UI_GIFTPAGEITEM_H
 #define UI_GIFTPAGEITEM_H
 
+#include <CRoundLabel.h>
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
@@ -30,6 +32,12 @@ public:
     QLabel *image;
     click_label *addSourceBtn_2;
     QPushButton *price;
+    CRoundLabel *avatarImage;
+    QLabel *label;
+    QLabel *lockImage;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout;
+    QLabel *giftTag;
 
     void setupUi(QDialog *GiftPageItem)
     {
@@ -98,10 +106,57 @@ public:
         icon.addFile(QString::fromUtf8(":/images/jinbi.png"), QSize(), QIcon::Normal, QIcon::Off);
         price->setIcon(icon);
         price->setIconSize(QSize(19, 19));
+        avatarImage = new CRoundLabel(widget_17);
+        avatarImage->setObjectName(QString::fromUtf8("avatarImage"));
+        avatarImage->setGeometry(QRect(78, 8, 23, 23));
+        avatarImage->setStyleSheet(QString::fromUtf8("background-color: transparent; \n"
+"border:none;"));
+        label = new QLabel(widget_17);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(44, 0, 60, 17));
+        label->setStyleSheet(QString::fromUtf8("background-color: transparent; \n"
+"border:none;"));
+        label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        lockImage = new QLabel(widget_17);
+        lockImage->setObjectName(QString::fromUtf8("lockImage"));
+        lockImage->setGeometry(QRect(14, 0, 15, 15));
+        lockImage->setStyleSheet(QString::fromUtf8("background-color: transparent; \n"
+"border:none;"));
+        lockImage->setPixmap(QPixmap(QString::fromUtf8(":/images/icon_\351\224\201.png")));
+        widget = new QWidget(widget_17);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(16, 60, 78, 15));
+        widget->setMinimumSize(QSize(78, 15));
+        widget->setMaximumSize(QSize(78, 15));
+        widget->setStyleSheet(QString::fromUtf8("background:transparent;\n"
+"border:none;"));
+        horizontalLayout = new QHBoxLayout(widget);
+        horizontalLayout->setSpacing(0);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        giftTag = new QLabel(widget);
+        giftTag->setObjectName(QString::fromUtf8("giftTag"));
+        giftTag->setStyleSheet(QString::fromUtf8("background: rgba(128,220,255,0.3);\n"
+"border-radius: 6px;\n"
+"border:none;\n"
+"\n"
+"font-weight: 400;\n"
+"font-size: 12px;\n"
+"color: #80DCFF;\n"
+"line-height: 12px;\n"
+"font-style: normal;"));
+        giftTag->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout->addWidget(giftTag);
+
         addSourceBtn_2->raise();
         name->raise();
         image->raise();
         price->raise();
+        avatarImage->raise();
+        label->raise();
+        lockImage->raise();
+        widget->raise();
 
         verticalLayout->addWidget(widget_17);
 
@@ -118,6 +173,10 @@ public:
         image->setText(QString());
         addSourceBtn_2->setText(QString());
         price->setText(QCoreApplication::translate("GiftPageItem", "1", nullptr));
+        avatarImage->setText(QString());
+        label->setText(QString());
+        lockImage->setText(QString());
+        giftTag->setText(QCoreApplication::translate("GiftPageItem", "TextLabel", nullptr));
     } // retranslateUi
 
 };

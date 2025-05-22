@@ -91,7 +91,6 @@ private:
     QNetworkAccessManager* m_pNetworkAccessManager; //同步
     QNetworkAccessManager* m_http_asy; //异步
     static HttpInterFace *pHttpInterFace;
-    QString m_uuid;
     QString m_version;
     QString m_token;
 

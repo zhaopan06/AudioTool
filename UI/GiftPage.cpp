@@ -1,6 +1,7 @@
 ﻿#include "GiftPage.h"
 #include "GiftPageItem.h"
 #include "Global.h"
+#include "qscrollbar.h"
 #include "ui_GiftPage.h"
 #include "HttpInterFace.h"
 #include <windows.h>
@@ -46,12 +47,15 @@ void GiftPage::init()
     QVariantMap data = HttpInterFace::getInstance()->getGiftList();
     QVariantList list = data["data"].toMap()["giftResponseVos"].toList();
     m_list = list;
+    m_number = 20;
     foreach (QVariant var, list)
     {
         if(QStringLiteral("礼物") ==  var.toMap()["name"].toString())
         {
             QVariantList list = var.toMap()["giftResponseList"].toList();
-            for (int var = 0; var < list.size(); ++var)
+            m_giftList = list;
+            m_number = list.size() > 20? 20 : list.size();
+            for (int var = 0; var < m_number; ++var)
             {
                 GiftPageItem *item = new GiftPageItem;
                 item->setData(list.at(var).toMap());
@@ -61,7 +65,27 @@ void GiftPage::init()
                 ui->gridLayout->addWidget(item,row, col);
             }
         }
-    }   
+    }
+
+    connect(ui->scrollArea->verticalScrollBar(), &QScrollBar::valueChanged,
+            [=](int value){
+                int max = ui->scrollArea->verticalScrollBar()->maximum();
+                if(value >= max-20)
+                {
+                    if(m_number == m_giftList.size())
+                        return;
+                    for (int var = m_number; var < m_giftList.size(); ++var)
+                    {
+                        GiftPageItem *item = new GiftPageItem;
+                        item->setData(m_giftList.at(var).toMap());
+
+                        int row = var / 4;
+                        int col = var % 4;
+                        ui->gridLayout->addWidget(item,row, col);
+                    }
+                    m_number = m_giftList.size();
+                }
+            });
 
     ui->label_2->setText(data["data"].toMap()["balance"].toString());
 }

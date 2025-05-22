@@ -26,12 +26,6 @@ HttpInterFace::HttpInterFace(QObject *parent) : QObject(parent)
     m_pNetworkAccessManager = new QNetworkAccessManager;
     m_http_asy = new QNetworkAccessManager;
 
-    QProcess p(0);
-    p.start("wmic csproduct get uuid ");    p.waitForStarted();
-    p.waitForFinished();
-    m_uuid = QString::fromLocal8Bit(p.readAllStandardOutput());
-    m_uuid = m_uuid.remove("UUID").trimmed();
-
     m_token = "";
     m_version = "1.0";
 }
@@ -477,29 +471,23 @@ void HttpInterFace::httpPost_asy(QString url , QVariantMap jsonMap, callBack cal
         request.setRawHeader("token", "0");
 
     QByteArray postData = QJsonDocument::fromVariant(jsonMap).toJson();
-
     QNetworkReply *reply = m_http_asy->post(request, postData);
-
-    auto processResponse = [=]()
-    {
-        QObject::connect(reply, &QNetworkReply::readyRead, reply, [=]{
-            QByteArray responseData = reply->readAll();
-            QJsonParseError json_error;
-            QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
-            if(json_error.error != QJsonParseError::NoError)
-            {
-                MsgBox::showMsg(NULL,tr("提示"), json_error.errorString());
-                return;
-            }
-            if(jsonDocument["code"].toInt() != 1)
-            {
-                MsgBox::showMsg(NULL,tr("提示"), jsonDocument["message"].toString());
-                return;
-            }
-            callback(jsonDocument.toVariant());
-            reply->deleteLater();});
-    };
-    processResponse();
+    QObject::connect(reply, &QNetworkReply::readyRead, reply, [=]{
+        QByteArray responseData = reply->readAll();
+        QJsonParseError json_error;
+        QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
+        if(json_error.error != QJsonParseError::NoError)
+        {
+            MsgBox::showMsg(NULL,tr("提示"), json_error.errorString());
+            return;
+        }
+        if(jsonDocument["code"].toInt() != 1)
+        {
+            MsgBox::showMsg(NULL,tr("提示"), jsonDocument["message"].toString());
+            return;
+        }
+        callback(jsonDocument.toVariant());
+        reply->deleteLater();});
 }
 
 QVariantMap HttpInterFace::httpsPost_syn(QString url ,QVariantMap jsonMap)
