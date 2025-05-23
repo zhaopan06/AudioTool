@@ -637,7 +637,7 @@ public:
         label_5->setText(QCoreApplication::translate("LoginPage", "\346\211\213\346\234\272\345\217\267", nullptr));
         code->setText(QCoreApplication::translate("LoginPage", "+86", nullptr));
         label_11->setText(QString());
-        cap_mobile->setText(QCoreApplication::translate("LoginPage", "13333333333", nullptr));
+        cap_mobile->setText(QString());
         cap_mobile->setPlaceholderText(QCoreApplication::translate("LoginPage", "\346\211\213\346\234\272\345\217\267", nullptr));
         next_page_btn->setText(QCoreApplication::translate("LoginPage", "\344\270\213\344\270\200\346\255\245", nullptr));
         radioButton->setText(QCoreApplication::translate("LoginPage", "\347\231\273\345\275\225\345\215\263\345\220\214\346\204\217", nullptr));

@@ -11,6 +11,7 @@
 
 // 全局变量定义
 QString g_downloadImages = "";
+QString g_appData = "";
 QString g_roomID = "";
 QString g_multipleAuthoriation = "";
 bool g_isManager = false;
@@ -142,7 +143,7 @@ void CreateDir()
         }
         tempFile.close();
     }
-
+    g_appData = roamingPath;
     g_downloadImages = mPath + "/images";
 }
 

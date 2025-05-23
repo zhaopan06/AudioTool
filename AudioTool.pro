@@ -7,7 +7,7 @@ CONFIG += c++17 utf8_source
 QMAKE_PROJECT_DEPTH = 0
 
 LIBS += user32.lib
-
+RC_ICONS = lanban.ico
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
@@ -35,6 +35,7 @@ SOURCES += \
     Base/Http/Global.cpp \
     Base/Http/HttpInterFace.cpp \
     Base/Http/HttpUserInfo.cpp \
+    Base/Http/clientconfig.cpp \
     Base/IMSDK/TimInterface.cpp \
     UI/ChatEmoTionItem.cpp \
     UI/ChatImageItem.cpp \
@@ -73,6 +74,7 @@ HEADERS += \
     Base/Http/Global.h \
     Base/Http/HttpInterFace.h \
     Base/Http/HttpUserInfo.h \
+    Base/Http/clientconfig.h \
     Base/IMSDK/TimInterface.h \
     UI/ChatEmoTionItem.h \
     UI/ChatImageItem.h \

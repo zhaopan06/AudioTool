@@ -8,6 +8,7 @@
 
 // 全局变量定义
 extern QString g_downloadImages;//需要下载图片得地址
+extern QString g_appData;
 extern QString g_roomID;
 extern QString g_multipleAuthoriation;
 extern bool g_isManager;//是否管理

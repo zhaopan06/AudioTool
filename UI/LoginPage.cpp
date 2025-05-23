@@ -4,6 +4,7 @@
 #include "HttpInterFace.h"
 #include "HttpUserInfo.h"
 #include "MsgBox.h"
+#include "clientconfig.h"
 
 LoginPage::LoginPage(QWidget *parent)
     : QDialog(parent)
@@ -23,6 +24,18 @@ LoginPage::LoginPage(QWidget *parent)
     ui->stackedWidget_2->setCurrentIndex(0);
     ui->code_label_click->setVisible(false);
     m_time = 60;
+
+    QString isrememberpasswd = ClientConfig::getInstance()->readIniFile("CLIENT", "isrememberpasswd");
+    if(isrememberpasswd == "1")
+    {
+        ui->login_status->setChecked(true);
+        QString strUserName = ClientConfig::getInstance()->readIniFile("CLIENT", "userName");
+        ui->cap_mobile->setText(strUserName);
+    }
+    else
+    {
+        ui->login_status->setChecked(false);
+    }
 
     connect(&m_timer, &QTimer::timeout, this, &LoginPage::onTimeout);
 }
@@ -278,6 +291,17 @@ void LoginPage::on_login_btn_clicked()
     {
         QJsonObject jsonObject = QJsonObject::fromVariantMap(data);        
         HttpUserInfo::instance()->setLoginInfo(data["data"].toMap());
+
+        if(ui->login_status->isChecked())
+        {
+            ClientConfig::getInstance()->writeIniFile("CLIENT", "isrememberpasswd", "1" );
+            ClientConfig::getInstance()->writeIniFile("CLIENT", "userName", acc);
+        }
+        else
+        {
+            ClientConfig::getInstance()->writeIniFile("CLIENT", "isrememberpasswd", "0" );
+        }
+
         accept();
     }
 }
