@@ -3,6 +3,7 @@
 #include "MenuHomeownerRight.h"
 #include "MenuLockRight.h"
 #include "UserinfoPage.h"
+#include "qmovie.h"
 #include "ui_MicInfoItem.h"
 #include "HttpInterFace.h"
 #include "HttpUserInfo.h"
@@ -13,6 +14,11 @@ MicInfoItem::MicInfoItem(QWidget *parent)
     , ui(new Ui::MicInfoItem)
 {
     ui->setupUi(this);
+    QMovie *movie = new QMovie(":/images/gifts/sound.gif");
+    movie->setScaledSize(ui->label->size());
+    ui->label->setMovie(movie);
+    movie->start();
+    ui->label->hide();
 }
 
 MicInfoItem::~MicInfoItem()
@@ -79,6 +85,31 @@ void MicInfoItem::updateData(QVariantMap data)
 void MicInfoItem::updateMultipleAuthoriation(QString str)
 {
     m_multipleAuthoriation = str;
+}
+
+void MicInfoItem::setAudioValue(QString uid, int value)
+{
+    if(value < 30)
+    {
+        ui->label->hide();
+        return;
+    }
+
+    if(uid == "0")
+    {
+        QString uid = m_data["member"].toMap()["userId"].toString();
+        if(uid == HttpUserInfo::instance()->getUserID())
+        {
+            ui->label->show();
+        }
+    }
+    else
+    {
+        if(uid == m_data["member"].toMap()["userId"].toString())
+        {
+            ui->label->show();
+        }
+    }
 }
 
 void MicInfoItem::on_image_rightClicked()

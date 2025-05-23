@@ -311,8 +311,8 @@ public:
     QPushButton *pushButton_15;
     QPushButton *pushButton_16;
     QButtonGroup *buttonGroup_3;
-    QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -630,7 +630,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 631, 16));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 100, 30));
         scrollArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout_13->addWidget(scrollArea);
@@ -1719,12 +1719,12 @@ public:
         verticalLayout_43->setContentsMargins(0, 0, 0, 0);
         widget_54 = new QWidget(widget_27);
         widget_54->setObjectName(QString::fromUtf8("widget_54"));
-        widget_54->setMinimumSize(QSize(0, 100));
-        widget_54->setMaximumSize(QSize(16777215, 100));
+        widget_54->setMinimumSize(QSize(0, 90));
+        widget_54->setMaximumSize(QSize(16777215, 90));
         widget_54->setStyleSheet(QString::fromUtf8(""));
         horizontalLayout_41 = new QHBoxLayout(widget_54);
         horizontalLayout_41->setObjectName(QString::fromUtf8("horizontalLayout_41"));
-        horizontalLayout_41->setContentsMargins(-1, 16, -1, 28);
+        horizontalLayout_41->setContentsMargins(-1, 16, -1, 18);
         verticalLayout_44 = new QVBoxLayout();
         verticalLayout_44->setObjectName(QString::fromUtf8("verticalLayout_44"));
         verticalLayout_44->setContentsMargins(-1, -1, -1, 0);
@@ -1852,7 +1852,7 @@ public:
         micLayout = new QGridLayout();
         micLayout->setObjectName(QString::fromUtf8("micLayout"));
         micLayout->setHorizontalSpacing(0);
-        micLayout->setVerticalSpacing(20);
+        micLayout->setVerticalSpacing(10);
         micLayout->setContentsMargins(-1, -1, 0, -1);
 
         verticalLayout_46->addLayout(micLayout);
@@ -2380,7 +2380,7 @@ public:
         scrollArea_4->setWidgetResizable(true);
         scrollAreaWidgetContents_4 = new QWidget();
         scrollAreaWidgetContents_4->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_4"));
-        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 83, 16));
+        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 100, 30));
         verticalLayout_42 = new QVBoxLayout(scrollAreaWidgetContents_4);
         verticalLayout_42->setSpacing(0);
         verticalLayout_42->setObjectName(QString::fromUtf8("verticalLayout_42"));

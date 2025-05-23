@@ -20,6 +20,8 @@ public:
     QString getUserId();
     void updateData(QVariantMap data);
     void updateMultipleAuthoriation(QString str);
+    void setAudioValue(QString uid, int value);
+
 signals:
     void setMyselfMicInfo(int);
 

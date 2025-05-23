@@ -157,7 +157,10 @@ void MainWindow::joinedChannelSuccess(const QString& channel, unsigned int uid, 
 //直播间的每个人麦克风音量回调
 void MainWindow::audioVolumeIndication(int uid,int value)
 {
-
+    foreach (auto var, m_micList)
+    {
+        var->setAudioValue(QString::number(uid), value);
+    }
 }
 
 void MainWindow::reconnect()
@@ -623,11 +626,13 @@ void MainWindow::enterTheToom(QVariantMap data)
         QVariantList list = onlineInfo["data"].toList();
         for(QVariant var : list)
         {
+            qDebug()<<"1-------";
             QVariantMap map = var.toMap();
             OnlineItem *item = new OnlineItem();
             item->setFixedSize(390,70);
             item->setData(map,id);
             ui->onlineList->addWidget(item);
+            qDebug()<<"2-------";
         }
 
     });
