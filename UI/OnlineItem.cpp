@@ -1,5 +1,5 @@
 ﻿#include "OnlineItem.h"
-#include "UserinfoPage.h"
+#include "UserinfoPageSimple.h"
 #include "ui_OnlineItem.h"
 #include "HttpInterFace.h"
 #include <QScreen>
@@ -27,7 +27,7 @@ bool OnlineItem::eventFilter(QObject *watched, QEvent *event)
             int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
             bool isMouseInLowerHalf = (mouseGlobalPos.y() > screenHeight / 2 - 80);
             QPoint labelGlobalPos = ui->image->mapToGlobal(QPoint(0, 0));
-            UserinfoPage *page = UserinfoPage::getInstance();
+            UserinfoPageSimple *page = UserinfoPageSimple::getInstance();
             page->init(m_data["userId"].toString());
             QPoint point1;
             if(isMouseInLowerHalf)
@@ -47,10 +47,10 @@ bool OnlineItem::eventFilter(QObject *watched, QEvent *event)
         else if (event->type() == QEvent::Leave)
         {
             QPoint mouseGlobalPos = QCursor::pos();
-            QRect widgetAGeometry = UserinfoPage::getInstance()->geometry();
+            QRect widgetAGeometry = UserinfoPageSimple::getInstance()->geometry();
             if (!widgetAGeometry.contains(mouseGlobalPos))
             {
-                UserinfoPage::getInstance()->uninit();
+                UserinfoPageSimple::getInstance()->uninit();
             }
 
             return true;
@@ -107,6 +107,11 @@ void OnlineItem::setData(QVariantMap data, QString id)
 
     if(status == -2)
     {
+        ui->user_btn->setText(QStringLiteral("在线"));
+    }
+    if(status == -3)
+    {
+        ui->user_btn->setText(QStringLiteral("离线"));
     }
     m_data = data;
 }

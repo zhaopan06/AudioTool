@@ -23,9 +23,7 @@ private:
 protected:
     void mouseMoveEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
-    void mouseReleaseEvent(QMouseEvent *event);
-    void leaveEvent(QEvent *event)override;
-    bool nativeEvent(const QByteArray &eventType, void *message, long *result);
+    void mouseReleaseEvent(QMouseEvent *event);   
 
 private slots:
     void on_closeBtn_clicked();

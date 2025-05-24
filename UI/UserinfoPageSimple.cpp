@@ -1,65 +1,35 @@
-﻿#include "UserinfoPage.h"
-#include "Global.h"
-#include "UserinfoPageGiftItem.h"
-#include "UserinfoPageMedalItem.h"
-#include "ui_UserinfoPage.h"
+﻿#include "UserinfoPageSimple.h"
+#include "ui_UserinfoPageSimple.h"
 #include "HttpInterFace.h"
 #include "qevent.h"
 #include <windows.h>
+#include "UserinfoPage.h"
 
-UserinfoPage* UserinfoPage::pUserinfoPageFace = NULL;
-UserinfoPage *UserinfoPage::getInstance()
+UserinfoPageSimple* UserinfoPageSimple::pUserinfoPageSimpleFace = NULL;
+UserinfoPageSimple *UserinfoPageSimple::getInstance()
 {
-    if(pUserinfoPageFace == NULL)
+    if(pUserinfoPageSimpleFace == NULL)
     {
-        pUserinfoPageFace = new UserinfoPage();
+        pUserinfoPageSimpleFace = new UserinfoPageSimple();
     }
-    return pUserinfoPageFace;
+    return pUserinfoPageSimpleFace;
 }
 
-UserinfoPage::UserinfoPage(QWidget *parent)
+UserinfoPageSimple::UserinfoPageSimple(QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::UserinfoPage)
+    , ui(new Ui::UserinfoPageSimple)
 {
     ui->setupUi(this);
     setAttribute(Qt::WA_TranslucentBackground, true);
-    this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-    ui->gridLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    ui->gridLayout_3->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    ui->stackedWidget->setCurrentIndex(0);
+    this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);    
 }
 
-UserinfoPage::~UserinfoPage()
+UserinfoPageSimple::~UserinfoPageSimple()
 {
     delete ui;
 }
 
-void UserinfoPage::mousePressEvent(QMouseEvent* event)
-{
-    if(event->pos().ry() < 56)
-    {
-        m_bMoveing = true;
-        m_pMovePosition = event->globalPos() - this->pos();
-    }
-}
-
-void UserinfoPage::mouseMoveEvent(QMouseEvent* event)
-{
-    if (m_bMoveing&&
-        (event->buttons() & Qt::LeftButton)&&
-        (event->globalPos() - m_pMovePosition).manhattanLength() > QApplication::startDragDistance())
-    {
-        move(event->globalPos() - m_pMovePosition);
-        m_pMovePosition = event->globalPos() - pos();
-    }
-}
-
-void UserinfoPage::mouseReleaseEvent(QMouseEvent *event)
-{
-    m_bMoveing = false;
-}
-
-void UserinfoPage::init(QString userID)
+void UserinfoPageSimple::init(QString userID)
 {
     m_userId = userID;
 
@@ -68,8 +38,9 @@ void UserinfoPage::init(QString userID)
         QVariantMap data = map.toMap()["data"].toMap();
         QString photo = data["photo"].toString();
         HttpInterFace::getInstance()->downLoad(photo, [&](const QString &path) {
-            this->ui->big_image->setPixmap(QPixmap(path));
-            this->ui->image->setPixmap(QPixmap(path));
+            ui->big_image->setPixmap(QPixmap(path));
+            ui->big_image->setRadius(12);
+            ui->image->setPixmap(QPixmap(path));
         });
 
         QString name = data["name"].toString();
@@ -141,15 +112,11 @@ void UserinfoPage::init(QString userID)
     });
 }
 
-void UserinfoPage::uninit()
-{
-    on_closeBtn_clicked();
-}
-
-void UserinfoPage::on_closeBtn_clicked()
+void UserinfoPageSimple::uninit()
 {
     ui->stackedWidget->setCurrentIndex(0);
     ui->big_image->setPixmap(QPixmap());
+    ui->big_image->setRadius(0);
     ui->image->setPixmap(QPixmap());
     ui->label_14->setPixmap(QPixmap());
     ui->name->setText("");
@@ -163,102 +130,18 @@ void UserinfoPage::on_closeBtn_clicked()
     ui->fansNum->setText("");
     ui->playDayNum->setText("");
     ui->intro->setText(tr("请填写个性签名"));
-    close();
+    hide();
 }
 
-
-void UserinfoPage::on_onlineBtn_clicked()
+void UserinfoPageSimple::on_pushButton_5_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(0);
+    UserinfoPage *page = UserinfoPage::getInstance();
+    page->init(m_userId);
+    page->show();
 }
 
 
-void UserinfoPage::on_squareBtn_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(1);
-    on_sendBtn_clicked();
-}
-
-
-void UserinfoPage::on_contributeBtn_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(2);
-    HttpInterFace::getInstance()->getUserMedals(m_userId, [&](const QVariant &map) {        
-
-        QVariantList list = map.toMap()["data"].toList();
-        for(int i=0; i<list.size(); ++i)
-        {
-            UserinfoPageMedalItem *item = new UserinfoPageMedalItem;
-            item->setData(list.at(i).toMap());
-
-            int row = i / 4;
-            int col = i % 4;
-            ui->gridLayout_3->addWidget(item,row, col);
-        }
-
-        ui->label_13->setText(QString::number(list.size()));
-    });
-}
-
-void UserinfoPage::updateGift(int type, int type1)
-{
-    m_type = type1;
-    cleanupLayout(ui->gridLayout);
-
-    HttpInterFace::getInstance()->getGiftWall(m_userId, type, type1, [&](const QVariant &map) {
-
-        QVariantMap data = map.toMap()["data"].toMap();
-        QVariantList list = data["giftWallList"].toList();
-        for(int i=0; i<list.size(); ++i)
-        {
-            UserinfoPageGiftItem *item = new UserinfoPageGiftItem;
-            item->setData(list.at(i).toMap());
-
-            int row = i / 4;
-            int col = i % 4;
-            ui->gridLayout->addWidget(item,row, col);
-        }
-
-        if(1 == m_type)
-        {
-            ui->label_2->setText(QString::number(list.size()));
-        }
-    });
-}
-
-void UserinfoPage::on_sendBtn_clicked()
-{
-    int type = 0;
-    ui->pushButton_2->isChecked()? type = 1: type=0;
-    updateGift(1, type);
-}
-
-
-void UserinfoPage::on_receiveBtn_clicked()
-{
-    int type = 0;
-    ui->pushButton_2->isChecked()? type = 1: type=0;
-    updateGift(0, type);
-}
-
-
-void UserinfoPage::on_pushButton_2_clicked()
-{
-    int type = 0;
-    ui->sendBtn->isChecked()? type = 1: type=0;
-    updateGift(type, 1);
-}
-
-
-void UserinfoPage::on_pushButton_4_clicked()
-{
-    int type = 0;
-    ui->sendBtn->isChecked()? type = 1: type=0;
-    updateGift(type, 0);
-}
-
-//关注
-void UserinfoPage::on_Attention_clicked()
+void UserinfoPageSimple::on_Attention_clicked()
 {
     int isFollow = 0;
     if(!m_isFollow)
@@ -276,5 +159,35 @@ void UserinfoPage::on_Attention_clicked()
         ui->Attention->setText(QStringLiteral("取消关注"));
     }
     m_isFollow = !m_isFollow;
+}
+
+
+void UserinfoPageSimple::on_pushButton_3_clicked()
+{
+
+}
+
+void UserinfoPageSimple::leaveEvent(QEvent *event)
+{
+    Q_UNUSED(event);
+    hide();
+}
+
+bool UserinfoPageSimple::nativeEvent(const QByteArray &eventType, void *message, long *result)
+{
+    if (eventType == "windows_generic_MSG")
+    {
+        MSG* msg = (MSG*)message;
+        switch(msg->message)
+        {
+        case WM_NCACTIVATE:
+            bool active = (bool)(msg->wParam);
+            if(!active)
+            {
+                this->hide();
+            }
+        }
+    }
+    return QWidget::nativeEvent(eventType, message, result);
 }
 

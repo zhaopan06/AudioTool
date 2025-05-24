@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AudioValuePage</class>
+ <widget class="QDialog" name="AudioValuePage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>36</width>
+    <height>160</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QSlider" name="verticalSlider">
+   <property name="geometry">
+    <rect>
+     <x>1</x>
+     <y>1</y>
+     <width>36</width>
+     <height>160</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/* 垂直滑块基础样式 */
+QSlider:vertical {
+    min-width: 36px;  /* 确保足够宽度 */
+    background: rgba(255, 255, 255, 0);
+    border-radius: 18px;   /* 右侧圆角 */
+}
+
+/* 垂直滑槽样式 */
+QSlider::groove:vertical {
+     background: rgba(255, 255, 255, 0);
+    width: 36px;          /* 滑槽宽度36px */
+    border-radius: 18px;  /* 滑槽圆角18px */
+    margin: 0px 0;        /* 边距调整 */   
+}
+
+/* 垂直滑块手柄样式（红色） */
+QSlider::handle:vertical {
+    background: rgba(255, 255, 255, 0);
+    width: 36px;           /* 手柄宽度36px */
+    height: 36px;          /* 手柄高度36px */
+    border-radius: 18px;   /* 手柄圆角18px */
+    margin: 0px 0px 1px 0px;  /* 调整手柄垂直居中 */
+}
+
+/* 滑块活动区域（左侧） */
+QSlider::add-page:vertical {
+    background: #ED525A;   /* 绿色活动区域 */
+     border-top-left-radius: 0px;    /* 左上圆角 */
+    border-top-right-radius: 0px;   /* 右上圆角 */
+    border-bottom-left-radius: 18px;  /* 左下直角 */
+    border-bottom-right-radius: 18px; /* 右下直角 */
+
+}
+
+/* 滑块非活动区域（右侧） */
+QSlider::sub-page:vertical {
+    background: #363636;
+    border-top-left-radius: 18px;    /* 左上圆角 */
+    border-top-right-radius: 18px;   /* 右上圆角 */
+    border-bottom-left-radius: 0px;  /* 左下直角 */
+    border-bottom-right-radius: 0px; /* 右下直角 */
+
+}
+
+/* 隐藏默认按钮 */
+QSlider::add-line:vertical, 
+QSlider::sub-line:vertical {
+    width: 0px;
+    height: 0px;
+    border: none;
+}</string>
+   </property>
+   <property name="maximum">
+    <number>255</number>
+   </property>
+   <property name="value">
+    <number>0</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

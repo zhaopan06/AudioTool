@@ -198,9 +198,7 @@ public:
     QPushButton *pushButton_21;
     QPushButton *pushButton_22;
     QHBoxLayout *horizontalLayout_27;
-    QPushButton *pushButton_23;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton;
+    QPushButton *squareBtn;
     QSpacerItem *horizontalSpacer_10;
     QWidget *widget_20;
     QVBoxLayout *verticalLayout_18;
@@ -266,7 +264,6 @@ public:
     QWidget *widget_45;
     QHBoxLayout *horizontalLayout_30;
     QPushButton *onlineBtn;
-    QPushButton *squareBtn;
     QPushButton *contributeBtn;
     QSpacerItem *horizontalSpacer_13;
     QStackedWidget *stackedWidget_2;
@@ -630,7 +627,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 100, 30));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 631, 16));
         scrollArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout_13->addWidget(scrollArea);
@@ -1638,11 +1635,11 @@ public:
 
         horizontalLayout_27 = new QHBoxLayout();
         horizontalLayout_27->setObjectName(QString::fromUtf8("horizontalLayout_27"));
-        pushButton_23 = new QPushButton(widget_39);
-        pushButton_23->setObjectName(QString::fromUtf8("pushButton_23"));
-        pushButton_23->setMinimumSize(QSize(125, 56));
-        pushButton_23->setMaximumSize(QSize(125, 16777215));
-        pushButton_23->setStyleSheet(QString::fromUtf8("background: #36383B;\n"
+        squareBtn = new QPushButton(widget_39);
+        squareBtn->setObjectName(QString::fromUtf8("squareBtn"));
+        squareBtn->setMinimumSize(QSize(125, 56));
+        squareBtn->setMaximumSize(QSize(125, 16777215));
+        squareBtn->setStyleSheet(QString::fromUtf8("background: #36383B;\n"
 "border-radius: 6px;\n"
 "\n"
 "font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
@@ -1652,20 +1649,10 @@ public:
 "line-height: 22px;\n"
 "\n"
 "font-style: normal;"));
-        pushButton_23->setIcon(icon8);
-        pushButton_23->setIconSize(QSize(24, 24));
+        squareBtn->setIcon(icon8);
+        squareBtn->setIconSize(QSize(24, 24));
 
-        horizontalLayout_27->addWidget(pushButton_23);
-
-        pushButton_2 = new QPushButton(widget_39);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-
-        horizontalLayout_27->addWidget(pushButton_2);
-
-        pushButton = new QPushButton(widget_39);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-
-        horizontalLayout_27->addWidget(pushButton);
+        horizontalLayout_27->addWidget(squareBtn);
 
         horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -2151,16 +2138,33 @@ public:
 
         sendBtn = new QPushButton(frame_6);
         sendBtn->setObjectName(QString::fromUtf8("sendBtn"));
+        sendBtn->setEnabled(false);
         sendBtn->setMinimumSize(QSize(66, 28));
         sendBtn->setMaximumSize(QSize(16777215, 16777215));
-        sendBtn->setStyleSheet(QString::fromUtf8("background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #D197FE, stop:1 #9752ED);\n"
+        sendBtn->setStyleSheet(QString::fromUtf8("QPushButton{\n"
+"background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #D197FE, stop:1 #9752ED);\n"
 "border-radius: 14px;\n"
 "font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "border:none;\n"
 "font-size: 14px;\n"
 "color: #FFFFFF;\n"
 "line-height: 20px;\n"
+"}\n"
 "\n"
+"QPushButton:disabled {\n"
+"background: qlineargradient(\n"
+"    x1:0, y1:0, \n"
+"    x2:1, y2:0, \n"
+"    stop:0 rgba(209, 151, 254, 0.5),  /* #D197FE 50%\351\200\217\346\230\216\345\272\246 */\n"
+"    stop:1 rgba(151, 82, 237, 0.5)    /* #9752ED 50%\351\200\217\346\230\216\345\272\246 */\n"
+");\n"
+"border-radius: 14px;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"border:none;\n"
+"font-size: 14px;\n"
+"color: #FFFFFF;\n"
+"line-height: 20px;\n"
+"}\n"
 ""));
         QIcon icon12;
         icon12.addFile(QString::fromUtf8(":/images/live_send_n.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -2240,13 +2244,6 @@ public:
         onlineBtn->setChecked(true);
 
         horizontalLayout_30->addWidget(onlineBtn);
-
-        squareBtn = new QPushButton(widget_45);
-        buttonGroup->addButton(squareBtn);
-        squareBtn->setObjectName(QString::fromUtf8("squareBtn"));
-        squareBtn->setCheckable(true);
-
-        horizontalLayout_30->addWidget(squareBtn);
 
         contributeBtn = new QPushButton(widget_45);
         buttonGroup->addButton(contributeBtn);
@@ -2380,7 +2377,7 @@ public:
         scrollArea_4->setWidgetResizable(true);
         scrollAreaWidgetContents_4 = new QWidget();
         scrollAreaWidgetContents_4->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_4"));
-        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 100, 30));
+        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 83, 16));
         verticalLayout_42 = new QVBoxLayout(scrollAreaWidgetContents_4);
         verticalLayout_42->setSpacing(0);
         verticalLayout_42->setObjectName(QString::fromUtf8("verticalLayout_42"));
@@ -2664,9 +2661,7 @@ public:
         pushButton_20->setText(QCoreApplication::translate("MainWindow", "\346\210\277\351\227\264\347\203\255\346\216\250", nullptr));
         pushButton_21->setText(QCoreApplication::translate("MainWindow", "\350\243\205\346\211\256\347\256\241\347\220\206", nullptr));
         pushButton_22->setText(QCoreApplication::translate("MainWindow", "\345\261\225\344\270\232\345\260\217\345\212\251\346\211\213", nullptr));
-        pushButton_23->setText(QCoreApplication::translate("MainWindow", "\350\220\214\346\226\260\345\271\277\345\234\272", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("MainWindow", "\345\212\240\345\205\245\347\276\244\350\201\212", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "\344\270\212\351\272\246", nullptr));
+        squareBtn->setText(QCoreApplication::translate("MainWindow", "\350\220\214\346\226\260\345\271\277\345\234\272", nullptr));
         roomName->setText(QCoreApplication::translate("MainWindow", "\345\260\276\351\252\250\345\244\247\345\260\206\345\206\233", nullptr));
         pushButton_26->setText(QString());
         pushButton_27->setText(QCoreApplication::translate("MainWindow", "\347\233\264\346\222\255\344\270\255", nullptr));
@@ -2687,7 +2682,6 @@ public:
         sendBtn->setShortcut(QCoreApplication::translate("MainWindow", "Return", nullptr));
 #endif // QT_CONFIG(shortcut)
         onlineBtn->setText(QCoreApplication::translate("MainWindow", "\345\234\250\347\272\277\345\210\227\350\241\250", nullptr));
-        squareBtn->setText(QCoreApplication::translate("MainWindow", "\350\220\214\346\226\260\345\271\277\345\234\272", nullptr));
         contributeBtn->setText(QCoreApplication::translate("MainWindow", "\350\264\241\347\214\256\346\246\234", nullptr));
         day_btn->setText(QCoreApplication::translate("MainWindow", "\346\227\245\346\246\234", nullptr));
         week_btn->setText(QCoreApplication::translate("MainWindow", "\345\221\250\346\246\234", nullptr));

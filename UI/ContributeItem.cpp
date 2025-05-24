@@ -1,5 +1,5 @@
 ﻿#include "ContributeItem.h"
-#include "UserinfoPage.h"
+#include "UserinfoPageSimple.h"
 #include "ui_ContributeItem.h"
 #include "HttpInterFace.h"
 #include <QScreen>
@@ -27,7 +27,7 @@ bool ContributeItem::eventFilter(QObject *watched, QEvent *event)
             int screenHeight = QGuiApplication::primaryScreen()->geometry().height();
             bool isMouseInLowerHalf = (mouseGlobalPos.y() > screenHeight / 2 - 80);
             QPoint labelGlobalPos = ui->image->mapToGlobal(QPoint(0, 0));
-            UserinfoPage *page = UserinfoPage::getInstance();
+            UserinfoPageSimple *page = UserinfoPageSimple::getInstance();
             page->init(m_data["userId"].toString());
             QPoint point1;
             if(isMouseInLowerHalf)
@@ -47,10 +47,10 @@ bool ContributeItem::eventFilter(QObject *watched, QEvent *event)
         else if (event->type() == QEvent::Leave)
         {
             QPoint mouseGlobalPos = QCursor::pos();
-            QRect widgetAGeometry = UserinfoPage::getInstance()->geometry();
+            QRect widgetAGeometry = UserinfoPageSimple::getInstance()->geometry();
             if (!widgetAGeometry.contains(mouseGlobalPos))
             {
-                UserinfoPage::getInstance()->uninit();
+                UserinfoPageSimple::getInstance()->uninit();
             }
 
             return true;

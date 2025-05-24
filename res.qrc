@@ -58,5 +58,10 @@
         <file>images/gifts/sound.gif</file>
         <file>images/icon_锁.png</file>
         <file>images/限定.png</file>
+        <file>images/icon_置顶.png</file>
+        <file>images/icon_最大化.png</file>
+        <file>images/icon_通讯录未选.png</file>
+        <file>images/icon_消息没未读.png</file>
+        <file>images/icon_消息.png</file>
     </qresource>
 </RCC>

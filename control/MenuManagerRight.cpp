@@ -1,6 +1,6 @@
 ﻿#include "MenuManagerRight.h"
 #include "Global.h"
-#include "UserinfoPage.h"
+#include "UserinfoPageSimple.h"
 #include "ui_MenuManagerRight.h"
 #include <windows.h>
 #include "HttpInterFace.h"
@@ -79,7 +79,7 @@ void MenuManagerRight::on_pushButton_3_clicked()
 void MenuManagerRight::on_pushButton_4_clicked()
 {
     this->hide();
-    UserinfoPage *page = UserinfoPage::getInstance();
+    UserinfoPageSimple *page = UserinfoPageSimple::getInstance();
     QString uid = m_data["member"].toMap()["userId"].toString();
     page->init(uid);
     QPoint point1;

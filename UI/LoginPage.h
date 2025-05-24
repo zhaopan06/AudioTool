@@ -1,4 +1,4 @@
-#ifndef LOGINPAGE_H
+﻿#ifndef LOGINPAGE_H
 #define LOGINPAGE_H
 
 #include <QDialog>
@@ -24,8 +24,6 @@ protected:
 
 private slots:
     void onTimeout();
-
-    void on_login_status_clicked(bool checked);
 
     void on_back_btn_clicked();
 

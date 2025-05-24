@@ -30,6 +30,8 @@ private slots:
 
     void on_closeBtn_clicked();
 
+    void on_topBtn_clicked();
+
 private:
     Ui::NewUserPage *ui;
     static NewUserPage *pNewUserPageFace;

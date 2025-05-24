@@ -58,12 +58,6 @@ void LoginPage::onTimeout()
     }
 }
 
-//记录登录状态
-void LoginPage::on_login_status_clicked(bool checked)
-{
-
-}
-
 void LoginPage::mouseMoveEvent(QMouseEvent* event)
 {
     QPoint distance = event->globalPos() - mouseStartPoint;
@@ -309,6 +303,19 @@ void LoginPage::on_login_btn_clicked()
 void LoginPage::on_next_page_btn_clicked()
 {
     QString acc =  ui->cap_mobile->text();
+
+    if (acc.isEmpty())
+    {
+        MsgBox::showMsg(0, QStringLiteral("提示"), QStringLiteral("请输入手机号"));
+        return;
+    }
+    QRegularExpression regex("^1[3-9]\\d{9}$");
+    if(!regex.match(acc).hasMatch())
+    {
+        MsgBox::showMsg(0, QStringLiteral("提示"), QStringLiteral("请输入正确的手机号"));
+        return;
+    }
+
     HttpInterFace::getInstance()->getCaptcha(acc,"+86", [&](const QVariant &data){
 
         QVariantMap Captchadata = data.toMap();

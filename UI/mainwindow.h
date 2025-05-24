@@ -7,6 +7,7 @@
 #include "agorartcengineinterface.h"
 #include <QMainWindow>
 #include "EmotionPage.h"
+#include "AudioValuePage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -108,6 +109,10 @@ private slots:
 
     void on_closeLiveBtn_clicked();
 
+    void on_pushButton_4_clicked();
+
+    void on_pushButton_6_clicked();
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;
@@ -119,5 +124,7 @@ private:
 
     GiftPage *m_giftPage = nullptr;    
     QVector<MicInfoItem*> m_micList;
+    AudioValuePage *m_valuePage = nullptr;
+    AudioValuePage *m_soundValuePage = nullptr;
 };
 #endif // MAINWINDOW_H

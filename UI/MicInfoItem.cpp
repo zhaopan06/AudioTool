@@ -2,7 +2,7 @@
 #include "Global.h"
 #include "MenuHomeownerRight.h"
 #include "MenuLockRight.h"
-#include "UserinfoPage.h"
+#include "UserinfoPageSimple.h"
 #include "qmovie.h"
 #include "ui_MicInfoItem.h"
 #include "HttpInterFace.h"
@@ -147,7 +147,7 @@ void MicInfoItem::on_image_rightClicked()
             QString type = g_multipleAuthoriation.at(0);
             if(type.toInt() == 1)
             {
-                UserinfoPage *page = UserinfoPage::getInstance();
+                UserinfoPageSimple *page = UserinfoPageSimple::getInstance();
                 QString uid = m_data["member"].toMap()["userId"].toString();
                 page->init(uid);
                 QPoint point1;

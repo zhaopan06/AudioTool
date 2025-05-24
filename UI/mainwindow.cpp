@@ -1,4 +1,5 @@
 ﻿#include "mainwindow.h"
+#include "AudioValuePage.h"
 #include "ChatImageItem.h"
 #include "ChatImageMyItem.h"
 #include "ChatTextItem.h"
@@ -504,7 +505,7 @@ void MainWindow::on_emoBtn_clicked()
 {
     if(nullptr == m_emotionPage)
     {
-        m_emotionPage = new EmotionPage;
+        m_emotionPage = new EmotionPage(this);
         m_emotionPage->initChatEmotion();
         connect(m_emotionPage, SIGNAL(emotionClicked(QVariantMap)), this, SLOT(emotionClicked(QVariantMap)));
     }
@@ -619,23 +620,26 @@ void MainWindow::enterTheToom(QVariantMap data)
     QString id = data["id"].toString();
     g_roomID = id;
 
-    int currentPage = 1;
-    HttpInterFace::getInstance()->getOnlineInfo(g_roomID,currentPage, [&](const QVariant &data) {
+    QTimer::singleShot(1000, this, [this](){
 
-        QVariantMap onlineInfo =  data.toMap();
-        QVariantList list = onlineInfo["data"].toList();
-        for(QVariant var : list)
-        {
-            qDebug()<<"1-------";
-            QVariantMap map = var.toMap();
-            OnlineItem *item = new OnlineItem();
-            item->setFixedSize(390,70);
-            item->setData(map,id);
-            ui->onlineList->addWidget(item);
-            qDebug()<<"2-------";
-        }
+        int currentPage = 1;
+        HttpInterFace::getInstance()->getOnlineInfo(g_roomID,currentPage, [&](const QVariant &data) {
 
+            QVariantMap onlineInfo =  data.toMap();
+            QVariantList list = onlineInfo["data"].toList();
+            for(QVariant var : list)
+            {
+                qDebug()<<"1-------";
+                QVariantMap map = var.toMap();
+                OnlineItem *item = new OnlineItem();
+                item->setFixedSize(390,70);
+                item->setData(map,g_roomID);
+                this->ui->onlineList->addWidget(item);
+                qDebug()<<"2-------";
+            }
+        });
     });
+
 
     QVariantMap roomdata =  HttpInterFace::getInstance()->joinRoom(id.toInt(), 1 , "");
     if(1 == roomdata["code"].toInt())
@@ -1075,6 +1079,15 @@ void MainWindow::on_msgEdit_textChanged(const QString &arg1)
     if(ui->msgEdit->isImageFile(arg1))
     {
         ui->msgEdit->clear();
+        return;
+    }
+    if(arg1.isEmpty())
+    {
+        ui->sendBtn->setDisabled(true);
+    }
+    else
+    {
+        ui->sendBtn->setDisabled(false);
     }
 }
 
@@ -1086,5 +1099,43 @@ void MainWindow::on_closeLiveBtn_clicked()
     {
         msg_liveClose();
     }
+}
+
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    if(nullptr == m_valuePage)
+    {
+        m_valuePage = new AudioValuePage(this);
+        connect(m_valuePage, &AudioValuePage::valueChange, this, [this](int value) {
+
+            m_agoraFace->setRecordingDeviceVolume(value);
+        });
+    }
+    m_valuePage->setValue(m_agoraFace->getRecordingDeviceVolume());
+    QPoint point;
+    point.setX(ui->pushButton_4->mapToGlobal(QPoint(0, 0)).rx());
+    point.setY(ui->pushButton_4->mapToGlobal(QPoint(0, 0)).ry() - m_valuePage->height());
+    m_valuePage->move(point);
+    m_valuePage->show();
+}
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    if(nullptr == m_soundValuePage)
+    {
+        m_soundValuePage = new AudioValuePage(this);
+        connect(m_soundValuePage, &AudioValuePage::valueChange, this, [this](int value) {
+            if(value >0)
+                m_agoraFace->setPlaybackDeviceMute(false);
+            m_agoraFace->setPalyoutDeviceVolume(value);
+        });
+    }
+    m_soundValuePage->setValue(m_agoraFace->getPalyoutDeviceVolume());
+    QPoint point;
+    point.setX(ui->pushButton_6->mapToGlobal(QPoint(0, 0)).rx());
+    point.setY(ui->pushButton_6->mapToGlobal(QPoint(0, 0)).ry() - m_soundValuePage->height());
+    m_soundValuePage->move(point);
+    m_soundValuePage->show();
 }
 

@@ -40,6 +40,7 @@ SOURCES += \
     UI/ChatEmoTionItem.cpp \
     UI/ChatImageItem.cpp \
     UI/ChatImageMyItem.cpp \
+    UI/ChatPage.cpp \
     UI/ChatTextItem.cpp \
     UI/ChatTextMyItem.cpp \
     UI/ContributeItem.cpp \
@@ -56,7 +57,9 @@ SOURCES += \
     UI/UserinfoPage.cpp \
     UI/UserinfoPageGiftItem.cpp \
     UI/UserinfoPageMedalItem.cpp \
+    UI/UserinfoPageSimple.cpp \
     UI/mainwindow.cpp \
+    control/AudioValuePage.cpp \
     control/CRoundLabel.cpp \
     control/EmotionItem.cpp \
     control/EmotionPage.cpp \
@@ -79,6 +82,7 @@ HEADERS += \
     UI/ChatEmoTionItem.h \
     UI/ChatImageItem.h \
     UI/ChatImageMyItem.h \
+    UI/ChatPage.h \
     UI/ChatTextItem.h \
     UI/ChatTextMyItem.h \
     UI/ContributeItem.h \
@@ -95,7 +99,9 @@ HEADERS += \
     UI/UserinfoPage.h \
     UI/UserinfoPageGiftItem.h \
     UI/UserinfoPageMedalItem.h \
+    UI/UserinfoPageSimple.h \
     UI/mainwindow.h \
+    control/AudioValuePage.h \
     control/CRoundLabel.h \
     control/EmotionItem.h \
     control/EmotionPage.h \
@@ -111,6 +117,7 @@ FORMS += \
     UI/ChatEmoTionItem.ui \
     UI/ChatImageItem.ui \
     UI/ChatImageMyItem.ui \
+    UI/ChatPage.ui \
     UI/ChatTextItem.ui \
     UI/ChatTextMyItem.ui \
     UI/ContributeItem.ui \
@@ -127,7 +134,9 @@ FORMS += \
     UI/UserinfoPage.ui \
     UI/UserinfoPageGiftItem.ui \
     UI/UserinfoPageMedalItem.ui \
+    UI/UserinfoPageSimple.ui \
     UI/mainwindow.ui \
+    control/AudioValuePage.ui \
     control/EmotionItem.ui \
     control/EmotionPage.ui \
     control/ImageDialog.ui \

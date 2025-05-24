@@ -1,6 +1,6 @@
 ﻿#include "MenuHomeownerRight.h"
 #include "Global.h"
-#include "UserinfoPage.h"
+#include "UserinfoPageSimple.h"
 #include "ui_MenuHomeownerRight.h"
 #include <windows.h>
 #include "HttpInterFace.h"
@@ -114,7 +114,7 @@ void MenuHomeownerRight::on_pushButton_9_clicked()
 {
     this->hide();
 
-    UserinfoPage *page = UserinfoPage::getInstance();
+    UserinfoPageSimple *page = UserinfoPageSimple::getInstance();
     QString uid = m_data["member"].toMap()["userId"].toString();
     page->init(uid);
     QPoint point1;

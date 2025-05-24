@@ -83,3 +83,20 @@ void NewUserPage::on_closeBtn_clicked()
     this->close();
 }
 
+
+void NewUserPage::on_topBtn_clicked()
+{
+    bool isOnTop = windowFlags() & Qt::WindowStaysOnTopHint;
+    setWindowFlag(Qt::WindowStaysOnTopHint, !isOnTop);
+    show();
+
+    if (!isOnTop)
+    {
+        setWindowTitle("窗口状态: 置顶");
+    }
+    else
+    {
+        setWindowTitle("窗口状态: 普通");
+    }
+}
+

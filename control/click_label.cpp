@@ -26,7 +26,8 @@ void click_label::paintEvent(QPaintEvent *e)
         path.addRoundedRect(0, 0, width(), height(),m_radius,m_radius);
         painter.setClipPath(path);
         painter.drawPixmap(0, 0, width(), height(), *pixmap());
-    }else
+    }
+    else
         QLabel::paintEvent(e);
 }
 void click_label::enterEvent(QEvent *event)

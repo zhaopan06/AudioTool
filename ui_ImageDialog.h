@@ -32,13 +32,14 @@ public:
     QSpacerItem *horizontalSpacer;
     click_label *close;
     QWidget *widget_2;
+    QVBoxLayout *verticalLayout_3;
     QLabel *image;
 
     void setupUi(QDialog *ImageDialog)
     {
         if (ImageDialog->objectName().isEmpty())
             ImageDialog->setObjectName(QString::fromUtf8("ImageDialog"));
-        ImageDialog->resize(680, 530);
+        ImageDialog->resize(1280, 800);
         ImageDialog->setStyleSheet(QString::fromUtf8(""));
         verticalLayout = new QVBoxLayout(ImageDialog);
         verticalLayout->setSpacing(0);
@@ -80,13 +81,18 @@ public:
         widget_2 = new QWidget(widget_3);
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
         widget_2->setStyleSheet(QString::fromUtf8("border:none;"));
+        verticalLayout_3 = new QVBoxLayout(widget_2);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         image = new QLabel(widget_2);
         image->setObjectName(QString::fromUtf8("image"));
-        image->setGeometry(QRect(0, 0, 678, 494));
+        image->setMinimumSize(QSize(1260, 750));
         image->setStyleSheet(QString::fromUtf8("border:none;"));
         image->setPixmap(QPixmap(QString::fromUtf8(":/image/chat/imageDef.png")));
         image->setScaledContents(false);
         image->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_3->addWidget(image);
+
 
         verticalLayout_2->addWidget(widget_2);
 

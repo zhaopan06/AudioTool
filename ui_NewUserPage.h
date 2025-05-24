@@ -33,6 +33,7 @@ public:
     QHBoxLayout *horizontalLayout_22;
     QLabel *label_14;
     QSpacerItem *horizontalSpacer_7;
+    QPushButton *topBtn;
     QPushButton *minBtn;
     QPushButton *closeBtn;
     QWidget *widget;
@@ -97,6 +98,29 @@ public:
 
         horizontalLayout_22->addItem(horizontalSpacer_7);
 
+        topBtn = new QPushButton(widget_1);
+        topBtn->setObjectName(QString::fromUtf8("topBtn"));
+        topBtn->setMinimumSize(QSize(25, 24));
+        topBtn->setMaximumSize(QSize(25, 24));
+        topBtn->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
+"border:none;\n"
+"}\n"
+"QPushButton::hover{\n"
+"border:none;\n"
+"background:#3E3E3E;\n"
+"}\n"
+"QPushButton::checked {\n"
+"border:none;\n"
+"}\n"
+"\n"
+""));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/images/icon_\347\275\256\351\241\266.png"), QSize(), QIcon::Normal, QIcon::Off);
+        topBtn->setIcon(icon);
+        topBtn->setIconSize(QSize(25, 24));
+
+        horizontalLayout_22->addWidget(topBtn);
+
         minBtn = new QPushButton(widget_1);
         minBtn->setObjectName(QString::fromUtf8("minBtn"));
         minBtn->setMinimumSize(QSize(24, 24));
@@ -113,9 +137,9 @@ public:
 "}\n"
 "\n"
 ""));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8(":/images/login_min_n.png"), QSize(), QIcon::Normal, QIcon::Off);
-        minBtn->setIcon(icon);
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/images/login_min_n.png"), QSize(), QIcon::Normal, QIcon::Off);
+        minBtn->setIcon(icon1);
         minBtn->setIconSize(QSize(28, 28));
 
         horizontalLayout_22->addWidget(minBtn);
@@ -136,9 +160,9 @@ public:
 "}\n"
 "\n"
 ""));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/images/login_close_n.png"), QSize(), QIcon::Normal, QIcon::Off);
-        closeBtn->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/images/login_close_n.png"), QSize(), QIcon::Normal, QIcon::Off);
+        closeBtn->setIcon(icon2);
         closeBtn->setIconSize(QSize(28, 28));
 
         horizontalLayout_22->addWidget(closeBtn);
@@ -239,8 +263,9 @@ public:
 
     void retranslateUi(QDialog *NewUserPage)
     {
-        NewUserPage->setWindowTitle(QCoreApplication::translate("NewUserPage", "Dialog", nullptr));
+        NewUserPage->setWindowTitle(QCoreApplication::translate("NewUserPage", "\350\220\214\346\226\260\345\271\277\345\234\272", nullptr));
         label_14->setText(QCoreApplication::translate("NewUserPage", "\350\220\214\346\226\260\345\271\277\345\234\272", nullptr));
+        topBtn->setText(QString());
         minBtn->setText(QString());
         closeBtn->setText(QString());
         label->setText(QCoreApplication::translate("NewUserPage", "\346\233\264\346\226\260\346\227\266\351\227\264", nullptr));
