@@ -534,7 +534,7 @@ color:rgba(102,102,102,1);</string>
        </widget>
       </item>
       <item>
-       <widget class="QWidget" name="widget_4" native="true"/>
+       <widget class="QStackedWidget" name="stackedWidge"/>
       </item>
      </layout>
     </widget>

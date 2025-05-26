@@ -629,13 +629,11 @@ void MainWindow::enterTheToom(QVariantMap data)
             QVariantList list = onlineInfo["data"].toList();
             for(QVariant var : list)
             {
-                qDebug()<<"1-------";
                 QVariantMap map = var.toMap();
                 OnlineItem *item = new OnlineItem();
                 item->setFixedSize(390,70);
                 item->setData(map,g_roomID);
                 this->ui->onlineList->addWidget(item);
-                qDebug()<<"2-------";
             }
         });
     });
@@ -1137,5 +1135,19 @@ void MainWindow::on_pushButton_6_clicked()
     point.setY(ui->pushButton_6->mapToGlobal(QPoint(0, 0)).ry() - m_soundValuePage->height());
     m_soundValuePage->move(point);
     m_soundValuePage->show();
+}
+
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    if(nullptr == m_chatPage)
+    {
+        m_chatPage = new ChatPage;
+        m_timInterface->initTIMConvGetConvList([&](const QVariant& json_data) {
+
+        });
+    }
+    m_chatPage->show();
+
 }
 

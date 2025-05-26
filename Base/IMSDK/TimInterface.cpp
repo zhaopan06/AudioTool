@@ -191,6 +191,33 @@ void TimInterface::initRecvNewMsgCallback()
     }, this);
 }
 
+void TimInterface::initTIMConvGetConvList(std::function<void(const QVariant& json_data)> callback)
+{
+    TIMConvGetConvList([](int32_t code, const char* desc, const char* json_param, const void* user_data) {
+
+        QVariant json_data;
+        if (json_param)
+        {
+            QJsonParseError error;
+            QJsonDocument json_doc = QJsonDocument::fromJson(json_param, &error);
+            if (error.error == QJsonParseError::NoError)
+            {
+                json_data = json_doc.toVariant();
+            }
+            else
+            {
+                qWarning() << "JSON parse error:" << error.errorString();
+                json_data = QString(json_param);
+            }
+        }
+        auto cb = static_cast<std::function<void(const QVariant&)>*>(const_cast<void*>(user_data));
+        if (cb && *cb)
+        {
+            (*cb)(json_data);
+        }
+    }, &callback);
+}
+
 
 void TimInterface::groupJoin(const char* group_id)
 {
@@ -252,12 +279,11 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
             switch (elem_type) {
             case TIMElemType::kTIMElem_Text:  // 文本
             {
+                // 处理文本消息
                 if("groupMsg" == str_doc["tximMsgType"].toString())
                 {
-                    // 处理文本消息
                     QString content = elem[kTIMTextElemContent].toString();
                     qDebug()<<tr("文本消息---") + content;
-
                     QJsonObject message_ob = str_doc["message"].toObject();
                     int type = message_ob["type"].toInt();
                     qDebug()<<"text body = "<<type;
@@ -291,6 +317,12 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
 
 
                     }
+                }
+                //处理c2c消息
+                if(kTIMConv_C2C == msg_obj["message_conv_type"].toInt())
+                {
+                    QString content = elem[kTIMTextElemContent].toString();
+                    qDebug()<<tr("c2c文本消息---") << msg_obj;
                 }
                 break;
             }
@@ -502,5 +534,3 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
         }
     }
 }
-
-

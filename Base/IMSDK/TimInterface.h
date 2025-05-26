@@ -43,12 +43,16 @@ public:
     //初始化接受消息回调
     void initRecvNewMsgCallback();
 
+    void initTIMConvGetConvList(std::function<void(const QVariant& json_data)> callback);
     //登录
     int  login();
     //登出
     int  logout();
+
+    /*****************c2c相关*****************************/
     //c2c发送消息
     int sendMessage_c2c(const char* conv_id, const char* json_msg_param, const void* user_data);
+
 
 
     /*-----------群组相关-----------*/

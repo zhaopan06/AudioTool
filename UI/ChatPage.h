@@ -14,9 +14,15 @@ class ChatPage : public QDialog
 public:
     explicit ChatPage(QWidget *parent = nullptr);
     ~ChatPage();
-
+    void init();
+protected:
+    void mouseMoveEvent(QMouseEvent* event);
+    void mousePressEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent *event);
 private:
     Ui::ChatPage *ui;
+    bool  m_bMoveing = false;
+    QPoint m_pMovePosition = QPoint(0,0);
 };
 
 #endif // CHATPAGE_H

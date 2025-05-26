@@ -18,6 +18,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "click_label.h"
@@ -56,7 +57,7 @@ public:
     click_label *starLive;
     QSpacerItem *verticalSpacer;
     QWidget *widget_3;
-    QWidget *widget_4;
+    QStackedWidget *stackedWidge;
 
     void setupUi(QDialog *ChatPage)
     {
@@ -267,10 +268,10 @@ public:
 
         horizontalLayout_2->addWidget(widget_3);
 
-        widget_4 = new QWidget(widget);
-        widget_4->setObjectName(QString::fromUtf8("widget_4"));
+        stackedWidge = new QStackedWidget(widget);
+        stackedWidge->setObjectName(QString::fromUtf8("stackedWidge"));
 
-        horizontalLayout_2->addWidget(widget_4);
+        horizontalLayout_2->addWidget(stackedWidge);
 
 
         verticalLayout->addWidget(widget);

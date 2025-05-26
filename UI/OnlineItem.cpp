@@ -77,7 +77,6 @@ void OnlineItem::setData(QVariantMap data, QString id)
 
     int status = data["status"].toInt();
     QString userId = data["userId"].toString();
-    qDebug()<<"status---"<<status;
     if(status == -1)
     {
         ui->user_btn->hide();
