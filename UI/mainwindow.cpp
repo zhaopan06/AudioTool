@@ -124,6 +124,9 @@ void MainWindow::initUserUI()
         roomItem->setFixedSize(155,211);
         ui->gridLayout->addWidget(roomItem,0,0);
     }
+
+    initTim();
+    m_timInterface->login();
 }
 
 void MainWindow::mousePressEvent(QMouseEvent* event)
@@ -193,7 +196,7 @@ void MainWindow::initTim()
 {
     if(m_timInterface == nullptr)
     {
-        m_timInterface = new TimInterface;
+        m_timInterface = TimInterface::getInstance();
         m_timInterface->initSDK();
 
         connect(m_timInterface, &TimInterface::msg_liveClose, this, &MainWindow::msg_liveClose);
@@ -220,8 +223,7 @@ void MainWindow::loginIm(int code, QString msg)
     }
     else
     {        
-        QString chatRoomld = HttpUserInfo::instance()->getIMRoomID();
-        m_timInterface->groupJoin(chatRoomld.toLatin1());
+        qDebug()<<"login SUCC-----------";
     }
 }
 
@@ -235,13 +237,16 @@ void MainWindow::msg_liveClose()
     cleanupLayout(ui->contList);
     cleanupLayout(ui->micList);
 
+    m_micList.clear();
     ui->msgList->clear();
     ui->osList->clear();
     ui->chatList->clear();
     ui->enterRoomList->clear();
     ui->giftList->clear();
 
-    m_timInterface->logout();
+    QString chatRoomld = HttpUserInfo::instance()->getIMRoomID();
+    m_timInterface->groupOut(chatRoomld.toLatin1());
+
     ui->stackedWidget->setCurrentIndex(0);
 }
 
@@ -679,8 +684,9 @@ void MainWindow::enterTheToom(QVariantMap data)
             }
         }
 
-        initTim();
-        m_timInterface->login();
+        QString chatRoomld = HttpUserInfo::instance()->getIMRoomID();
+        m_timInterface->groupJoin(chatRoomld.toLatin1());
+
         ui->stackedWidget->setCurrentIndex(1);
 
         QString multipleAuthoriation = roomdata["multipleAuthoriation"].toString();
@@ -1143,9 +1149,9 @@ void MainWindow::on_pushButton_7_clicked()
     if(nullptr == m_chatPage)
     {
         m_chatPage = new ChatPage;
-        m_timInterface->initTIMConvGetConvList([&](const QVariant& json_data) {
-
-        });
+        connect(m_timInterface, &TimInterface::c2c_msg_text, m_chatPage, &ChatPage::c2c_msg_text);
+        connect(m_timInterface, &TimInterface::c2c_initTimList, m_chatPage, &ChatPage::c2c_initTimList);
+        m_timInterface->initTIMConvGetConvList();
     }
     m_chatPage->show();
 

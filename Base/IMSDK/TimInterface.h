@@ -34,7 +34,11 @@ class TimInterface : public QObject
 {
     Q_OBJECT
 public:
+    static TimInterface* getInstance();
+private:
     TimInterface();
+    static TimInterface *pTimInterfaceFace;
+public:
 
     //初始化腾讯IM
     int initSDK();
@@ -43,7 +47,9 @@ public:
     //初始化接受消息回调
     void initRecvNewMsgCallback();
 
-    void initTIMConvGetConvList(std::function<void(const QVariant& json_data)> callback);
+    void initTIMConvGetConvList();
+    void getInitTIMConvGetConvListMSGTojson(QByteArray json_msg_array);
+
     //登录
     int  login();
     //登出
@@ -58,6 +64,7 @@ public:
     /*-----------群组相关-----------*/
     //加入群组
     void groupJoin(const char* group_id);
+    void groupOut(const char* group_id);
     //群内发送消息
     int sendMessage_group(const char* conv_id, const char* json_msg_param, const void* user_data);
     //组建发送消息的json方法
@@ -73,22 +80,20 @@ signals:
     void msg_liveClose();
     void loginStatus(int,QString);
     void newMes();
-
     void msg_notice(QVariantMap, QString);
     void msg_emotion(QVariantMap, QString,int);//表情
     void msg_image(QVariantMap, QString, QString);
     void msg_txt(QVariantMap, QString, int);//文字
     void msg_vip(QVariantMap, QString url);
-
-
     void msg_micInfo(QVariantList);
     void msg_gift(QVariantMap,  QVariantMap,  QVariantMap);
     void updateContribute();
     void msg_updateMicList();
-
     void msg_multipleAuthoriation(QVariantMap);
-
     void msg_uninit();
+
+    void c2c_msg_text(QVariantMap, QString);
+    void c2c_initTimList(QVariantList);
 private:
 
 

@@ -16,6 +16,7 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStackedWidget>
@@ -50,14 +51,22 @@ public:
     QWidget *widget_7;
     QLabel *label_3;
     QLabel *label_5;
-    click_label *starLive_2;
+    click_label *msgPageBtn;
     QWidget *widget_6;
     QLabel *label_2;
     QLabel *label_4;
-    click_label *starLive;
+    click_label *communicationBtn;
     QSpacerItem *verticalSpacer;
+    QStackedWidget *stackedWidget1;
+    QWidget *page_3;
+    QHBoxLayout *horizontalLayout_3;
     QWidget *widget_3;
-    QStackedWidget *stackedWidge;
+    QVBoxLayout *verticalLayout_3;
+    QListWidget *listWidget;
+    QWidget *widget_4;
+    QVBoxLayout *verticalLayout_4;
+    QStackedWidget *stackedWidget2;
+    QWidget *page_4;
 
     void setupUi(QDialog *ChatPage)
     {
@@ -225,10 +234,10 @@ public:
 "font-family:SimSun;\n"
 "font-weight:400;\n"
 "color:rgba(102,102,102,1);"));
-        starLive_2 = new click_label(widget_7);
-        starLive_2->setObjectName(QString::fromUtf8("starLive_2"));
-        starLive_2->setGeometry(QRect(0, 0, 68, 70));
-        starLive_2->setStyleSheet(QString::fromUtf8("background-color: transparent; "));
+        msgPageBtn = new click_label(widget_7);
+        msgPageBtn->setObjectName(QString::fromUtf8("msgPageBtn"));
+        msgPageBtn->setGeometry(QRect(0, 0, 68, 70));
+        msgPageBtn->setStyleSheet(QString::fromUtf8("background-color: transparent; "));
 
         verticalLayout_2->addWidget(widget_7);
 
@@ -246,10 +255,10 @@ public:
 "font-family:SimSun;\n"
 "font-weight:400;\n"
 "color:rgba(102,102,102,1);"));
-        starLive = new click_label(widget_6);
-        starLive->setObjectName(QString::fromUtf8("starLive"));
-        starLive->setGeometry(QRect(0, 0, 68, 70));
-        starLive->setStyleSheet(QString::fromUtf8("background-color: transparent; "));
+        communicationBtn = new click_label(widget_6);
+        communicationBtn->setObjectName(QString::fromUtf8("communicationBtn"));
+        communicationBtn->setGeometry(QRect(0, 0, 68, 70));
+        communicationBtn->setStyleSheet(QString::fromUtf8("background-color: transparent; "));
 
         verticalLayout_2->addWidget(widget_6);
 
@@ -260,18 +269,74 @@ public:
 
         horizontalLayout_2->addWidget(widget_2);
 
-        widget_3 = new QWidget(widget);
+        stackedWidget1 = new QStackedWidget(widget);
+        stackedWidget1->setObjectName(QString::fromUtf8("stackedWidget1"));
+        page_3 = new QWidget();
+        page_3->setObjectName(QString::fromUtf8("page_3"));
+        horizontalLayout_3 = new QHBoxLayout(page_3);
+        horizontalLayout_3->setSpacing(0);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
+        widget_3 = new QWidget(page_3);
         widget_3->setObjectName(QString::fromUtf8("widget_3"));
         widget_3->setMinimumSize(QSize(300, 0));
         widget_3->setMaximumSize(QSize(300, 16777215));
         widget_3->setStyleSheet(QString::fromUtf8("background: #36383B;"));
+        verticalLayout_3 = new QVBoxLayout(widget_3);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        verticalLayout_3->setContentsMargins(0, 0, 0, 10);
+        listWidget = new QListWidget(widget_3);
+        listWidget->setObjectName(QString::fromUtf8("listWidget"));
+        listWidget->setStyleSheet(QString::fromUtf8("QListWidget\n"
+"{\n"
+"	border:none;\n"
+"}\n"
+"QListWidget::item\n"
+"{\n"
+"	border:none;\n"
+"    background:rgba(255,255,255,0);\n"
+"}\n"
+"QListWidget::item:hover\n"
+"{\n"
+"	border:none;\n"
+"    background: rgba(255,255,255,0.1);\n"
+"}\n"
+"QListWidget::item:selected\n"
+"{\n"
+"	border:none;\n"
+"    background: rgba(255,255,255,0.1);\n"
+"    padding:0px;\n"
+"    margin:0px;\n"
+"    border:0px ;\n"
+"}"));
 
-        horizontalLayout_2->addWidget(widget_3);
+        verticalLayout_3->addWidget(listWidget);
 
-        stackedWidge = new QStackedWidget(widget);
-        stackedWidge->setObjectName(QString::fromUtf8("stackedWidge"));
 
-        horizontalLayout_2->addWidget(stackedWidge);
+        horizontalLayout_3->addWidget(widget_3);
+
+        widget_4 = new QWidget(page_3);
+        widget_4->setObjectName(QString::fromUtf8("widget_4"));
+        verticalLayout_4 = new QVBoxLayout(widget_4);
+        verticalLayout_4->setSpacing(0);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        verticalLayout_4->setContentsMargins(16, 16, 16, 16);
+        stackedWidget2 = new QStackedWidget(widget_4);
+        stackedWidget2->setObjectName(QString::fromUtf8("stackedWidget2"));
+        stackedWidget2->setStyleSheet(QString::fromUtf8("background: #222429;\n"
+"border-radius: 12px;"));
+
+        verticalLayout_4->addWidget(stackedWidget2);
+
+
+        horizontalLayout_3->addWidget(widget_4);
+
+        stackedWidget1->addWidget(page_3);
+        page_4 = new QWidget();
+        page_4->setObjectName(QString::fromUtf8("page_4"));
+        stackedWidget1->addWidget(page_4);
+
+        horizontalLayout_2->addWidget(stackedWidget1);
 
 
         verticalLayout->addWidget(widget);
@@ -291,10 +356,10 @@ public:
         closeBtn->setText(QString());
         label_3->setText(QString());
         label_5->setText(QCoreApplication::translate("ChatPage", "\346\266\210\346\201\257", nullptr));
-        starLive_2->setText(QString());
+        msgPageBtn->setText(QString());
         label_2->setText(QString());
         label_4->setText(QCoreApplication::translate("ChatPage", "\351\200\232\350\256\257\345\275\225", nullptr));
-        starLive->setText(QString());
+        communicationBtn->setText(QString());
     } // retranslateUi
 
 };

@@ -15,6 +15,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QVBoxLayout>
+#include "CRoundLabel.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -22,7 +23,7 @@ class Ui_ChatPageLeftItem
 {
 public:
     QHBoxLayout *horizontalLayout;
-    QLabel *image;
+    CRoundLabel *image;
     QVBoxLayout *verticalLayout;
     QLabel *name;
     QLabel *text;
@@ -34,14 +35,16 @@ public:
         ChatPageLeftItem->resize(300, 70);
         ChatPageLeftItem->setMinimumSize(QSize(300, 70));
         ChatPageLeftItem->setMaximumSize(QSize(300, 70));
+        ChatPageLeftItem->setStyleSheet(QString::fromUtf8(" background-color: transparent; "));
         horizontalLayout = new QHBoxLayout(ChatPageLeftItem);
         horizontalLayout->setSpacing(12);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(16, 11, 16, 11);
-        image = new QLabel(ChatPageLeftItem);
+        image = new CRoundLabel(ChatPageLeftItem);
         image->setObjectName(QString::fromUtf8("image"));
         image->setMinimumSize(QSize(40, 40));
         image->setMaximumSize(QSize(40, 40));
+        image->setScaledContents(true);
 
         horizontalLayout->addWidget(image);
 

@@ -1,7 +1,9 @@
 ﻿#ifndef CHATPAGE_H
 #define CHATPAGE_H
 
+#include "ChatPageC2C.h"
 #include <QDialog>
+#include <QVariantMap>
 
 namespace Ui {
 class ChatPage;
@@ -14,15 +16,26 @@ class ChatPage : public QDialog
 public:
     explicit ChatPage(QWidget *parent = nullptr);
     ~ChatPage();
-    void init();
+    void init(QVariant data);
 protected:
     void mouseMoveEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent *event);
+public slots:
+    void c2c_msg_text(QVariantMap data, QString msg);
+    void c2c_initTimList(QVariantList list);
+private slots:
+    void on_communicationBtn_clicked();
+
+    void on_msgPageBtn_clicked();
+
+    void on_closeBtn_clicked();
+
 private:
     Ui::ChatPage *ui;
     bool  m_bMoveing = false;
     QPoint m_pMovePosition = QPoint(0,0);
+    ChatPageC2C *m_chatPage = nullptr;
 };
 
 #endif // CHATPAGE_H

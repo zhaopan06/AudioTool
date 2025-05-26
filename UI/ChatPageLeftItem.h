@@ -14,7 +14,7 @@ class ChatPageLeftItem : public QDialog
 public:
     explicit ChatPageLeftItem(QWidget *parent = nullptr);
     ~ChatPageLeftItem();
-
+    void setData(QVariantMap data, QString text);
 private:
     Ui::ChatPageLeftItem *ui;
 };

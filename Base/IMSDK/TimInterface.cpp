@@ -6,6 +6,16 @@
 #include <QJsonDocument>
 #include "MsgBox.h"
 
+TimInterface* TimInterface::pTimInterfaceFace = NULL;
+TimInterface *TimInterface::getInstance()
+{
+    if(pTimInterfaceFace == NULL)
+    {
+        pTimInterfaceFace = new TimInterface();
+    }
+    return pTimInterfaceFace;
+}
+
 TimInterface::TimInterface()
 {
 
@@ -150,8 +160,7 @@ QString TimInterface::setCustomJson(IMType imType, QString text)
 
 
     QVariantMap roomInfo = HttpUserInfo::instance()->getRoomInfo();
-    QJsonDocument user_doc(QJsonObject::fromVariantMap(roomInfo["userInfoResponse"].toMap()));
-    qDebug()<<"send user---"<<user_doc;
+    QJsonDocument user_doc(QJsonObject::fromVariantMap(roomInfo["userInfoResponse"].toMap()));    
 
     QVariantMap CustomJson;
     CustomJson["tximMsgType"] = "groupMsg";
@@ -191,31 +200,27 @@ void TimInterface::initRecvNewMsgCallback()
     }, this);
 }
 
-void TimInterface::initTIMConvGetConvList(std::function<void(const QVariant& json_data)> callback)
+void TimInterface::getInitTIMConvGetConvListMSGTojson(QByteArray json_msg_array)
+{
+    // 解析JSON消息数组
+    QJsonParseError error;
+    QJsonDocument json_doc = QJsonDocument::fromJson(json_msg_array, &error);
+    if (json_doc.isNull())
+        return;
+    if (!json_doc.isArray())
+        return;
+
+    emit c2c_initTimList(json_doc.toVariant().toList());
+}
+
+void TimInterface::initTIMConvGetConvList()
 {
     TIMConvGetConvList([](int32_t code, const char* desc, const char* json_param, const void* user_data) {
 
-        QVariant json_data;
-        if (json_param)
-        {
-            QJsonParseError error;
-            QJsonDocument json_doc = QJsonDocument::fromJson(json_param, &error);
-            if (error.error == QJsonParseError::NoError)
-            {
-                json_data = json_doc.toVariant();
-            }
-            else
-            {
-                qWarning() << "JSON parse error:" << error.errorString();
-                json_data = QString(json_param);
-            }
-        }
-        auto cb = static_cast<std::function<void(const QVariant&)>*>(const_cast<void*>(user_data));
-        if (cb && *cb)
-        {
-            (*cb)(json_data);
-        }
-    }, &callback);
+        TimInterface* ths = (TimInterface*)user_data;
+        ths->getInitTIMConvGetConvListMSGTojson(json_param);
+
+    }, this);
 }
 
 
@@ -234,6 +239,23 @@ void TimInterface::groupJoin(const char* group_id)
         }
     };
     TIMGroupJoin(group_id, "hello", callback, this);
+}
+
+void TimInterface::groupOut(const char *group_id)
+{
+    TIMCommCallback callback = [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
+
+        if (code != ERR_SUCC)
+        {
+            qDebug()<<"groupOut error-----------code-"<<code<<"---desc-"<<desc;
+            return ;
+        }
+        else
+        {
+            qDebug()<<"groupOut suess-----------";
+        }
+    };
+    TIMGroupQuit(group_id, callback, this);
 }
 
 void TimInterface::getMSGTojson(QByteArray json_msg_array)
@@ -322,7 +344,10 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                 if(kTIMConv_C2C == msg_obj["message_conv_type"].toInt())
                 {
                     QString content = elem[kTIMTextElemContent].toString();
-                    qDebug()<<tr("c2c文本消息---") << msg_obj;
+                    QString userJosn = msg_obj["message_offline_push_config"].toObject()["offline_push_config_ext"].toString();
+                    QJsonObject str_doc = QJsonDocument::fromJson(userJosn.toUtf8()).object();
+                    qDebug()<<tr("c2c str_doc---") << str_doc;
+                    emit c2c_msg_text(str_doc.toVariantMap(), content);
                 }
                 break;
             }
