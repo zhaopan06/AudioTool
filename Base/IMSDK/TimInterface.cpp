@@ -213,6 +213,42 @@ void TimInterface::getInitTIMConvGetConvListMSGTojson(QByteArray json_msg_array)
     emit c2c_initTimList(json_doc.toVariant().toList());
 }
 
+void TimInterface::initTIMMsgGetMsgList(QString userid)
+{
+    QJsonObject json_msg;
+    QJsonObject json_msgget_param;
+    json_msgget_param[kTIMMsgGetMsgListParamLastMsg] = json_msg;
+    json_msgget_param[kTIMMsgGetMsgListParamIsRamble] = true;
+    json_msgget_param[kTIMMsgGetMsgListParamIsForward] = false;
+    json_msgget_param[kTIMMsgGetMsgListParamCount] = 5;
+    QJsonDocument doc(json_msgget_param);
+
+    TIMMsgGetMsgList(userid.toStdString().c_str(), kTIMConv_C2C, doc.toJson(), [](int32_t code, const char* desc, const char* json_params, const void* user_data) {
+
+        if (code != ERR_SUCC)
+        {
+            return;
+        }
+        TimInterface* ths = (TimInterface*)user_data;
+        ths->getTIMMsgGetMsgList(json_params);
+
+    }, this);
+}
+
+void TimInterface::getTIMMsgGetMsgList(QByteArray json_msg_array)
+{
+    // 解析JSON消息数组
+    QJsonParseError error;
+    QJsonDocument json_doc = QJsonDocument::fromJson(json_msg_array, &error);
+    if (json_doc.isNull())
+        return;
+    if (!json_doc.isArray())
+        return;
+
+
+    emit c2c_initTimMsgList(json_doc.toVariant().toList());
+}
+
 void TimInterface::initTIMConvGetConvList()
 {
     TIMConvGetConvList([](int32_t code, const char* desc, const char* json_param, const void* user_data) {

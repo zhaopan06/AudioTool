@@ -1,4 +1,5 @@
 ﻿#include "ChatPageLeftItem.h"
+#include "Global.h"
 #include "ui_ChatPageLeftItem.h"
 #include "HttpInterFace.h"
 
@@ -18,6 +19,7 @@ ChatPageLeftItem::~ChatPageLeftItem()
 
 void ChatPageLeftItem::setData(QVariantMap data, QString text)
 {
+    m_data = data;
     QString user_profile_face_url = data["user_profile_face_url"].toString();
     QString name = data["user_profile_nick_name"].toString();
     ui->name->setText(name);
@@ -26,4 +28,9 @@ void ChatPageLeftItem::setData(QVariantMap data, QString text)
     HttpInterFace::getInstance()->downLoad(user_profile_face_url, [&](const QString &path) {
         ui->image->setPixmap(QPixmap(path));
     });
+}
+
+void ChatPageLeftItem::mouseReleaseEvent(QMouseEvent *ev)
+{
+    emit leftItemClicked(m_data["conv_id"].toString());
 }

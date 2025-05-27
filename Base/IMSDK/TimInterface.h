@@ -50,6 +50,7 @@ public:
     void initTIMConvGetConvList();
     void getInitTIMConvGetConvListMSGTojson(QByteArray json_msg_array);
 
+
     //登录
     int  login();
     //登出
@@ -58,7 +59,8 @@ public:
     /*****************c2c相关*****************************/
     //c2c发送消息
     int sendMessage_c2c(const char* conv_id, const char* json_msg_param, const void* user_data);
-
+    void initTIMMsgGetMsgList(QString userid);
+    void getTIMMsgGetMsgList(QByteArray json_msg_array);
 
 
     /*-----------群组相关-----------*/
@@ -94,6 +96,7 @@ signals:
 
     void c2c_msg_text(QVariantMap, QString);
     void c2c_initTimList(QVariantList);
+    void c2c_initTimMsgList(QVariantList);
 private:
 
 

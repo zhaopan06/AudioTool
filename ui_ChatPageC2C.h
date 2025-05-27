@@ -37,6 +37,8 @@ public:
     QHBoxLayout *horizontalLayout;
     QPushButton *Attention;
     QPushButton *pushButton;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout_2;
     QListWidget *listWidget;
     QWidget *widget_44;
     QVBoxLayout *verticalLayout_34;
@@ -140,10 +142,20 @@ public:
 
         verticalLayout->addWidget(widget_36);
 
-        listWidget = new QListWidget(ChatPageC2C);
+        widget = new QWidget(ChatPageC2C);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        verticalLayout_2 = new QVBoxLayout(widget);
+        verticalLayout_2->setSpacing(0);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, 16, 0, 0);
+        listWidget = new QListWidget(widget);
         listWidget->setObjectName(QString::fromUtf8("listWidget"));
+        listWidget->setSpacing(6);
 
-        verticalLayout->addWidget(listWidget);
+        verticalLayout_2->addWidget(listWidget);
+
+
+        verticalLayout->addWidget(widget);
 
         widget_44 = new QWidget(ChatPageC2C);
         widget_44->setObjectName(QString::fromUtf8("widget_44"));

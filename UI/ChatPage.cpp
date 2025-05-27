@@ -24,7 +24,7 @@ ChatPage::~ChatPage()
 
 void ChatPage::init(QVariant data)
 {
-    showMapTojson(data.toMap());
+
 }
 
 void ChatPage::mousePressEvent(QMouseEvent* event)
@@ -79,7 +79,9 @@ void ChatPage::c2c_initTimList(QVariantList list)
         }
 
         QVariantMap setData = data["conv_last_msg"].toMap()["message_sender_profile"].toMap();
+        setData["conv_id"] = data["conv_id"];
         ChatPageLeftItem *item = new ChatPageLeftItem;
+        connect(item, &ChatPageLeftItem::leftItemClicked, this, &ChatPage::initChatHisMsg);
         item->setData(setData, setText);
         QListWidgetItem *item1 = new QListWidgetItem();
         ui->listWidget->addItem(item1);
@@ -111,5 +113,14 @@ void ChatPage::on_msgPageBtn_clicked()
 void ChatPage::on_closeBtn_clicked()
 {
     hide();
+}
+
+void ChatPage::initChatHisMsg(QString uid)
+{
+    TimInterface::getInstance()->initTIMMsgGetMsgList(uid);
+}
+void ChatPage::c2c_initTimMsgList(QVariantList list)
+{
+    m_chatPage->init(list);
 }
 

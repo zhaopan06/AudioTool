@@ -15,6 +15,7 @@ public:
     explicit ChatPageC2C(QWidget *parent = nullptr);
     ~ChatPageC2C();
 
+    void init(QVariantList list);
 private:
     Ui::ChatPageC2C *ui;
 };

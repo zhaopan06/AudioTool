@@ -4,6 +4,7 @@
 #include "ChatPageC2C.h"
 #include <QDialog>
 #include <QVariantMap>
+#include "Base/IMSDK/TimInterface.h"
 
 namespace Ui {
 class ChatPage;
@@ -24,6 +25,7 @@ protected:
 public slots:
     void c2c_msg_text(QVariantMap data, QString msg);
     void c2c_initTimList(QVariantList list);
+    void c2c_initTimMsgList(QVariantList list);
 private slots:
     void on_communicationBtn_clicked();
 
@@ -31,6 +33,7 @@ private slots:
 
     void on_closeBtn_clicked();
 
+    void initChatHisMsg(QString uid);
 private:
     Ui::ChatPage *ui;
     bool  m_bMoveing = false;

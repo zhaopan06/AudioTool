@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ChatPageC2CTextItem</class>
+ <widget class="QDialog" name="ChatPageC2CTextItem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>490</width>
+    <height>64</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="spacing">
+    <number>12</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="CRoundLabel" name="image">
+       <property name="minimumSize">
+        <size>
+         <width>46</width>
+         <height>46</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>46</width>
+         <height>46</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="spacing">
+       <number>8</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>12</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="name">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: &quot;微软雅黑&quot;;
+font-weight: 400;
+font-size: 16px;
+color: #A8A8A7;
+line-height: 22px;
+text-align: left;
+font-style: normal;</string>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget_2" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>34</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: rgba(60, 60, 86, 1);
+border-top-left-radius: 0px;   
+border-top-right-radius: 12px;   
+border-bottom-right-radius: 12px;
+border-bottom-left-radius: 12px;
+
+
+font-family: &quot;微软雅黑&quot;;
+font-size: 16px;
+color: #FFFFFF;
+text-align: right;</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>12</number>
+         </property>
+         <property name="topMargin">
+          <number>6</number>
+         </property>
+         <property name="rightMargin">
+          <number>12</number>
+         </property>
+         <property name="bottomMargin">
+          <number>6</number>
+         </property>
+         <item>
+          <layout class="QHBoxLayout" name="textLayout">
+           <item>
+            <widget class="click_label" name="label">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="scaledContents">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CRoundLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">CRoundLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>click_label</class>
+   <extends>QLabel</extends>
+   <header location="global">click_label.h</header>
+   <slots>
+    <signal>clicked()</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
