@@ -64,7 +64,7 @@ border-radius: 0px;
        <number>0</number>
       </property>
       <property name="rightMargin">
-       <number>20</number>
+       <number>16</number>
       </property>
       <property name="bottomMargin">
        <number>1</number>
@@ -188,6 +188,12 @@ font-style: normal;</string>
    </item>
    <item>
     <widget class="QWidget" name="widget" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <property name="spacing">
        <number>0</number>
@@ -206,6 +212,12 @@ font-style: normal;</string>
       </property>
       <item>
        <widget class="QListWidget" name="listWidget">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="spacing">
          <number>6</number>
         </property>
@@ -216,6 +228,12 @@ font-style: normal;</string>
    </item>
    <item>
     <widget class="QWidget" name="widget_44" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -244,7 +262,7 @@ font-style: normal;</string>
          <number>4</number>
         </property>
         <item>
-         <widget class="QPushButton" name="giftBtn_2">
+         <widget class="QPushButton" name="giftBtn">
           <property name="minimumSize">
            <size>
             <width>24</width>
@@ -283,7 +301,7 @@ background-image: url(:/images/live_gift_c.png);
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="emoBtn_2">
+         <widget class="QPushButton" name="emoBtn">
           <property name="minimumSize">
            <size>
             <width>24</width>
@@ -377,6 +395,12 @@ background-image: url(:/images/live_image_c.png);
       </item>
       <item>
        <widget class="QFrame" name="frame_6">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -386,7 +410,7 @@ background-image: url(:/images/live_image_c.png);
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>42</height>
+          <height>16777215</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -410,27 +434,21 @@ border: 1px solid #A8A8A7;
           <number>16</number>
          </property>
          <property name="topMargin">
-          <number>0</number>
+          <number>10</number>
          </property>
          <property name="rightMargin">
           <number>10</number>
          </property>
          <property name="bottomMargin">
-          <number>0</number>
+          <number>10</number>
          </property>
          <item>
-          <widget class="ImageDropLineEdit" name="msgEdit">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>16777215</height>
-            </size>
+          <widget class="QTextEdit" name="textEdit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
            <property name="styleSheet">
             <string notr="true">border:none;
@@ -438,16 +456,13 @@ font-family: &quot;微软雅黑&quot;;
 font-size: 16px;
 color: #FFFFFF;</string>
            </property>
-           <property name="text">
-            <string/>
-           </property>
            <property name="placeholderText">
             <string>请输入内容，支持直接粘贴图片</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="sendBtn_2">
+          <widget class="QPushButton" name="sendBtn">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -558,13 +573,6 @@ line-height: 20px;
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>ImageDropLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>ImageDropLineEdit.h</header>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="../res.qrc"/>
  </resources>

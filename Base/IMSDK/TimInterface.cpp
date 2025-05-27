@@ -1,4 +1,5 @@
 ﻿#include "TimInterface.h"
+#include "Global.h"
 #include "qcoreapplication.h"
 #include "qdebug.h"
 #include "HttpUserInfo.h"
@@ -98,7 +99,7 @@ void TimInterface::setSendJson(IMType type, QString text)
     QVariantMap json_value_text;
     if(type == IMType_Text)
         json_value_text[kTIMElemType] = kTIMElem_Text;
-    if(type == IMType_Image)
+    else if(type == IMType_Image)
         json_value_text[kTIMElemType] = kTIMElem_Image;
     else
         json_value_text[kTIMElemType] = kTIMElem_Custom;
@@ -180,7 +181,7 @@ int TimInterface::sendMessage_c2c(const char *conv_id, const char *json_msg_para
 
         if (code != ERR_SUCC)
         { // 失败
-            qDebug()<<"sendMessage_c2c error-----------";
+            qDebug()<<"groupJoin error-----------code-"<<code<<"---desc-"<<desc;
             return ;
         }
         else
@@ -189,7 +190,7 @@ int TimInterface::sendMessage_c2c(const char *conv_id, const char *json_msg_para
             qDebug()<<"sendMessage_c2c suess-----------";
         }
     };
-    return TIMMsgSendNewMsg(conv_id, kTIMConv_C2C, json_msg_param, callback, user_data);
+    return TIMMsgSendMessage(conv_id, kTIMConv_C2C, json_msg_param, nullptr, callback, user_data);
 }
 
 void TimInterface::initRecvNewMsgCallback()
@@ -247,6 +248,34 @@ void TimInterface::getTIMMsgGetMsgList(QByteArray json_msg_array)
 
 
     emit c2c_initTimMsgList(json_doc.toVariant().toList());
+}
+
+void TimInterface::setC2CSendJson(IMType type, QString text, QString toUid)
+{
+    QVariantMap json_value_text;
+    if(type == IMType_Text)
+        json_value_text[kTIMElemType] = kTIMElem_Text;
+    else if(type == IMType_Image)
+        json_value_text[kTIMElemType] = kTIMElem_Image;
+    else
+        json_value_text[kTIMElemType] = kTIMElem_Custom;
+
+    json_value_text[kTIMTextElemContent] = text;
+
+
+    // 创建消息元素数组
+    QVariantMap json_value_msg;
+    QVariantList elem_array;
+    elem_array.append(json_value_text);
+    json_value_msg[kTIMMsgElemArray] = elem_array;
+    json_value_msg[kTIMMsgSender] = "user" + HttpUserInfo::instance()->getUserID();
+    json_value_msg[kTIMMsgClientTime] = time(NULL);
+    json_value_msg[kTIMMsgServerTime] = time(NULL);
+    json_value_msg[kTIMMsgConvId] = toUid;
+    json_value_msg[kTIMMsgConvType] = kTIMConv_C2C;
+
+    QJsonDocument doc(QJsonObject::fromVariantMap(json_value_msg));
+    sendMessage_c2c(toUid.toLatin1(), doc.toJson(), this);
 }
 
 void TimInterface::initTIMConvGetConvList()

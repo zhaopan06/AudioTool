@@ -4,6 +4,7 @@
 #include "qjsondocument.h"
 #include "qjsonobject.h"
 #include "ui_ChatPageC2C.h"
+#include "TimInterface.h"
 
 ChatPageC2C::ChatPageC2C(QWidget *parent)
     : QDialog(parent)
@@ -31,14 +32,8 @@ void ChatPageC2C::init(QVariantList list)
             uint32_t elem_type = var.toMap()["elem_type"].toInt();
             if(1 == elem_type)//图片
             {
-                showMapTojson(data);
-
-
                 QString path = var.toMap()["image_elem_thumb_url"].toString();
                 QString largePath = var.toMap()["image_elem_large_url"].toString();
-                qDebug()<<"path---"<<path;
-                qDebug()<<"largePath---"<<largePath;
-
                 QVariantMap message_offline_push_config = data["message_offline_push_config"].toMap();
                 QString userstr = message_offline_push_config["offline_push_config_ext"].toString();
                 QJsonObject userData = QJsonDocument::fromJson(userstr.toUtf8()).object();
@@ -67,3 +62,28 @@ void ChatPageC2C::init(QVariantList list)
         }
     }
 }
+
+void ChatPageC2C::setUid(QString conv_id)
+{
+    m_message_conv_id = conv_id;
+}
+
+void ChatPageC2C::on_textEdit_textChanged()
+{
+    if(ui->textEdit->toPlainText().size() > 1)
+    {
+        ui->sendBtn->setDisabled(false);
+    }
+    else
+    {
+        ui->sendBtn->setDisabled(true);
+    }
+}
+
+void ChatPageC2C::on_sendBtn_clicked()
+{
+    QString text = ui->textEdit->toPlainText();
+    TimInterface::getInstance()->setC2CSendJson(IMType_Text, text, m_message_conv_id);
+    ui->textEdit->clear();
+}
+

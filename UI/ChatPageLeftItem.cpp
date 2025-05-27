@@ -20,12 +20,12 @@ ChatPageLeftItem::~ChatPageLeftItem()
 void ChatPageLeftItem::setData(QVariantMap data, QString text)
 {
     m_data = data;
-    QString user_profile_face_url = data["user_profile_face_url"].toString();
-    QString name = data["user_profile_nick_name"].toString();
+    QString conv_face_url = data["conv_face_url"].toString();
+    QString name = data["conv_show_name"].toString();
     ui->name->setText(name);
     ui->text->setText(text);
 
-    HttpInterFace::getInstance()->downLoad(user_profile_face_url, [&](const QString &path) {
+    HttpInterFace::getInstance()->downLoad(conv_face_url, [&](const QString &path) {
         ui->image->setPixmap(QPixmap(path));
     });
 }

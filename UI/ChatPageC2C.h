@@ -16,8 +16,15 @@ public:
     ~ChatPageC2C();
 
     void init(QVariantList list);
+    void setUid(QString conv_id);
+private slots:
+    void on_textEdit_textChanged();
+
+    void on_sendBtn_clicked();
+
 private:
     Ui::ChatPageC2C *ui;
+    QString m_message_conv_id;
 };
 
 #endif // CHATPAGEC2C_H

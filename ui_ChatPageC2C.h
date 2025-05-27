@@ -19,9 +19,9 @@
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "ImageDropLineEdit.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -43,14 +43,14 @@ public:
     QWidget *widget_44;
     QVBoxLayout *verticalLayout_34;
     QHBoxLayout *horizontalLayout_30;
-    QPushButton *giftBtn_2;
-    QPushButton *emoBtn_2;
+    QPushButton *giftBtn;
+    QPushButton *emoBtn;
     QPushButton *imageBtn;
     QSpacerItem *horizontalSpacer_13;
     QFrame *frame_6;
     QHBoxLayout *horizontalLayout_6;
-    ImageDropLineEdit *msgEdit;
-    QPushButton *sendBtn_2;
+    QTextEdit *textEdit;
+    QPushButton *sendBtn;
     QWidget *widget_2;
     QVBoxLayout *verticalLayout_3;
 
@@ -76,7 +76,7 @@ public:
         horizontalLayout_22 = new QHBoxLayout(widget_36);
         horizontalLayout_22->setSpacing(6);
         horizontalLayout_22->setObjectName(QString::fromUtf8("horizontalLayout_22"));
-        horizontalLayout_22->setContentsMargins(20, 0, 20, 1);
+        horizontalLayout_22->setContentsMargins(20, 0, 16, 1);
         label_14 = new QLabel(widget_36);
         label_14->setObjectName(QString::fromUtf8("label_14"));
         label_14->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
@@ -144,12 +144,22 @@ public:
 
         widget = new QWidget(ChatPageC2C);
         widget->setObjectName(QString::fromUtf8("widget"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
+        widget->setSizePolicy(sizePolicy);
         verticalLayout_2 = new QVBoxLayout(widget);
         verticalLayout_2->setSpacing(0);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 16, 0, 0);
         listWidget = new QListWidget(widget);
         listWidget->setObjectName(QString::fromUtf8("listWidget"));
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
+        listWidget->setSizePolicy(sizePolicy1);
         listWidget->setSpacing(6);
 
         verticalLayout_2->addWidget(listWidget);
@@ -159,6 +169,11 @@ public:
 
         widget_44 = new QWidget(ChatPageC2C);
         widget_44->setObjectName(QString::fromUtf8("widget_44"));
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Maximum);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(widget_44->sizePolicy().hasHeightForWidth());
+        widget_44->setSizePolicy(sizePolicy2);
         widget_44->setMinimumSize(QSize(0, 98));
         verticalLayout_34 = new QVBoxLayout(widget_44);
         verticalLayout_34->setSpacing(8);
@@ -167,11 +182,11 @@ public:
         horizontalLayout_30 = new QHBoxLayout();
         horizontalLayout_30->setObjectName(QString::fromUtf8("horizontalLayout_30"));
         horizontalLayout_30->setContentsMargins(-1, 4, -1, -1);
-        giftBtn_2 = new QPushButton(widget_44);
-        giftBtn_2->setObjectName(QString::fromUtf8("giftBtn_2"));
-        giftBtn_2->setMinimumSize(QSize(24, 24));
-        giftBtn_2->setMaximumSize(QSize(24, 24));
-        giftBtn_2->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
+        giftBtn = new QPushButton(widget_44);
+        giftBtn->setObjectName(QString::fromUtf8("giftBtn"));
+        giftBtn->setMinimumSize(QSize(24, 24));
+        giftBtn->setMaximumSize(QSize(24, 24));
+        giftBtn->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
 "border:none;\n"
 "background-image: url(:/images/live_gift_n.png);\n"
 "\n"
@@ -183,15 +198,15 @@ public:
 "\n"
 "}\n"
 ""));
-        giftBtn_2->setIconSize(QSize(24, 24));
+        giftBtn->setIconSize(QSize(24, 24));
 
-        horizontalLayout_30->addWidget(giftBtn_2);
+        horizontalLayout_30->addWidget(giftBtn);
 
-        emoBtn_2 = new QPushButton(widget_44);
-        emoBtn_2->setObjectName(QString::fromUtf8("emoBtn_2"));
-        emoBtn_2->setMinimumSize(QSize(24, 24));
-        emoBtn_2->setMaximumSize(QSize(24, 24));
-        emoBtn_2->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
+        emoBtn = new QPushButton(widget_44);
+        emoBtn->setObjectName(QString::fromUtf8("emoBtn"));
+        emoBtn->setMinimumSize(QSize(24, 24));
+        emoBtn->setMaximumSize(QSize(24, 24));
+        emoBtn->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
 "border:none;\n"
 "background-image: url(:/images/live_em_n.png);\n"
 "\n"
@@ -203,9 +218,9 @@ public:
 "\n"
 "}\n"
 ""));
-        emoBtn_2->setIconSize(QSize(24, 24));
+        emoBtn->setIconSize(QSize(24, 24));
 
-        horizontalLayout_30->addWidget(emoBtn_2);
+        horizontalLayout_30->addWidget(emoBtn);
 
         imageBtn = new QPushButton(widget_44);
         imageBtn->setObjectName(QString::fromUtf8("imageBtn"));
@@ -236,8 +251,10 @@ public:
 
         frame_6 = new QFrame(widget_44);
         frame_6->setObjectName(QString::fromUtf8("frame_6"));
+        sizePolicy2.setHeightForWidth(frame_6->sizePolicy().hasHeightForWidth());
+        frame_6->setSizePolicy(sizePolicy2);
         frame_6->setMinimumSize(QSize(0, 42));
-        frame_6->setMaximumSize(QSize(16777215, 42));
+        frame_6->setMaximumSize(QSize(16777215, 16777215));
         frame_6->setStyleSheet(QString::fromUtf8("background: transparent;\n"
 "border-radius: 21px;\n"
 "border: 1px solid #A8A8A7;\n"
@@ -248,24 +265,27 @@ public:
         horizontalLayout_6 = new QHBoxLayout(frame_6);
         horizontalLayout_6->setSpacing(10);
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
-        horizontalLayout_6->setContentsMargins(16, 0, 10, 0);
-        msgEdit = new ImageDropLineEdit(frame_6);
-        msgEdit->setObjectName(QString::fromUtf8("msgEdit"));
-        msgEdit->setMinimumSize(QSize(0, 0));
-        msgEdit->setMaximumSize(QSize(16777215, 16777215));
-        msgEdit->setStyleSheet(QString::fromUtf8("border:none;\n"
+        horizontalLayout_6->setContentsMargins(16, 10, 10, 10);
+        textEdit = new QTextEdit(frame_6);
+        textEdit->setObjectName(QString::fromUtf8("textEdit"));
+        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Maximum);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(textEdit->sizePolicy().hasHeightForWidth());
+        textEdit->setSizePolicy(sizePolicy3);
+        textEdit->setStyleSheet(QString::fromUtf8("border:none;\n"
 "font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-size: 16px;\n"
 "color: #FFFFFF;"));
 
-        horizontalLayout_6->addWidget(msgEdit);
+        horizontalLayout_6->addWidget(textEdit);
 
-        sendBtn_2 = new QPushButton(frame_6);
-        sendBtn_2->setObjectName(QString::fromUtf8("sendBtn_2"));
-        sendBtn_2->setEnabled(false);
-        sendBtn_2->setMinimumSize(QSize(66, 28));
-        sendBtn_2->setMaximumSize(QSize(16777215, 16777215));
-        sendBtn_2->setStyleSheet(QString::fromUtf8("QPushButton{\n"
+        sendBtn = new QPushButton(frame_6);
+        sendBtn->setObjectName(QString::fromUtf8("sendBtn"));
+        sendBtn->setEnabled(false);
+        sendBtn->setMinimumSize(QSize(66, 28));
+        sendBtn->setMaximumSize(QSize(16777215, 16777215));
+        sendBtn->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #D197FE, stop:1 #9752ED);\n"
 "border-radius: 14px;\n"
 "font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
@@ -292,10 +312,10 @@ public:
 ""));
         QIcon icon1;
         icon1.addFile(QString::fromUtf8(":/images/live_send_n.png"), QSize(), QIcon::Normal, QIcon::Off);
-        sendBtn_2->setIcon(icon1);
-        sendBtn_2->setIconSize(QSize(17, 16));
+        sendBtn->setIcon(icon1);
+        sendBtn->setIconSize(QSize(17, 16));
 
-        horizontalLayout_6->addWidget(sendBtn_2);
+        horizontalLayout_6->addWidget(sendBtn);
 
 
         verticalLayout_34->addWidget(frame_6);
@@ -305,11 +325,8 @@ public:
 
         widget_2 = new QWidget(ChatPageC2C);
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
-        widget_2->setSizePolicy(sizePolicy);
+        sizePolicy3.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
+        widget_2->setSizePolicy(sizePolicy3);
         widget_2->setMinimumSize(QSize(0, 0));
         widget_2->setMaximumSize(QSize(16777215, 16777215));
         widget_2->setStyleSheet(QString::fromUtf8(""));
@@ -333,14 +350,13 @@ public:
         label->setText(QCoreApplication::translate("ChatPageC2C", " \302\267 \347\233\270\350\257\20630\345\244\251", nullptr));
         Attention->setText(QCoreApplication::translate("ChatPageC2C", "\345\217\226\346\266\210\345\205\263\346\263\250", nullptr));
         pushButton->setText(QString());
-        giftBtn_2->setText(QString());
-        emoBtn_2->setText(QString());
+        giftBtn->setText(QString());
+        emoBtn->setText(QString());
         imageBtn->setText(QString());
-        msgEdit->setText(QString());
-        msgEdit->setPlaceholderText(QCoreApplication::translate("ChatPageC2C", "\350\257\267\350\276\223\345\205\245\345\206\205\345\256\271\357\274\214\346\224\257\346\214\201\347\233\264\346\216\245\347\262\230\350\264\264\345\233\276\347\211\207", nullptr));
-        sendBtn_2->setText(QCoreApplication::translate("ChatPageC2C", "\345\217\221\351\200\201", nullptr));
+        textEdit->setPlaceholderText(QCoreApplication::translate("ChatPageC2C", "\350\257\267\350\276\223\345\205\245\345\206\205\345\256\271\357\274\214\346\224\257\346\214\201\347\233\264\346\216\245\347\262\230\350\264\264\345\233\276\347\211\207", nullptr));
+        sendBtn->setText(QCoreApplication::translate("ChatPageC2C", "\345\217\221\351\200\201", nullptr));
 #if QT_CONFIG(shortcut)
-        sendBtn_2->setShortcut(QCoreApplication::translate("ChatPageC2C", "Return", nullptr));
+        sendBtn->setShortcut(QCoreApplication::translate("ChatPageC2C", "Return", nullptr));
 #endif // QT_CONFIG(shortcut)
     } // retranslateUi
 

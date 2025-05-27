@@ -61,14 +61,15 @@ public:
     int sendMessage_c2c(const char* conv_id, const char* json_msg_param, const void* user_data);
     void initTIMMsgGetMsgList(QString userid);
     void getTIMMsgGetMsgList(QByteArray json_msg_array);
+    //组建发送消息的json方法
+    void setC2CSendJson(IMType type, QString text, QString toUid);
 
 
     /*-----------群组相关-----------*/
     //加入群组
     void groupJoin(const char* group_id);
     void groupOut(const char* group_id);
-    //群内发送消息
-    int sendMessage_group(const char* conv_id, const char* json_msg_param, const void* user_data);
+
     //组建发送消息的json方法
     void setSendJson(IMType type, QString text);
     void sendImage(QString path);
@@ -77,7 +78,8 @@ public:
 private:
     //有新消息,解析消息
     void getMSGTojson(QByteArray msg);
-
+    //群内发送消息
+    int sendMessage_group(const char* conv_id, const char* json_msg_param, const void* user_data);
 signals:
     void msg_liveClose();
     void loginStatus(int,QString);

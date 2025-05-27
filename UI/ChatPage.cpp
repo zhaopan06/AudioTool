@@ -4,6 +4,7 @@
 #include "qevent.h"
 #include "qscrollbar.h"
 #include "ui_ChatPage.h"
+#include "HttpUserInfo.h"
 
 ChatPage::ChatPage(QWidget *parent)
     : QDialog(parent)
@@ -63,6 +64,10 @@ void ChatPage::c2c_initTimList(QVariantList list)
     {
         QString setText;
         QVariantMap data = var.toMap();
+
+        if(!data["conv_id"].toString().contains("user"))
+            continue;
+
         QVariantList elems = data["conv_last_msg"].toMap()["message_elem_array"].toList();
         foreach (auto var, elems)
         {
@@ -78,8 +83,10 @@ void ChatPage::c2c_initTimList(QVariantList list)
             }
         }
 
-        QVariantMap setData = data["conv_last_msg"].toMap()["message_sender_profile"].toMap();
+        QVariantMap setData;
         setData["conv_id"] = data["conv_id"];
+        setData["conv_show_name"] = data["conv_show_name"];
+        setData["conv_face_url"] = data["conv_face_url"];
         ChatPageLeftItem *item = new ChatPageLeftItem;
         connect(item, &ChatPageLeftItem::leftItemClicked, this, &ChatPage::initChatHisMsg);
         item->setData(setData, setText);
@@ -118,6 +125,7 @@ void ChatPage::on_closeBtn_clicked()
 void ChatPage::initChatHisMsg(QString uid)
 {
     TimInterface::getInstance()->initTIMMsgGetMsgList(uid);
+    m_chatPage->setUid(uid);
 }
 void ChatPage::c2c_initTimMsgList(QVariantList list)
 {
