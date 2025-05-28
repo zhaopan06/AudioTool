@@ -19,9 +19,9 @@
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "ImageTextEdit.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -49,7 +49,7 @@ public:
     QSpacerItem *horizontalSpacer_13;
     QFrame *frame_6;
     QHBoxLayout *horizontalLayout_6;
-    QTextEdit *textEdit;
+    ImageTextEdit *textEdit;
     QPushButton *sendBtn;
     QWidget *widget_2;
     QVBoxLayout *verticalLayout_3;
@@ -266,7 +266,7 @@ public:
         horizontalLayout_6->setSpacing(10);
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
         horizontalLayout_6->setContentsMargins(16, 10, 10, 10);
-        textEdit = new QTextEdit(frame_6);
+        textEdit = new ImageTextEdit(frame_6);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
         QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Maximum);
         sizePolicy3.setHorizontalStretch(0);

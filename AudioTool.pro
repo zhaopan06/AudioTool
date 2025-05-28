@@ -115,6 +115,7 @@ HEADERS += \
     control/EmotionPage.h \
     control/ImageDialog.h \
     control/ImageDropLineEdit.h \
+    control/ImageTextEdit.h \
     control/MenuHomeownerRight.h \
     control/MenuLockRight.h \
     control/MenuManagerRight.h \

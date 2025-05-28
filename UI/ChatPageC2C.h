@@ -19,10 +19,16 @@ public:
     void setUid(QString conv_id);
 
     void addTextMsg(QVariantMap data, QString text);
+
+private:
+    bool eventFilter(QObject *obj, QEvent *event);
+    void handleImagePaste();
 private slots:
     void on_textEdit_textChanged();
 
     void on_sendBtn_clicked();
+
+    void on_imageBtn_clicked();
 
 private:
     Ui::ChatPageC2C *ui;

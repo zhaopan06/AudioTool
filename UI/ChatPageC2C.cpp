@@ -3,15 +3,23 @@
 #include "ChatPageC2CTextItem.h"
 #include "Global.h"
 #include "HttpUserInfo.h"
+#include "qclipboard.h"
+#include "qevent.h"
+#include "qfileinfo.h"
+#include "qimagereader.h"
 #include "qjsonobject.h"
+#include "qmimedata.h"
 #include "ui_ChatPageC2C.h"
 #include "TimInterface.h"
+#include "QFileDialog.h"
 
 ChatPageC2C::ChatPageC2C(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::ChatPageC2C)
 {
     ui->setupUi(this);
+    ui->textEdit->setAcceptRichText(true);
+    ui->textEdit->installEventFilter(this);
 }
 
 ChatPageC2C::~ChatPageC2C()
@@ -143,5 +151,61 @@ void ChatPageC2C::on_sendBtn_clicked()
     item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
     ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
     ui->listWidget->scrollToBottom();
+}
+
+bool ChatPageC2C::eventFilter(QObject *obj, QEvent *event)
+{
+    if (obj == ui->textEdit && event->type() == QEvent::KeyPress)
+    {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+        if (keyEvent->matches(QKeySequence::Paste))
+        {
+            handleImagePaste();
+            return true; // 拦截粘贴事件
+        }
+    }
+    return QObject::eventFilter(obj, event);
+}
+
+void ChatPageC2C::handleImagePaste()
+{
+    const QClipboard *clipboard = QApplication::clipboard();
+    const QMimeData *mimeData = clipboard->mimeData();
+
+    if (mimeData->hasImage())
+    {
+        QImage image = qvariant_cast<QImage>(mimeData->imageData());
+        ui->textEdit->textCursor().insertImage(image); // 插入图片
+    }
+    else if (mimeData->hasUrls())
+    {
+        QList<QUrl> urls = mimeData->urls();
+        for (const QUrl &url : urls)
+        {
+            if (url.isLocalFile() && QImageReader::supportedImageFormats().contains(QFileInfo(url.toLocalFile()).suffix().toLower().toUtf8()))
+            {
+                QImage image(url.toLocalFile());
+                if (!image.isNull())
+                {
+                    ui->textEdit->textCursor().insertImage(image);
+                }
+            }
+        }
+    }
+    else
+    {
+        ui->textEdit->paste(); // 默认粘贴文本
+    }
+}
+
+void ChatPageC2C::on_imageBtn_clicked()
+{
+    QString localPath = QFileDialog::getOpenFileName(0, QStringLiteral("选择图片"), "", QStringLiteral("jpg、png图片(*.jpg *.png)"));
+    if (localPath.isEmpty())
+    {
+        return;
+    }
+    QImage pix(localPath);
+    ui->textEdit->insertImage(pix);
 }
 

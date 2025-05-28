@@ -443,7 +443,7 @@ border: 1px solid #A8A8A7;
           <number>10</number>
          </property>
          <item>
-          <widget class="QTextEdit" name="textEdit">
+          <widget class="ImageTextEdit" name="textEdit">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
              <horstretch>0</horstretch>
@@ -573,6 +573,13 @@ line-height: 20px;
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ImageTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header>ImageTextEdit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../res.qrc"/>
  </resources>
