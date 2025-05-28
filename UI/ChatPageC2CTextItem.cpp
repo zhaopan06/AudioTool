@@ -16,18 +16,16 @@ ChatPageC2CTextItem::~ChatPageC2CTextItem()
     delete ui;
 }
 
-void ChatPageC2CTextItem::setData(QVariantMap data, QString text)
+void ChatPageC2CTextItem::setData(QVariantMap data, QString text, int width)
 {
-    QVariantMap entity = data["entity"].toMap();
-    QString faceUrl = entity["faceUrl"].toString();
-    HttpInterFace::getInstance()->downLoad(faceUrl, [&](const QString &path) {
+    QString user_profile_face_url = data["user_profile_face_url"].toString();
+    HttpInterFace::getInstance()->downLoad(user_profile_face_url, [&](const QString &path) {
         ui->image->setPixmap(QPixmap(path));
     });
-    QString nickname = entity["nickname"].toString();
+    QString nickname = data["user_profile_nick_name"].toString();
     ui->name->setText(nickname);
 
     //设置文字
-
     ui->label->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
     QString labelText = text;
     labelText = replaceEmojiTagsSimple(labelText);
@@ -38,8 +36,9 @@ void ChatPageC2CTextItem::setData(QVariantMap data, QString text)
     font.setPixelSize(16);
     QFontMetrics fontMetrics(font);
     int textWidth = fontMetrics.horizontalAdvance(text);
-    if(textWidth > ui->widget_2->width() - 24)
+    if(textWidth > (width - 160))
     {
+        ui->widget_2->setFixedWidth(width - 160);
         ui->label->setWordWrap(true);
         ui->label->adjustSize();
         this->adjustSize();
@@ -47,18 +46,18 @@ void ChatPageC2CTextItem::setData(QVariantMap data, QString text)
     else
     {
         ui->label->adjustSize();
-        ui->widget_2->setFixedWidth(ui->label->width() + 24);
+        ui->widget_2->adjustSize();
+        this->adjustSize();
     }
 }
 
 void ChatPageC2CTextItem::setImage(QVariantMap data, QString path, QString largePath)
 {
-    QVariantMap entity = data["entity"].toMap();
-    QString faceUrl = entity["faceUrl"].toString();
+    QString faceUrl = data["user_profile_face_url"].toString();
     HttpInterFace::getInstance()->downLoad(faceUrl, [&](const QString &path) {
         ui->image->setPixmap(QPixmap(path));
     });
-    QString nickname = entity["nickname"].toString();
+    QString nickname = data["user_profile_nick_name"].toString();
     ui->name->setText(nickname);
 
     ui->widget_2->setStyleSheet("");
@@ -82,8 +81,11 @@ void ChatPageC2CTextItem::setImage(QVariantMap data, QString path, QString large
 
 void ChatPageC2CTextItem::on_label_clicked()
 {
-    ImageDialog page;
-    page.setUrlPath(m_bigImageUrl);
-    page.exec();
+    if(!m_bigImageUrl.isEmpty())
+    {
+        ImageDialog page;
+        page.setUrlPath(m_bigImageUrl);
+        page.exec();
+    }
 }
 

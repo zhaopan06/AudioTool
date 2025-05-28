@@ -409,10 +409,8 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                 if(kTIMConv_C2C == msg_obj["message_conv_type"].toInt())
                 {
                     QString content = elem[kTIMTextElemContent].toString();
-                    QString userJosn = msg_obj["message_offline_push_config"].toObject()["offline_push_config_ext"].toString();
-                    QJsonObject str_doc = QJsonDocument::fromJson(userJosn.toUtf8()).object();
-                    qDebug()<<tr("c2c str_doc---") << str_doc;
-                    emit c2c_msg_text(str_doc.toVariantMap(), content);
+                    QVariantMap userJosn = msg_obj["message_sender_profile"].toVariant().toMap();
+                    emit c2c_msg_text(userJosn, content);
                 }
                 break;
             }

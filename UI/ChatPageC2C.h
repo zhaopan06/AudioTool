@@ -17,6 +17,8 @@ public:
 
     void init(QVariantList list);
     void setUid(QString conv_id);
+
+    void addTextMsg(QVariantMap data, QString text);
 private slots:
     void on_textEdit_textChanged();
 

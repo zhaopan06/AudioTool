@@ -14,14 +14,14 @@ class ChatPageC2CTextItem : public QDialog
 public:
     explicit ChatPageC2CTextItem(QWidget *parent = nullptr);
     ~ChatPageC2CTextItem();
-    void setData(QVariantMap data, QString text);
+    void setData(QVariantMap data, QString text, int width);
     void setImage(QVariantMap data, QString path, QString largePath);
 private slots:
     void on_label_clicked();
 
 private:
     Ui::ChatPageC2CTextItem *ui;
-    QString m_bigImageUrl;
+    QString m_bigImageUrl = "";
 };
 
 #endif // CHATPAGEC2CTEXTITEM_H

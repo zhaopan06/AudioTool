@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>490</width>
+    <width>211</width>
     <height>64</height>
    </rect>
   </property>
@@ -24,7 +24,7 @@
     <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>20</number>
    </property>
    <property name="bottomMargin">
     <number>0</number>
@@ -71,7 +71,7 @@
    <item>
     <widget class="QWidget" name="widget" native="true">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -116,6 +116,12 @@ font-style: normal;</string>
       </item>
       <item>
        <widget class="QWidget" name="widget_2" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -171,6 +177,19 @@ text-align: right;</string>
      </layout>
     </widget>
    </item>
+   <item>
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -178,6 +197,9 @@ text-align: right;</string>
    <class>CRoundLabel</class>
    <extends>QLabel</extends>
    <header location="global">CRoundLabel.h</header>
+   <slots>
+    <signal>rightClicked()</signal>
+   </slots>
   </customwidget>
   <customwidget>
    <class>click_label</class>

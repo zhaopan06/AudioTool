@@ -36,16 +36,17 @@ public:
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *textLayout;
     click_label *label;
+    QSpacerItem *horizontalSpacer;
 
     void setupUi(QDialog *ChatPageC2CTextItem)
     {
         if (ChatPageC2CTextItem->objectName().isEmpty())
             ChatPageC2CTextItem->setObjectName(QString::fromUtf8("ChatPageC2CTextItem"));
-        ChatPageC2CTextItem->resize(490, 64);
+        ChatPageC2CTextItem->resize(211, 64);
         horizontalLayout = new QHBoxLayout(ChatPageC2CTextItem);
         horizontalLayout->setSpacing(12);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout->setContentsMargins(0, 0, 20, 0);
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         image = new CRoundLabel(ChatPageC2CTextItem);
@@ -65,7 +66,7 @@ public:
 
         widget = new QWidget(ChatPageC2CTextItem);
         widget->setObjectName(QString::fromUtf8("widget"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
@@ -89,6 +90,8 @@ public:
 
         widget_2 = new QWidget(widget);
         widget_2->setObjectName(QString::fromUtf8("widget_2"));
+        sizePolicy.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
+        widget_2->setSizePolicy(sizePolicy);
         widget_2->setMinimumSize(QSize(0, 34));
         widget_2->setStyleSheet(QString::fromUtf8("background: rgba(60, 60, 86, 1);\n"
 "border-top-left-radius: 0px;   \n"
@@ -121,6 +124,10 @@ public:
 
 
         horizontalLayout->addWidget(widget);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer);
 
 
         retranslateUi(ChatPageC2CTextItem);

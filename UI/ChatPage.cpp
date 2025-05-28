@@ -55,7 +55,7 @@ void ChatPage::mouseReleaseEvent(QMouseEvent *event)
 
 void ChatPage::c2c_msg_text(QVariantMap data, QString msg)
 {
-    showMapTojson(data);
+    m_chatPage->addTextMsg(data, msg);
 }
 
 void ChatPage::c2c_initTimList(QVariantList list)

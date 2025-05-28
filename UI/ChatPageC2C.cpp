@@ -1,7 +1,8 @@
 ﻿#include "ChatPageC2C.h"
+#include "ChatPageC2CMyItem.h"
 #include "ChatPageC2CTextItem.h"
 #include "Global.h"
-#include "qjsondocument.h"
+#include "HttpUserInfo.h"
 #include "qjsonobject.h"
 #include "ui_ChatPageC2C.h"
 #include "TimInterface.h"
@@ -25,39 +26,71 @@ void ChatPageC2C::init(QVariantList list)
     foreach (auto var, list)
     {
         QVariantMap data = var.toMap();
+        QVariantMap userData = data["message_sender_profile"].toMap();
+
         QVariantList elems = data["message_elem_array"].toList();
         foreach (auto var, elems)
         {
-            QString text = var.toMap()["text_elem_content"].toString();
             uint32_t elem_type = var.toMap()["elem_type"].toInt();
             if(1 == elem_type)//图片
             {
                 QString path = var.toMap()["image_elem_thumb_url"].toString();
                 QString largePath = var.toMap()["image_elem_large_url"].toString();
-                QVariantMap message_offline_push_config = data["message_offline_push_config"].toMap();
-                QString userstr = message_offline_push_config["offline_push_config_ext"].toString();
-                QJsonObject userData = QJsonDocument::fromJson(userstr.toUtf8()).object();
 
-                ChatPageC2CTextItem *item1 = new ChatPageC2CTextItem;
-                QListWidgetItem *item = new QListWidgetItem();
-                ui->listWidget->insertItem(0, item);
-                ui->listWidget->setItemWidget(item,item1);
-                item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
-                item1->setImage(userData.toVariantMap(), path, largePath);
+                if(userData["user_profile_identifier"].toString() == "user" + HttpUserInfo::instance()->getUserID())
+                {
+                    ChatPageC2CMyItem *item1 = new ChatPageC2CMyItem;
+                    QListWidgetItem *item = new QListWidgetItem();
+                    ui->listWidget->insertItem(0, item);
+                    ui->listWidget->setItemWidget(item,item1);
+                    item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
+                    item1->setImage(path, largePath);
+                    ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+                    ui->listWidget->scrollToBottom();
+                }
+                else
+                {
+                    ChatPageC2CTextItem *item1 = new ChatPageC2CTextItem;
+                    QListWidgetItem *item = new QListWidgetItem();
+                    ui->listWidget->insertItem(0, item);
+                    ui->listWidget->setItemWidget(item,item1);
+                    item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
+                    item1->setImage(userData, path, largePath);
+                    ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+                    ui->listWidget->scrollToBottom();
+                }
+
+
             }
             if(0 == elem_type)
             {
+                QString text = var.toMap()["text_elem_content"].toString();
+                if(userData["user_profile_identifier"].toString() == "user" + HttpUserInfo::instance()->getUserID())
+                {
+                    QVariantMap data = HttpUserInfo::instance()->getLoginInfo();
+                    QString photoUrl = data["user"].toMap()["photo"].toString();
+                    ChatPageC2CMyItem *item1 = new ChatPageC2CMyItem;
+                    item1->setData(photoUrl, text, ui->listWidget->width());
 
-                QVariantMap message_offline_push_config = data["message_offline_push_config"].toMap();
-                QString userstr = message_offline_push_config["offline_push_config_ext"].toString();
-                QJsonObject userData = QJsonDocument::fromJson(userstr.toUtf8()).object();
+                    QListWidgetItem *item = new QListWidgetItem();
+                    ui->listWidget->insertItem(0, item);
+                    ui->listWidget->setItemWidget(item,item1);
+                    item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
+                    ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+                    ui->listWidget->scrollToBottom();
+                }
+                else
+                {
+                    ChatPageC2CTextItem *item1 = new ChatPageC2CTextItem;
+                    item1->setData(userData, text, ui->listWidget->width());
 
-                ChatPageC2CTextItem *item1 = new ChatPageC2CTextItem;
-                QListWidgetItem *item = new QListWidgetItem();
-                ui->listWidget->insertItem(0, item);
-                ui->listWidget->setItemWidget(item,item1);
-                item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
-                item1->setData(userData.toVariantMap(), text);
+                    QListWidgetItem *item = new QListWidgetItem();
+                    ui->listWidget->insertItem(0, item);
+                    ui->listWidget->setItemWidget(item,item1);
+                    item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
+                    ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+                    ui->listWidget->scrollToBottom();
+                }
             }
         }
     }
@@ -66,6 +99,19 @@ void ChatPageC2C::init(QVariantList list)
 void ChatPageC2C::setUid(QString conv_id)
 {
     m_message_conv_id = conv_id;
+}
+
+void ChatPageC2C::addTextMsg(QVariantMap data, QString text)
+{
+    ChatPageC2CTextItem *item1 = new ChatPageC2CTextItem;
+    item1->setData(data, text, ui->listWidget->width());
+
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item,item1);
+    item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
+    ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+    ui->listWidget->scrollToBottom();
 }
 
 void ChatPageC2C::on_textEdit_textChanged()
@@ -85,5 +131,17 @@ void ChatPageC2C::on_sendBtn_clicked()
     QString text = ui->textEdit->toPlainText();
     TimInterface::getInstance()->setC2CSendJson(IMType_Text, text, m_message_conv_id);
     ui->textEdit->clear();
+
+    ChatPageC2CMyItem *item1 = new ChatPageC2CMyItem;
+    QVariantMap data = HttpUserInfo::instance()->getLoginInfo();
+    QString photoUrl = data["user"].toMap()["photo"].toString();
+    item1->setData(photoUrl, text, ui->listWidget->width());
+
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item,item1);
+    item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
+    ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+    ui->listWidget->scrollToBottom();
 }
 
