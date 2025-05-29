@@ -9,6 +9,8 @@ ChatPageC2CTextItem::ChatPageC2CTextItem(QWidget *parent)
     , ui(new Ui::ChatPageC2CTextItem)
 {
     ui->setupUi(this);
+    ui->textLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+    ui->widget->layout()->setAlignment(Qt::AlignTop);
 }
 
 ChatPageC2CTextItem::~ChatPageC2CTextItem()
@@ -65,12 +67,19 @@ void ChatPageC2CTextItem::setImage(QVariantMap data, QString path, QString large
 
     ui->label->setFixedSize(156,156);
     this->setFixedHeight(186);
-    ui->widget_2->setFixedSize(156,156);
-    ui->widget_2->layout()->setMargin(0);
+    ui->widget_2->setFixedHeight(156);
+    ui->widget_2->layout()->setContentsMargins(0,0,0,0);
     HttpInterFace::getInstance()->downLoad(path, [&](const QString &path) {
 
         QPixmap pix = QPixmap::fromImage(QImage(path));
-        pix = pix.scaled(156,156,Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        if(pix.width() > pix.height())
+        {
+            pix = pix.scaledToHeight(156);
+        }
+        else
+        {
+            pix = pix.scaled(156,156,Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        }
         ui->label->setFixedWidth(pix.width());
         ui->label->setFixedHeight(pix.height());
         ui->widget_2->setFixedSize(pix.width(),pix.height());

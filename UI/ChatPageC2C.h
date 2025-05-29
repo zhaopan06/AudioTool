@@ -19,7 +19,7 @@ public:
     void setUid(QString conv_id);
 
     void addTextMsg(QVariantMap data, QString text);
-
+    void addImageMsg(QVariantMap data, QString path, QString largePath);
 private:
     bool eventFilter(QObject *obj, QEvent *event);
     void handleImagePaste();

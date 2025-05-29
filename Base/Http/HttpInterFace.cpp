@@ -73,9 +73,15 @@ void HttpInterFace::uploadFile(QString filePath, QString scenes , callBack callb
 
 void HttpInterFace::downLoad(QString url, downLoadCallBack callBack)
 {
+    QFile tempFile(url);
+    if(tempFile.exists(url))
+    {
+        callBack(url);
+        return;
+    }
     QString path = mapDownloadImagePath(url);
-    QFile tempFile;
-    if(tempFile.exists(path))
+    QFile tempFile1;
+    if(tempFile1.exists(path))
     {
         callBack(path);
         return;

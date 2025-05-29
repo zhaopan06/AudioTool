@@ -42,7 +42,7 @@ public:
     {
         if (ChatPageC2CTextItem->objectName().isEmpty())
             ChatPageC2CTextItem->setObjectName(QString::fromUtf8("ChatPageC2CTextItem"));
-        ChatPageC2CTextItem->resize(211, 64);
+        ChatPageC2CTextItem->resize(174, 64);
         horizontalLayout = new QHBoxLayout(ChatPageC2CTextItem);
         horizontalLayout->setSpacing(12);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));

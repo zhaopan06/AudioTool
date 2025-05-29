@@ -48,22 +48,24 @@ void ChatPageC2C::init(QVariantList list)
                 if(userData["user_profile_identifier"].toString() == "user" + HttpUserInfo::instance()->getUserID())
                 {
                     ChatPageC2CMyItem *item1 = new ChatPageC2CMyItem;
+                    item1->setImage(path, largePath);
+
                     QListWidgetItem *item = new QListWidgetItem();
                     ui->listWidget->insertItem(0, item);
                     ui->listWidget->setItemWidget(item,item1);
-                    item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
-                    item1->setImage(path, largePath);
+                    item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));                   
                     ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
                     ui->listWidget->scrollToBottom();
                 }
                 else
                 {
                     ChatPageC2CTextItem *item1 = new ChatPageC2CTextItem;
+                    item1->setImage(userData, path, largePath);
+
                     QListWidgetItem *item = new QListWidgetItem();
                     ui->listWidget->insertItem(0, item);
                     ui->listWidget->setItemWidget(item,item1);
-                    item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
-                    item1->setImage(userData, path, largePath);
+                    item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));                    
                     ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
                     ui->listWidget->scrollToBottom();
                 }
@@ -122,9 +124,22 @@ void ChatPageC2C::addTextMsg(QVariantMap data, QString text)
     ui->listWidget->scrollToBottom();
 }
 
+void ChatPageC2C::addImageMsg(QVariantMap data, QString path, QString largePath)
+{
+    ChatPageC2CTextItem *item1 = new ChatPageC2CTextItem;
+    item1->setImage(data, path, largePath);
+
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item,item1);
+    item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
+    ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+    ui->listWidget->scrollToBottom();
+}
+
 void ChatPageC2C::on_textEdit_textChanged()
 {
-    if(ui->textEdit->toPlainText().size() > 1)
+    if(ui->textEdit->toPlainText().size() > 0)
     {
         ui->sendBtn->setDisabled(false);
     }
@@ -136,6 +151,28 @@ void ChatPageC2C::on_textEdit_textChanged()
 
 void ChatPageC2C::on_sendBtn_clicked()
 {
+    if(ui->textEdit->getImageList().size() > 0)
+    {
+        foreach (QString var, ui->textEdit->getImageList())
+        {
+            TimInterface::getInstance()->SendC2CImage(var, m_message_conv_id);
+
+            ChatPageC2CMyItem *item1 = new ChatPageC2CMyItem;
+            item1->setImage(var, var);
+            QListWidgetItem *item = new QListWidgetItem();
+            ui->listWidget->addItem(item);
+            ui->listWidget->setItemWidget(item,item1);
+            item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
+            ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+            ui->listWidget->scrollToBottom();
+        }
+        ui->textEdit->clearImageList();
+    }
+
+    QString text1 = ui->textEdit->toHtml();
+    QRegularExpression placeholderReg("<img[^>]*>");
+    QString cleanedText = text1.remove(placeholderReg);
+    ui->textEdit->setHtml(cleanedText);
     QString text = ui->textEdit->toPlainText();
     TimInterface::getInstance()->setC2CSendJson(IMType_Text, text, m_message_conv_id);
     ui->textEdit->clear();
@@ -174,8 +211,8 @@ void ChatPageC2C::handleImagePaste()
 
     if (mimeData->hasImage())
     {
-        QImage image = qvariant_cast<QImage>(mimeData->imageData());
-        ui->textEdit->textCursor().insertImage(image); // 插入图片
+        QString tempPath = ui->textEdit->saveImageToTemp(mimeData->imageData());
+        ui->textEdit->insertImage(tempPath); // 插入图片
     }
     else if (mimeData->hasUrls())
     {
@@ -187,7 +224,7 @@ void ChatPageC2C::handleImagePaste()
                 QImage image(url.toLocalFile());
                 if (!image.isNull())
                 {
-                    ui->textEdit->textCursor().insertImage(image);
+                    ui->textEdit->insertImage(url.toLocalFile());
                 }
             }
         }
@@ -206,6 +243,6 @@ void ChatPageC2C::on_imageBtn_clicked()
         return;
     }
     QImage pix(localPath);
-    ui->textEdit->insertImage(pix);
+    ui->textEdit->insertImage(localPath);
 }
 

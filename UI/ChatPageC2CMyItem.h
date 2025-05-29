@@ -18,6 +18,7 @@ public:
     void setData(QString path, QString msg, int width);
     void setEmotion(QString path, int type);
     void setImage(QString path, QString largePath);
+    void setLocalImage(QString path);
 private slots:
     void on_label_clicked();
 

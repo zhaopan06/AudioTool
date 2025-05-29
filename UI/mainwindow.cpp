@@ -1152,6 +1152,7 @@ void MainWindow::on_pushButton_7_clicked()
         connect(m_timInterface, &TimInterface::c2c_msg_text, m_chatPage, &ChatPage::c2c_msg_text);
         connect(m_timInterface, &TimInterface::c2c_initTimList, m_chatPage, &ChatPage::c2c_initTimList);
         connect(m_timInterface, &TimInterface::c2c_initTimMsgList, m_chatPage, &ChatPage::c2c_initTimMsgList);
+        connect(m_timInterface, &TimInterface::c2c_msg_image, m_chatPage, &ChatPage::c2c_msg_image);
         m_timInterface->initTIMConvGetConvList();
     }
     m_chatPage->show();

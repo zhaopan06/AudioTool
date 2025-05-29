@@ -132,7 +132,7 @@ void CreateDir()
     QFile tempFile;
     if(tempFile.exists(mPath + "/client.ini"))
     {
-        qDebug()<<QStringLiteral("文件存在");
+
     }
     else
     {

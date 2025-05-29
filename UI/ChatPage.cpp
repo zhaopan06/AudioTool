@@ -132,3 +132,8 @@ void ChatPage::c2c_initTimMsgList(QVariantList list)
     m_chatPage->init(list);
 }
 
+void ChatPage::c2c_msg_image(QVariantMap data, QString path, QString bigPath)
+{
+    m_chatPage->addImageMsg(data, path, bigPath);
+}
+

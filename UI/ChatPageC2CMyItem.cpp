@@ -67,23 +67,57 @@ void ChatPageC2CMyItem::setImage(QString path, QString largePath)
     });
 
 
-    ui->widget_2->setStyleSheet("");
+    ui->widget->setStyleSheet("");
+    m_bigImageUrl = largePath;
+
+    ui->label->setFixedSize(156,156);
+    this->setFixedHeight(186);
+    ui->widget->setFixedHeight(156);
+    ui->widget->layout()->setContentsMargins(0,0,0,0);
+    HttpInterFace::getInstance()->downLoad(path, [&](const QString &path) {
+
+        QPixmap pix = QPixmap::fromImage(QImage(path));
+        if(pix.width() > pix.height())
+        {
+            pix = pix.scaledToHeight(156);
+        }
+        else
+        {
+            pix = pix.scaled(156,156,Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        }
+        ui->label->setFixedWidth(pix.width());
+        ui->label->setFixedHeight(pix.height());
+        ui->widget->setFixedSize(pix.width(),pix.height());
+        ui->label->setPixmap(pix);
+        ui->label->setRadius(16);
+    });
+}
+
+void ChatPageC2CMyItem::setLocalImage(QString path)
+{
+    ui->widget_2->hide();
+    QVariantMap data = HttpUserInfo::instance()->getLoginInfo();
+    QString photoUrl = data["user"].toMap()["photo"].toString();
+    HttpInterFace::getInstance()->downLoad(photoUrl, [&](const QString &path) {
+        ui->image->setPixmap(QPixmap(path));
+    });
+
+
+    ui->widget->setStyleSheet("");
     m_bigImageUrl = path;
 
     ui->label->setFixedSize(156,156);
     this->setFixedHeight(186);
-    ui->widget_2->setFixedSize(156,156);
-    ui->widget_2->layout()->setMargin(0);
-    HttpInterFace::getInstance()->downLoad(path, [&](const QString &path) {
+    ui->widget->setFixedSize(156,156);
+    ui->widget->layout()->setMargin(0);
 
-        QPixmap pix = QPixmap::fromImage(QImage(path));
-        pix = pix.scaled(156,156,Qt::KeepAspectRatio, Qt::SmoothTransformation);
-        ui->label->setFixedWidth(pix.width());
-        ui->label->setFixedHeight(pix.height());
-        ui->widget_2->setFixedSize(pix.width(),pix.height());
-        ui->label->setPixmap(pix);
-        ui->label->setRadius(16);
-    });
+    QPixmap pix = QPixmap::fromImage(QImage(path));
+    pix = pix.scaled(156,156,Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    ui->label->setFixedWidth(pix.width());
+    ui->label->setFixedHeight(pix.height());
+    ui->widget->setFixedSize(pix.width(),pix.height());
+    ui->label->setPixmap(pix);
+    ui->label->setRadius(16);
 }
 
 void ChatPageC2CMyItem::setEmotion(QString path, int type)
@@ -144,7 +178,7 @@ void ChatPageC2CMyItem::on_label_clicked()
     if(!m_bigImageUrl.isEmpty())
     {
         ImageDialog page;
-        page.setPath(m_bigImageUrl);
+        page.setUrlPath(m_bigImageUrl);
         page.exec();
     }
 }

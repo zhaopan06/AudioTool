@@ -278,6 +278,30 @@ void TimInterface::setC2CSendJson(IMType type, QString text, QString toUid)
     sendMessage_c2c(toUid.toLatin1(), doc.toJson(), this);
 }
 
+void TimInterface::SendC2CImage(QString path, QString toUid)
+{
+    QVariantMap json_value_image;
+    json_value_image[kTIMElemType] = kTIMElem_Image;
+    json_value_image[kTIMImageElemOrigPath] = path;
+
+    // 创建消息元素数组
+    QVariantMap json_value_msg;
+    QVariantList elem_array;
+    elem_array.append(json_value_image);
+    json_value_msg[kTIMMsgElemArray] = elem_array;
+
+    json_value_msg[kTIMMsgSender] = "user" + HttpUserInfo::instance()->getUserID();
+    json_value_msg[kTIMMsgClientTime] = time(NULL);
+    json_value_msg[kTIMMsgServerTime] = time(NULL);
+    json_value_msg[kTIMMsgConvId] = toUid;
+    json_value_msg[kTIMMsgConvType] = kTIMConv_C2C;
+    json_value_msg["message_cloud_custom_str"] = setCustomJson(IMType_Image,"");
+
+    // 转换为 JSON 字符串
+    QJsonDocument doc(QJsonObject::fromVariantMap(json_value_msg));
+    sendMessage_c2c(toUid.toLatin1(), doc.toJson(), this);
+}
+
 void TimInterface::initTIMConvGetConvList()
 {
     TIMConvGetConvList([](int32_t code, const char* desc, const char* json_param, const void* user_data) {
@@ -429,6 +453,16 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                         emit msg_image(user, path, largePath);
                     }
                     }
+                }
+
+                //处理c2c消息
+                if(kTIMConv_C2C == msg_obj["message_conv_type"].toInt())
+                {
+                    QString path = elem["image_elem_thumb_url"].toString();
+                    QString largePath = elem["image_elem_large_url"].toString();
+
+                    QVariantMap userJosn = msg_obj["message_sender_profile"].toVariant().toMap();
+                    emit c2c_msg_image(userJosn, path, largePath);
                 }
                 break;
             }

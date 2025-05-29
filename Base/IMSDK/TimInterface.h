@@ -61,9 +61,9 @@ public:
     int sendMessage_c2c(const char* conv_id, const char* json_msg_param, const void* user_data);
     void initTIMMsgGetMsgList(QString userid);
     void getTIMMsgGetMsgList(QByteArray json_msg_array);
-    //组建发送消息的json方法
+    //组建发送消息的json方法 文字
     void setC2CSendJson(IMType type, QString text, QString toUid);
-
+    void SendC2CImage(QString path, QString toUid);
 
     /*-----------群组相关-----------*/
     //加入群组
@@ -99,6 +99,7 @@ signals:
     void c2c_msg_text(QVariantMap, QString);
     void c2c_initTimList(QVariantList);
     void c2c_initTimMsgList(QVariantList);
+    void c2c_msg_image(QVariantMap, QString, QString);
 private:
 
 

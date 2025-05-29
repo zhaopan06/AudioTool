@@ -1,6 +1,9 @@
 ﻿#ifndef IMAGETEXTEDIT_H
 #define IMAGETEXTEDIT_H
 
+#include "qapplication.h"
+#include "qclipboard.h"
+#include "qdir.h"
 #include "qevent.h"
 #include "qfileinfo.h"
 #include "qimagereader.h"
@@ -16,7 +19,42 @@ public:
         setAcceptDrops(true);
     }
 
+    QVector<QString> getImageList()
+    {
+        return m_imageList;
+    }
+
+    void clearImageList()
+    {
+        m_imageList.clear();
+    }
+
+    QString saveImageToTemp(const QVariant &imageData)
+    {
+        QImage image = qvariant_cast<QImage>(imageData);
+        if (image.isNull()) return "";
+
+        QString tempDir = QDir::tempPath();
+        QString tempPath = tempDir + "/dropped_image_" + QDateTime::currentDateTime().toString("yyyyMMdd_hhmmss") + ".png";
+        if (image.save(tempPath, "PNG"))
+        {
+            return tempPath;
+        }
+        return "";
+    }
+
 protected:
+
+    bool eventFilter(QObject *obj, QEvent *event)
+    {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+        if (keyEvent->matches(QKeySequence::Paste))
+        {
+            handleImagePaste();
+            return true; // 拦截粘贴事件
+        }
+        return QObject::eventFilter(obj, event);
+    }
 
     void dragEnterEvent(QDragEnterEvent *e) override
     {
@@ -74,12 +112,14 @@ private:
         return false;
     }
 
+
     // 处理图片插入
     bool handleImageDrop(const QMimeData *mimeData)
     {
         if (mimeData->hasImage())
         {
-            insertImage(qvariant_cast<QImage>(mimeData->imageData()));
+            QString tempPath = saveImageToTemp(mimeData->imageData());
+            insertImage(tempPath);
             return true;
         }
         else if (hasImageUrls(mimeData))
@@ -92,7 +132,7 @@ private:
                     QImage image(path);
                     if (!image.isNull())
                     {
-                        insertImage(image);
+                        insertImage(path);
                         return true;
                     }
                 }
@@ -101,13 +141,45 @@ private:
         return false;
     }
 
-public:
-    void insertImage(const QImage &image)
+    void handleImagePaste()
     {
+        const QClipboard *clipboard = QApplication::clipboard();
+        const QMimeData *mimeData = clipboard->mimeData();
+
+        if (mimeData->hasImage())
+        {
+            QString tempPath = saveImageToTemp(mimeData->imageData());
+            insertImage(tempPath);
+        }
+        else if (mimeData->hasUrls())
+        {
+            QList<QUrl> urls = mimeData->urls();
+            for (const QUrl &url : urls)
+            {
+                if (url.isLocalFile() && QImageReader::supportedImageFormats().contains(QFileInfo(url.toLocalFile()).suffix().toLower().toUtf8()))
+                {
+                    QImage image(url.toLocalFile());
+                    if (!image.isNull())
+                    {
+                        insertImage(url.toLocalFile());
+                    }
+                }
+            }
+        }
+        else
+        {
+            paste(); // 默认粘贴文本
+        }
+    }
+
+public:
+    void insertImage(const QString path)
+    {
+        QImage image(path);
         if(image.width() > 400 || image.height() > 300)
         {
-            QImage newImage = image.scaled(400, 300, Qt::KeepAspectRatio);
-            textCursor().insertImage(newImage);
+            image = image.scaled(400, 300, Qt::KeepAspectRatio);
+            textCursor().insertImage(image);
         }
         else
           textCursor().insertImage(image);
@@ -115,7 +187,11 @@ public:
         QTextCursor cursor = textCursor();
         cursor.movePosition(QTextCursor::End);
         setTextCursor(cursor);
+        m_imageList.append(path);
     }
+
+private:
+    QVector<QString> m_imageList;
 };
 
 #endif // IMAGETEXTEDIT_H
