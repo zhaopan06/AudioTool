@@ -30,6 +30,11 @@ void ChatPageLeftItem::setData(QVariantMap data, QString text)
     });
 }
 
+void ChatPageLeftItem::setClick()
+{
+    emit leftItemClicked(m_data["conv_id"].toString());
+}
+
 void ChatPageLeftItem::mouseReleaseEvent(QMouseEvent *ev)
 {
     emit leftItemClicked(m_data["conv_id"].toString());

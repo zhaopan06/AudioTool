@@ -1,6 +1,7 @@
 ﻿#ifndef CHATPAGEC2C_H
 #define CHATPAGEC2C_H
 
+#include "EmotionPage.h"
 #include <QDialog>
 
 namespace Ui {
@@ -30,9 +31,16 @@ private slots:
 
     void on_imageBtn_clicked();
 
+    void on_emoBtn_clicked();
+
+    void emotionClicked(QVariantMap data);
+    void on_Attention_clicked();
+
 private:
     Ui::ChatPageC2C *ui;
     QString m_message_conv_id;
+    EmotionPage *m_emotionPage= nullptr;
+    bool m_isFollow = false;
 };
 
 #endif // CHATPAGEC2C_H

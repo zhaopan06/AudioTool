@@ -16,6 +16,7 @@ public:
     explicit ChatPageLeftItem(QWidget *parent = nullptr);
     ~ChatPageLeftItem();
     void setData(QVariantMap data, QString text);
+    void setClick();
 protected:
     void mouseReleaseEvent(QMouseEvent *ev);
 signals:

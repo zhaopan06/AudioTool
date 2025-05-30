@@ -5,6 +5,7 @@
 #include <QDialog>
 #include <QVariantMap>
 #include "Base/IMSDK/TimInterface.h"
+#include "ChatPageLeftItem.h"
 
 namespace Ui {
 class ChatPage;
@@ -35,11 +36,22 @@ private slots:
     void on_closeBtn_clicked();
 
     void initChatHisMsg(QString uid);
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void ChatC2C(QVariantMap data);
 private:
     Ui::ChatPage *ui;
     bool  m_bMoveing = false;
     QPoint m_pMovePosition = QPoint(0,0);
     ChatPageC2C *m_chatPage = nullptr;
+    QVector<ChatPageLeftItem*> m_chatList;
+    QString m_curID;
 };
 
 #endif // CHATPAGE_H

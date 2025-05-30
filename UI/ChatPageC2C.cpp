@@ -9,9 +9,12 @@
 #include "qimagereader.h"
 #include "qjsonobject.h"
 #include "qmimedata.h"
+#include "qscrollbar.h"
+#include "qtimer.h"
 #include "ui_ChatPageC2C.h"
 #include "TimInterface.h"
 #include "QFileDialog.h"
+#include "HttpInterFace.h"
 
 ChatPageC2C::ChatPageC2C(QWidget *parent)
     : QDialog(parent)
@@ -20,6 +23,10 @@ ChatPageC2C::ChatPageC2C(QWidget *parent)
     ui->setupUi(this);
     ui->textEdit->setAcceptRichText(true);
     ui->textEdit->installEventFilter(this);
+    ui->listWidget->setFocusPolicy(Qt::NoFocus);
+    ui->listWidget->setVerticalScrollMode(QListWidget::ScrollPerPixel);
+    ui->listWidget->verticalScrollBar()->setSingleStep(20);
+    ui->textEdit->verticalScrollBar()->setSingleStep(10);
 }
 
 ChatPageC2C::~ChatPageC2C()
@@ -109,6 +116,47 @@ void ChatPageC2C::init(QVariantList list)
 void ChatPageC2C::setUid(QString conv_id)
 {
     m_message_conv_id = conv_id;
+
+    HttpInterFace::getInstance()->queryMessageListUserInfo(conv_id.remove("user"), [&](const QVariant &data) {
+
+        if(data.toMap()["data"].toList().size() > 0)
+        {
+            QVariantMap dataMap = data.toMap()["data"].toList().at(0).toMap();
+            ui->name->setText(dataMap["userName"].toString());
+            int isOnline = dataMap["isOnline"].toInt();
+            int isLiving = dataMap["isLiving"].toInt();
+            if(0 == isOnline)
+            {
+                ui->pushButton_2->setText(QStringLiteral("离线"));
+            }
+            else
+            {
+                if(1 == isLiving || 2 == isLiving)
+                {
+                    QString roomName = dataMap["roomName"].toString();
+                    ui->pushButton_2->setText(QStringLiteral("在房间：") + roomName);
+                }
+                else
+                {
+                    ui->pushButton_2->setText(QStringLiteral("在线"));
+                }
+            }
+
+
+            int isAttention = dataMap["isAttention"].toInt();
+            if(isAttention > 0)
+            {
+                m_isFollow = true;
+                ui->Attention->setText(QStringLiteral("取消关注"));
+            }
+            else
+            {
+                m_isFollow = false;
+                ui->Attention->setText(QStringLiteral("关注"));
+            }
+
+        }
+    });
 }
 
 void ChatPageC2C::addTextMsg(QVariantMap data, QString text)
@@ -147,6 +195,11 @@ void ChatPageC2C::on_textEdit_textChanged()
     {
         ui->sendBtn->setDisabled(true);
     }
+
+    QTimer::singleShot(10, [&]() {
+        ui->textEdit->verticalScrollBar()->setValue(ui->textEdit->verticalScrollBar()->maximum()
+                                                    );
+    });
 }
 
 void ChatPageC2C::on_sendBtn_clicked()
@@ -169,11 +222,17 @@ void ChatPageC2C::on_sendBtn_clicked()
         ui->textEdit->clearImageList();
     }
 
-    QString text1 = ui->textEdit->toHtml();
-    QRegularExpression placeholderReg("<img[^>]*>");
-    QString cleanedText = text1.remove(placeholderReg);
-    ui->textEdit->setHtml(cleanedText);
+    QString text1 = ui->textEdit->toHtml();  
+    QString html1 =  restoreEmojiTags(text1);
+    ui->textEdit->setHtml(html1);
+
+    text1 = ui->textEdit->toHtml();  
+    QRegularExpression imgTagReg(R"(<img\b[^>]*/?>)");
+    QString cleanedText = text1.remove(imgTagReg);
+    ui->textEdit->setHtml(cleanedText);   
     QString text = ui->textEdit->toPlainText();
+    if(text.isEmpty())
+        return;
     TimInterface::getInstance()->setC2CSendJson(IMType_Text, text, m_message_conv_id);
     ui->textEdit->clear();
 
@@ -198,7 +257,7 @@ bool ChatPageC2C::eventFilter(QObject *obj, QEvent *event)
         if (keyEvent->matches(QKeySequence::Paste))
         {
             handleImagePaste();
-            return true; // 拦截粘贴事件
+            return true;
         }
     }
     return QObject::eventFilter(obj, event);
@@ -212,7 +271,7 @@ void ChatPageC2C::handleImagePaste()
     if (mimeData->hasImage())
     {
         QString tempPath = ui->textEdit->saveImageToTemp(mimeData->imageData());
-        ui->textEdit->insertImage(tempPath); // 插入图片
+        ui->textEdit->insertImage(tempPath);
     }
     else if (mimeData->hasUrls())
     {
@@ -231,7 +290,7 @@ void ChatPageC2C::handleImagePaste()
     }
     else
     {
-        ui->textEdit->paste(); // 默认粘贴文本
+        ui->textEdit->paste();
     }
 }
 
@@ -244,5 +303,58 @@ void ChatPageC2C::on_imageBtn_clicked()
     }
     QImage pix(localPath);
     ui->textEdit->insertImage(localPath);
+    ui->textEdit->setFocus();
+}
+
+
+void ChatPageC2C::on_emoBtn_clicked()
+{
+    if(nullptr == m_emotionPage)
+    {
+        m_emotionPage = new EmotionPage(this);
+        m_emotionPage->initChatEmotion();
+        connect(m_emotionPage, SIGNAL(emotionClicked(QVariantMap)), this, SLOT(emotionClicked(QVariantMap)));
+    }
+
+    QPoint point;
+    point.setX(ui->emoBtn->mapToGlobal(QPoint(0, 0)).rx() - 16);
+    point.setY(ui->emoBtn->mapToGlobal(QPoint(0, 0)).ry() - m_emotionPage->height() - 10);
+    m_emotionPage->move(point);
+    m_emotionPage->show();
+}
+
+void ChatPageC2C::emotionClicked(QVariantMap data)
+{
+    m_emotionPage->hide();
+    QString path = data["path"].toString();
+    QTextCursor insertcursor = ui->textEdit->textCursor();
+    if(!insertcursor.isNull())
+    {
+        QString html = QString("<img src=\"%1\" width=16 height=16 style='width:16; height:16; vertical-align:middle; display:inline-block;'/>").arg(path);
+
+        insertcursor.insertHtml(html);
+    }
+    ui->textEdit->setFocus();
+}
+
+
+void ChatPageC2C::on_Attention_clicked()
+{
+    int isFollow = 0;
+    if(!m_isFollow)
+    {
+        isFollow = 1;
+    }
+    QVariantMap data = HttpInterFace::getInstance()->followUser(m_message_conv_id.remove("user"), isFollow);
+
+    if(0 == isFollow)
+    {
+        ui->Attention->setText(QStringLiteral("关注"));
+    }
+    if(1 == isFollow)
+    {
+        ui->Attention->setText(QStringLiteral("取消关注"));
+    }
+    m_isFollow = !m_isFollow;
 }
 

@@ -70,7 +70,8 @@ public:
     void getUserMedals(QString userID, callBack callBack);
     void clearCardiacValue(QString roomId, callBack callBack);
     void noticeFans(QString roomId, callBack callBack);
-
+    void queryMessageListUserInfo(QString roomId, callBack callBack);
+    void getMyFollow(int currentPage, int requestType, callBack callBack);
     QVariantMap getGiftList();
 
 

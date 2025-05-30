@@ -240,6 +240,25 @@ void HttpInterFace::noticeFans(QString roomId, callBack callBack)
     httpsGet_asy(url,jsonMap, callBack);
 }
 
+void HttpInterFace::queryMessageListUserInfo(QString roomId, callBack callBack)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("userIds",roomId);
+    QString url = BASE_API_URL + QString("/user/queryMessageListUserInfo");
+    httpsGet_asy(url,jsonMap, callBack);
+}
+
+//请求类型（0：我的关注，1：关注我的，2：我的好友，3：我的黑名单，4：访客）
+void HttpInterFace::getMyFollow(int currentPage, int requestType, callBack callBack)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("currentPage",currentPage);
+    jsonMap.insert("requestType",requestType);
+    //jsonMap.insert("param",param);
+    QString url = BASE_API_URL + QString("/user/myFollow");
+    httpsGet_asy(url,jsonMap, callBack);
+}
+
 QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)
 {
     QVariantMap jsonMap;
@@ -398,6 +417,16 @@ void HttpInterFace::httpsGet_asy(QString url, QVariantMap jsonMap, callBack call
     }
     else
         request.setRawHeader("token", "0");
+
+    request.setRawHeader("deviceId", "11");
+    request.setRawHeader("appVersion", "1.0");
+    request.setRawHeader("deviceType", "2");
+    request.setRawHeader("osVersion", "win10");
+    request.setRawHeader("root", "0");
+    request.setRawHeader("deviceName", "PC");
+    request.setRawHeader("channel", "1");
+    request.setRawHeader("emulator", "0");
+    request.setRawHeader("networkType", "0");
 
 
     QNetworkReply *reply = m_http_asy->get(request);

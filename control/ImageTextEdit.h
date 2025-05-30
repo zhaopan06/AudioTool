@@ -185,6 +185,7 @@ public:
           textCursor().insertImage(image);
 
         QTextCursor cursor = textCursor();
+        cursor.insertText("\n");
         cursor.movePosition(QTextCursor::End);
         setTextCursor(cursor);
         m_imageList.append(path);

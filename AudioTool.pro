@@ -44,6 +44,7 @@ SOURCES += \
     UI/ChatPageC2C.cpp \
     UI/ChatPageC2CMyItem.cpp \
     UI/ChatPageC2CTextItem.cpp \
+    UI/ChatPageCommunicationItem.cpp \
     UI/ChatPageLeftItem.cpp \
     UI/ChatTextItem.cpp \
     UI/ChatTextMyItem.cpp \
@@ -90,6 +91,7 @@ HEADERS += \
     UI/ChatPageC2C.h \
     UI/ChatPageC2CMyItem.h \
     UI/ChatPageC2CTextItem.h \
+    UI/ChatPageCommunicationItem.h \
     UI/ChatPageLeftItem.h \
     UI/ChatTextItem.h \
     UI/ChatTextMyItem.h \
@@ -130,6 +132,7 @@ FORMS += \
     UI/ChatPageC2C.ui \
     UI/ChatPageC2CMyItem.ui \
     UI/ChatPageC2CTextItem.ui \
+    UI/ChatPageCommunicationItem.ui \
     UI/ChatPageLeftItem.ui \
     UI/ChatTextItem.ui \
     UI/ChatTextMyItem.ui \

@@ -234,6 +234,37 @@ void showMapTojson(QVariantMap data)
     qDebug()<<"data---------"<<doc;
 }
 
+QString restoreEmojiTags(const QString &htmlText)
+{
+    QString result = htmlText;
+    QRegularExpression regex(R"(<img[^>]*src=["']images/emotion/vc_emoji_(\d+)\.png["'][^>]*>)");
+    int pos = 0;
+    QRegularExpressionMatch match;
+    while ((match = regex.match(result, pos)).hasMatch())
+    {
+        int number = match.captured(1).toInt();
+        int originalNum = number;
+
+        // 逆向应用原始转换规则
+        if(number <= 21)
+            originalNum = number - 1;
+        else if(number >= 27 && number < 32)
+            originalNum = number + 4;
+        else if(number == 32)
+            originalNum = 43;
+        else if(number == 33)
+            originalNum = 45;
+        else if(number >= 34 && number < 36)
+            originalNum = number + 4;
+
+        QString replacement = QString("[vce%1]").arg(originalNum, 3, 10, QLatin1Char('0'));
+        result.replace(match.capturedStart(), match.capturedLength(), replacement);
+        pos = match.capturedStart() + replacement.length();
+    }
+
+    return result;
+}
+
 QString replaceEmojiTagsSimple(const QString &text)
 {
     QString result = text;

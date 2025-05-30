@@ -24,7 +24,7 @@ qint32 getWebTime();
 QString mapDownloadImagePath(QString url);
 void showMapTojson(QVariantMap data);
 QString replaceEmojiTagsSimple(const QString &text);
-
+QString restoreEmojiTags(const QString &htmlText);
 
 
 

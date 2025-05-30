@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
@@ -67,6 +68,16 @@ public:
     QVBoxLayout *verticalLayout_4;
     QStackedWidget *stackedWidget2;
     QWidget *page_4;
+    QHBoxLayout *horizontalLayout_4;
+    QWidget *widget_5;
+    QVBoxLayout *verticalLayout_5;
+    QPushButton *pushButton_3;
+    QPushButton *pushButton_4;
+    QPushButton *pushButton;
+    QPushButton *pushButton_2;
+    QSpacerItem *verticalSpacer_2;
+    QListWidget *listWidget_3;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QDialog *ChatPage)
     {
@@ -231,9 +242,7 @@ public:
         label_5->setObjectName(QString::fromUtf8("label_5"));
         label_5->setGeometry(QRect(22, 38, 28, 20));
         label_5->setStyleSheet(QString::fromUtf8("font-size:14px;\n"
-"font-family:SimSun;\n"
-"font-weight:400;\n"
-"color:rgba(102,102,102,1);"));
+"color:rgba(255,255,255,1);"));
         msgPageBtn = new click_label(widget_7);
         msgPageBtn->setObjectName(QString::fromUtf8("msgPageBtn"));
         msgPageBtn->setGeometry(QRect(0, 0, 68, 70));
@@ -250,7 +259,7 @@ public:
         label_2->setPixmap(QPixmap(QString::fromUtf8(":/images/icon_\351\200\232\350\256\257\345\275\225\346\234\252\351\200\211.png")));
         label_4 = new QLabel(widget_6);
         label_4->setObjectName(QString::fromUtf8("label_4"));
-        label_4->setGeometry(QRect(16, 38, 50, 14));
+        label_4->setGeometry(QRect(16, 40, 50, 14));
         label_4->setStyleSheet(QString::fromUtf8("font-size:14px;\n"
 "font-family:SimSun;\n"
 "font-weight:400;\n"
@@ -334,6 +343,111 @@ public:
         stackedWidget1->addWidget(page_3);
         page_4 = new QWidget();
         page_4->setObjectName(QString::fromUtf8("page_4"));
+        horizontalLayout_4 = new QHBoxLayout(page_4);
+        horizontalLayout_4->setSpacing(0);
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
+        widget_5 = new QWidget(page_4);
+        widget_5->setObjectName(QString::fromUtf8("widget_5"));
+        widget_5->setMinimumSize(QSize(300, 0));
+        widget_5->setMaximumSize(QSize(300, 16777215));
+        widget_5->setStyleSheet(QString::fromUtf8("QWidget{ background: #36383B;}\n"
+"\n"
+"QPushButton {\n"
+"     border:none;\n"
+"text-align: left;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 500;\n"
+"font-size: 18px;\n"
+"color: rgba(255, 255, 255, 0.5);\n"
+"line-height: 25px;   \n"
+"padding-left: 16px;\n"
+"}\n"
+"\n"
+"QPushButton:checked {\n"
+"   border:none;\n"
+"text-align: left;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 500;\n"
+"font-size: 18px;\n"
+"color: #ffffff;\n"
+"padding-left: 16px;\n"
+"background: rgba(255,255,255,0.1);\n"
+"}\n"
+""));
+        verticalLayout_5 = new QVBoxLayout(widget_5);
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
+        verticalLayout_5->setContentsMargins(0, 0, 0, 10);
+        pushButton_3 = new QPushButton(widget_5);
+        buttonGroup = new QButtonGroup(ChatPage);
+        buttonGroup->setObjectName(QString::fromUtf8("buttonGroup"));
+        buttonGroup->addButton(pushButton_3);
+        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        pushButton_3->setMinimumSize(QSize(0, 70));
+        pushButton_3->setCheckable(true);
+        pushButton_3->setChecked(true);
+
+        verticalLayout_5->addWidget(pushButton_3);
+
+        pushButton_4 = new QPushButton(widget_5);
+        buttonGroup->addButton(pushButton_4);
+        pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
+        pushButton_4->setMinimumSize(QSize(0, 70));
+        pushButton_4->setCheckable(true);
+
+        verticalLayout_5->addWidget(pushButton_4);
+
+        pushButton = new QPushButton(widget_5);
+        buttonGroup->addButton(pushButton);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setMinimumSize(QSize(0, 70));
+        pushButton->setCheckable(true);
+        pushButton->setChecked(false);
+
+        verticalLayout_5->addWidget(pushButton);
+
+        pushButton_2 = new QPushButton(widget_5);
+        buttonGroup->addButton(pushButton_2);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        pushButton_2->setMinimumSize(QSize(0, 70));
+        pushButton_2->setCheckable(true);
+
+        verticalLayout_5->addWidget(pushButton_2);
+
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_2);
+
+
+        horizontalLayout_4->addWidget(widget_5);
+
+        listWidget_3 = new QListWidget(page_4);
+        listWidget_3->setObjectName(QString::fromUtf8("listWidget_3"));
+        listWidget_3->setStyleSheet(QString::fromUtf8("QListWidget\n"
+"{\n"
+"	border:none;\n"
+"}\n"
+"QListWidget::item\n"
+"{\n"
+"	border:none;\n"
+"    background:rgba(255,255,255,0);\n"
+"}\n"
+"QListWidget::item:hover\n"
+"{\n"
+"	border:none;\n"
+"    background: rgba(255,255,255,0.1);\n"
+"}\n"
+"QListWidget::item:selected\n"
+"{\n"
+"	border:none;\n"
+"    background: rgba(255,255,255,0.1);\n"
+"    padding:0px;\n"
+"    margin:0px;\n"
+"    border:0px ;\n"
+"}"));
+
+        horizontalLayout_4->addWidget(listWidget_3);
+
         stackedWidget1->addWidget(page_4);
 
         horizontalLayout_2->addWidget(stackedWidget1);
@@ -360,6 +474,10 @@ public:
         label_2->setText(QString());
         label_4->setText(QCoreApplication::translate("ChatPage", "\351\200\232\350\256\257\345\275\225", nullptr));
         communicationBtn->setText(QString());
+        pushButton_3->setText(QCoreApplication::translate("ChatPage", "\346\210\221\347\232\204\345\205\263\346\263\250", nullptr));
+        pushButton_4->setText(QCoreApplication::translate("ChatPage", "\346\210\221\347\232\204\347\262\211\344\270\235", nullptr));
+        pushButton->setText(QCoreApplication::translate("ChatPage", "\346\210\221\347\232\204\345\245\275\345\217\213", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("ChatPage", "\350\277\221\346\234\237\350\256\277\345\256\242", nullptr));
     } // retranslateUi
 
 };
