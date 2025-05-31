@@ -50,10 +50,11 @@ public:
     void initTIMConvGetConvList();
     void getInitTIMConvGetConvListMSGTojson(QByteArray json_msg_array);
 
+    //获取总的红点数量
+    int getTIMConvGetTotalUnreadMessageCount();
 
-    //登录
+    //登录相关
     int  login();
-    //登出
     int  logout();
 
     /*****************c2c相关*****************************/

@@ -35,6 +35,16 @@ void ChatPageLeftItem::setClick()
     emit leftItemClicked(m_data["conv_id"].toString());
 }
 
+QString ChatPageLeftItem::getUid()
+{
+    return m_data["conv_id"].toString();
+}
+
+void ChatPageLeftItem::updateText(QString text)
+{
+    ui->text->setText(text);
+}
+
 void ChatPageLeftItem::mouseReleaseEvent(QMouseEvent *ev)
 {
     emit leftItemClicked(m_data["conv_id"].toString());

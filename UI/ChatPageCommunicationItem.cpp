@@ -1,6 +1,7 @@
 ﻿#include "ChatPageCommunicationItem.h"
 #include "ui_ChatPageCommunicationItem.h"
 #include "HttpInterFace.h"
+#include <QPointer>
 
 ChatPageCommunicationItem::ChatPageCommunicationItem(QWidget *parent)
     : QDialog(parent)
@@ -41,33 +42,33 @@ void ChatPageCommunicationItem::setData(QVariantMap data)
 
     }
 
+    auto weakThis = QPointer<ChatPageCommunicationItem>(this);
+    HttpInterFace::getInstance()->queryMessageListUserInfo(userId, [weakThis](const QVariant &data) {
 
-
-    HttpInterFace::getInstance()->queryMessageListUserInfo(userId, [&](const QVariant &data) {
-
+        if (weakThis.isNull()) return;
         if(data.toMap()["data"].toList().size() > 0)
         {
             QVariantMap dataMap = data.toMap()["data"].toList().at(0).toMap();
             int isLiving = dataMap["isLiving"].toInt();
             if(1 == isLiving || 2 == isLiving)
             {
-                ui->label_4->show();
+                weakThis->ui->label_4->show();
             }
             else
             {
-                ui->label_4->hide();
+                weakThis->ui->label_4->hide();
             }
 
             int isAttention = dataMap["isAttention"].toInt();
             if(isAttention > 0)
             {
-                ui->pushButton_3->show();
-                ui->pushButton->hide();
+                weakThis->ui->pushButton_3->show();
+                weakThis->ui->pushButton->hide();
             }
             else
             {
-                ui->pushButton_3->hide();
-                ui->pushButton->show();
+                weakThis->ui->pushButton_3->hide();
+                weakThis->ui->pushButton->show();
             }
         }
     });

@@ -21,6 +21,9 @@ public:
 
     void addTextMsg(QVariantMap data, QString text);
     void addImageMsg(QVariantMap data, QString path, QString largePath);
+    QString getUid();
+signals:
+    void updateLeftText(QString,QString);
 private:
     bool eventFilter(QObject *obj, QEvent *event);
     void handleImagePaste();

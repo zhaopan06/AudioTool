@@ -45,6 +45,8 @@ private slots:
     void on_pushButton_2_clicked();
 
     void ChatC2C(QVariantMap data);
+
+    void updateLeftText(QString text, QString uid);
 private:
     Ui::ChatPage *ui;
     bool  m_bMoveing = false;

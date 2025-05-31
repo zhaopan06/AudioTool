@@ -224,6 +224,7 @@ void MainWindow::loginIm(int code, QString msg)
     else
     {        
         qDebug()<<"login SUCC-----------";
+        qDebug()<<"size---"<<m_timInterface->getTIMConvGetTotalUnreadMessageCount();
     }
 }
 

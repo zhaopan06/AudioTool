@@ -5,7 +5,6 @@
 #include "qevent.h"
 #include "qscrollbar.h"
 #include "ui_ChatPage.h"
-#include "HttpUserInfo.h"
 #include "HttpInterFace.h"
 
 ChatPage::ChatPage(QWidget *parent)
@@ -57,7 +56,11 @@ void ChatPage::mouseReleaseEvent(QMouseEvent *event)
 
 void ChatPage::c2c_msg_text(QVariantMap data, QString msg)
 {
-    m_chatPage->addTextMsg(data, msg);
+    QString uid = data["user_profile_identifier"].toString();
+    updateLeftText(msg, uid);
+
+    if(uid == m_chatPage->getUid())
+        m_chatPage->addTextMsg(data, msg);
 }
 
 void ChatPage::c2c_initTimList(QVariantList list)
@@ -101,7 +104,8 @@ void ChatPage::c2c_initTimList(QVariantList list)
 
     if(m_chatPage == nullptr)
     {
-        m_chatPage = new ChatPageC2C;        
+        m_chatPage = new ChatPageC2C;
+        connect(m_chatPage, &ChatPageC2C::updateLeftText, this, &ChatPage::updateLeftText);
         if(m_chatList.size() > 0)
         {
             ui->listWidget->setCurrentRow(0);
@@ -264,9 +268,19 @@ void ChatPage::on_pushButton_2_clicked()
 
 void ChatPage::ChatC2C(QVariantMap data)
 {
-    //创建左边的Item
-    ui->stackedWidget1->setCurrentIndex(0);
+    on_msgPageBtn_clicked();
+
     QString uid = "user" + data["userId"].toString();
+    for(int i=0; i<m_chatList.size(); i++)
+    {
+        auto var = m_chatList.at(i);
+        if(var->getUid() == uid)
+        {
+            var->setClick();
+            ui->listWidget->setCurrentRow(i);
+            return;
+        }
+    }
 
     QVariantMap setData;
     setData["conv_id"] = uid;
@@ -280,8 +294,20 @@ void ChatPage::ChatC2C(QVariantMap data)
     ui->listWidget->setItemWidget(item1,item);
     item1->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item->height()));
     ui->listWidget->setCurrentRow(0);
-    m_chatList.append(item);
+    m_chatList.insert(0,item);
 
     item->setClick();
+}
+
+void ChatPage::updateLeftText(QString text, QString uid)
+{
+    foreach (auto var, m_chatList)
+    {
+        if(var->getUid() == uid)
+        {
+            var->updateText(text);
+            return;
+        }
+    }
 }
 

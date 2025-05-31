@@ -185,6 +185,11 @@ void ChatPageC2C::addImageMsg(QVariantMap data, QString path, QString largePath)
     ui->listWidget->scrollToBottom();
 }
 
+QString ChatPageC2C::getUid()
+{
+    return m_message_conv_id;
+}
+
 void ChatPageC2C::on_textEdit_textChanged()
 {
     if(ui->textEdit->toPlainText().size() > 0)
@@ -232,9 +237,13 @@ void ChatPageC2C::on_sendBtn_clicked()
     ui->textEdit->setHtml(cleanedText);   
     QString text = ui->textEdit->toPlainText();
     if(text.isEmpty())
+    {
+        emit updateLeftText(QStringLiteral("[图片]"), m_message_conv_id);
         return;
+    }
     TimInterface::getInstance()->setC2CSendJson(IMType_Text, text, m_message_conv_id);
     ui->textEdit->clear();
+    emit updateLeftText(text, m_message_conv_id);
 
     ChatPageC2CMyItem *item1 = new ChatPageC2CMyItem;
     QVariantMap data = HttpUserInfo::instance()->getLoginInfo();

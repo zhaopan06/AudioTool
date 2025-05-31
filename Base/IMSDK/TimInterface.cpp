@@ -45,6 +45,19 @@ int TimInterface::initSDK()
     TIMSetUserSigExpiredCallback([](const void* user_data) {
         MsgBox::showMsg(NULL,tr("提示"), tr("IMToken过期，请重启登录"));
     }, this);
+    //添加好友回调
+    TIMSetOnAddFriendCallback([](const char* json_identifier_array, const void* user_data) {
+
+    }, this);
+    //删除好友回调
+    TIMSetOnDeleteFriendCallback([](const char* json_identifier_array, const void* user_data) {
+
+    }, this);
+
+    TIMSetConvTotalUnreadMessageCountChangedCallback([](int total_unread_count, const void* user_data) {
+        qDebug()<<"total_unread_count---"<<total_unread_count;
+        //TODO 这里返回红点总数
+    }, this);
     return code;
 }
 
@@ -212,6 +225,23 @@ void TimInterface::getInitTIMConvGetConvListMSGTojson(QByteArray json_msg_array)
         return;
 
     emit c2c_initTimList(json_doc.toVariant().toList());
+}
+
+int TimInterface::getTIMConvGetTotalUnreadMessageCount()
+{
+    TIMCommCallback callback = [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
+
+        if (code != ERR_SUCC)
+        {
+            qDebug()<<"getTIMConvGetTotalUnreadMessageCount error-----------code-"<<code<<"---desc-"<<desc;
+            return ;
+        }
+        else
+        {
+
+        }
+    };
+    return TIMConvGetTotalUnreadMessageCount(callback,this);
 }
 
 void TimInterface::initTIMMsgGetMsgList(QString userid)

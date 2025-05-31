@@ -17,6 +17,8 @@ public:
     ~ChatPageLeftItem();
     void setData(QVariantMap data, QString text);
     void setClick();
+    QString getUid();
+    void updateText(QString text);
 protected:
     void mouseReleaseEvent(QMouseEvent *ev);
 signals:
