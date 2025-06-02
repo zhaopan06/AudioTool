@@ -2,6 +2,7 @@
 #define USERINFOPAGE_H
 
 #include <QDialog>
+#include <QVariantMap>
 
 namespace Ui {
 class UserinfoPage;
@@ -44,9 +45,13 @@ private slots:
 
     void on_Attention_clicked();
 
+    void on_pushButton_3_clicked();
+
 private:
     void updateGift(int type, int type1);
 
+signals:
+    void chatC2C(QVariantMap);
 private:
     Ui::UserinfoPage *ui;
     static UserinfoPage *pUserinfoPageFace;
@@ -55,6 +60,7 @@ private:
     QString m_userId;
     int m_type;
     bool m_isFollow;
+    QVariantMap m_data;
 };
 
 #endif // USERINFOPAGE_H

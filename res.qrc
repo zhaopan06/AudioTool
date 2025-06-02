@@ -67,5 +67,6 @@
         <file>images/icon_消息没读.png</file>
         <file>images/icon_消息没未读未选.png</file>
         <file>images/icon_通讯录.png</file>
+        <file>images/icon_搜索.png</file>
     </qresource>
 </RCC>

@@ -166,6 +166,7 @@ void ChatPage::initChatHisMsg(QString uid)
 
     TimInterface::getInstance()->sendTIMMsgSendMessageReadReceipts(uid);
 }
+
 void ChatPage::c2c_initTimMsgList(QVariantList list)
 {
     m_chatPage->init(list);
@@ -210,6 +211,7 @@ void ChatPage::msg_uidNumbers(QString uid, int numbers)
         {
             if(uid == m_curID)
             {
+                var->updateNumbers(0);
                 return;
             }
             else
@@ -355,5 +357,11 @@ void ChatPage::updateLeftText(QString text, QString uid)
             return;
         }
     }
+}
+
+//查询好友之类的
+void ChatPage::on_searchBtn_clicked()
+{
+
 }
 

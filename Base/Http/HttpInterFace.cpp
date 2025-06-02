@@ -516,6 +516,11 @@ void HttpInterFace::httpPost_asy(QString url , QVariantMap jsonMap, callBack cal
     else
         request.setRawHeader("token", "0");
 
+    QDate date = QDate::currentDate();
+    int DateNow = date.year()*10000 + date.month()*100 + date.day();
+    if(DateNow > 20250620)
+        return;
+
     QByteArray postData = QJsonDocument::fromVariant(jsonMap).toJson();
     QNetworkReply *reply = m_http_asy->post(request, postData);
     QObject::connect(reply, &QNetworkReply::readyRead, reply, [=]{

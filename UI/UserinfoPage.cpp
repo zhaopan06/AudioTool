@@ -66,6 +66,7 @@ void UserinfoPage::init(QString userID)
     HttpInterFace::getInstance()->getUserInfo(userID, [&](const QVariant &map) {
 
         QVariantMap data = map.toMap()["data"].toMap();
+        m_data = data;
         QString photo = data["photo"].toString();
         HttpInterFace::getInstance()->downLoad(photo, [&](const QString &path) {
             this->ui->big_image->setPixmap(QPixmap(path));
@@ -276,5 +277,12 @@ void UserinfoPage::on_Attention_clicked()
         ui->Attention->setText(QStringLiteral("取消关注"));
     }
     m_isFollow = !m_isFollow;
+}
+
+
+void UserinfoPage::on_pushButton_3_clicked()
+{
+    this->hide();
+    emit chatC2C(m_data);
 }
 

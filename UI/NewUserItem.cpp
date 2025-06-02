@@ -139,6 +139,8 @@ void NewUserItem::on_pushButton_3_clicked()
 //打招呼
 void NewUserItem::on_pushButton_2_clicked()
 {
-
+    QString id = m_data["id"].toString();
+    m_data.insert("userId", id);
+    g_main->chatC2C(m_data);
 }
 

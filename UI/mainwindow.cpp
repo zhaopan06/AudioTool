@@ -11,6 +11,7 @@
 #include "MicInfoItem.h"
 #include "MicseQuenceItem.h"
 #include "NewUserPage.h"
+#include "UserinfoPage.h"
 #include "qdebug.h"
 #include "ui_mainwindow.h"
 #include "agorartcengineinterface.h"
@@ -66,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     initUserUI();
 
+    g_main = this;
 }
 
 MainWindow::~MainWindow()
@@ -234,6 +236,10 @@ void MainWindow::loginIm(int code, QString msg)
             connect(m_timInterface, &TimInterface::c2c_msg_image, m_chatPage, &ChatPage::c2c_msg_image);
             connect(m_timInterface, &TimInterface::msg_numbers, m_chatPage, &ChatPage::c2c_msgNumber);
             connect(m_timInterface, &TimInterface::msg_uidNumbers, m_chatPage, &ChatPage::msg_uidNumbers);
+            connect(UserinfoPage::getInstance(), &UserinfoPage::chatC2C, this,[&](QVariantMap data){
+                m_chatPage->show();
+                m_chatPage->ChatC2C(data);
+            });
             m_timInterface->initTIMConvGetConvList();
         }
         m_timInterface->getTIMConvGetTotalUnreadMessageCount();
@@ -1196,10 +1202,20 @@ void MainWindow::on_pushButton_7_clicked()
         connect(m_timInterface, &TimInterface::c2c_msg_image, m_chatPage, &ChatPage::c2c_msg_image);
         connect(m_timInterface, &TimInterface::msg_numbers, m_chatPage, &ChatPage::c2c_msgNumber);
         connect(m_timInterface, &TimInterface::msg_uidNumbers, m_chatPage, &ChatPage::msg_uidNumbers);
+        connect(UserinfoPage::getInstance(), &UserinfoPage::chatC2C, this,[&](QVariantMap data){
+            m_chatPage->show();
+            m_chatPage->ChatC2C(data);
+        });
         m_timInterface->initTIMConvGetConvList();
 
     }
     m_chatPage->show();
     m_timInterface->getTIMConvGetTotalUnreadMessageCount();
+}
+
+void MainWindow::chatC2C(QVariantMap data)
+{
+    m_chatPage->show();
+    m_chatPage->ChatC2C(data);
 }
 

@@ -1,4 +1,5 @@
 ﻿#include "UserinfoPageSimple.h"
+#include "Global.h"
 #include "ui_UserinfoPageSimple.h"
 #include "HttpInterFace.h"
 #include "qevent.h"
@@ -36,6 +37,7 @@ void UserinfoPageSimple::init(QString userID)
     HttpInterFace::getInstance()->getUserInfo(userID, [&](const QVariant &map) {
 
         QVariantMap data = map.toMap()["data"].toMap();
+        m_data = data;
         QString photo = data["photo"].toString();
         HttpInterFace::getInstance()->downLoad(photo, [&](const QString &path) {
             ui->big_image->setPixmap(QPixmap(path));
@@ -164,7 +166,8 @@ void UserinfoPageSimple::on_Attention_clicked()
 
 void UserinfoPageSimple::on_pushButton_3_clicked()
 {
-
+    g_main->chatC2C(m_data);
+    close();
 }
 
 void UserinfoPageSimple::leaveEvent(QEvent *event)

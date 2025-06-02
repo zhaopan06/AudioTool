@@ -16,6 +16,8 @@ QString g_roomID = "";
 QString g_multipleAuthoriation = "";
 bool g_isManager = false;
 bool g_isHomeowner = false;
+MainWindow *g_main = nullptr;
+
 // 清空布局
 void cleanupLayout(QLayout *targetLayout)
 {

@@ -30,6 +30,8 @@ public slots:
     void c2c_msg_image(QVariantMap data, QString path, QString bigPath);
     void c2c_msgNumber(int numbers);
     void msg_uidNumbers(QString uid, int numbers);
+    void ChatC2C(QVariantMap data);
+
 private slots:
     void on_communicationBtn_clicked();
 
@@ -44,11 +46,11 @@ private slots:
 
     void on_pushButton_clicked();
 
-    void on_pushButton_2_clicked();
-
-    void ChatC2C(QVariantMap data);
+    void on_pushButton_2_clicked();    
 
     void updateLeftText(QString text, QString uid);
+    void on_searchBtn_clicked();
+
 private:
     Ui::ChatPage *ui;
     bool  m_bMoveing = false;

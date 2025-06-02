@@ -17,6 +17,7 @@
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
@@ -39,6 +40,8 @@ public:
     QLabel *label_13;
     QWidget *widget_18;
     QHBoxLayout *horizontalLayout_12;
+    QLineEdit *lineEdit;
+    QPushButton *searchBtn;
     QSpacerItem *horizontalSpacer_5;
     QFrame *line_3;
     QWidget *widget_16;
@@ -62,9 +65,13 @@ public:
     QStackedWidget *stackedWidget1;
     QWidget *page_3;
     QHBoxLayout *horizontalLayout_3;
-    QWidget *widget_3;
+    QStackedWidget *stackedWidget_3;
+    QWidget *page1;
     QVBoxLayout *verticalLayout_3;
     QListWidget *listWidget;
+    QWidget *page2;
+    QVBoxLayout *verticalLayout_6;
+    QListWidget *listWidget_2;
     QWidget *widget_4;
     QVBoxLayout *verticalLayout_4;
     QStackedWidget *stackedWidget2;
@@ -132,15 +139,33 @@ public:
 
         widget_18 = new QWidget(widget_14);
         widget_18->setObjectName(QString::fromUtf8("widget_18"));
-        widget_18->setMinimumSize(QSize(170, 0));
-        widget_18->setMaximumSize(QSize(170, 36));
+        widget_18->setMinimumSize(QSize(460, 32));
+        widget_18->setMaximumSize(QSize(170, 32));
         widget_18->setStyleSheet(QString::fromUtf8("background: #36383B;\n"
 "\n"
-"border-radius: 18px;"));
+"border-radius: 12px;"));
         horizontalLayout_12 = new QHBoxLayout(widget_18);
         horizontalLayout_12->setSpacing(6);
         horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
-        horizontalLayout_12->setContentsMargins(0, 0, 16, 0);
+        horizontalLayout_12->setContentsMargins(12, 0, 12, 0);
+        lineEdit = new QLineEdit(widget_18);
+        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        lineEdit->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-size: 14px;\n"
+"color: #FFFFFF;\n"
+"line-height: 20px;"));
+
+        horizontalLayout_12->addWidget(lineEdit);
+
+        searchBtn = new QPushButton(widget_18);
+        searchBtn->setObjectName(QString::fromUtf8("searchBtn"));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/images/icon_\346\220\234\347\264\242.png"), QSize(), QIcon::Normal, QIcon::Off);
+        searchBtn->setIcon(icon);
+        searchBtn->setIconSize(QSize(18, 18));
+
+        horizontalLayout_12->addWidget(searchBtn);
+
 
         horizontalLayout_13->addWidget(widget_18);
 
@@ -182,9 +207,9 @@ public:
 "}\n"
 "\n"
 ""));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8(":/images/login_min_n.png"), QSize(), QIcon::Normal, QIcon::Off);
-        minBtn->setIcon(icon);
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/images/login_min_n.png"), QSize(), QIcon::Normal, QIcon::Off);
+        minBtn->setIcon(icon1);
         minBtn->setIconSize(QSize(28, 28));
 
         horizontalLayout_10->addWidget(minBtn);
@@ -205,9 +230,9 @@ public:
 "}\n"
 "\n"
 ""));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/images/login_close_n.png"), QSize(), QIcon::Normal, QIcon::Off);
-        closeBtn->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/images/login_close_n.png"), QSize(), QIcon::Normal, QIcon::Off);
+        closeBtn->setIcon(icon2);
         closeBtn->setIconSize(QSize(28, 28));
 
         horizontalLayout_10->addWidget(closeBtn);
@@ -299,15 +324,17 @@ public:
         horizontalLayout_3->setSpacing(0);
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
-        widget_3 = new QWidget(page_3);
-        widget_3->setObjectName(QString::fromUtf8("widget_3"));
-        widget_3->setMinimumSize(QSize(300, 0));
-        widget_3->setMaximumSize(QSize(300, 16777215));
-        widget_3->setStyleSheet(QString::fromUtf8("background: #36383B;"));
-        verticalLayout_3 = new QVBoxLayout(widget_3);
+        stackedWidget_3 = new QStackedWidget(page_3);
+        stackedWidget_3->setObjectName(QString::fromUtf8("stackedWidget_3"));
+        stackedWidget_3->setMinimumSize(QSize(300, 0));
+        stackedWidget_3->setMaximumSize(QSize(300, 16777215));
+        stackedWidget_3->setStyleSheet(QString::fromUtf8("background: #36383B;"));
+        page1 = new QWidget();
+        page1->setObjectName(QString::fromUtf8("page1"));
+        verticalLayout_3 = new QVBoxLayout(page1);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(0, 0, 0, 10);
-        listWidget = new QListWidget(widget_3);
+        listWidget = new QListWidget(page1);
         listWidget->setObjectName(QString::fromUtf8("listWidget"));
         listWidget->setStyleSheet(QString::fromUtf8("QListWidget\n"
 "{\n"
@@ -334,8 +361,43 @@ public:
 
         verticalLayout_3->addWidget(listWidget);
 
+        stackedWidget_3->addWidget(page1);
+        page2 = new QWidget();
+        page2->setObjectName(QString::fromUtf8("page2"));
+        verticalLayout_6 = new QVBoxLayout(page2);
+        verticalLayout_6->setSpacing(0);
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
+        verticalLayout_6->setContentsMargins(0, 0, 0, 0);
+        listWidget_2 = new QListWidget(page2);
+        listWidget_2->setObjectName(QString::fromUtf8("listWidget_2"));
+        listWidget_2->setStyleSheet(QString::fromUtf8("QListWidget\n"
+"{\n"
+"	border:none;\n"
+"}\n"
+"QListWidget::item\n"
+"{\n"
+"	border:none;\n"
+"    background:rgba(255,255,255,0);\n"
+"}\n"
+"QListWidget::item:hover\n"
+"{\n"
+"	border:none;\n"
+"    background: rgba(255,255,255,0.1);\n"
+"}\n"
+"QListWidget::item:selected\n"
+"{\n"
+"	border:none;\n"
+"    background: rgba(255,255,255,0.1);\n"
+"    padding:0px;\n"
+"    margin:0px;\n"
+"    border:0px ;\n"
+"}"));
 
-        horizontalLayout_3->addWidget(widget_3);
+        verticalLayout_6->addWidget(listWidget_2);
+
+        stackedWidget_3->addWidget(page2);
+
+        horizontalLayout_3->addWidget(stackedWidget_3);
 
         widget_4 = new QWidget(page_3);
         widget_4->setObjectName(QString::fromUtf8("widget_4"));
@@ -479,6 +541,8 @@ public:
         ChatPage->setWindowTitle(QCoreApplication::translate("ChatPage", "Dialog", nullptr));
         label_12->setText(QString());
         label_13->setText(QCoreApplication::translate("ChatPage", "\350\223\235\344\274\264\350\257\255\351\237\263", nullptr));
+        lineEdit->setPlaceholderText(QCoreApplication::translate("ChatPage", "\350\257\267\350\276\223\345\205\245\346\230\265\347\247\260/id", nullptr));
+        searchBtn->setText(QString());
         minBtn->setText(QString());
         closeBtn->setText(QString());
         label_3->setText(QString());

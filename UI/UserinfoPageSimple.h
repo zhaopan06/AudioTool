@@ -2,6 +2,7 @@
 #define USERINFOPAGESIMPLE_H
 
 #include <QDialog>
+#include <QVariantMap>
 
 namespace Ui {
 class UserinfoPageSimple;
@@ -36,6 +37,7 @@ private:
     QString m_userId;
     int m_type;
     bool m_isFollow;
+    QVariantMap m_data;
 };
 
 #endif // USERINFOPAGESIMPLE_H

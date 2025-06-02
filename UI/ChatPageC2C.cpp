@@ -170,6 +170,8 @@ void ChatPageC2C::addTextMsg(QVariantMap data, QString text)
     item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
     ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
     ui->listWidget->scrollToBottom();
+
+    TimInterface::getInstance()->sendTIMMsgSendMessageReadReceipts(m_message_conv_id);
 }
 
 void ChatPageC2C::addImageMsg(QVariantMap data, QString path, QString largePath)
@@ -183,6 +185,8 @@ void ChatPageC2C::addImageMsg(QVariantMap data, QString path, QString largePath)
     item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
     ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
     ui->listWidget->scrollToBottom();
+
+    TimInterface::getInstance()->sendTIMMsgSendMessageReadReceipts(m_message_conv_id);
 }
 
 QString ChatPageC2C::getUid()

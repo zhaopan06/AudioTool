@@ -24,6 +24,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void chatC2C(QVariantMap data);
 private:
     void initUserUI();
     void initTim();

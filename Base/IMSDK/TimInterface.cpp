@@ -61,6 +61,7 @@ int TimInterface::initSDK()
     }, this);
 
     TIMSetConvEventCallback([](TIMConvEvent conv_event, const char* json_conv_array, const void* user_data){
+
         TimInterface* ths = (TimInterface*)user_data;
         QJsonParseError error;
         QJsonDocument json_doc = QJsonDocument::fromJson(json_conv_array, &error);
@@ -68,7 +69,7 @@ int TimInterface::initSDK()
             return;
         if (!json_doc.isArray())
             return;
-        QVariantList list = json_doc.toVariant().toList();
+        QVariantList list = json_doc.toVariant().toList();        
         if(list.size() > 0)
         {
             QVariantMap data = list.at(0).toMap();
@@ -272,28 +273,20 @@ int TimInterface::getTIMConvGetTotalUnreadMessageCount()
 //TODO 设置未读清零
 void TimInterface::sendTIMMsgSendMessageReadReceipts(QString uid)
 {
-    QJsonObject json_msgget_param;
-    json_msgget_param[kTIMMsgReceiptConvId] = uid;
-    json_msgget_param[kTIMMsgReceiptConvType] = kTIMConv_C2C;
-    json_msgget_param[kTIMMsgReceiptTimeStamp] = "";
-    json_msgget_param[kTIMMsgReceiptMsgId] = "";
-    json_msgget_param[kTIMMsgReceiptIsPeerRead] = true;
-    json_msgget_param[kTIMMsgReceiptReadCount] = 1;
-    json_msgget_param[kTIMMsgReceiptUnreadCount] = 0;
+    QString str = "c2c_" + uid;
+    TIMConvCleanConversationUnreadMessageCount(str.toLatin1(), 0, 0, [](int32_t code, const char* desc, const char* json_param, const void* user_data) {
 
-    QJsonDocument doc(json_msgget_param);
-    TIMMsgSendMessageReadReceipts(doc.toJson(), [](int32_t code, const char* desc, const char* json_params, const void* user_data){
         if (code != ERR_SUCC)
         {
-            qDebug()<<"TIMMsgSendMessageReadReceipts error-----------code-"<<code<<"---desc-"<<desc;
+            qDebug()<<"TIMConvCleanConversationUnreadMessageCount error-----------code-"<<code<<"---desc-"<<desc;
             return ;
         }
         else
         {
-            qDebug()<<"111 -----------code-"<<code<<"---desc-"<<desc;
+            qDebug()<<"TIMConvCleanConversationUnreadMessageCount -----------code-"<<code<<"---desc-"<<desc;
             return ;
         }
-    },this);
+    }, nullptr);
 }
 
 void TimInterface::initTIMMsgGetMsgList(QString userid)
