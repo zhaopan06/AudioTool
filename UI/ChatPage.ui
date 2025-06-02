@@ -433,6 +433,32 @@ color:rgba(255,255,255,1);</string>
              <string/>
             </property>
            </widget>
+           <widget class="QLabel" name="number">
+            <property name="geometry">
+             <rect>
+              <x>41</x>
+              <y>8</y>
+              <width>14</width>
+              <height>14</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background: #ED525A;
+border-radius: 7px;
+
+font-weight: 500;
+font-size: 10px;
+color: #FFFFFF;
+line-height: 14px;
+font-style: normal;</string>
+            </property>
+            <property name="text">
+             <string>1</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>

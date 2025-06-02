@@ -25,6 +25,9 @@ void ChatPageLeftItem::setData(QVariantMap data, QString text)
     ui->name->setText(name);
     ui->text->setText(text);
 
+    int numbers = data["conv_unread_num"].toInt();
+    updateNumbers(numbers);
+
     HttpInterFace::getInstance()->downLoad(conv_face_url, [&](const QString &path) {
         ui->image->setPixmap(QPixmap(path));
     });
@@ -43,6 +46,33 @@ QString ChatPageLeftItem::getUid()
 void ChatPageLeftItem::updateText(QString text)
 {
     ui->text->setText(text);
+}
+
+void ChatPageLeftItem::updateNumbers(int numbers)
+{
+    if(numbers <= 0)
+    {
+        ui->number->hide();
+    }
+    if(numbers > 0 & numbers < 10)
+    {
+        ui->number->show();
+        ui->number->setFixedWidth(14);
+         ui->number->setText(QString::number(numbers));
+    }
+    if(numbers >= 10)
+    {
+        ui->number->show();
+        ui->number->setFixedWidth(28);
+        ui->number->setText(QString::number(numbers));
+    }
+    if(numbers > 99)
+    {
+        ui->number->show();
+        ui->number->setFixedWidth(28);
+        ui->number->setText("99+");
+        return;
+    }
 }
 
 void ChatPageLeftItem::mouseReleaseEvent(QMouseEvent *ev)

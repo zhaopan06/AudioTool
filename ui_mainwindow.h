@@ -48,7 +48,9 @@ public:
     QLabel *userName;
     QWidget *widget_17;
     QHBoxLayout *horizontalLayout_11;
+    QWidget *widget_46;
     QPushButton *pushButton_7;
+    QLabel *number;
     QPushButton *pushButton_8;
     QPushButton *pushButton_10;
     QPushButton *pushButton_9;
@@ -308,8 +310,8 @@ public:
     QPushButton *pushButton_15;
     QPushButton *pushButton_16;
     QButtonGroup *buttonGroup_3;
-    QButtonGroup *buttonGroup_2;
     QButtonGroup *buttonGroup;
+    QButtonGroup *buttonGroup_2;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -404,15 +406,19 @@ public:
 
         widget_17 = new QWidget(widget_14);
         widget_17->setObjectName(QString::fromUtf8("widget_17"));
-        widget_17->setMinimumSize(QSize(168, 0));
-        widget_17->setMaximumSize(QSize(168, 16777215));
+        widget_17->setMinimumSize(QSize(194, 0));
+        widget_17->setMaximumSize(QSize(194, 16777215));
         widget_17->setStyleSheet(QString::fromUtf8("border:none;"));
         horizontalLayout_11 = new QHBoxLayout(widget_17);
-        horizontalLayout_11->setSpacing(24);
+        horizontalLayout_11->setSpacing(8);
         horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
         horizontalLayout_11->setContentsMargins(0, 0, 0, 0);
-        pushButton_7 = new QPushButton(widget_17);
+        widget_46 = new QWidget(widget_17);
+        widget_46->setObjectName(QString::fromUtf8("widget_46"));
+        widget_46->setMinimumSize(QSize(50, 0));
+        pushButton_7 = new QPushButton(widget_46);
         pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
+        pushButton_7->setGeometry(QRect(7, 12, 24, 25));
         pushButton_7->setMinimumSize(QSize(24, 25));
         pushButton_7->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
 "border:none;\n"
@@ -430,8 +436,20 @@ public:
         icon.addFile(QString::fromUtf8(":/images/top_d.png"), QSize(), QIcon::Normal, QIcon::Off);
         pushButton_7->setIcon(icon);
         pushButton_7->setIconSize(QSize(24, 25));
+        number = new QLabel(widget_46);
+        number->setObjectName(QString::fromUtf8("number"));
+        number->setGeometry(QRect(22, 9, 28, 14));
+        number->setStyleSheet(QString::fromUtf8("background: #ED525A;\n"
+"border-radius: 7px;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 500;\n"
+"font-size: 10px;\n"
+"color: #FFFFFF;\n"
+"line-height: 14px;\n"
+"font-style: normal;"));
+        number->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout_11->addWidget(pushButton_7);
+        horizontalLayout_11->addWidget(widget_46);
 
         pushButton_8 = new QPushButton(widget_17);
         pushButton_8->setObjectName(QString::fromUtf8("pushButton_8"));
@@ -2619,6 +2637,7 @@ public:
         userImage->setText(QString());
         userName->setText(QCoreApplication::translate("MainWindow", "\347\224\250\346\210\267\345\220\215\345\215\240\344\275\215", nullptr));
         pushButton_7->setText(QString());
+        number->setText(QCoreApplication::translate("MainWindow", "99+", nullptr));
         pushButton_8->setText(QString());
         pushButton_10->setText(QString());
         pushButton_9->setText(QString());

@@ -55,9 +55,35 @@ int TimInterface::initSDK()
     }, this);
 
     TIMSetConvTotalUnreadMessageCountChangedCallback([](int total_unread_count, const void* user_data) {
-        qDebug()<<"total_unread_count---"<<total_unread_count;
         //TODO 这里返回红点总数
+        TimInterface* ths = (TimInterface*)user_data;
+        emit ths->msg_numbers(total_unread_count);
     }, this);
+
+    TIMSetConvEventCallback([](TIMConvEvent conv_event, const char* json_conv_array, const void* user_data){
+        TimInterface* ths = (TimInterface*)user_data;
+        QJsonParseError error;
+        QJsonDocument json_doc = QJsonDocument::fromJson(json_conv_array, &error);
+        if (json_doc.isNull())
+            return;
+        if (!json_doc.isArray())
+            return;
+        QVariantList list = json_doc.toVariant().toList();
+        if(list.size() > 0)
+        {
+            QVariantMap data = list.at(0).toMap();
+            QString uid = data["conv_id"].toString();
+            int numbers =  data["conv_unread_num"].toInt();
+            emit ths->msg_uidNumbers(uid, numbers);
+        }
+    }, this);
+
+    TIMSetMsgReadedReceiptCallback([](const char* json_msg_readed_receipt_array, const void* user_data) {
+        QJsonParseError error;
+        QJsonDocument json_doc = QJsonDocument::fromJson(json_msg_readed_receipt_array, &error);
+        qDebug()<<"TIMSetMsgReadedReceiptCallback---"<<json_doc;
+
+    },this);
     return code;
 }
 
@@ -243,6 +269,32 @@ int TimInterface::getTIMConvGetTotalUnreadMessageCount()
     };
     return TIMConvGetTotalUnreadMessageCount(callback,this);
 }
+//TODO 设置未读清零
+void TimInterface::sendTIMMsgSendMessageReadReceipts(QString uid)
+{
+    QJsonObject json_msgget_param;
+    json_msgget_param[kTIMMsgReceiptConvId] = uid;
+    json_msgget_param[kTIMMsgReceiptConvType] = kTIMConv_C2C;
+    json_msgget_param[kTIMMsgReceiptTimeStamp] = "";
+    json_msgget_param[kTIMMsgReceiptMsgId] = "";
+    json_msgget_param[kTIMMsgReceiptIsPeerRead] = true;
+    json_msgget_param[kTIMMsgReceiptReadCount] = 1;
+    json_msgget_param[kTIMMsgReceiptUnreadCount] = 0;
+
+    QJsonDocument doc(json_msgget_param);
+    TIMMsgSendMessageReadReceipts(doc.toJson(), [](int32_t code, const char* desc, const char* json_params, const void* user_data){
+        if (code != ERR_SUCC)
+        {
+            qDebug()<<"TIMMsgSendMessageReadReceipts error-----------code-"<<code<<"---desc-"<<desc;
+            return ;
+        }
+        else
+        {
+            qDebug()<<"111 -----------code-"<<code<<"---desc-"<<desc;
+            return ;
+        }
+    },this);
+}
 
 void TimInterface::initTIMMsgGetMsgList(QString userid)
 {
@@ -251,7 +303,7 @@ void TimInterface::initTIMMsgGetMsgList(QString userid)
     json_msgget_param[kTIMMsgGetMsgListParamLastMsg] = json_msg;
     json_msgget_param[kTIMMsgGetMsgListParamIsRamble] = true;
     json_msgget_param[kTIMMsgGetMsgListParamIsForward] = false;
-    json_msgget_param[kTIMMsgGetMsgListParamCount] = 5;
+    json_msgget_param[kTIMMsgGetMsgListParamCount] = 10;
     QJsonDocument doc(json_msgget_param);
 
     TIMMsgGetMsgList(userid.toStdString().c_str(), kTIMConv_C2C, doc.toJson(), [](int32_t code, const char* desc, const char* json_params, const void* user_data) {
@@ -340,6 +392,8 @@ void TimInterface::initTIMConvGetConvList()
         ths->getInitTIMConvGetConvListMSGTojson(json_param);
 
     }, this);
+
+
 }
 
 

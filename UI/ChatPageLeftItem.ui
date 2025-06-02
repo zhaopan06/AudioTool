@@ -30,10 +30,10 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <property name="spacing">
-    <number>12</number>
+    <number>2</number>
    </property>
    <property name="leftMargin">
-    <number>16</number>
+    <number>0</number>
    </property>
    <property name="topMargin">
     <number>11</number>
@@ -45,25 +45,67 @@
     <number>11</number>
    </property>
    <item>
-    <widget class="CRoundLabel" name="image">
-     <property name="minimumSize">
-      <size>
-       <width>40</width>
-       <height>40</height>
-      </size>
-     </property>
+    <widget class="QWidget" name="widget" native="true">
      <property name="maximumSize">
       <size>
-       <width>40</width>
-       <height>40</height>
+       <width>66</width>
+       <height>16777215</height>
       </size>
      </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="scaledContents">
-      <bool>true</bool>
-     </property>
+     <widget class="CRoundLabel" name="image">
+      <property name="geometry">
+       <rect>
+        <x>16</x>
+        <y>4</y>
+        <width>40</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="number">
+      <property name="geometry">
+       <rect>
+        <x>38</x>
+        <y>2</y>
+        <width>28</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: #ED525A;
+border-radius: 7px;
+font-family: &quot;微软雅黑&quot;;
+font-weight: 500;
+font-size: 10px;
+color: #FFFFFF;
+line-height: 14px;
+font-style: normal;</string>
+      </property>
+      <property name="text">
+       <string>99+</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
    </item>
    <item>
@@ -130,7 +172,7 @@ font-style: normal;</string>
   <customwidget>
    <class>CRoundLabel</class>
    <extends>QLabel</extends>
-   <header>CRoundLabel.h</header>
+   <header location="global">CRoundLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

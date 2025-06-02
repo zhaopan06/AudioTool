@@ -19,6 +19,7 @@ public:
     void setClick();
     QString getUid();
     void updateText(QString text);
+    void updateNumbers(int numbers);
 protected:
     void mouseReleaseEvent(QMouseEvent *ev);
 signals:

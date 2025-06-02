@@ -40,6 +40,7 @@ private slots:
 
     void loginIm(int code, QString msg);
 
+    void msg_numbers(int numbers);
     void msg_liveClose();
     void msg_notice(QVariantMap user, QString msg);
     void msg_txt(QVariantMap user, QString msg, int type);

@@ -52,6 +52,7 @@ public:
 
     //获取总的红点数量
     int getTIMConvGetTotalUnreadMessageCount();
+    void sendTIMMsgSendMessageReadReceipts(QString uid);
 
     //登录相关
     int  login();
@@ -82,6 +83,9 @@ private:
     //群内发送消息
     int sendMessage_group(const char* conv_id, const char* json_msg_param, const void* user_data);
 signals:
+    void msg_numbers(int);//总红点数量
+    void msg_uidNumbers(QString, int);//单个回话的红点数量
+
     void msg_liveClose();
     void loginStatus(int,QString);
     void newMes();

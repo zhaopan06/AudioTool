@@ -53,6 +53,7 @@ public:
     QLabel *label_3;
     QLabel *label_5;
     click_label *msgPageBtn;
+    QLabel *number;
     QWidget *widget_6;
     QLabel *label_2;
     QLabel *label_4;
@@ -247,6 +248,18 @@ public:
         msgPageBtn->setObjectName(QString::fromUtf8("msgPageBtn"));
         msgPageBtn->setGeometry(QRect(0, 0, 68, 70));
         msgPageBtn->setStyleSheet(QString::fromUtf8("background-color: transparent; "));
+        number = new QLabel(widget_7);
+        number->setObjectName(QString::fromUtf8("number"));
+        number->setGeometry(QRect(41, 8, 14, 14));
+        number->setStyleSheet(QString::fromUtf8("background: #ED525A;\n"
+"border-radius: 7px;\n"
+"\n"
+"font-weight: 500;\n"
+"font-size: 10px;\n"
+"color: #FFFFFF;\n"
+"line-height: 14px;\n"
+"font-style: normal;"));
+        number->setAlignment(Qt::AlignCenter);
 
         verticalLayout_2->addWidget(widget_7);
 
@@ -471,6 +484,7 @@ public:
         label_3->setText(QString());
         label_5->setText(QCoreApplication::translate("ChatPage", "\346\266\210\346\201\257", nullptr));
         msgPageBtn->setText(QString());
+        number->setText(QCoreApplication::translate("ChatPage", "1", nullptr));
         label_2->setText(QString());
         label_4->setText(QCoreApplication::translate("ChatPage", "\351\200\232\350\256\257\345\275\225", nullptr));
         communicationBtn->setText(QString());

@@ -28,6 +28,8 @@ public slots:
     void c2c_initTimList(QVariantList list);
     void c2c_initTimMsgList(QVariantList list);
     void c2c_msg_image(QVariantMap data, QString path, QString bigPath);
+    void c2c_msgNumber(int numbers);
+    void msg_uidNumbers(QString uid, int numbers);
 private slots:
     void on_communicationBtn_clicked();
 

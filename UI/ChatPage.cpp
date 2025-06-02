@@ -69,7 +69,6 @@ void ChatPage::c2c_initTimList(QVariantList list)
     {
         QString setText;
         QVariantMap data = var.toMap();
-
         if(!data["conv_id"].toString().contains("user"))
             continue;
 
@@ -89,6 +88,7 @@ void ChatPage::c2c_initTimList(QVariantList list)
         }
 
         QVariantMap setData;
+        setData["conv_unread_num"] = data["conv_unread_num"];
         setData["conv_id"] = data["conv_id"];
         setData["conv_show_name"] = data["conv_show_name"];
         setData["conv_face_url"] = data["conv_face_url"];
@@ -163,6 +163,8 @@ void ChatPage::initChatHisMsg(QString uid)
     TimInterface::getInstance()->initTIMMsgGetMsgList(uid);
     m_chatPage->setUid(uid);
     m_curID = uid;
+
+    TimInterface::getInstance()->sendTIMMsgSendMessageReadReceipts(uid);
 }
 void ChatPage::c2c_initTimMsgList(QVariantList list)
 {
@@ -172,6 +174,50 @@ void ChatPage::c2c_initTimMsgList(QVariantList list)
 void ChatPage::c2c_msg_image(QVariantMap data, QString path, QString bigPath)
 {
     m_chatPage->addImageMsg(data, path, bigPath);
+}
+
+void ChatPage::c2c_msgNumber(int numbers)
+{
+    if(numbers <= 0)
+    {
+        ui->number->hide();
+        return;
+    }
+    if(numbers > 0 & numbers < 10)
+    {
+        ui->number->setFixedWidth(14);
+    }
+    if(numbers >= 10)
+    {
+        ui->number->setFixedWidth(28);
+    }
+    if(numbers > 99)
+    {
+        ui->number->show();
+        ui->number->setFixedWidth(28);
+        ui->number->setText("99+");
+        return;
+    }
+    ui->number->setText(QString::number(numbers));
+    ui->number->show();
+}
+
+void ChatPage::msg_uidNumbers(QString uid, int numbers)
+{
+    foreach (auto var, m_chatList)
+    {
+        if(var->getUid() == uid)
+        {
+            if(uid == m_curID)
+            {
+                return;
+            }
+            else
+            {
+                var->updateNumbers(numbers);
+            }
+        }
+    }
 }
 
 //我的关注
