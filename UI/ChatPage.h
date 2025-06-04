@@ -46,9 +46,9 @@ private slots:
 
     void on_pushButton_clicked();
 
-    void on_pushButton_2_clicked();    
+    void on_pushButton_2_clicked();
 
-    void updateLeftText(QString text, QString uid);
+    bool updateLeftText(QString text, QString uid);
     void on_searchBtn_clicked();
 
 private:

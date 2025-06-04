@@ -249,12 +249,13 @@ void HttpInterFace::queryMessageListUserInfo(QString roomId, callBack callBack)
 }
 
 //请求类型（0：我的关注，1：关注我的，2：我的好友，3：我的黑名单，4：访客）
-void HttpInterFace::getMyFollow(int currentPage, int requestType, callBack callBack)
+void HttpInterFace::getMyFollow(int currentPage, int requestType, callBack callBack,QString param)
 {
     QVariantMap jsonMap;
     jsonMap.insert("currentPage",currentPage);
     jsonMap.insert("requestType",requestType);
-    //jsonMap.insert("param",param);
+    if(!param.isEmpty())
+        jsonMap.insert("param",param);
     QString url = BASE_API_URL + QString("/user/myFollow");
     httpsGet_asy(url,jsonMap, callBack);
 }

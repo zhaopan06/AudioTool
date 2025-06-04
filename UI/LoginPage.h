@@ -55,6 +55,10 @@ private slots:
 
     void on_code_label_click_clicked();
 
+    void on_Btn_clicked();
+
+    void on_btn1_clicked();
+
 private:
     void updateBtnStyle();
 private:

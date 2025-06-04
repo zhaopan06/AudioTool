@@ -512,6 +512,7 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     QString content = elem[kTIMTextElemContent].toString();
                     QVariantMap userJosn = msg_obj["message_sender_profile"].toVariant().toMap();
                     emit c2c_msg_text(userJosn, content);
+                    qDebug()<<"c2c---"<<json_doc;
                 }
                 break;
             }

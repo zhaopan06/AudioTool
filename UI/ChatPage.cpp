@@ -57,7 +57,24 @@ void ChatPage::mouseReleaseEvent(QMouseEvent *event)
 void ChatPage::c2c_msg_text(QVariantMap data, QString msg)
 {
     QString uid = data["user_profile_identifier"].toString();
-    updateLeftText(msg, uid);
+    if(updateLeftText(msg, uid))
+    {
+        QVariantMap setData;
+        setData["conv_unread_num"] = 1;
+        setData["conv_id"] = data["user_profile_identifier"];
+        setData["conv_show_name"] = data["user_profile_nick_name"];
+        setData["conv_face_url"] = data["user_profile_face_url"];
+
+        ChatPageLeftItem *item = new ChatPageLeftItem;
+        connect(item, &ChatPageLeftItem::leftItemClicked, this, &ChatPage::initChatHisMsg);
+        item->setData(setData, msg);
+        QListWidgetItem *item1 = new QListWidgetItem();
+        ui->listWidget->insertItem(0,item1);
+        ui->listWidget->setItemWidget(item1,item);
+        item1->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item->height()));
+        m_chatList.append(item);
+        return;
+    }
 
     if(uid == m_chatPage->getUid())
         m_chatPage->addTextMsg(data, msg);
@@ -239,7 +256,7 @@ void ChatPage::on_pushButton_3_clicked()
             ui->listWidget_3->addItem(item1);
             ui->listWidget_3->setItemWidget(item1,item);
             item1->setSizeHint(QSize(ui->listWidget_3->contentsRect().width(), item->height()));
-            ui->listWidget_3->setCurrentRow(ui->listWidget->count()-1);
+            ui->listWidget_3->setCurrentRow(ui->listWidget_3->count()-1);
             ui->listWidget_3->scrollToBottom();
         }
     });
@@ -262,7 +279,7 @@ void ChatPage::on_pushButton_4_clicked()
             ui->listWidget_3->addItem(item1);
             ui->listWidget_3->setItemWidget(item1,item);
             item1->setSizeHint(QSize(ui->listWidget_3->contentsRect().width(), item->height()));
-            ui->listWidget_3->setCurrentRow(ui->listWidget->count()-1);
+            ui->listWidget_3->setCurrentRow(ui->listWidget_3->count()-1);
             ui->listWidget_3->scrollToBottom();
         }
     });
@@ -285,7 +302,7 @@ void ChatPage::on_pushButton_clicked()
             ui->listWidget_3->addItem(item1);
             ui->listWidget_3->setItemWidget(item1,item);
             item1->setSizeHint(QSize(ui->listWidget_3->contentsRect().width(), item->height()));
-            ui->listWidget_3->setCurrentRow(ui->listWidget->count()-1);
+            ui->listWidget_3->setCurrentRow(ui->listWidget_3->count()-1);
             ui->listWidget_3->scrollToBottom();
         }
     });
@@ -308,7 +325,7 @@ void ChatPage::on_pushButton_2_clicked()
             ui->listWidget_3->addItem(item1);
             ui->listWidget_3->setItemWidget(item1,item);
             item1->setSizeHint(QSize(ui->listWidget_3->contentsRect().width(), item->height()));
-            ui->listWidget_3->setCurrentRow(ui->listWidget->count()-1);
+            ui->listWidget_3->setCurrentRow(ui->listWidget_3->count()-1);
             ui->listWidget_3->scrollToBottom();
         }
     });
@@ -347,21 +364,47 @@ void ChatPage::ChatC2C(QVariantMap data)
     item->setClick();
 }
 
-void ChatPage::updateLeftText(QString text, QString uid)
+bool ChatPage::updateLeftText(QString text, QString uid)
 {
+    bool isNewUser = true;
     foreach (auto var, m_chatList)
     {
         if(var->getUid() == uid)
         {
+            isNewUser = false;
             var->updateText(text);
-            return;
+            return isNewUser;
         }
     }
+
+    return isNewUser;
 }
 
 //查询好友之类的
 void ChatPage::on_searchBtn_clicked()
 {
+    QString searchText = ui->lineEdit->text();
+    if(searchText.isEmpty())
+        return;
 
+    ui->stackedWidget_3->setCurrentIndex(1);
+    HttpInterFace::getInstance()->getMyFollow(1,2,[&](const QVariant &data) {
+        showMapTojson(data.toMap());
+        QVariantList list = data.toMap()["data"].toList();
+        foreach (auto var, list)
+        {
+            QVariantMap data = var.toMap();
+            ChatPageCommunicationItem *item  =new ChatPageCommunicationItem;
+            connect(item, &ChatPageCommunicationItem::ChatC2C, this, &ChatPage::ChatC2C);
+            item->setData(data);
+
+            QListWidgetItem *item1 = new QListWidgetItem();
+            ui->listWidget_2->addItem(item1);
+            ui->listWidget_2->setItemWidget(item1,item);
+            item1->setSizeHint(QSize(ui->listWidget_2->contentsRect().width(), item->height()));
+            ui->listWidget_2->setCurrentRow(ui->listWidget_2->count()-1);
+            ui->listWidget_2->scrollToBottom();
+        }
+    }, searchText);
 }
 

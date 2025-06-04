@@ -9,6 +9,9 @@
 #define BASE_API_URL "https://testapi.linkfunapp.com/app"
 #define LIVE_BASE_API_URL ""
 #define LOGIN_URL "/user/login" //登录
+#define H5Test "https://testm.linkfunapp.com/app.html#/h5/"
+#define H5 "https://m.linkfunapp.com/app.html#/h5/"
+
 
 enum class PhoneCodeType : int
 {
@@ -71,7 +74,7 @@ public:
     void clearCardiacValue(QString roomId, callBack callBack);
     void noticeFans(QString roomId, callBack callBack);
     void queryMessageListUserInfo(QString roomId, callBack callBack);
-    void getMyFollow(int currentPage, int requestType, callBack callBack);
+    void getMyFollow(int currentPage, int requestType, callBack callBack, QString param = "");
     QVariantMap getGiftList();
 
 

@@ -269,18 +269,34 @@ Makefile: AudioTool.pro D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\win32-msvc\qmake.con
 		D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\yacc.prf \
 		D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\lex.prf \
 		AudioTool.pro \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineWidgets.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineCore.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Quick.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5PrintSupport.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Widgets.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Gui.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebSockets.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5QmlModels.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebChannel.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Qml.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Network.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Positioning.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Core.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\qtmain.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\build_pass.prf \
 		res.qrc \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineWidgetsd.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineCored.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Quickd.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5PrintSupportd.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Widgetsd.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Guid.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebSocketsd.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5QmlModelsd.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebChanneld.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Qmld.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Networkd.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Positioningd.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Cored.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\qtmaind.prl
 	$(QMAKE) -o Makefile AudioTool.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug"
@@ -469,18 +485,34 @@ D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\exceptions.prf:
 D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\yacc.prf:
 D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\lex.prf:
 AudioTool.pro:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineWidgets.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineCore.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Quick.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5PrintSupport.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Widgets.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Gui.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebSockets.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5QmlModels.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebChannel.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Qml.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Network.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Positioning.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Core.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\qtmain.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\features\build_pass.prf:
 res.qrc:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineWidgetsd.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineCored.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Quickd.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5PrintSupportd.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Widgetsd.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Guid.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebSocketsd.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5QmlModelsd.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebChanneld.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Qmld.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Networkd.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Positioningd.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Cored.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\qtmaind.prl:
 qmake: FORCE

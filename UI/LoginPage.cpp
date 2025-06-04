@@ -1,10 +1,12 @@
 ﻿#include "LoginPage.h"
+#include "WebEngView.h"
 #include "qjsonobject.h"
 #include "ui_LoginPage.h"
 #include "HttpInterFace.h"
 #include "HttpUserInfo.h"
 #include "MsgBox.h"
 #include "clientconfig.h"
+#include <QWebEngineView>
 
 LoginPage::LoginPage(QWidget *parent)
     : QDialog(parent)
@@ -279,10 +281,11 @@ void LoginPage::on_back_label_clicked()
 
 void LoginPage::on_login_btn_clicked()
 {
+    ui->login_btn->setEnabled(false);
     QString acc =  ui->cap_mobile->text();
     QVariantMap data = HttpInterFace::getInstance()->loginToServer(acc, "654321");
     if(data["code"].toInt() == 1)
-    {
+    {        
         QJsonObject jsonObject = QJsonObject::fromVariantMap(data);        
         HttpUserInfo::instance()->setLoginInfo(data["data"].toMap());
 
@@ -295,13 +298,13 @@ void LoginPage::on_login_btn_clicked()
         {
             ClientConfig::getInstance()->writeIniFile("CLIENT", "isrememberpasswd", "0" );
         }
-
+        ui->login_btn->setEnabled(true);
         accept();
     }
 }
 
 void LoginPage::on_next_page_btn_clicked()
-{
+{    
     QString acc =  ui->cap_mobile->text();
 
     if (acc.isEmpty())
@@ -315,6 +318,13 @@ void LoginPage::on_next_page_btn_clicked()
         MsgBox::showMsg(0, QStringLiteral("提示"), QStringLiteral("请输入正确的手机号"));
         return;
     }
+
+    if(!ui->radioButton->isChecked())
+    {
+        MsgBox::showMsg(0, QStringLiteral("提示"), QStringLiteral("请勾选用户协议"));
+        return;
+    }
+    ui->next_page_btn->setEnabled(false);
 
     HttpInterFace::getInstance()->getCaptcha(acc,"+86", [&](const QVariant &data){
 
@@ -343,6 +353,7 @@ void LoginPage::on_next_page_btn_clicked()
             else
                 MsgBox::showMsg(NULL, tr("提示"), Captchadata["code"].toString());
         }
+        ui->next_page_btn->setEnabled(true);
 
     });
 
@@ -376,5 +387,22 @@ void LoginPage::on_help_Btn_1_clicked()
 void LoginPage::on_code_label_click_clicked()
 {
     on_next_page_btn_clicked();
+}
+
+
+void LoginPage::on_Btn_clicked()
+{
+    WebEngView page;
+    page.setWindowTitle(QStringLiteral("用户服务协议"));
+    page.init(H5Test + QString("Agreements/ServiceAgreement"));
+    page.exec();
+}
+
+void LoginPage::on_btn1_clicked()
+{
+    WebEngView page;
+    page.setWindowTitle(QStringLiteral("隐私协议"));
+    page.init(H5Test + QString("Agreements/PrivacyPolicy"));
+    page.exec();
 }
 

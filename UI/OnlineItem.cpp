@@ -106,11 +106,17 @@ void OnlineItem::setData(QVariantMap data, QString id)
 
     if(status == -2)
     {
+        ui->user_btn->setIcon(QIcon());
         ui->user_btn->setText(QStringLiteral("在线"));
     }
     if(status == -3)
     {
-        ui->user_btn->setText(QStringLiteral("离线"));
+        ui->user_btn->setText(QStringLiteral("已离线"));
+        ui->user_btn->setIcon(QIcon(":/images/icon16／已离线.png"));
+        ui->user_btn->setStyleSheet("border-radius: 16px;"
+                                    "background: rgba(67,69,73,1);"
+                                    "font-size: 14px;"
+                                    "color: #C7C6C6;");
     }
     m_data = data;
 }

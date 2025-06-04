@@ -101,16 +101,19 @@ void UserinfoPage::init(QString userID)
             m_isFollow = false;
             ui->Attention->show();
             ui->Attention->setText(tr("关注"));
+            ui->pushButton_3->show();
         }
         else if(1 == isAttention)
         {
             m_isFollow = true;
             ui->Attention->show();
             ui->Attention->setText(tr("取消关注"));
+            ui->pushButton_3->show();
         }
         else
         {
             ui->Attention->hide();
+            ui->pushButton_3->hide();
         }
 
         QString intre = data["intro"].toString();
@@ -278,7 +281,6 @@ void UserinfoPage::on_Attention_clicked()
     }
     m_isFollow = !m_isFollow;
 }
-
 
 void UserinfoPage::on_pushButton_3_clicked()
 {

@@ -72,6 +72,7 @@ void UserinfoPageSimple::init(QString userID)
         {
             m_isFollow = false;
             ui->Attention->show();
+            ui->pushButton_3->show();
             ui->Attention->setText(tr("关注"));
         }
         else if(1 == isAttention)
@@ -79,9 +80,11 @@ void UserinfoPageSimple::init(QString userID)
             m_isFollow = true;
             ui->Attention->show();
             ui->Attention->setText(tr("取消关注"));
+            ui->pushButton_3->show();
         }
         else
         {
+            ui->pushButton_3->hide();
             ui->Attention->hide();
         }
 

@@ -1,4 +1,4 @@
-QT       += core gui network websockets
+QT       += core gui network websockets webenginewidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -73,6 +73,7 @@ SOURCES += \
     control/MenuLockRight.cpp \
     control/MenuManagerRight.cpp \
     control/MsgBox.cpp \
+    control/WebEngView.cpp \
     control/click_label.cpp \
     main.cpp
 
@@ -122,6 +123,7 @@ HEADERS += \
     control/MenuLockRight.h \
     control/MenuManagerRight.h \
     control/MsgBox.h \
+    control/WebEngView.h \
     control/click_label.h
 
 FORMS += \
@@ -159,7 +161,8 @@ FORMS += \
     control/MenuHomeownerRight.ui \
     control/MenuLockRight.ui \
     control/MenuManagerRight.ui \
-    control/MsgBox.ui
+    control/MsgBox.ui \
+    control/WebEngView.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

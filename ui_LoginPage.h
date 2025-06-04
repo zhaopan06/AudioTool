@@ -36,7 +36,6 @@ public:
     QLabel *label_2;
     QStackedWidget *stackedWidget_2;
     QWidget *page;
-    QLabel *label_3;
     QLabel *label_4;
     QLabel *label_5;
     QWidget *widget_6;
@@ -119,11 +118,6 @@ public:
 "border-radius: 10px;\n"
 "border: 1px solid rgba(255,255,255,0.2);\n"
 "}"));
-        label_3 = new QLabel(page);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setGeometry(QRect(326, 10, 96, 96));
-        label_3->setStyleSheet(QString::fromUtf8(""));
-        label_3->setPixmap(QPixmap(QString::fromUtf8(":/images/icon_\344\272\214\347\273\264\347\240\201.png")));
         label_4 = new QLabel(page);
         label_4->setObjectName(QString::fromUtf8("label_4"));
         label_4->setGeometry(QRect(35, 84, 262, 38));
@@ -282,6 +276,7 @@ public:
 
         Btn = new QPushButton(widget_7);
         Btn->setObjectName(QString::fromUtf8("Btn"));
+        Btn->setCursor(QCursor(Qt::PointingHandCursor));
         Btn->setStyleSheet(QString::fromUtf8("color:rgba(228, 90, 126, 1);\n"
 "background-color: transparent; \n"
 "border:none;"));
@@ -296,6 +291,7 @@ public:
 
         btn1 = new QPushButton(widget_7);
         btn1->setObjectName(QString::fromUtf8("btn1"));
+        btn1->setCursor(QCursor(Qt::PointingHandCursor));
         btn1->setStyleSheet(QString::fromUtf8("color:rgba(228, 90, 126, 1);\n"
 "background-color: transparent; \n"
 "border:none;"));
@@ -632,7 +628,6 @@ public:
         LoginPage->setWindowTitle(QCoreApplication::translate("LoginPage", "Dialog", nullptr));
         label->setText(QString());
         label_2->setText(QString());
-        label_3->setText(QString());
         label_4->setText(QCoreApplication::translate("LoginPage", "\346\254\242\350\277\216\344\275\277\347\224\250\350\223\235\344\274\264\350\257\255\351\237\263\344\274\264\344\276\243", nullptr));
         label_5->setText(QCoreApplication::translate("LoginPage", "\346\211\213\346\234\272\345\217\267", nullptr));
         code->setText(QCoreApplication::translate("LoginPage", "+86", nullptr));

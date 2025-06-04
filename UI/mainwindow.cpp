@@ -88,7 +88,7 @@ void MainWindow::initUserUI()
     QString name = data["user"].toMap()["name"].toString();
     ui->userName->setText(name);
     HttpInterFace::getInstance()->downLoad(photoUrl, [&](const QString &path) {
-        this->ui->userImage->setPixmap(QPixmap::fromImage(QImage(path)));
+        ui->userImage->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
     QVariantMap familyData = HttpInterFace::getInstance()->getLiveRoomInfo();
@@ -104,7 +104,7 @@ void MainWindow::initUserUI()
     ui->intro->setText(intro);
     QString fPhotoUrl = pcFamilyPo["photo"].toString();
     HttpInterFace::getInstance()->downLoad(fPhotoUrl, [&](const QString &path) {
-        this->ui->guildImage->setPixmap(QPixmap::fromImage(QImage(path)));
+        ui->guildImage->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
     if(pcFamilyPo["wallList"].toList().size() > 0)
@@ -394,7 +394,7 @@ void MainWindow::msg_multipleAuthoriation(QVariantMap data)
             g_isManager = type.toInt();
             if(!g_isManager)
             {
-                ui->imageBtn->hide();
+                //ui->imageBtn->hide();
             }
             type = multipleAuthoriation.at(0);
             if(type.toInt() == 2)
@@ -744,7 +744,7 @@ void MainWindow::enterTheToom(QVariantMap data)
             g_isManager = true;
         else
         {
-            ui->imageBtn->hide();
+            //ui->imageBtn->hide();
             g_isManager = false;
         }
 
@@ -1162,6 +1162,11 @@ void MainWindow::on_pushButton_4_clicked()
 
             m_agoraFace->setRecordingDeviceVolume(value);
         });
+    }
+    if(m_agoraFace->getRecordingDeviceList().size() <= 0)
+    {
+        MsgBox::showMsg(NULL,tr("提示"), tr("没有麦克风设备"));
+        return;
     }
     m_valuePage->setValue(m_agoraFace->getRecordingDeviceVolume());
     QPoint point;
