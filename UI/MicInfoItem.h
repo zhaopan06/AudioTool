@@ -24,7 +24,8 @@ public:
 
 signals:
     void setMyselfMicInfo(int);
-
+protected:
+    bool eventFilter(QObject *watched, QEvent *event);
 private slots:
     void on_image_rightClicked();
 

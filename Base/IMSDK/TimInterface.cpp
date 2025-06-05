@@ -303,6 +303,7 @@ void TimInterface::initTIMMsgGetMsgList(QString userid)
 
         if (code != ERR_SUCC)
         {
+            qDebug()<<"TIMMsgGetMsgList error-----------code-"<<code<<"---desc-"<<desc;
             return;
         }
         TimInterface* ths = (TimInterface*)user_data;

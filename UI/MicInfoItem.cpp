@@ -4,6 +4,7 @@
 #include "MenuLockRight.h"
 #include "UserinfoPageSimple.h"
 #include "qmovie.h"
+#include "qscreen.h"
 #include "ui_MicInfoItem.h"
 #include "HttpInterFace.h"
 #include "HttpUserInfo.h"
@@ -14,6 +15,7 @@ MicInfoItem::MicInfoItem(QWidget *parent)
     , ui(new Ui::MicInfoItem)
 {
     ui->setupUi(this);
+    ui->image->installEventFilter(this);
     QMovie *movie = new QMovie(":/images/gifts/sound.gif");
     movie->setScaledSize(ui->label->size());
     ui->label->setMovie(movie);
@@ -112,8 +114,42 @@ void MicInfoItem::setAudioValue(QString uid, int value)
     }
 }
 
+bool MicInfoItem::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == ui->image)
+    {
+        if (event->type() == QEvent::Enter)
+        {
+            if(MenuManagerRight::getInstance()->isVisible())
+                return true;
+            QPoint labelGlobalPos = ui->image->mapToGlobal(QPoint(0, 0));
+            UserinfoPageSimple *page = UserinfoPageSimple::getInstance();
+            page->init(m_data["userId"].toString());
+            QPoint point1;
+            point1.setX(labelGlobalPos.rx() - page->width());
+            point1.setY(labelGlobalPos.ry());
+            page->move(point1);
+            page->show();
+            return true;
+        }
+        else if (event->type() == QEvent::Leave)
+        {
+            QPoint mouseGlobalPos = QCursor::pos();
+            QRect widgetAGeometry = UserinfoPageSimple::getInstance()->geometry();
+            if (!widgetAGeometry.contains(mouseGlobalPos))
+            {
+                UserinfoPageSimple::getInstance()->uninit();
+            }
+
+            return true;
+        }
+    }
+    return QWidget::eventFilter(watched, event);
+}
+
 void MicInfoItem::on_image_rightClicked()
-{    
+{
+    //ui->image->removeEventFilter(this);
      QPoint point = QCursor::pos();
     if(-1 == m_data["status"].toInt())//空闲
     {

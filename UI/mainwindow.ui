@@ -67,13 +67,13 @@
         <widget class="QWidget" name="widget_15" native="true">
          <property name="minimumSize">
           <size>
-           <width>147</width>
+           <width>0</width>
            <height>36</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>147</width>
+           <width>16777215</width>
            <height>36</height>
           </size>
          </property>
@@ -85,7 +85,7 @@
            <number>0</number>
           </property>
           <property name="rightMargin">
-           <number>0</number>
+           <number>30</number>
           </property>
           <property name="bottomMargin">
            <number>0</number>
@@ -125,6 +125,19 @@ font-style: normal;</string>
             </property>
             <property name="text">
              <string>蓝伴语音</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_28">
+            <property name="styleSheet">
+             <string notr="true">font-family: &quot;微软雅黑&quot;;
+font-size: 16px;
+color: #FFFFFF;
+text-align: left;</string>
+            </property>
+            <property name="text">
+             <string>1.0.0.1</string>
             </property>
            </widget>
           </item>
@@ -709,8 +722,8 @@ font-style: normal;</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>648</width>
-                  <height>362</height>
+                  <width>631</width>
+                  <height>16</height>
                  </rect>
                 </property>
                </widget>
@@ -4370,8 +4383,8 @@ line-height: 22px;
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>100</width>
-                              <height>30</height>
+                              <width>83</width>
+                              <height>16</height>
                              </rect>
                             </property>
                             <layout class="QVBoxLayout" name="verticalLayout_42">
@@ -4855,8 +4868,8 @@ border-radius: 18px;</string>
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_3"/>
  </buttongroups>
 </ui>

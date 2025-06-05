@@ -240,8 +240,8 @@ void MainWindow::loginIm(int code, QString msg)
                 m_chatPage->show();
                 m_chatPage->ChatC2C(data);
             });
-            m_timInterface->initTIMConvGetConvList();
         }
+        m_timInterface->initTIMConvGetConvList();
         m_timInterface->getTIMConvGetTotalUnreadMessageCount();
     }
 }
@@ -1216,6 +1216,7 @@ void MainWindow::on_pushButton_7_clicked()
     }
     m_chatPage->show();
     m_timInterface->getTIMConvGetTotalUnreadMessageCount();
+    m_chatPage->activateWindow();
 }
 
 void MainWindow::chatC2C(QVariantMap data)

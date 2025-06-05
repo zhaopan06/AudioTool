@@ -36,7 +36,6 @@ public:
     QSpacerItem *horizontalSpacer_7;
     QHBoxLayout *horizontalLayout;
     QPushButton *Attention;
-    QPushButton *pushButton;
     QWidget *widget;
     QVBoxLayout *verticalLayout_2;
     QListWidget *listWidget;
@@ -133,17 +132,6 @@ public:
         Attention->setIconSize(QSize(24, 25));
 
         horizontalLayout->addWidget(Attention);
-
-        pushButton = new QPushButton(widget_36);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setMinimumSize(QSize(24, 25));
-        pushButton->setMaximumSize(QSize(24, 25));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/images/icon_\350\257\246\346\203\205.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton->setIcon(icon1);
-        pushButton->setIconSize(QSize(24, 25));
-
-        horizontalLayout->addWidget(pushButton);
 
 
         horizontalLayout_22->addLayout(horizontalLayout);
@@ -300,9 +288,9 @@ public:
 "line-height: 20px;\n"
 "}\n"
 ""));
-        QIcon icon2;
-        icon2.addFile(QString::fromUtf8(":/images/live_send_n.png"), QSize(), QIcon::Normal, QIcon::Off);
-        sendBtn->setIcon(icon2);
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/images/live_send_n.png"), QSize(), QIcon::Normal, QIcon::Off);
+        sendBtn->setIcon(icon1);
         sendBtn->setIconSize(QSize(17, 16));
 
         horizontalLayout_6->addWidget(sendBtn);
@@ -339,7 +327,6 @@ public:
         name->setText(QCoreApplication::translate("ChatPageC2C", "\350\277\221\346\234\237\346\264\273\345\212\250", nullptr));
         pushButton_2->setText(QCoreApplication::translate("ChatPageC2C", "PushButton", nullptr));
         Attention->setText(QCoreApplication::translate("ChatPageC2C", "\345\217\226\346\266\210\345\205\263\346\263\250", nullptr));
-        pushButton->setText(QString());
         emoBtn->setText(QString());
         imageBtn->setText(QString());
         textEdit->setPlaceholderText(QCoreApplication::translate("ChatPageC2C", "\350\257\267\350\276\223\345\205\245\345\206\205\345\256\271\357\274\214\346\224\257\346\214\201\347\233\264\346\216\245\347\262\230\350\264\264\345\233\276\347\211\207", nullptr));

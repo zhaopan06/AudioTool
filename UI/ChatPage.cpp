@@ -17,6 +17,14 @@ ChatPage::ChatPage(QWidget *parent)
     ui->listWidget->setFocusPolicy(Qt::NoFocus);
     ui->listWidget->setVerticalScrollMode(QListWidget::ScrollPerPixel);
     ui->listWidget->verticalScrollBar()->setSingleStep(20);
+    if(m_chatPage == nullptr)
+    {
+        m_chatPage = new ChatPageC2C;
+        connect(m_chatPage, &ChatPageC2C::updateLeftText, this, &ChatPage::updateLeftText);
+        ui->stackedWidget2->addWidget(m_chatPage);
+        ui->stackedWidget2->setCurrentIndex(0);
+        ui->stackedWidget1->setCurrentIndex(0);
+    }
 }
 
 ChatPage::~ChatPage()
@@ -119,18 +127,11 @@ void ChatPage::c2c_initTimList(QVariantList list)
         m_chatList.append(item);
     }
 
-    if(m_chatPage == nullptr)
+
+    if(m_chatList.size() > 0)
     {
-        m_chatPage = new ChatPageC2C;
-        connect(m_chatPage, &ChatPageC2C::updateLeftText, this, &ChatPage::updateLeftText);
-        if(m_chatList.size() > 0)
-        {
-            ui->listWidget->setCurrentRow(0);
-            m_chatList.at(0)->setClick();
-        }
-        ui->stackedWidget2->addWidget(m_chatPage);
-        ui->stackedWidget2->setCurrentIndex(0);
-        ui->stackedWidget1->setCurrentIndex(0);
+        ui->listWidget->setCurrentRow(0);
+        m_chatList.at(0)->setClick();
     }
 }
 
