@@ -98,6 +98,7 @@ void ChatPageC2C::init(QVariantList list)
                 }
                 else
                 {
+                    qDebug()<<"ui->listWidget->width()0----"<<ui->listWidget->width();
                     ChatPageC2CTextItem *item1 = new ChatPageC2CTextItem;
                     item1->setData(userData, text, ui->listWidget->width());
 

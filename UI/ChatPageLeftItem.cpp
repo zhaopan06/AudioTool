@@ -23,7 +23,21 @@ void ChatPageLeftItem::setData(QVariantMap data, QString text)
     QString conv_face_url = data["conv_face_url"].toString();
     QString name = data["conv_show_name"].toString();
     ui->name->setText(name);
-    ui->text->setText(text);
+
+    QString str = text;
+    str.replace("\r","");
+    str.replace("\t","");
+    str.replace("\n", "");
+    QFont font("Microsoft YaHei");
+    font.setPixelSize(16);
+    QFontMetrics fontMetrics(font);
+    int textWidth = fontMetrics.horizontalAdvance(str);
+    if(textWidth > 250)
+    {
+        str = fontMetrics.elidedText(str,Qt::ElideRight,250);
+        str = str.left(str.size()-1)+ QString("...");
+    }
+    ui->text->setText(str);
 
     int numbers = data["conv_unread_num"].toInt();
     updateNumbers(numbers);
@@ -45,7 +59,20 @@ QString ChatPageLeftItem::getUid()
 
 void ChatPageLeftItem::updateText(QString text)
 {
-    ui->text->setText(text);
+    QString str = text;
+    str.replace("\r","");
+    str.replace("\t","");
+    str.replace("\n", "");
+    QFont font("Microsoft YaHei");
+    font.setPixelSize(16);
+    QFontMetrics fontMetrics(font);
+    int textWidth = fontMetrics.horizontalAdvance(str);
+    if(textWidth > 250)
+    {
+        str = fontMetrics.elidedText(str,Qt::ElideRight,250);
+        str = str.left(str.size()-1)+ QString("...");
+    }
+    ui->text->setText(str);
 }
 
 void ChatPageLeftItem::updateNumbers(int numbers)

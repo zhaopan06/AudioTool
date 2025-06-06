@@ -53,11 +53,13 @@ SOURCES += \
     UI/GiftPage.cpp \
     UI/GiftPageItem.cpp \
     UI/LoginPage.cpp \
+    UI/ManagementPage.cpp \
     UI/MicInfoItem.cpp \
     UI/MicseQuenceItem.cpp \
     UI/NewUserItem.cpp \
     UI/NewUserPage.cpp \
     UI/OnlineItem.cpp \
+    UI/RoomInvitePage.cpp \
     UI/RoomItem.cpp \
     UI/UserinfoPage.cpp \
     UI/UserinfoPageGiftItem.cpp \
@@ -68,6 +70,7 @@ SOURCES += \
     control/CRoundLabel.cpp \
     control/EmotionItem.cpp \
     control/EmotionPage.cpp \
+    control/FramelessDialog.cpp \
     control/ImageDialog.cpp \
     control/MenuHomeownerRight.cpp \
     control/MenuLockRight.cpp \
@@ -101,11 +104,13 @@ HEADERS += \
     UI/GiftPage.h \
     UI/GiftPageItem.h \
     UI/LoginPage.h \
+    UI/ManagementPage.h \
     UI/MicInfoItem.h \
     UI/MicseQuenceItem.h \
     UI/NewUserItem.h \
     UI/NewUserPage.h \
     UI/OnlineItem.h \
+    UI/RoomInvitePage.h \
     UI/RoomItem.h \
     UI/UserinfoPage.h \
     UI/UserinfoPageGiftItem.h \
@@ -116,6 +121,7 @@ HEADERS += \
     control/CRoundLabel.h \
     control/EmotionItem.h \
     control/EmotionPage.h \
+    control/FramelessDialog.h \
     control/ImageDialog.h \
     control/ImageDropLineEdit.h \
     control/ImageTextEdit.h \
@@ -143,11 +149,13 @@ FORMS += \
     UI/GiftPage.ui \
     UI/GiftPageItem.ui \
     UI/LoginPage.ui \
+    UI/ManagementPage.ui \
     UI/MicInfoItem.ui \
     UI/MicseQuenceItem.ui \
     UI/NewUserItem.ui \
     UI/NewUserPage.ui \
     UI/OnlineItem.ui \
+    UI/RoomInvitePage.ui \
     UI/RoomItem.ui \
     UI/UserinfoPage.ui \
     UI/UserinfoPageGiftItem.ui \

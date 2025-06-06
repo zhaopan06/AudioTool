@@ -91,8 +91,8 @@ public:
     {
         if (ChatPage->objectName().isEmpty())
             ChatPage->setObjectName(QString::fromUtf8("ChatPage"));
-        ChatPage->resize(1920, 1147);
-        ChatPage->setMinimumSize(QSize(74, 70));
+        ChatPage->resize(1600, 900);
+        ChatPage->setMinimumSize(QSize(1600, 900));
         ChatPage->setStyleSheet(QString::fromUtf8("background: #161616;"));
         verticalLayout = new QVBoxLayout(ChatPage);
         verticalLayout->setSpacing(0);

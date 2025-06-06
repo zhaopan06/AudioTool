@@ -118,6 +118,10 @@ private slots:
 
     void on_pushButton_7_clicked();
 
+    void on_pushButton_19_clicked();
+
+    void on_pushButton_26_clicked();
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;

@@ -69,5 +69,6 @@
         <file>images/icon_通讯录.png</file>
         <file>images/icon_搜索.png</file>
         <file>images/icon16／已离线.png</file>
+        <file>images/icon_提示.png</file>
     </qresource>
 </RCC>

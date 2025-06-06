@@ -8,9 +8,11 @@
 #include "GIftItem.h"
 #include "GiftPage.h"
 #include "Global.h"
+#include "ManagementPage.h"
 #include "MicInfoItem.h"
 #include "MicseQuenceItem.h"
 #include "NewUserPage.h"
+#include "RoomInvitePage.h"
 #include "UserinfoPage.h"
 #include "qdebug.h"
 #include "ui_mainwindow.h"
@@ -227,22 +229,7 @@ void MainWindow::loginIm(int code, QString msg)
     }
     else
     {
-        if(nullptr == m_chatPage)
-        {
-            m_chatPage = new ChatPage;
-            connect(m_timInterface, &TimInterface::c2c_msg_text, m_chatPage, &ChatPage::c2c_msg_text);
-            connect(m_timInterface, &TimInterface::c2c_initTimList, m_chatPage, &ChatPage::c2c_initTimList);
-            connect(m_timInterface, &TimInterface::c2c_initTimMsgList, m_chatPage, &ChatPage::c2c_initTimMsgList);
-            connect(m_timInterface, &TimInterface::c2c_msg_image, m_chatPage, &ChatPage::c2c_msg_image);
-            connect(m_timInterface, &TimInterface::msg_numbers, m_chatPage, &ChatPage::c2c_msgNumber);
-            connect(m_timInterface, &TimInterface::msg_uidNumbers, m_chatPage, &ChatPage::msg_uidNumbers);
-            connect(UserinfoPage::getInstance(), &UserinfoPage::chatC2C, this,[&](QVariantMap data){
-                m_chatPage->show();
-                m_chatPage->ChatC2C(data);
-            });
-        }
-        m_timInterface->initTIMConvGetConvList();
-        m_timInterface->getTIMConvGetTotalUnreadMessageCount();
+
     }
 }
 
@@ -1142,13 +1129,15 @@ void MainWindow::on_msgEdit_textChanged(const QString &arg1)
     }
 }
 
-
 void MainWindow::on_closeLiveBtn_clicked()
 {
-    QVariantMap data = HttpInterFace::getInstance()->closeRoom(g_roomID);
-    if(data["code"].toInt() == 1)
+    if(QDialog::Accepted == MsgBox::showMsg(NULL,tr("提示"), tr("所有用户将强制退出房间，确定结束直播吗？"),MsgBox::QUERYDIALOG))
     {
-        msg_liveClose();
+        QVariantMap data = HttpInterFace::getInstance()->closeRoom(g_roomID);
+        if(data["code"].toInt() == 1)
+        {
+            msg_liveClose();
+        }
     }
 }
 
@@ -1210,12 +1199,15 @@ void MainWindow::on_pushButton_7_clicked()
         connect(UserinfoPage::getInstance(), &UserinfoPage::chatC2C, this,[&](QVariantMap data){
             m_chatPage->show();
             m_chatPage->ChatC2C(data);
-        });
-        m_timInterface->initTIMConvGetConvList();
+        });       
 
-    }
-    m_chatPage->show();
-    m_timInterface->getTIMConvGetTotalUnreadMessageCount();
+        QTimer::singleShot(100, this, [this](){
+            m_timInterface->initTIMConvGetConvList();
+            m_timInterface->getTIMConvGetTotalUnreadMessageCount();
+        });
+    }   
+
+    m_chatPage->show();    
     m_chatPage->activateWindow();
 }
 
@@ -1223,5 +1215,35 @@ void MainWindow::chatC2C(QVariantMap data)
 {
     m_chatPage->show();
     m_chatPage->ChatC2C(data);
+}
+
+
+void MainWindow::on_pushButton_19_clicked()
+{
+    QWidget *mask = new QWidget(this);
+    mask->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
+    mask->setGeometry(rect());
+    mask->show();
+
+    ManagementPage page;
+    connect(&page, &QDialog::finished, [=](){
+        mask->deleteLater();
+    });
+    page.exec();
+}
+
+
+void MainWindow::on_pushButton_26_clicked()
+{
+    QWidget *mask = new QWidget(this);
+    mask->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
+    mask->setGeometry(rect());
+    mask->show();
+
+    RoomInvitePage page;
+    connect(&page, &QDialog::finished, [=](){
+        mask->deleteLater();
+    });
+    page.exec();
 }
 

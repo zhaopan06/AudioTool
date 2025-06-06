@@ -17,6 +17,8 @@ class ChatPage : public QDialog
 
 public:
     explicit ChatPage(QWidget *parent = nullptr);
+    enum Edge { None = 0, Top = 1, Bottom = 2, Left = 4, Right = 8 };
+    Q_DECLARE_FLAGS(Edges, Edge)  // 这行是关键
     ~ChatPage();
     void init(QVariant data);
 protected:
@@ -50,6 +52,15 @@ private slots:
 
     bool updateLeftText(QString text, QString uid);
     void on_searchBtn_clicked();
+
+    void on_minBtn_clicked();
+
+private:
+    Edges m_dragEdge = None;  // 使用 Edges 类型替代 Edge
+    QPoint m_dragStartPos;
+    QRect m_originalGeometry;
+
+    Edges getEdgeAt(const QPoint &pos);
 
 private:
     Ui::ChatPage *ui;

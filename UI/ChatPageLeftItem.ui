@@ -141,23 +141,21 @@ font-style: normal;</string>
       <widget class="QLabel" name="text">
        <property name="minimumSize">
         <size>
-         <width>0</width>
+         <width>214</width>
          <height>20</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>16777215</width>
+         <width>214</width>
          <height>20</height>
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-weight: 400;
+        <string notr="true">font-family: &quot;微软雅黑&quot;;
+font-weight: 400;
 font-size: 14px;
-color: #A8A8A7;
-line-height: 20px;
-text-align: left;
-font-style: normal;</string>
+color: #A8A8A7;</string>
        </property>
        <property name="text">
         <string/>

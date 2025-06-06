@@ -1,4 +1,4 @@
-#ifndef MSGBOX_H
+﻿#ifndef MSGBOX_H
 #define MSGBOX_H
 
 #include <QDialog>

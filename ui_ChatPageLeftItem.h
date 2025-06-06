@@ -84,14 +84,12 @@ public:
 
         text = new QLabel(ChatPageLeftItem);
         text->setObjectName(QString::fromUtf8("text"));
-        text->setMinimumSize(QSize(0, 20));
-        text->setMaximumSize(QSize(16777215, 20));
-        text->setStyleSheet(QString::fromUtf8("font-weight: 400;\n"
+        text->setMinimumSize(QSize(214, 20));
+        text->setMaximumSize(QSize(214, 20));
+        text->setStyleSheet(QString::fromUtf8("font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
 "font-size: 14px;\n"
-"color: #A8A8A7;\n"
-"line-height: 20px;\n"
-"text-align: left;\n"
-"font-style: normal;"));
+"color: #A8A8A7;"));
 
         verticalLayout->addWidget(text);
 
