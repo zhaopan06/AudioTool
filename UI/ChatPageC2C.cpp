@@ -1,4 +1,5 @@
 ﻿#include "ChatPageC2C.h"
+#include "ChatInviteItem.h"
 #include "ChatPageC2CMyItem.h"
 #include "ChatPageC2CTextItem.h"
 #include "Global.h"
@@ -97,8 +98,7 @@ void ChatPageC2C::init(QVariantList list)
                     ui->listWidget->scrollToBottom();
                 }
                 else
-                {
-                    qDebug()<<"ui->listWidget->width()0----"<<ui->listWidget->width();
+                {                    
                     ChatPageC2CTextItem *item1 = new ChatPageC2CTextItem;
                     item1->setData(userData, text, ui->listWidget->width());
 
@@ -109,6 +109,25 @@ void ChatPageC2C::init(QVariantList list)
                     ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
                     ui->listWidget->scrollToBottom();
                 }
+            }
+            if(3 == elem_type)
+            {
+                QString str_content = data["message_cloud_custom_str"].toString();
+                QJsonObject str_doc = QJsonDocument::fromJson(str_content.toUtf8()).object();
+                QVariantMap userJosn = data["message_sender_profile"].toMap();
+                QVariantMap data = str_doc.toVariantMap();
+                data["photo"] = userJosn["user_profile_face_url"].toString();
+                data["user_profile_nick_name"] = userJosn["user_profile_nick_name"].toString();
+
+                ChatInviteItem *item1 = new ChatInviteItem;
+                item1->setData(data);
+
+                QListWidgetItem *item = new QListWidgetItem();
+                ui->listWidget->addItem(item);
+                ui->listWidget->setItemWidget(item,item1);
+                item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
+                ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+                ui->listWidget->scrollToBottom();
             }
         }
     }
@@ -188,6 +207,19 @@ void ChatPageC2C::addImageMsg(QVariantMap data, QString path, QString largePath)
     ui->listWidget->scrollToBottom();
 
     TimInterface::getInstance()->sendTIMMsgSendMessageReadReceipts(m_message_conv_id);
+}
+
+void ChatPageC2C::addInviteFriends(QVariantMap data)
+{
+    ChatInviteItem *item1 = new ChatInviteItem;
+    item1->setData(data);
+
+    QListWidgetItem *item = new QListWidgetItem();
+    ui->listWidget->addItem(item);
+    ui->listWidget->setItemWidget(item,item1);
+    item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
+    ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+    ui->listWidget->scrollToBottom();
 }
 
 QString ChatPageC2C::getUid()

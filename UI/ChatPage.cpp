@@ -44,12 +44,6 @@ void ChatPage::mousePressEvent(QMouseEvent* event)
         m_bMoveing = true;
         m_pMovePosition = event->globalPos() - this->pos();
     }
-    if (event->button() == Qt::LeftButton) {
-        m_dragEdge = getEdgeAt(event->pos());
-        m_dragStartPos = event->globalPos();
-        m_originalGeometry = geometry();
-    }
-    QDialog::mousePressEvent(event);
 }
 
 void ChatPage::mouseMoveEvent(QMouseEvent* event)
@@ -60,50 +54,7 @@ void ChatPage::mouseMoveEvent(QMouseEvent* event)
     {
         move(event->globalPos() - m_pMovePosition);
         m_pMovePosition = event->globalPos() - pos();
-        return;
     }
-
-    if (event->buttons() & Qt::LeftButton) {
-        if (m_dragEdge != None) {
-            // 计算鼠标移动距离
-            QPoint delta = event->globalPos() - m_dragStartPos;
-            QRect newGeo = m_originalGeometry;
-
-            // 根据拖拽的边缘调整对应方向的尺寸
-            if (m_dragEdge & Left) {
-                newGeo.setLeft(newGeo.left() + delta.x());
-                if (newGeo.width() < minimumWidth())
-                    newGeo.setLeft(newGeo.right() - minimumWidth());
-            }
-            if (m_dragEdge & Right) {
-                newGeo.setRight(newGeo.right() + delta.x());
-            }
-            if (m_dragEdge & Top) {
-                newGeo.setTop(newGeo.top() + delta.y());
-                if (newGeo.height() < minimumHeight())
-                    newGeo.setTop(newGeo.bottom() - minimumHeight());
-            }
-            if (m_dragEdge & Bottom) {
-                newGeo.setBottom(newGeo.bottom() + delta.y());
-            }
-
-            setGeometry(newGeo);
-        }
-    }
-    QDialog::mouseMoveEvent(event);
-}
-
-ChatPage::Edges ChatPage::getEdgeAt(const QPoint &pos)
-{
-    const int margin = 8;
-    Edges edge = None;
-
-    if (pos.x() < margin) edge |= Left;
-    if (pos.x() > width() - margin) edge |= Right;
-    if (pos.y() < margin) edge |= Top;
-    if (pos.y() > height() - margin) edge |= Bottom;
-
-    return edge;
 }
 
 void ChatPage::mouseReleaseEvent(QMouseEvent *event)
@@ -412,6 +363,11 @@ void ChatPage::ChatC2C(QVariantMap data)
     m_chatList.insert(0,item);
 
     item->setClick();
+}
+//TODO 添加房间邀请的功能
+void ChatPage::c2c_msg_inviteFriends(QVariantMap data)
+{
+    m_chatPage->addInviteFriends(data);
 }
 
 bool ChatPage::updateLeftText(QString text, QString uid)

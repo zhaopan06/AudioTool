@@ -1196,6 +1196,7 @@ void MainWindow::on_pushButton_7_clicked()
         connect(m_timInterface, &TimInterface::c2c_msg_image, m_chatPage, &ChatPage::c2c_msg_image);
         connect(m_timInterface, &TimInterface::msg_numbers, m_chatPage, &ChatPage::c2c_msgNumber);
         connect(m_timInterface, &TimInterface::msg_uidNumbers, m_chatPage, &ChatPage::msg_uidNumbers);
+        connect(m_timInterface, &TimInterface::c2c_msg_inviteFriends, m_chatPage, &ChatPage::c2c_msg_inviteFriends);
         connect(UserinfoPage::getInstance(), &UserinfoPage::chatC2C, this,[&](QVariantMap data){
             m_chatPage->show();
             m_chatPage->ChatC2C(data);

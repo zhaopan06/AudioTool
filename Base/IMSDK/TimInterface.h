@@ -105,6 +105,7 @@ signals:
     void c2c_initTimList(QVariantList);
     void c2c_initTimMsgList(QVariantList);
     void c2c_msg_image(QVariantMap, QString, QString);
+    void c2c_msg_inviteFriends(QVariantMap);
 private:
 
 

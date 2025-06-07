@@ -1,5 +1,11 @@
-﻿#include <QDialog>
-#include <QFlags>  // 添加这行
+﻿#ifndef FRAMELESSDIALOG_H
+#define FRAMELESSDIALOG_H
+
+#include <QDialog>
+#include <QMouseEvent>
+#include <QPainter>
+#include <QGraphicsBlurEffect>
+#include <QCursor>
 
 class FramelessDialog : public QDialog
 {
@@ -7,22 +13,29 @@ class FramelessDialog : public QDialog
 public:
     explicit FramelessDialog(QWidget *parent = nullptr);
 
-    // 使用 Q_DECLARE_FLAGS 宏声明标志类型
-    enum Edge { None = 0, Top = 1, Bottom = 2, Left = 4, Right = 8 };
-    Q_DECLARE_FLAGS(Edges, Edge)  // 这行是关键
-
 protected:
+    bool eventFilter(QObject *watched, QEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
 
 private:
-    Edges m_dragEdge = None;  // 使用 Edges 类型替代 Edge
-    QPoint m_dragStartPos;
-    QRect m_originalGeometry;
+    enum Edge {
+        None = 0,
+        Top = 1, Bottom = 2, Left = 4, Right = 8,
+        TopLeft = Top | Left, TopRight = Top | Right,
+        BottomLeft = Bottom | Left, BottomRight = Bottom | Right
+    };
 
-    Edges getEdgeAt(const QPoint &pos);
+    Edge getEdgeAt(const QPoint &pos);
+    void updateCursor(Edge edge);
+    void setWindowEffects();
+
+    bool m_isDragging;
+    QPoint m_dragStartPos;
+    Edge m_dragEdge;
+    QGraphicsBlurEffect *m_blurEffect;
 };
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(FramelessDialog::Edges)  // 在类声明后添加这行
+#endif // FRAMELESSDIALOG_H

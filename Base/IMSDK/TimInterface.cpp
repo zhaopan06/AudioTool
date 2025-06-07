@@ -547,7 +547,21 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
             }
 
             case TIMElemType::kTIMElem_Custom:
-            {                
+            {
+                if(kTIMConv_C2C == msg_obj["message_conv_type"].toInt())
+                {
+                    if("inviteFriends" == elem["custom_elem_data"].toString())
+                    {
+                        QVariantMap userJosn = msg_obj["message_sender_profile"].toVariant().toMap();
+                        showMapTojson(userJosn);
+                        QVariantMap data = str_doc.toVariantMap();
+                        data["photo"] = userJosn["user_profile_face_url"].toString();
+                        data["user_profile_nick_name"] = userJosn["user_profile_nick_name"].toString();
+                        emit c2c_msg_inviteFriends(data);
+                    }
+                    return;
+                }
+
                 if("groupMsg" == str_doc["tximMsgType"].toString())
                 {                    
                     QJsonObject message_ob = str_doc["message"].toObject();

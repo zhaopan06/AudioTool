@@ -21,6 +21,7 @@ public:
 
     void addTextMsg(QVariantMap data, QString text);
     void addImageMsg(QVariantMap data, QString path, QString largePath);
+    void addInviteFriends(QVariantMap data);
     QString getUid();
 signals:
     void updateLeftText(QString,QString);

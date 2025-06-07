@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ChatInviteItem</class>
+ <widget class="QDialog" name="ChatInviteItem">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>429</width>
+    <height>218</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>214</width>
+    <height>218</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>218</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <property name="spacing">
+    <number>12</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QWidget" name="widget_4" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>46</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>46</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="CRoundLabel" name="image">
+        <property name="minimumSize">
+         <size>
+          <width>46</width>
+          <height>46</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>46</width>
+          <height>46</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>156</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>156</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>8</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="name">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: &quot;微软雅黑&quot;;
+font-weight: 400;
+font-size: 16px;
+color: #A8A8A7;
+line-height: 22px;
+text-align: left;
+font-style: normal;</string>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget_3" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>156</width>
+          <height>156</height>
+         </size>
+        </property>
+        <widget class="QWidget" name="widget_2" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>138</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: transparent;
+border: none;</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="roomId">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>28</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">font-family: &quot;微软雅黑&quot;;
+font-weight: 400;
+font-size: 14px;
+color: #FFFFFF;
+line-height: 20px;
+text-align: left;
+font-style: normal;
+
+background: rgba(22, 22, 22, 0.5);
+border-top-left-radius: 16;
+border-top-right-radius: 0px;
+border-bottom-right-radius: 16;
+border-bottom-left-radius: 0px;
+
+padding-top: 4px;
+padding-bottom: 4px; 
+padding-left: 8px; 
+padding-right: 8px; </string>
+            </property>
+            <property name="text">
+             <string>11111</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../res.qrc">
+              <normaloff>:/images/icon_number.png</normaloff>:/images/icon_number.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>77</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+        <widget class="click_label" name="roomPhoto">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>156</width>
+           <height>156</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius: 16px;</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="roomName">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">font-family: &quot;微软雅黑&quot;;
+font-weight: 500;
+font-size: 16px;
+color: #FFFFFF;
+line-height: 22px;
+text-align: left;
+font-style: normal;</string>
+        </property>
+        <property name="text">
+         <string>浪漫满屋-仙女避风港</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget_5" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>46</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>46</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="CRoundLabel" name="mySelfImage">
+        <property name="minimumSize">
+         <size>
+          <width>46</width>
+          <height>46</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>46</width>
+          <height>46</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>169</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CRoundLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">CRoundLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>click_label</class>
+   <extends>QLabel</extends>
+   <header location="global">click_label.h</header>
+   <slots>
+    <signal>clicked()</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../res.qrc"/>
+ </resources>
+ <connections/>
+</ui>
