@@ -378,6 +378,32 @@ void TimInterface::SendC2CImage(QString path, QString toUid)
     sendMessage_c2c(toUid.toLatin1(), doc.toJson(), this);
 }
 
+void TimInterface::sendInvMsg(QString toUid)
+{
+    QVariantMap json_value_image;
+    json_value_image[kTIMElemType] = kTIMElem_Custom;
+
+    // 创建消息元素数组
+    QVariantMap json_value_msg;
+    QVariantList elem_array;
+    elem_array.append(json_value_image);
+    json_value_msg[kTIMMsgElemArray] = elem_array;
+
+    json_value_msg[kTIMMsgSender] = "user" + HttpUserInfo::instance()->getUserID();
+    json_value_msg[kTIMMsgClientTime] = time(NULL);
+    json_value_msg[kTIMMsgServerTime] = time(NULL);
+    json_value_msg[kTIMMsgConvId] = toUid;
+    json_value_msg[kTIMMsgConvType] = kTIMConv_C2C;
+
+    QVariantMap data = HttpUserInfo::instance()->getInvInfo();
+    QJsonDocument InvInfodoc(QJsonObject::fromVariantMap(data));
+    json_value_msg["message_cloud_custom_str"] = InvInfodoc.toJson();
+
+    // 转换为 JSON 字符串
+    QJsonDocument doc(QJsonObject::fromVariantMap(json_value_msg));
+    sendMessage_c2c(toUid.toLatin1(), doc.toJson(), this);
+}
+
 void TimInterface::initTIMConvGetConvList()
 {
     TIMConvGetConvList([](int32_t code, const char* desc, const char* json_param, const void* user_data) {
@@ -386,8 +412,6 @@ void TimInterface::initTIMConvGetConvList()
         ths->getInitTIMConvGetConvListMSGTojson(json_param);
 
     }, this);
-
-
 }
 
 
@@ -552,11 +576,11 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                 {
                     if("inviteFriends" == elem["custom_elem_data"].toString())
                     {
-                        QVariantMap userJosn = msg_obj["message_sender_profile"].toVariant().toMap();
-                        showMapTojson(userJosn);
+                        QVariantMap userJosn = msg_obj["message_sender_profile"].toVariant().toMap();                        
                         QVariantMap data = str_doc.toVariantMap();
                         data["photo"] = userJosn["user_profile_face_url"].toString();
                         data["user_profile_nick_name"] = userJosn["user_profile_nick_name"].toString();
+                        data["user_profile_identifier"] = userJosn["user_profile_identifier"];
                         emit c2c_msg_inviteFriends(data);
                     }
                     return;

@@ -66,6 +66,7 @@ public:
     //组建发送消息的json方法 文字
     void setC2CSendJson(IMType type, QString text, QString toUid);
     void SendC2CImage(QString path, QString toUid);
+    void sendInvMsg(QString toUid);
 
     /*-----------群组相关-----------*/
     //加入群组

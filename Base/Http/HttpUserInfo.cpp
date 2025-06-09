@@ -1,4 +1,5 @@
 ﻿#include "HttpUserInfo.h"
+#include "Global.h"
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -73,11 +74,23 @@ void HttpUserInfo::setRoomInfo(QVariantMap data)
 {
     m_roomInfo = data;
     m_chatRoomId = data["chatRoomId"].toString();
+    showMapTojson(data);
+
+    QVariantMap invInfo;
+    invInfo["roomPhoto"] = data["roomPhoto"];
+    invInfo["roomId"] = data["roomId"];
+    invInfo["roomName"] = data["roomName"];
+    m_invInfo = invInfo;
 }
 
 QVariantMap HttpUserInfo::getRoomInfo()
 {
     return m_roomInfo;
+}
+
+QVariantMap HttpUserInfo::getInvInfo()
+{
+    return m_invInfo;
 }
 
 QString HttpUserInfo::getIMRoomID()

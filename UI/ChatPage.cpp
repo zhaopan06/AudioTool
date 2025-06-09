@@ -4,6 +4,7 @@
 #include "Global.h"
 #include "qevent.h"
 #include "qscrollbar.h"
+#include "qtimer.h"
 #include "ui_ChatPage.h"
 #include "HttpInterFace.h"
 #include "MsgBox.h"
@@ -135,8 +136,11 @@ void ChatPage::c2c_initTimList(QVariantList list)
 
     if(m_chatList.size() > 0)
     {
-        ui->listWidget->setCurrentRow(0);
-        m_chatList.at(0)->setClick();
+        QTimer::singleShot(300, this, [this](){
+            ui->listWidget->setCurrentRow(0);
+            m_chatList.at(0)->setClick();
+        });
+
     }
 }
 

@@ -123,7 +123,7 @@ void ChatPageC2C::init(QVariantList list)
                 item1->setData(data);
 
                 QListWidgetItem *item = new QListWidgetItem();
-                ui->listWidget->addItem(item);
+                ui->listWidget->insertItem(0, item);
                 ui->listWidget->setItemWidget(item,item1);
                 item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
                 ui->listWidget->setCurrentRow(ui->listWidget->count()-1);

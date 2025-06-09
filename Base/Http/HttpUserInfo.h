@@ -29,6 +29,7 @@ public:
     //设置房间信息
     void setRoomInfo(QVariantMap data);
     QVariantMap getRoomInfo();
+    QVariantMap getInvInfo();
     //腾讯房间id
     QString getIMRoomID();
     //房间ID
@@ -64,6 +65,8 @@ private:
     QString m_chatRoomId; //消息所属会话 ID,就是 IM的kTIMMsgConvIdID
     QString m_IMtoken;
     QVariantMap m_roomInfo;//进入房间后获取的json数据 http请求的原数据
+
+    QVariantMap m_invInfo;//进房间的邀请信息
 signals:
 
 };

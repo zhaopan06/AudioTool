@@ -231,7 +231,26 @@ void MainWindow::loginIm(int code, QString msg)
     }
     else
     {
+        if(nullptr == m_chatPage)
+        {
+            m_chatPage = new ChatPage;
+            connect(m_timInterface, &TimInterface::c2c_msg_text, m_chatPage, &ChatPage::c2c_msg_text);
+            connect(m_timInterface, &TimInterface::c2c_initTimList, m_chatPage, &ChatPage::c2c_initTimList);
+            connect(m_timInterface, &TimInterface::c2c_initTimMsgList, m_chatPage, &ChatPage::c2c_initTimMsgList);
+            connect(m_timInterface, &TimInterface::c2c_msg_image, m_chatPage, &ChatPage::c2c_msg_image);
+            connect(m_timInterface, &TimInterface::msg_numbers, m_chatPage, &ChatPage::c2c_msgNumber);
+            connect(m_timInterface, &TimInterface::msg_uidNumbers, m_chatPage, &ChatPage::msg_uidNumbers);
+            connect(m_timInterface, &TimInterface::c2c_msg_inviteFriends, m_chatPage, &ChatPage::c2c_msg_inviteFriends);
+            connect(UserinfoPage::getInstance(), &UserinfoPage::chatC2C, this,[&](QVariantMap data){
+                m_chatPage->show();
+                m_chatPage->ChatC2C(data);
+            });
 
+            QTimer::singleShot(100, this, [this](){
+                m_timInterface->initTIMConvGetConvList();
+                m_timInterface->getTIMConvGetTotalUnreadMessageCount();
+            });
+        }
     }
 }
 
@@ -1078,13 +1097,16 @@ void MainWindow::on_pushButton_18_clicked()
 
 void MainWindow::on_pushButton_17_clicked()
 {
-    HttpInterFace::getInstance()->noticeFans(g_roomID, [&](const QVariant &map) {
-        QVariantMap data = map.toMap();
-        if(data["code"].toInt() != 1)
-        {
-            MsgBox::showMsg(this,tr("提示"), data["message"].toString());
-        }
-    });
+    if(QDialog::Accepted == MsgBox::showMsg(this,tr("提示"), tr("是否确认通知我的全部粉丝"),MsgBox::QUERYDIALOG))
+    {
+        HttpInterFace::getInstance()->noticeFans(g_roomID, [&](const QVariant &map) {
+            QVariantMap data = map.toMap();
+            if(data["code"].toInt() != 1)
+            {
+                MsgBox::showMsg(this,tr("提示"), data["message"].toString());
+            }
+        });
+    }
 }
 
 void MainWindow::on_msgEdit_sendImage(const QString &localPath)
@@ -1202,13 +1224,13 @@ void MainWindow::on_pushButton_7_clicked()
         connect(UserinfoPage::getInstance(), &UserinfoPage::chatC2C, this,[&](QVariantMap data){
             m_chatPage->show();
             m_chatPage->ChatC2C(data);
-        });       
+        });
 
         QTimer::singleShot(100, this, [this](){
             m_timInterface->initTIMConvGetConvList();
             m_timInterface->getTIMConvGetTotalUnreadMessageCount();
         });
-    }   
+    }
 
     m_chatPage->show();    
     m_chatPage->activateWindow();
