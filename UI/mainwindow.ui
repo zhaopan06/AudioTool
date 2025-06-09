@@ -238,16 +238,90 @@ font-style: normal;</string>
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="pushButton_8">
+         <property name="minimumSize">
+          <size>
+           <width>24</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{	
+border:none;
+}
+QPushButton::hover{
+border:none;
+background:#3E3E3E;
+}
+QPushButton::checked {
+border:none;
+}
+
+</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../res.qrc">
+           <normaloff>:/images/top_c.png</normaloff>:/images/top_c.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>25</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_10">
+         <property name="minimumSize">
+          <size>
+           <width>24</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton{	
+border:none;
+}
+QPushButton::hover{
+border:none;
+background:#3E3E3E;
+}
+QPushButton::checked {
+border:none;
+}
+
+</string>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset resource="../res.qrc">
+           <normaloff>:/images/top_a.png</normaloff>:/images/top_a.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>25</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QWidget" name="widget_17" native="true">
          <property name="minimumSize">
           <size>
-           <width>194</width>
+           <width>0</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>194</width>
+           <width>16777215</width>
            <height>16777215</height>
           </size>
          </property>
@@ -347,80 +421,6 @@ font-style: normal;</string>
               <set>Qt::AlignCenter</set>
              </property>
             </widget>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_8">
-            <property name="minimumSize">
-             <size>
-              <width>24</width>
-              <height>25</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton{	
-border:none;
-}
-QPushButton::hover{
-border:none;
-background:#3E3E3E;
-}
-QPushButton::checked {
-border:none;
-}
-
-</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="../res.qrc">
-              <normaloff>:/images/top_c.png</normaloff>:/images/top_c.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>24</width>
-              <height>25</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="pushButton_10">
-            <property name="minimumSize">
-             <size>
-              <width>24</width>
-              <height>25</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QPushButton{	
-border:none;
-}
-QPushButton::hover{
-border:none;
-background:#3E3E3E;
-}
-QPushButton::checked {
-border:none;
-}
-
-</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="../res.qrc">
-              <normaloff>:/images/top_a.png</normaloff>:/images/top_a.png</iconset>
-            </property>
-            <property name="iconSize">
-             <size>
-              <width>24</width>
-              <height>25</height>
-             </size>
-            </property>
            </widget>
           </item>
           <item>
@@ -4869,7 +4869,7 @@ border-radius: 18px;</string>
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>

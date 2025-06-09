@@ -47,13 +47,13 @@ public:
     QHBoxLayout *horizontalLayout_12;
     CRoundLabel *userImage;
     QLabel *userName;
+    QPushButton *pushButton_8;
+    QPushButton *pushButton_10;
     QWidget *widget_17;
     QHBoxLayout *horizontalLayout_11;
     QWidget *widget_46;
     QPushButton *pushButton_7;
     QLabel *number;
-    QPushButton *pushButton_8;
-    QPushButton *pushButton_10;
     QPushButton *pushButton_9;
     QFrame *line_3;
     QWidget *widget_16;
@@ -311,8 +311,8 @@ public:
     QPushButton *pushButton_15;
     QPushButton *pushButton_16;
     QButtonGroup *buttonGroup_2;
-    QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_3;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -414,10 +414,54 @@ public:
 
         horizontalLayout_13->addWidget(widget_18);
 
+        pushButton_8 = new QPushButton(widget_14);
+        pushButton_8->setObjectName(QString::fromUtf8("pushButton_8"));
+        pushButton_8->setMinimumSize(QSize(24, 25));
+        pushButton_8->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
+"border:none;\n"
+"}\n"
+"QPushButton::hover{\n"
+"border:none;\n"
+"background:#3E3E3E;\n"
+"}\n"
+"QPushButton::checked {\n"
+"border:none;\n"
+"}\n"
+"\n"
+""));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/images/top_c.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton_8->setIcon(icon);
+        pushButton_8->setIconSize(QSize(24, 25));
+
+        horizontalLayout_13->addWidget(pushButton_8);
+
+        pushButton_10 = new QPushButton(widget_14);
+        pushButton_10->setObjectName(QString::fromUtf8("pushButton_10"));
+        pushButton_10->setMinimumSize(QSize(24, 25));
+        pushButton_10->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
+"border:none;\n"
+"}\n"
+"QPushButton::hover{\n"
+"border:none;\n"
+"background:#3E3E3E;\n"
+"}\n"
+"QPushButton::checked {\n"
+"border:none;\n"
+"}\n"
+"\n"
+""));
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/images/top_a.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton_10->setIcon(icon1);
+        pushButton_10->setIconSize(QSize(24, 25));
+
+        horizontalLayout_13->addWidget(pushButton_10);
+
         widget_17 = new QWidget(widget_14);
         widget_17->setObjectName(QString::fromUtf8("widget_17"));
-        widget_17->setMinimumSize(QSize(194, 0));
-        widget_17->setMaximumSize(QSize(194, 16777215));
+        widget_17->setMinimumSize(QSize(0, 0));
+        widget_17->setMaximumSize(QSize(16777215, 16777215));
         widget_17->setStyleSheet(QString::fromUtf8("border:none;"));
         horizontalLayout_11 = new QHBoxLayout(widget_17);
         horizontalLayout_11->setSpacing(8);
@@ -442,9 +486,9 @@ public:
 "}\n"
 "\n"
 ""));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8(":/images/top_d.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_7->setIcon(icon);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/images/top_d.png"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton_7->setIcon(icon2);
         pushButton_7->setIconSize(QSize(24, 25));
         number = new QLabel(widget_46);
         number->setObjectName(QString::fromUtf8("number"));
@@ -460,50 +504,6 @@ public:
         number->setAlignment(Qt::AlignCenter);
 
         horizontalLayout_11->addWidget(widget_46);
-
-        pushButton_8 = new QPushButton(widget_17);
-        pushButton_8->setObjectName(QString::fromUtf8("pushButton_8"));
-        pushButton_8->setMinimumSize(QSize(24, 25));
-        pushButton_8->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
-"border:none;\n"
-"}\n"
-"QPushButton::hover{\n"
-"border:none;\n"
-"background:#3E3E3E;\n"
-"}\n"
-"QPushButton::checked {\n"
-"border:none;\n"
-"}\n"
-"\n"
-""));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/images/top_c.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_8->setIcon(icon1);
-        pushButton_8->setIconSize(QSize(24, 25));
-
-        horizontalLayout_11->addWidget(pushButton_8);
-
-        pushButton_10 = new QPushButton(widget_17);
-        pushButton_10->setObjectName(QString::fromUtf8("pushButton_10"));
-        pushButton_10->setMinimumSize(QSize(24, 25));
-        pushButton_10->setStyleSheet(QString::fromUtf8("QPushButton{	\n"
-"border:none;\n"
-"}\n"
-"QPushButton::hover{\n"
-"border:none;\n"
-"background:#3E3E3E;\n"
-"}\n"
-"QPushButton::checked {\n"
-"border:none;\n"
-"}\n"
-"\n"
-""));
-        QIcon icon2;
-        icon2.addFile(QString::fromUtf8(":/images/top_a.png"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_10->setIcon(icon2);
-        pushButton_10->setIconSize(QSize(24, 25));
-
-        horizontalLayout_11->addWidget(pushButton_10);
 
         pushButton_9 = new QPushButton(widget_17);
         pushButton_9->setObjectName(QString::fromUtf8("pushButton_9"));
@@ -2647,10 +2647,10 @@ public:
         label_28->setText(QCoreApplication::translate("MainWindow", "1.0.0.1", nullptr));
         userImage->setText(QString());
         userName->setText(QCoreApplication::translate("MainWindow", "\347\224\250\346\210\267\345\220\215\345\215\240\344\275\215", nullptr));
-        pushButton_7->setText(QString());
-        number->setText(QCoreApplication::translate("MainWindow", "99+", nullptr));
         pushButton_8->setText(QString());
         pushButton_10->setText(QString());
+        pushButton_7->setText(QString());
+        number->setText(QCoreApplication::translate("MainWindow", "99+", nullptr));
         pushButton_9->setText(QString());
         minBtn->setText(QString());
         closeBtn->setText(QString());

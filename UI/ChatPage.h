@@ -54,6 +54,8 @@ private slots:
 
     void on_minBtn_clicked();
 
+    void on_lineEdit_textChanged(const QString &arg1);
+
 private:
     Ui::ChatPage *ui;
     bool  m_bMoveing = false;

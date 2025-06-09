@@ -49,7 +49,21 @@ int MsgBox::showMsg(QWidget *parent, const QString &title, const QString &msg, B
     QString newMsg = msg;
     if(newMsg.isEmpty())
         newMsg =  tr("网络错误");
+
+    QWidget *mask = new QWidget(parent);
+    mask->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
+    if(parent)
+    {
+        mask->setGeometry(parent->rect());
+        mask->show();
+    }
+
     MsgBox msgBox(title, newMsg, mode, parent);
+
+    connect(&msgBox, &QDialog::finished, [=](){
+        mask->deleteLater();
+    });
+
     return msgBox.exec();
 }
 

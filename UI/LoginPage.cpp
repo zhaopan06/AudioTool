@@ -309,19 +309,19 @@ void LoginPage::on_next_page_btn_clicked()
 
     if (acc.isEmpty())
     {
-        MsgBox::showMsg(0, QStringLiteral("提示"), QStringLiteral("请输入手机号"));
+        MsgBox::showMsg(this, QStringLiteral("提示"), QStringLiteral("请输入手机号"));
         return;
     }
     QRegularExpression regex("^1[3-9]\\d{9}$");
     if(!regex.match(acc).hasMatch())
     {
-        MsgBox::showMsg(0, QStringLiteral("提示"), QStringLiteral("请输入正确的手机号"));
+        MsgBox::showMsg(this, QStringLiteral("提示"), QStringLiteral("请输入正确的手机号"));
         return;
     }
 
     if(!ui->radioButton->isChecked())
     {
-        MsgBox::showMsg(0, QStringLiteral("提示"), QStringLiteral("请勾选用户协议"));
+        MsgBox::showMsg(this, QStringLiteral("提示"), QStringLiteral("请勾选用户协议"));
         return;
     }
     ui->next_page_btn->setEnabled(false);
@@ -349,9 +349,9 @@ void LoginPage::on_next_page_btn_clicked()
         {
             QString code = Captchadata["code"].toString();
             if(code.isEmpty())
-                MsgBox::showMsg(NULL, tr("提示"),tr("网络连接失败，请重新登录"));
+                MsgBox::showMsg(this, tr("提示"),tr("网络连接失败，请重新登录"));
             else
-                MsgBox::showMsg(NULL, tr("提示"), Captchadata["code"].toString());
+                MsgBox::showMsg(this, tr("提示"), Captchadata["code"].toString());
         }
         ui->next_page_btn->setEnabled(true);
 

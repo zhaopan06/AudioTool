@@ -43,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->contList->setAlignment(Qt::AlignTop);
     ui->micLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 
+    g_main = this;
+
     //设置listWidget无虚框
     ui->msgList->setFocusPolicy(Qt::NoFocus);
     ui->msgList->setVerticalScrollMode(QListWidget::ScrollPerPixel);
@@ -67,9 +69,9 @@ MainWindow::MainWindow(QWidget *parent)
         exit(0);
     }
 
-    initUserUI();
-
-    g_main = this;
+    ui->pushButton_8->hide();
+    ui->pushButton_10->hide();
+    initUserUI();    
 }
 
 MainWindow::~MainWindow()
@@ -189,11 +191,11 @@ void MainWindow::reconnect()
             m_agoraFace->enableLoopbackRecording(true);
         }
         else
-            MsgBox::showMsg(NULL,tr("提示"), roomdata["message"].toString());
+            MsgBox::showMsg(this,tr("提示"), roomdata["message"].toString());
     }
     else
     {
-        MsgBox::showMsg(NULL,tr("提示"), tr("声网内部错误，请重启程序"));
+        MsgBox::showMsg(this,tr("提示"), tr("声网内部错误，请重启程序"));
     }
 }
 
@@ -1061,11 +1063,11 @@ void MainWindow::on_pushButton_18_clicked()
 {
     if(!g_isManager)
     {
-        MsgBox::showMsg(NULL,tr("提示"), tr("只有房主+主持身份用户可以使用该功能"));
+        MsgBox::showMsg(this,tr("提示"), tr("只有房主+主持身份用户可以使用该功能"));
     }
     else
     {
-        if(QDialog::Accepted == MsgBox::showMsg(NULL,tr("提示"), tr("是否清空全麦魅力值"),MsgBox::QUERYDIALOG))
+        if(QDialog::Accepted == MsgBox::showMsg(this,tr("提示"), tr("是否清空全麦魅力值"),MsgBox::QUERYDIALOG))
         {
             HttpInterFace::getInstance()->clearCardiacValue(g_roomID, [&](const QVariant &map) {
 
@@ -1080,7 +1082,7 @@ void MainWindow::on_pushButton_17_clicked()
         QVariantMap data = map.toMap();
         if(data["code"].toInt() != 1)
         {
-            MsgBox::showMsg(NULL,tr("提示"), data["message"].toString());
+            MsgBox::showMsg(this,tr("提示"), data["message"].toString());
         }
     });
 }
@@ -1131,7 +1133,7 @@ void MainWindow::on_msgEdit_textChanged(const QString &arg1)
 
 void MainWindow::on_closeLiveBtn_clicked()
 {
-    if(QDialog::Accepted == MsgBox::showMsg(NULL,tr("提示"), tr("所有用户将强制退出房间，确定结束直播吗？"),MsgBox::QUERYDIALOG))
+    if(QDialog::Accepted == MsgBox::showMsg(this,tr("提示"), tr("所有用户将强制退出房间，确定结束直播吗？"),MsgBox::QUERYDIALOG))
     {
         QVariantMap data = HttpInterFace::getInstance()->closeRoom(g_roomID);
         if(data["code"].toInt() == 1)
@@ -1154,7 +1156,7 @@ void MainWindow::on_pushButton_4_clicked()
     }
     if(m_agoraFace->getRecordingDeviceList().size() <= 0)
     {
-        MsgBox::showMsg(NULL,tr("提示"), tr("没有麦克风设备"));
+        MsgBox::showMsg(this,tr("提示"), tr("没有麦克风设备"));
         return;
     }
     m_valuePage->setValue(m_agoraFace->getRecordingDeviceVolume());
@@ -1214,6 +1216,7 @@ void MainWindow::on_pushButton_7_clicked()
 
 void MainWindow::chatC2C(QVariantMap data)
 {
+    on_pushButton_7_clicked();
     m_chatPage->show();
     m_chatPage->ChatC2C(data);
 }

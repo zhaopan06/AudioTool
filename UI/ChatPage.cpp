@@ -6,6 +6,7 @@
 #include "qscrollbar.h"
 #include "ui_ChatPage.h"
 #include "HttpInterFace.h"
+#include "MsgBox.h"
 
 ChatPage::ChatPage(QWidget *parent)
     : QDialog(parent)
@@ -110,6 +111,10 @@ void ChatPage::c2c_initTimList(QVariantList list)
             {
                 setText = text;
             }
+            if(3 == elem_type)
+            {
+                setText = QStringLiteral("[房间邀请]");
+            }
         }
 
         QVariantMap setData;
@@ -192,7 +197,28 @@ void ChatPage::c2c_initTimMsgList(QVariantList list)
 
 void ChatPage::c2c_msg_image(QVariantMap data, QString path, QString bigPath)
 {
-    m_chatPage->addImageMsg(data, path, bigPath);
+    QString uid = data["user_profile_identifier"].toString();
+    if(updateLeftText(QStringLiteral("图片"), uid))
+    {
+        QVariantMap setData;
+        setData["conv_unread_num"] = 1;
+        setData["conv_id"] = data["user_profile_identifier"];
+        setData["conv_show_name"] = data["user_profile_nick_name"];
+        setData["conv_face_url"] = data["user_profile_face_url"];
+
+        ChatPageLeftItem *item = new ChatPageLeftItem;
+        connect(item, &ChatPageLeftItem::leftItemClicked, this, &ChatPage::initChatHisMsg);
+        item->setData(setData, QStringLiteral("图片"));
+        QListWidgetItem *item1 = new QListWidgetItem();
+        ui->listWidget->insertItem(0,item1);
+        ui->listWidget->setItemWidget(item1,item);
+        item1->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item->height()));
+        m_chatList.append(item);
+        return;
+    }
+
+    if(uid == m_chatPage->getUid())
+        m_chatPage->addImageMsg(data, path, bigPath);
 }
 
 void ChatPage::c2c_msgNumber(int numbers)
@@ -367,7 +393,28 @@ void ChatPage::ChatC2C(QVariantMap data)
 //TODO 添加房间邀请的功能
 void ChatPage::c2c_msg_inviteFriends(QVariantMap data)
 {
-    m_chatPage->addInviteFriends(data);
+    QString uid = data["user_profile_identifier"].toString();
+    if(updateLeftText(QStringLiteral("房间邀请"), uid))
+    {
+        QVariantMap setData;
+        setData["conv_unread_num"] = 1;
+        setData["conv_id"] = data["user_profile_identifier"];
+        setData["conv_show_name"] = data["user_profile_nick_name"];
+        setData["conv_face_url"] = data["user_profile_face_url"];
+
+        ChatPageLeftItem *item = new ChatPageLeftItem;
+        connect(item, &ChatPageLeftItem::leftItemClicked, this, &ChatPage::initChatHisMsg);
+        item->setData(setData, QStringLiteral("房间邀请"));
+        QListWidgetItem *item1 = new QListWidgetItem();
+        ui->listWidget->insertItem(0,item1);
+        ui->listWidget->setItemWidget(item1,item);
+        item1->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item->height()));
+        m_chatList.append(item);
+        return;
+    }
+
+    if(uid == m_chatPage->getUid())
+        m_chatPage->addInviteFriends(data);
 }
 
 bool ChatPage::updateLeftText(QString text, QString uid)
@@ -393,7 +440,6 @@ void ChatPage::on_searchBtn_clicked()
     if(searchText.isEmpty())
         return;
 
-    ui->stackedWidget_3->setCurrentIndex(1);
     HttpInterFace::getInstance()->getMyFollow(1,2,[&](const QVariant &data) {
         showMapTojson(data.toMap());
         QVariantList list = data.toMap()["data"].toList();
@@ -409,7 +455,17 @@ void ChatPage::on_searchBtn_clicked()
             ui->listWidget_2->setItemWidget(item1,item);
             item1->setSizeHint(QSize(ui->listWidget_2->contentsRect().width(), item->height()));
             ui->listWidget_2->setCurrentRow(ui->listWidget_2->count()-1);
-            ui->listWidget_2->scrollToBottom();
+            ui->listWidget_2->scrollToBottom();            
+        }
+
+        if(list.size() > 0)
+        {
+            ui->stackedWidget_3->setCurrentIndex(1);
+        }
+        else
+        {
+            ui->stackedWidget_3->setCurrentIndex(0);
+            MsgBox::showMsg(this,tr("提示"), data.toMap()["message"].toString());
         }
     }, searchText);
 }
@@ -417,5 +473,13 @@ void ChatPage::on_searchBtn_clicked()
 void ChatPage::on_minBtn_clicked()
 {
     showMinimized();
+}
+
+void ChatPage::on_lineEdit_textChanged(const QString &arg1)
+{
+    if(arg1.isEmpty())
+    {
+        ui->stackedWidget_3->setCurrentIndex(0);
+    }
 }
 
