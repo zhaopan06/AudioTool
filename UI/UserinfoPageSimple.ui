@@ -96,7 +96,7 @@ border-radius: 24px 24px 12px 12px;
               <string/>
              </property>
              <property name="scaledContents">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
             </widget>
            </item>

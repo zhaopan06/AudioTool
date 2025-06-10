@@ -78,7 +78,7 @@ public:
         name->setAlignment(Qt::AlignCenter);
         image = new QLabel(widget_17);
         image->setObjectName(QString::fromUtf8("image"));
-        image->setGeometry(QRect(21, 3, 69, 69));
+        image->setGeometry(QRect(21, 2, 69, 69));
         image->setMinimumSize(QSize(69, 69));
         image->setMaximumSize(QSize(69, 69));
         image->setStyleSheet(QString::fromUtf8("background-color: transparent; \n"
@@ -94,7 +94,7 @@ public:
 "border:none;"));
         price = new QPushButton(widget_17);
         price->setObjectName(QString::fromUtf8("price"));
-        price->setGeometry(QRect(1, 96, 110, 20));
+        price->setGeometry(QRect(1, 100, 110, 18));
         price->setStyleSheet(QString::fromUtf8("border:none;\n"
 "font-family: .\"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-size: 13px;\n"

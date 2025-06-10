@@ -40,7 +40,10 @@ void UserinfoPageSimple::init(QString userID)
         m_data = data;
         QString photo = data["photo"].toString();
         HttpInterFace::getInstance()->downLoad(photo, [&](const QString &path) {
-            ui->big_image->setPixmap(QPixmap(path));
+
+            QPixmap pix(path);
+            pix = pix.scaled(ui->big_image->width()*1.2, ui->big_image->height()*1.2,Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            ui->big_image->setPixmap(pix);
             ui->big_image->setRadius(12);
             ui->image->setPixmap(QPixmap(path));
         });

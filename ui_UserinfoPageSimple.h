@@ -165,7 +165,7 @@ public:
         verticalLayout_7->setContentsMargins(0, 0, 0, 0);
         big_image = new click_label(widget_2);
         big_image->setObjectName(QString::fromUtf8("big_image"));
-        big_image->setScaledContents(true);
+        big_image->setScaledContents(false);
 
         verticalLayout_7->addWidget(big_image);
 

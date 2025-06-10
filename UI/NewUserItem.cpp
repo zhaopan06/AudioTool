@@ -133,7 +133,8 @@ void NewUserItem::on_pushButton_clicked()
 //邀请
 void NewUserItem::on_pushButton_3_clicked()
 {
-
+    QString id = m_data["id"].toString();
+    TimInterface::getInstance()->sendInvMsg(id);
 }
 
 //打招呼

@@ -28,6 +28,7 @@
 #include <QScrollBar>
 #include <QFileDialog>
 #include "MsgBox.h"
+#include <QProcess>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -71,7 +72,20 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->pushButton_8->hide();
     ui->pushButton_10->hide();
-    initUserUI();    
+    initUserUI();
+    connect(HttpInterFace::getInstance(), &HttpInterFace::error_msg_box_text, this,[&](QString msg){
+
+        MsgBox::showMsg(this,tr("提示"), msg);
+        if(msg.contains(QStringLiteral("请重新登录")))
+        {
+            QString program = QCoreApplication::applicationFilePath();
+            QStringList arguments = QCoreApplication::arguments();
+            QString workingDir = QCoreApplication::applicationDirPath();
+
+            QProcess::startDetached(program, arguments, workingDir);
+            QCoreApplication::exit(0);
+        }
+    });
 }
 
 MainWindow::~MainWindow()
@@ -169,8 +183,17 @@ void MainWindow::joinedChannelSuccess(const QString& channel, unsigned int uid, 
 void MainWindow::audioVolumeIndication(int uid,int value)
 {
     foreach (auto var, m_micList)
-    {
-        var->setAudioValue(QString::number(uid), value);
+    {        
+        if(var->getUserId() == QString::number(uid))        {
+
+            var->setAudioValue(QString::number(uid), value);
+            return;
+        }
+        if(0 == uid)
+        {
+            var->setAudioValue(QString::number(uid), value);
+            return;
+        }
     }
 }
 
@@ -226,8 +249,7 @@ void MainWindow::loginIm(int code, QString msg)
 {
     if (code != ERR_SUCC)
     {
-        qDebug()<<"login error-----------code-"<<code<<"---desc-"<<msg;
-
+        MsgBox::showMsg(this,tr("提示"), tr("私聊登录失败：") + msg);
     }
     else
     {
@@ -776,7 +798,7 @@ void MainWindow::enterTheToom(QVariantMap data)
                                  "font-size: 16px;"
                                  "color: #ED525A;");
 
-            label->setFixedWidth(476);
+            label->setFixedWidth(ui->msgList->width());
             QString labelText = msg;
             labelText.replace("\n","<br />");
             QString textStyle = "<p style='line-height:22px'>" + labelText + "</p>";

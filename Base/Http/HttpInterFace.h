@@ -99,6 +99,8 @@ private:
     QString m_version;
     QString m_token;
 
+signals:
+    void error_msg_box_text(QString);
 public:
     QString m_authorization;
 };

@@ -69,8 +69,11 @@ void UserinfoPage::init(QString userID)
         m_data = data;
         QString photo = data["photo"].toString();
         HttpInterFace::getInstance()->downLoad(photo, [&](const QString &path) {
-            this->ui->big_image->setPixmap(QPixmap(path));
-            this->ui->image->setPixmap(QPixmap(path));
+
+            QPixmap pix(path);
+            pix = pix.scaled(ui->big_image->width()*1.2, ui->big_image->height()*1.2,Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            ui->big_image->setPixmap(pix);
+            ui->image->setPixmap(QPixmap(path));
         });
 
         QString name = data["name"].toString();

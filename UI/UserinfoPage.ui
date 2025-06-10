@@ -260,7 +260,7 @@ border:none;
               <string/>
              </property>
              <property name="scaledContents">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
             </widget>
            </item>
@@ -1537,8 +1537,8 @@ font-style: normal;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>61</width>
-               <height>16</height>
+               <width>100</width>
+               <height>30</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -1693,8 +1693,8 @@ font-style: normal;</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>442</width>
-               <height>582</height>
+               <width>100</width>
+               <height>30</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -1844,8 +1844,8 @@ margin-top: -1px;</string>
  </resources>
  <connections/>
  <buttongroups>
+  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup_3"/>
-  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>

@@ -220,6 +220,8 @@ void ChatPageC2C::addInviteFriends(QVariantMap data)
     item->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item1->height()));
     ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
     ui->listWidget->scrollToBottom();
+
+    TimInterface::getInstance()->sendTIMMsgSendMessageReadReceipts(m_message_conv_id);
 }
 
 QString ChatPageC2C::getUid()

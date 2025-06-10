@@ -9,7 +9,6 @@
 #include "Global.h"
 #include "HttpUserInfo.h"
 #include <QUrlQuery>
-#include "MsgBox.h"
 
 HttpInterFace* HttpInterFace::pHttpInterFace = NULL;
 HttpInterFace *HttpInterFace::getInstance()
@@ -391,7 +390,7 @@ QVariantMap HttpInterFace::httpsPut_syn(QString url, QVariantMap jsonMap)
     QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
     if(json_error.error != QJsonParseError::NoError)
     {
-        MsgBox::showMsg(NULL,tr("提示"), json_error.errorString());
+        emit error_msg_box_text(json_error.errorString());
         return QVariantMap();
     }
     QVariantMap map = jsonDocument.toVariant().toMap();
@@ -440,12 +439,12 @@ void HttpInterFace::httpsGet_asy(QString url, QVariantMap jsonMap, callBack call
             QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
             if(json_error.error != QJsonParseError::NoError)
             {
-                MsgBox::showMsg(NULL,tr("提示"), json_error.errorString());
+                emit error_msg_box_text(json_error.errorString());
                 return;
             }
             if(jsonDocument["code"].toInt() != 1)
             {
-                MsgBox::showMsg(NULL,tr("提示"), jsonDocument["message"].toString());
+                emit error_msg_box_text(jsonDocument["message"].toString());
                 return;
             }
             callback(jsonDocument.toVariant());
@@ -492,12 +491,12 @@ QVariantMap HttpInterFace::httpsGet_syn(QString url)
     QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
     if(json_error.error != QJsonParseError::NoError)
     {
-        MsgBox::showMsg(NULL,tr("提示"), json_error.errorString());
+        emit error_msg_box_text(json_error.errorString());
         return QVariantMap();
     }
     if(jsonDocument["code"].toInt() != 1)
     {
-        MsgBox::showMsg(NULL,tr("提示"), jsonDocument["message"].toString());
+        emit error_msg_box_text(jsonDocument["message"].toString());
         return QVariantMap();
     }
     QVariantMap map = jsonDocument.toVariant().toMap();
@@ -530,12 +529,12 @@ void HttpInterFace::httpPost_asy(QString url , QVariantMap jsonMap, callBack cal
         QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
         if(json_error.error != QJsonParseError::NoError)
         {
-            MsgBox::showMsg(NULL,tr("提示"), json_error.errorString());
+            emit error_msg_box_text(json_error.errorString());
             return;
         }
         if(jsonDocument["code"].toInt() != 1)
         {
-            MsgBox::showMsg(NULL,tr("提示"), jsonDocument["message"].toString());
+            emit error_msg_box_text(jsonDocument["message"].toString());
             return;
         }
         callback(jsonDocument.toVariant());
@@ -584,12 +583,12 @@ QVariantMap HttpInterFace::httpsPost_syn(QString url ,QVariantMap jsonMap)
     QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
     if(json_error.error != QJsonParseError::NoError)
     {
-        MsgBox::showMsg(NULL,tr("提示"), json_error.errorString());
+        emit error_msg_box_text(json_error.errorString());
         return QVariantMap();
     }
     if(jsonDocument["code"].toInt() != 1)
     {
-        MsgBox::showMsg(NULL,tr("提示"), jsonDocument["message"].toString());
+        emit error_msg_box_text(jsonDocument["message"].toString());
         return QVariantMap();
     }
     QVariantMap map = jsonDocument.toVariant().toMap();

@@ -21,6 +21,7 @@ MicInfoItem::MicInfoItem(QWidget *parent)
     ui->label->setMovie(movie);
     movie->start();
     ui->label->hide();
+    ui->mic->hide();
 }
 
 MicInfoItem::~MicInfoItem()
@@ -30,16 +31,37 @@ MicInfoItem::~MicInfoItem()
 
 void MicInfoItem::setData(QVariantMap data, int num)
 {
+    if(0 == data["status"].toInt())
+    {
+        ui->mic->hide();
+    }
+    if(1 == data["status"].toInt())
+    {
+        ui->mic->show();
+    }
+
     m_data = data;
-    if(3 == m_data["status"].toInt())//锁麦状态
+    if(3 == data["status"].toInt())//锁麦状态
     {
         ui->gift->setIcon(QIcon(""));
         ui->gift->setText("");
         //TODO 设置锁麦图标
-        ui->image->setPixmap(QPixmap::fromImage(QImage(":/images/live_mic_path.png")));
+        ui->image->setPixmap(QPixmap::fromImage(QImage(":/images/live_mic_lock.png")));
         ui->name->setText(QString::number(num+1) +  tr("号麦"));
         return;
     }
+
+    if(data["status"].toInt() == -1)
+    {
+        ui->gift->setIcon(QIcon(""));
+        ui->gift->setText("");
+        ui->image->setPixmap(QPixmap::fromImage(QImage(":/images/live_mic_path.png")));
+        ui->name->setText(QString::number(num+1) +  tr("号麦"));
+        m_multipleAuthoriation = "";
+        return;
+    }
+
+    showMapTojson(data);
     QVariantMap map = data["member"].toMap();
     if(data["status"].toInt() >= 0)
     {
@@ -57,13 +79,6 @@ void MicInfoItem::setData(QVariantMap data, int num)
         HttpInterFace::getInstance()->downLoad(photo, [&](const QString &path) {
             this->ui->image->setPixmap(QPixmap::fromImage(QImage(path)));
         });
-    }
-    else
-    {
-        ui->gift->setIcon(QIcon(""));
-        ui->gift->setText("");
-        ui->image->setPixmap(QPixmap::fromImage(QImage(":/images/live_mic_path.png")));
-        ui->name->setText(QString::number(num+1) +  tr("号麦"));
     }
 
     if(map["userId"].toString() == HttpUserInfo::instance()->getUserID())
@@ -106,9 +121,9 @@ void MicInfoItem::setAudioValue(QString uid, int value)
         }
     }
     else
-    {
+    {       
         if(uid == m_data["member"].toMap()["userId"].toString())
-        {
+        {          
             ui->label->show();
         }
     }
@@ -120,11 +135,13 @@ bool MicInfoItem::eventFilter(QObject *watched, QEvent *event)
     {
         if (event->type() == QEvent::Enter)
         {
+            if(m_data["member"].toMap()["userId"].toString().isEmpty())
+                return true;
             if(MenuManagerRight::getInstance()->isVisible())
                 return true;
             QPoint labelGlobalPos = ui->image->mapToGlobal(QPoint(0, 0));
             UserinfoPageSimple *page = UserinfoPageSimple::getInstance();
-            page->init(m_data["userId"].toString());
+            page->init(m_data["member"].toMap()["userId"].toString());
             QPoint point1;
             point1.setX(labelGlobalPos.rx() - page->width());
             point1.setY(labelGlobalPos.ry());
@@ -149,8 +166,7 @@ bool MicInfoItem::eventFilter(QObject *watched, QEvent *event)
 
 void MicInfoItem::on_image_rightClicked()
 {
-    //ui->image->removeEventFilter(this);
-     QPoint point = QCursor::pos();
+    QPoint point = QCursor::pos();
     if(-1 == m_data["status"].toInt())//空闲
     {
          MenuLockRight::getInstance()->setData(m_data);

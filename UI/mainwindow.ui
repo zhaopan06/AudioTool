@@ -3349,13 +3349,13 @@ background: transparent;</string>
                       <number>12</number>
                      </property>
                      <property name="leftMargin">
-                      <number>0</number>
+                      <number>16</number>
                      </property>
                      <property name="topMargin">
                       <number>0</number>
                      </property>
                      <property name="rightMargin">
-                      <number>0</number>
+                      <number>16</number>
                      </property>
                      <property name="bottomMargin">
                       <number>16</number>
@@ -3403,13 +3403,13 @@ color: #ffffff;
                          <number>24</number>
                         </property>
                         <property name="leftMargin">
-                         <number>16</number>
+                         <number>0</number>
                         </property>
                         <property name="topMargin">
                          <number>0</number>
                         </property>
                         <property name="rightMargin">
-                         <number>16</number>
+                         <number>0</number>
                         </property>
                         <property name="bottomMargin">
                          <number>1</number>
@@ -3527,13 +3527,13 @@ QListWidget::item:selected
                           <number>0</number>
                          </property>
                          <property name="leftMargin">
-                          <number>6</number>
+                          <number>0</number>
                          </property>
                          <property name="topMargin">
                           <number>0</number>
                          </property>
                          <property name="rightMargin">
-                          <number>6</number>
+                          <number>0</number>
                          </property>
                          <property name="bottomMargin">
                           <number>0</number>
@@ -3548,13 +3548,13 @@ QListWidget::item:selected
                            </property>
                            <property name="minimumSize">
                             <size>
-                             <width>476</width>
+                             <width>0</width>
                              <height>0</height>
                             </size>
                            </property>
                            <property name="maximumSize">
                             <size>
-                             <width>476</width>
+                             <width>16777215</width>
                              <height>16777215</height>
                             </size>
                            </property>
@@ -3724,13 +3724,13 @@ QListWidget::item:selected
                          <number>8</number>
                         </property>
                         <property name="leftMargin">
-                         <number>16</number>
+                         <number>0</number>
                         </property>
                         <property name="topMargin">
                          <number>0</number>
                         </property>
                         <property name="rightMargin">
-                         <number>16</number>
+                         <number>0</number>
                         </property>
                         <property name="bottomMargin">
                          <number>0</number>
@@ -4869,7 +4869,7 @@ border-radius: 18px;</string>
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_3"/>
  </buttongroups>
 </ui>

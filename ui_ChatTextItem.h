@@ -59,11 +59,11 @@ public:
         horizontalLayout_2 = new QHBoxLayout(widget);
         horizontalLayout_2->setSpacing(10);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(6, 0, 0, 0);
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
         image = new CRoundLabel(widget);
         image->setObjectName(QString::fromUtf8("image"));
-        image->setMinimumSize(QSize(52, 52));
-        image->setMaximumSize(QSize(52, 52));
+        image->setMinimumSize(QSize(46, 46));
+        image->setMaximumSize(QSize(46, 46));
 
         horizontalLayout_2->addWidget(image);
 
@@ -142,7 +142,7 @@ public:
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalLayout->setContentsMargins(68, -1, -1, -1);
+        horizontalLayout->setContentsMargins(56, -1, -1, -1);
         laout = new QHBoxLayout();
         laout->setObjectName(QString::fromUtf8("laout"));
         widget_2 = new QWidget(ChatTextItem);

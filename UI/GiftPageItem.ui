@@ -99,7 +99,7 @@ border:none;</string>
       <property name="geometry">
        <rect>
         <x>21</x>
-        <y>3</y>
+        <y>2</y>
         <width>69</width>
         <height>69</height>
        </rect>
@@ -163,9 +163,9 @@ border:none;</string>
       <property name="geometry">
        <rect>
         <x>1</x>
-        <y>96</y>
+        <y>100</y>
         <width>110</width>
-        <height>20</height>
+        <height>18</height>
        </rect>
       </property>
       <property name="styleSheet">

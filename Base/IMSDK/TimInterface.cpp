@@ -283,7 +283,6 @@ void TimInterface::sendTIMMsgSendMessageReadReceipts(QString uid)
         }
         else
         {
-            qDebug()<<"TIMConvCleanConversationUnreadMessageCount -----------code-"<<code<<"---desc-"<<desc;
             return ;
         }
     }, nullptr);
@@ -382,6 +381,7 @@ void TimInterface::sendInvMsg(QString toUid)
 {
     QVariantMap json_value_image;
     json_value_image[kTIMElemType] = kTIMElem_Custom;
+    json_value_image["custom_elem_data"] = "inviteFriends";
 
     // 创建消息元素数组
     QVariantMap json_value_msg;
@@ -402,6 +402,8 @@ void TimInterface::sendInvMsg(QString toUid)
     // 转换为 JSON 字符串
     QJsonDocument doc(QJsonObject::fromVariantMap(json_value_msg));
     sendMessage_c2c(toUid.toLatin1(), doc.toJson(), this);
+
+    emit c2c_msg_inviteFriends(data);
 }
 
 void TimInterface::initTIMConvGetConvList()
