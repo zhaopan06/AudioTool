@@ -12,6 +12,7 @@
 #include "MicInfoItem.h"
 #include "MicseQuenceItem.h"
 #include "NewUserPage.h"
+#include "RoomEidtPage.h"
 #include "RoomInvitePage.h"
 #include "UserinfoPage.h"
 #include "qdebug.h"
@@ -268,7 +269,7 @@ void MainWindow::loginIm(int code, QString msg)
                 m_chatPage->ChatC2C(data);
             });
 
-            QTimer::singleShot(100, this, [this](){
+            QTimer::singleShot(300, this, [this](){
                 m_timInterface->initTIMConvGetConvList();
                 m_timInterface->getTIMConvGetTotalUnreadMessageCount();
             });
@@ -549,14 +550,6 @@ void MainWindow::on_imageBtn_clicked()
     {
         return;
     }
-    //    QFile file(localPath);
-    //    if (!file.open(QIODevice::ReadOnly)) return;
-    //    if(file.size() > 1024*1024*10)
-    //    {
-    //        file.close();
-    //        return;
-    //    }
-    //    file.close();
 
     m_timInterface->sendImage(localPath);
 
@@ -581,7 +574,6 @@ void MainWindow::on_imageBtn_clicked()
     ui->chatList->setCurrentRow(ui->chatList->count()-1);
     ui->chatList->scrollToBottom();
 }
-
 
 void MainWindow::on_emoBtn_clicked()
 {
@@ -725,6 +717,7 @@ void MainWindow::enterTheToom(QVariantMap data)
     if(1 == roomdata["code"].toInt())
     {
         roomdata = roomdata["data"].toMap();
+        m_roomInfo = roomdata;
         HttpUserInfo::instance()->setRoomInfo(roomdata);
 
         QString rtcToken = roomdata["rtcToken"].toString();
@@ -1248,7 +1241,7 @@ void MainWindow::on_pushButton_7_clicked()
             m_chatPage->ChatC2C(data);
         });
 
-        QTimer::singleShot(100, this, [this](){
+        QTimer::singleShot(300, this, [this](){
             m_timInterface->initTIMConvGetConvList();
             m_timInterface->getTIMConvGetTotalUnreadMessageCount();
         });
@@ -1282,6 +1275,22 @@ void MainWindow::on_pushButton_19_clicked()
 
 
 void MainWindow::on_pushButton_26_clicked()
+{
+    QWidget *mask = new QWidget(this);
+    mask->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
+    mask->setGeometry(rect());
+    mask->show();
+
+    RoomEidtPage page;
+    page.setData(m_roomInfo);
+    connect(&page, &QDialog::finished, [=](){
+        mask->deleteLater();
+    });
+    page.exec();
+}
+
+
+void MainWindow::on_pushButton_25_clicked()
 {
     QWidget *mask = new QWidget(this);
     mask->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");

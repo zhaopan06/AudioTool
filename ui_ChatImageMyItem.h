@@ -39,7 +39,7 @@ public:
         horizontalLayout = new QHBoxLayout(ChatImageMyItem);
         horizontalLayout->setSpacing(15);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 10, 0, 10);
+        horizontalLayout->setContentsMargins(0, 10, 10, 10);
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(-1, 0, 0, -1);

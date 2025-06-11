@@ -60,7 +60,9 @@ SOURCES += \
     UI/NewUserItem.cpp \
     UI/NewUserPage.cpp \
     UI/OnlineItem.cpp \
+    UI/RoomEidtPage.cpp \
     UI/RoomInvitePage.cpp \
+    UI/RoomInvitePageItem.cpp \
     UI/RoomItem.cpp \
     UI/UserinfoPage.cpp \
     UI/UserinfoPageGiftItem.cpp \
@@ -112,7 +114,9 @@ HEADERS += \
     UI/NewUserItem.h \
     UI/NewUserPage.h \
     UI/OnlineItem.h \
+    UI/RoomEidtPage.h \
     UI/RoomInvitePage.h \
+    UI/RoomInvitePageItem.h \
     UI/RoomItem.h \
     UI/UserinfoPage.h \
     UI/UserinfoPageGiftItem.h \
@@ -158,7 +162,9 @@ FORMS += \
     UI/NewUserItem.ui \
     UI/NewUserPage.ui \
     UI/OnlineItem.ui \
+    UI/RoomEidtPage.ui \
     UI/RoomInvitePage.ui \
+    UI/RoomInvitePageItem.ui \
     UI/RoomItem.ui \
     UI/UserinfoPage.ui \
     UI/UserinfoPageGiftItem.ui \

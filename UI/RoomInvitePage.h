@@ -22,15 +22,11 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event);
 
 private slots:
-    void on_lineEdit_textChanged(const QString &arg1);
+    void on_copyBtn_clicked();
 
-    void on_textEdit_textChanged();
+    void on_pushButton_clicked();
 
-    void on_image_clicked();
-
-    void on_okBtn_clicked();
-
-    void on_cancelBtn_clicked();
+    void on_pushButton_2_clicked();
 
     void on_closeBtn_clicked();
 

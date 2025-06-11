@@ -1,6 +1,8 @@
 ﻿#include "RoomInvitePage.h"
+#include "RoomInvitePageItem.h"
 #include "qevent.h"
 #include "ui_RoomInvitePage.h"
+#include "HttpInterFace.h"
 
 RoomInvitePage::RoomInvitePage(QWidget *parent)
     : QDialog(parent)
@@ -9,6 +11,7 @@ RoomInvitePage::RoomInvitePage(QWidget *parent)
     ui->setupUi(this);
     setAttribute(Qt::WA_TranslucentBackground, true);
     this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+    ui->label->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
 }
 
 RoomInvitePage::~RoomInvitePage()
@@ -46,36 +49,38 @@ void RoomInvitePage::mouseReleaseEvent(QMouseEvent *event)
     m_bMoveing = false;
 }
 
-void RoomInvitePage::on_lineEdit_textChanged(const QString &arg1)
-{
-    int number = arg1.size();
-    ui->label_4->setText(QString::number(number));
-}
-
-
-void RoomInvitePage::on_textEdit_textChanged()
-{
-    QString arg1 = ui->textEdit->toPlainText();
-    int number = arg1.size();
-    ui->label_6->setText(QString::number(number));
-}
-
-//更换封面
-void RoomInvitePage::on_image_clicked()
+void RoomInvitePage::on_copyBtn_clicked()
 {
 
 }
 
-
-void RoomInvitePage::on_okBtn_clicked()
+//最新聊天
+void RoomInvitePage::on_pushButton_clicked()
 {
-
+    ui->listWidget->clear();
 }
 
-
-void RoomInvitePage::on_cancelBtn_clicked()
+//粉丝
+void RoomInvitePage::on_pushButton_2_clicked()
 {
-    close();
+    ui->listWidget->clear();
+    HttpInterFace::getInstance()->getMyFollow(1,1,[&](const QVariant &data) {
+        QVariantList list = data.toMap()["data"].toList();
+        foreach (auto var, list)
+        {
+            QVariantMap data = var.toMap();
+            RoomInvitePageItem *item  =new RoomInvitePageItem;
+            //connect(item, &ChatPageCommunicationItem::ChatC2C, this, &ChatPage::ChatC2C);
+            item->setData(data);
+
+            QListWidgetItem *item1 = new QListWidgetItem();
+            ui->listWidget->addItem(item1);
+            ui->listWidget->setItemWidget(item1,item);
+            item1->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item->height()));
+            ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
+            ui->listWidget->scrollToBottom();
+        }
+    });
 }
 
 

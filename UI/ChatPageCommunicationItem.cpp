@@ -33,13 +33,13 @@ void ChatPageCommunicationItem::setData(QVariantMap data)
     ui->ageBtn->setText(age);
 
     int sex = data["sex"].toInt();
-    if(0 == sex)//女生
+    if(1 == sex)
     {
-
+        ui->ageBtn->setIcon(QIcon(":/images/live_people_man.png"));
     }
-    else
+    else if(0 == sex)
     {
-
+        ui->ageBtn->setIcon(QIcon(":/images/live_people_woman.png"));
     }
 
     auto weakThis = QPointer<ChatPageCommunicationItem>(this);

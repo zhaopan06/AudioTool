@@ -122,6 +122,8 @@ private slots:
 
     void on_pushButton_26_clicked();
 
+    void on_pushButton_25_clicked();
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;
@@ -136,5 +138,6 @@ private:
     AudioValuePage *m_valuePage = nullptr;
     AudioValuePage *m_soundValuePage = nullptr;
     ChatPage *m_chatPage = nullptr;
+    QVariantMap m_roomInfo;
 };
 #endif // MAINWINDOW_H

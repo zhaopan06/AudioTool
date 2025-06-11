@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>773</width>
-    <height>456</height>
+    <width>830</width>
+    <height>588</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>房间邀请</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background: #222429;
@@ -52,7 +52,7 @@ border-radius: 12px;</string>
        <number>32</number>
       </property>
       <property name="bottomMargin">
-       <number>0</number>
+       <number>20</number>
       </property>
       <item>
        <widget class="QWidget" name="widget_1" native="true">
@@ -191,18 +191,9 @@ border:none;
       </item>
       <item>
        <widget class="QWidget" name="widget_2" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
          <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
+          <number>16</number>
          </property>
          <property name="bottomMargin">
           <number>0</number>
@@ -211,17 +202,17 @@ border:none;
           <widget class="QWidget" name="widget_3" native="true">
            <property name="minimumSize">
             <size>
-             <width>186</width>
-             <height>0</height>
+             <width>0</width>
+             <height>36</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>186</width>
-             <height>16777215</height>
+             <width>16777215</width>
+             <height>36</height>
             </size>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_7">
+           <layout class="QHBoxLayout" name="horizontalLayout">
             <property name="spacing">
              <number>12</number>
             </property>
@@ -229,7 +220,7 @@ border:none;
              <number>0</number>
             </property>
             <property name="topMargin">
-             <number>16</number>
+             <number>0</number>
             </property>
             <property name="rightMargin">
              <number>0</number>
@@ -238,10 +229,15 @@ border:none;
              <number>0</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_8">
+             <widget class="QLabel" name="label">
               <property name="styleSheet">
-               <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 500;
+               <string notr="true">background: #36383B;
+border-radius: 6px;
+padding-left: 13px;
+
+
+font-family: &quot;微软雅黑&quot;;
+font-weight: 400;
 font-size: 16px;
 color: #FFFFFF;
 line-height: 22px;
@@ -249,449 +245,164 @@ text-align: left;
 font-style: normal;</string>
               </property>
               <property name="text">
-               <string>房间名称</string>
+               <string>TextLabel</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QWidget" name="widget_10" native="true">
+             <widget class="QPushButton" name="copyBtn">
               <property name="minimumSize">
                <size>
-                <width>186</width>
-                <height>186</height>
+                <width>88</width>
+                <height>36</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>16777215</width>
-                <height>186</height>
+                <width>88</width>
+                <height>36</height>
                </size>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_8">
-               <property name="spacing">
-                <number>0</number>
-               </property>
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="click_label" name="image">
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>158</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="label_9">
-                 <property name="styleSheet">
-                  <string notr="true">font-family: &quot;微软雅黑&quot;;
+              <property name="styleSheet">
+               <string notr="true">background: #ED525A;
+border-radius: 18px;
+
+font-family: &quot;微软雅黑&quot;;
+font-weight: 500;
 font-size: 14px;
 color: #FFFFFF;
-line-height: 22px;
+line-height: 20px;
+text-align: center;
 font-style: normal;</string>
-                 </property>
-                 <property name="text">
-                  <string>更换封面</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              </property>
+              <property name="text">
+               <string>复制链接</string>
+              </property>
              </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>150</height>
-               </size>
-              </property>
-             </spacer>
             </item>
            </layout>
           </widget>
          </item>
          <item>
           <widget class="QWidget" name="widget_4" native="true">
-           <layout class="QVBoxLayout" name="verticalLayout_3">
+           <property name="styleSheet">
+            <string notr="true">background: #36383B;
+border-radius: 6px;</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
             <property name="spacing">
-             <number>16</number>
+             <number>0</number>
             </property>
             <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
              <number>16</number>
             </property>
-            <property name="rightMargin">
+            <property name="topMargin">
              <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>16</number>
             </property>
             <property name="bottomMargin">
              <number>0</number>
             </property>
             <item>
-             <widget class="QWidget" name="widget_6" native="true">
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>70</height>
-               </size>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_4">
-               <property name="spacing">
-                <number>12</number>
-               </property>
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="QLabel" name="label">
-                 <property name="styleSheet">
-                  <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 500;
-font-size: 16px;
-color: #FFFFFF;
-line-height: 22px;
-text-align: left;
-font-style: normal;</string>
-                 </property>
-                 <property name="text">
-                  <string>房间名称</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QWidget" name="widget_8" native="true">
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>36</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>36</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background: #36383B;
-border-radius: 6px;</string>
-                 </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_3">
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <property name="leftMargin">
-                   <number>12</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>6</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>12</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>6</number>
-                  </property>
-                  <item>
-                   <widget class="QLineEdit" name="lineEdit">
-                    <property name="styleSheet">
-                     <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
-font-size: 14px;
-color: #FFFFFF;
-line-height: 20px;
-text-align: left;
-font-style: normal;</string>
-                    </property>
-                    <property name="text">
-                     <string>浪漫满屋-仙女避风港</string>
-                    </property>
-                    <property name="maxLength">
-                     <number>15</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_4">
-                    <property name="styleSheet">
-                     <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 500;
-font-size: 14px;
-color: #FFFFFF;
-line-height: 20px;
-font-style: normal;</string>
-                    </property>
-                    <property name="text">
-                     <string>10</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_3">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>16777215</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 500;
-font-size: 14px;
-color: rgba(168, 168, 167, 1);
-line-height: 20px;
-font-style: normal;</string>
-                    </property>
-                    <property name="text">
-                     <string>/15</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item>
-             <widget class="QWidget" name="widget_7" native="true">
+             <widget class="QWidget" name="widget_5" native="true">
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>134</height>
+                <height>54</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>134</height>
-               </size>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_5">
-               <property name="spacing">
-                <number>12</number>
-               </property>
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="QLabel" name="label_2">
-                 <property name="styleSheet">
-                  <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 500;
-font-size: 16px;
-color: #FFFFFF;
-line-height: 22px;
-text-align: left;
-font-style: normal;</string>
-                 </property>
-                 <property name="text">
-                  <string>房间公告</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QWidget" name="widget_9" native="true">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>36</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">background: #36383B;
-border-radius: 6px;</string>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_6">
-                  <property name="leftMargin">
-                   <number>12</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>12</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>12</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>12</number>
-                  </property>
-                  <item>
-                   <widget class="QTextEdit" name="textEdit">
-                    <property name="styleSheet">
-                     <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
-font-size: 14px;
-color: #FFFFFF;
-line-height: 20px;
-font-style: normal;</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_4">
-                    <property name="spacing">
-                     <number>0</number>
-                    </property>
-                    <property name="leftMargin">
-                     <number>50</number>
-                    </property>
-                    <item>
-                     <spacer name="horizontalSpacer">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_6">
-                      <property name="styleSheet">
-                       <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 500;
-font-size: 14px;
-color: #FFFFFF;
-line-height: 20px;
-font-style: normal;</string>
-                      </property>
-                      <property name="text">
-                       <string>10</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLabel" name="label_5">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>16777215</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true">font-family: &quot;微软雅黑&quot;;
-font-weight: 500;
-font-size: 14px;
-color: rgba(168, 168, 167, 1);
-line-height: 20px;
-font-style: normal;</string>
-                      </property>
-                      <property name="text">
-                       <string>/100</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item>
-             <widget class="QWidget" name="widget_5" native="true">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
+                <height>54</height>
                </size>
               </property>
               <property name="styleSheet">
-               <string notr="true">border:none;</string>
+               <string notr="true">QPushButton {
+border:none;
+font-family: &quot;微软雅黑&quot;;
+font-weight: 500;
+font-size: 18px;
+color: rgba(255, 255, 255, 0.5);
+line-height: 25px;   
+}
+
+QPushButton:checked {
+border-radius: 0px;
+border:none;
+font-family: &quot;微软雅黑&quot;;
+font-weight: 500;
+font-size: 18px;
+color: #ffffff;
+border-bottom: 2px solid #FFFFFF;
+}
+
+</string>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_2">
                <property name="spacing">
-                <number>16</number>
+                <number>40</number>
                </property>
                <property name="leftMargin">
                 <number>0</number>
                </property>
                <property name="topMargin">
-                <number>40</number>
+                <number>0</number>
                </property>
                <property name="rightMargin">
                 <number>0</number>
                </property>
                <property name="bottomMargin">
-                <number>40</number>
+                <number>0</number>
                </property>
                <item>
-                <spacer name="horizontalSpacer_2">
+                <widget class="QPushButton" name="pushButton">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>54</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>最近聊天</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">buttonGroup</string>
+                 </attribute>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_2">
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>54</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>粉丝</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">buttonGroup</string>
+                 </attribute>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
@@ -703,67 +414,11 @@ font-style: normal;</string>
                  </property>
                 </spacer>
                </item>
-               <item>
-                <widget class="QPushButton" name="cancelBtn">
-                 <property name="minimumSize">
-                  <size>
-                   <width>125</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>125</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">font-weight: 500;
-background: #36383B;
-border-radius: 22px;
-font-family:&quot;微软雅黑&quot;;
-font-size: 16px;
-color: #FFFFFF;
-
-</string>
-                 </property>
-                 <property name="text">
-                  <string>取消</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="okBtn">
-                 <property name="minimumSize">
-                  <size>
-                   <width>125</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>125</width>
-                   <height>44</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">
-
-color: #FFFFFF;
-font-weight: 500;
-background: #ED525A;
-border-radius: 22px;
-font-family:&quot;微软雅黑&quot;;
-font-size: 16px;
-</string>
-                 </property>
-                 <property name="text">
-                  <string>确认</string>
-                 </property>
-                </widget>
-               </item>
               </layout>
              </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="listWidget"/>
             </item>
            </layout>
           </widget>
@@ -776,18 +431,11 @@ font-size: 16px;
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>click_label</class>
-   <extends>QLabel</extends>
-   <header>click_label.h</header>
-   <slots>
-    <signal>clicked()</signal>
-   </slots>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="../res.qrc"/>
  </resources>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>
