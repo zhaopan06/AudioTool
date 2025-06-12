@@ -402,8 +402,6 @@ void TimInterface::sendInvMsg(QString toUid)
     // 转换为 JSON 字符串
     QJsonDocument doc(QJsonObject::fromVariantMap(json_value_msg));
     sendMessage_c2c(toUid.toLatin1(), doc.toJson(), this);
-
-    emit c2c_msg_inviteFriends(data);
 }
 
 void TimInterface::initTIMConvGetConvList()

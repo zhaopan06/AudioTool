@@ -445,7 +445,7 @@ void ChatPage::on_searchBtn_clicked()
         return;
 
     HttpInterFace::getInstance()->getMyFollow(1,2,[&](const QVariant &data) {
-        showMapTojson(data.toMap());
+
         QVariantList list = data.toMap()["data"].toList();
         foreach (auto var, list)
         {

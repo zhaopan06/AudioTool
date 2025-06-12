@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>429</width>
+    <width>458</width>
     <height>218</height>
    </rect>
   </property>
@@ -30,13 +30,13 @@
     <number>12</number>
    </property>
    <property name="leftMargin">
-    <number>0</number>
+    <number>16</number>
    </property>
    <property name="topMargin">
     <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>16</number>
    </property>
    <property name="bottomMargin">
     <number>0</number>
@@ -371,6 +371,9 @@ font-style: normal;</string>
    <class>CRoundLabel</class>
    <extends>QLabel</extends>
    <header location="global">CRoundLabel.h</header>
+   <slots>
+    <signal>rightClicked()</signal>
+   </slots>
   </customwidget>
   <customwidget>
    <class>click_label</class>

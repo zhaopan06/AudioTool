@@ -19,6 +19,9 @@ public:
 private slots:
     void on_pushButton_2_clicked();
 
+signals:
+    void roomInvite(QVariantMap);
+
 private:
     Ui::RoomInvitePageItem *ui;
     QVariantMap m_data;

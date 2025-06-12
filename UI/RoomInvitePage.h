@@ -2,6 +2,7 @@
 #define ROOMINVITEPAGE_H
 
 #include <QDialog>
+#include <QVariantMap>
 
 namespace Ui {
 class RoomInvitePage;
@@ -15,7 +16,7 @@ public:
     explicit RoomInvitePage(QWidget *parent = nullptr);
     ~RoomInvitePage();
 
-    void setData(QVariantMap data);
+    void init();
 protected:
     void mouseMoveEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
@@ -29,6 +30,9 @@ private slots:
     void on_pushButton_2_clicked();
 
     void on_closeBtn_clicked();
+
+signals:
+    void roomInvite(QVariantMap);
 
 private:
     Ui::RoomInvitePage *ui;

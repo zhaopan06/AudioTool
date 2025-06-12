@@ -8,7 +8,6 @@ ChatInviteItem::ChatInviteItem(QWidget *parent)
     , ui(new Ui::ChatInviteItem)
 {
     ui->setupUi(this);
-    ui->roomPhoto->setRadius(16);
 }
 
 ChatInviteItem::~ChatInviteItem()
@@ -19,7 +18,7 @@ ChatInviteItem::~ChatInviteItem()
 void ChatInviteItem::setData(QVariantMap data)
 {
     m_data = data;
-    if(HttpUserInfo::instance()->getUserID() == data["roomId"].toString())
+    if(data["userId"].toString() != HttpUserInfo::instance()->getUserID())
     {
         ui->widget_4->hide();
         layout()->setAlignment(Qt::AlignRight);
@@ -45,6 +44,7 @@ void ChatInviteItem::setData(QVariantMap data)
     QString roomPhoto = data["roomPhoto"].toString();
     HttpInterFace::getInstance()->downLoad(roomPhoto, [&](const QString &path) {
         ui->roomPhoto->setPixmap(QPixmap(path));
+        ui->roomPhoto->setRadius(16);
     });
 }
 

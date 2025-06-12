@@ -118,7 +118,7 @@ void ChatPageC2C::init(QVariantList list)
                 QVariantMap data = str_doc.toVariantMap();
                 data["photo"] = userJosn["user_profile_face_url"].toString();
                 data["user_profile_nick_name"] = userJosn["user_profile_nick_name"].toString();
-
+                data.insert(userJosn);
                 ChatInviteItem *item1 = new ChatInviteItem;
                 item1->setData(data);
 

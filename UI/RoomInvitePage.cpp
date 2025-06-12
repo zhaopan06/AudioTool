@@ -19,9 +19,9 @@ RoomInvitePage::~RoomInvitePage()
     delete ui;
 }
 
-void RoomInvitePage::setData(QVariantMap data)
+void RoomInvitePage::init()
 {
-
+    on_pushButton_clicked();
 }
 
 void RoomInvitePage::mousePressEvent(QMouseEvent* event)
@@ -58,6 +58,21 @@ void RoomInvitePage::on_copyBtn_clicked()
 void RoomInvitePage::on_pushButton_clicked()
 {
     ui->listWidget->clear();
+    HttpInterFace::getInstance()->getMessageList([&](const QVariant &data) {
+        QVariantList list = data.toMap()["data"].toList();
+        foreach (auto var, list)
+        {
+            QVariantMap data = var.toMap();
+            RoomInvitePageItem *item  =new RoomInvitePageItem;
+            connect(item, &RoomInvitePageItem::roomInvite, this, &RoomInvitePage::roomInvite);
+            item->setData(data);
+
+            QListWidgetItem *item1 = new QListWidgetItem();
+            ui->listWidget->addItem(item1);
+            ui->listWidget->setItemWidget(item1,item);
+            item1->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item->height()));
+        }
+    });
 }
 
 //粉丝
@@ -70,15 +85,13 @@ void RoomInvitePage::on_pushButton_2_clicked()
         {
             QVariantMap data = var.toMap();
             RoomInvitePageItem *item  =new RoomInvitePageItem;
-            //connect(item, &ChatPageCommunicationItem::ChatC2C, this, &ChatPage::ChatC2C);
+            connect(item, &RoomInvitePageItem::roomInvite, this, &RoomInvitePage::roomInvite);
             item->setData(data);
 
             QListWidgetItem *item1 = new QListWidgetItem();
             ui->listWidget->addItem(item1);
             ui->listWidget->setItemWidget(item1,item);
-            item1->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item->height()));
-            ui->listWidget->setCurrentRow(ui->listWidget->count()-1);
-            ui->listWidget->scrollToBottom();
+            item1->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item->height()));         
         }
     });
 }

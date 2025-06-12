@@ -51,13 +51,13 @@ public:
     {
         if (ChatInviteItem->objectName().isEmpty())
             ChatInviteItem->setObjectName(QString::fromUtf8("ChatInviteItem"));
-        ChatInviteItem->resize(429, 218);
+        ChatInviteItem->resize(458, 218);
         ChatInviteItem->setMinimumSize(QSize(214, 218));
         ChatInviteItem->setMaximumSize(QSize(16777215, 218));
         horizontalLayout = new QHBoxLayout(ChatInviteItem);
         horizontalLayout->setSpacing(12);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout->setContentsMargins(16, 0, 16, 0);
         widget_4 = new QWidget(ChatInviteItem);
         widget_4->setObjectName(QString::fromUtf8("widget_4"));
         widget_4->setMinimumSize(QSize(46, 0));

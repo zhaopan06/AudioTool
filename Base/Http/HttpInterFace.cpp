@@ -259,6 +259,13 @@ void HttpInterFace::getMyFollow(int currentPage, int requestType, callBack callB
     httpsGet_asy(url,jsonMap, callBack);
 }
 
+void HttpInterFace::getMessageList(callBack callBack)
+{
+    QVariantMap jsonMap;
+    QString url = BASE_API_URL + QString("/user/getMessageList");
+    httpsGet_asy(url,jsonMap, callBack);
+}
+
 QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)
 {
     QVariantMap jsonMap;

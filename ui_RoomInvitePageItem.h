@@ -48,7 +48,7 @@ public:
         horizontalLayout = new QHBoxLayout(RoomInvitePageItem);
         horizontalLayout->setSpacing(12);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 13, 16, 17);
+        horizontalLayout->setContentsMargins(0, 15, 16, 15);
         image = new CRoundLabel(RoomInvitePageItem);
         image->setObjectName(QString::fromUtf8("image"));
         image->setMinimumSize(QSize(40, 40));

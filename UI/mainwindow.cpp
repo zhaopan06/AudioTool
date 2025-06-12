@@ -1258,7 +1258,6 @@ void MainWindow::chatC2C(QVariantMap data)
     m_chatPage->ChatC2C(data);
 }
 
-
 void MainWindow::on_pushButton_19_clicked()
 {
     QWidget *mask = new QWidget(this);
@@ -1298,6 +1297,20 @@ void MainWindow::on_pushButton_25_clicked()
     mask->show();
 
     RoomInvitePage page;
+    connect(&page, &RoomInvitePage::roomInvite, this, [&](QVariantMap data){
+
+        data["user_profile_identifier"] = "user" + data["userId"].toString();
+        data["user_profile_nick_name"] = data["name"].toString();
+        data["user_profile_face_url"] = data["photo"].toString();
+
+        data["roomPhoto"] = m_roomInfo["roomPhoto"];
+        data["roomId"] = m_roomInfo["roomId"];
+        data["roomName"] = m_roomInfo["roomName"];
+
+        TimInterface::getInstance()->sendInvMsg("user" + data["userId"].toString());
+        m_chatPage->c2c_msg_inviteFriends(data);
+    });
+    page.init();
     connect(&page, &QDialog::finished, [=](){
         mask->deleteLater();
     });

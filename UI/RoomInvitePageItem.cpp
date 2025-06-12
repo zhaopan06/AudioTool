@@ -64,6 +64,6 @@ void RoomInvitePageItem::setData(QVariantMap data)
 //邀请
 void RoomInvitePageItem::on_pushButton_2_clicked()
 {
-
+    emit roomInvite(m_data);
 }
 

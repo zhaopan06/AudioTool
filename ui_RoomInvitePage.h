@@ -66,9 +66,9 @@ public:
         widget->setObjectName(QString::fromUtf8("widget"));
         widget->setStyleSheet(QString::fromUtf8(""));
         verticalLayout_2 = new QVBoxLayout(widget);
-        verticalLayout_2->setSpacing(0);
+        verticalLayout_2->setSpacing(16);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(16, 0, 32, 20);
+        verticalLayout_2->setContentsMargins(32, 0, 32, 20);
         widget_1 = new QWidget(widget);
         widget_1->setObjectName(QString::fromUtf8("widget_1"));
         widget_1->setMinimumSize(QSize(0, 56));
@@ -150,7 +150,7 @@ public:
         verticalLayout_3 = new QVBoxLayout(widget_2);
         verticalLayout_3->setSpacing(16);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        verticalLayout_3->setContentsMargins(-1, -1, -1, 0);
+        verticalLayout_3->setContentsMargins(0, 0, 0, 0);
         widget_3 = new QWidget(widget_2);
         widget_3->setObjectName(QString::fromUtf8("widget_3"));
         widget_3->setMinimumSize(QSize(0, 36));
