@@ -266,6 +266,14 @@ void HttpInterFace::getMessageList(callBack callBack)
     httpsGet_asy(url,jsonMap, callBack);
 }
 
+void HttpInterFace::getOwnerAuthList(QString roomId, callBack callback)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",roomId);
+    QString url = BASE_API_URL + QString("/live/getOwnerAuthList");
+    httpsGet_asy(url,jsonMap, callback);
+}
+
 QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)
 {
     QVariantMap jsonMap;

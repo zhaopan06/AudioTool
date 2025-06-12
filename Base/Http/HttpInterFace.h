@@ -76,6 +76,7 @@ public:
     void queryMessageListUserInfo(QString roomId, callBack callBack);
     void getMyFollow(int currentPage, int requestType, callBack callBack, QString param = "");
     void getMessageList(callBack callBack);
+    void getOwnerAuthList(QString roomId, callBack callback);
     QVariantMap getGiftList();
 
 

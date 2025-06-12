@@ -1266,6 +1266,7 @@ void MainWindow::on_pushButton_19_clicked()
     mask->show();
 
     ManagementPage page;
+    page.init(m_roomInfo);
     connect(&page, &QDialog::finished, [=](){
         mask->deleteLater();
     });
@@ -1310,7 +1311,7 @@ void MainWindow::on_pushButton_25_clicked()
         TimInterface::getInstance()->sendInvMsg("user" + data["userId"].toString());
         m_chatPage->c2c_msg_inviteFriends(data);
     });
-    page.init();
+    page.init(m_roomInfo);
     connect(&page, &QDialog::finished, [=](){
         mask->deleteLater();
     });

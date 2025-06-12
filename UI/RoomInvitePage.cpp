@@ -1,5 +1,7 @@
 ﻿#include "RoomInvitePage.h"
+#include "HttpUserInfo.h"
 #include "RoomInvitePageItem.h"
+#include "qclipboard.h"
 #include "qevent.h"
 #include "ui_RoomInvitePage.h"
 #include "HttpInterFace.h"
@@ -19,8 +21,14 @@ RoomInvitePage::~RoomInvitePage()
     delete ui;
 }
 
-void RoomInvitePage::init()
+void RoomInvitePage::init(QVariantMap data)
 {
+    QString url = data["shareUrl"].toString();
+    QString roomId = data["roomId"].toString();
+    QVariantMap loginInfo = HttpUserInfo::instance()->getLoginInfo();
+    QString userName = loginInfo["user"].toMap()["name"].toString();
+    url =  url + QString("?type=room&roomId=%1&userName=%2").arg(roomId, userName);
+    ui->label->setText(url);
     on_pushButton_clicked();
 }
 
@@ -51,7 +59,10 @@ void RoomInvitePage::mouseReleaseEvent(QMouseEvent *event)
 
 void RoomInvitePage::on_copyBtn_clicked()
 {
-
+    QString text = ui->label->text();
+    QClipboard *clipboard = QApplication::clipboard();
+    clipboard->setText(text);
+    ui->copyBtn->setText(QStringLiteral("已复制"));
 }
 
 //最新聊天

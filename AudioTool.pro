@@ -55,6 +55,7 @@ SOURCES += \
     UI/GiftPageItem.cpp \
     UI/LoginPage.cpp \
     UI/ManagementPage.cpp \
+    UI/ManagementPageItem.cpp \
     UI/MicInfoItem.cpp \
     UI/MicseQuenceItem.cpp \
     UI/NewUserItem.cpp \
@@ -109,6 +110,7 @@ HEADERS += \
     UI/GiftPageItem.h \
     UI/LoginPage.h \
     UI/ManagementPage.h \
+    UI/ManagementPageItem.h \
     UI/MicInfoItem.h \
     UI/MicseQuenceItem.h \
     UI/NewUserItem.h \
@@ -157,6 +159,7 @@ FORMS += \
     UI/GiftPageItem.ui \
     UI/LoginPage.ui \
     UI/ManagementPage.ui \
+    UI/ManagementPageItem.ui \
     UI/MicInfoItem.ui \
     UI/MicseQuenceItem.ui \
     UI/NewUserItem.ui \

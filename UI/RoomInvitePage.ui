@@ -242,12 +242,12 @@ border:none;
               <property name="styleSheet">
                <string notr="true">background: #36383B;
 border-radius: 6px;
-padding-left: 13px;
+padding-left: 12px;
 
 
 font-family: &quot;微软雅黑&quot;;
 font-weight: 400;
-font-size: 16px;
+font-size: 14px;
 color: #FFFFFF;
 line-height: 22px;
 text-align: left;

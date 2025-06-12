@@ -2,6 +2,7 @@
 #define MANAGEMENTPAGE_H
 
 #include <QDialog>
+#include <QVariantMap>
 
 namespace Ui {
 class ManagementPage;
@@ -15,6 +16,7 @@ public:
     explicit ManagementPage(QWidget *parent = nullptr);
     ~ManagementPage();
 
+    void init(QVariantMap data);
 protected:
     void mouseMoveEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
@@ -35,6 +37,7 @@ private:
     Ui::ManagementPage *ui;
     bool  m_bMoveing = false;
     QPoint m_pMovePosition = QPoint(0,0);
+    QVariantMap m_roomInfo;
 };
 
 #endif // MANAGEMENTPAGE_H

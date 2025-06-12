@@ -16,7 +16,7 @@ public:
     explicit RoomInvitePage(QWidget *parent = nullptr);
     ~RoomInvitePage();
 
-    void init();
+    void init(QVariantMap data);
 protected:
     void mouseMoveEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
