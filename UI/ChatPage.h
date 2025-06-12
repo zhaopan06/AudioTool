@@ -20,9 +20,10 @@ public:
     ~ChatPage();
     void init(QVariant data);
 protected:
-    void mouseMoveEvent(QMouseEvent* event);
-    void mousePressEvent(QMouseEvent* event);
-    void mouseReleaseEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent* event)override;
+    void mousePressEvent(QMouseEvent* event)override;
+    void mouseReleaseEvent(QMouseEvent *event)override;
+    void showEvent(QShowEvent *event)override;
 public slots:
     void c2c_msg_text(QVariantMap data, QString msg);
     void c2c_initTimList(QVariantList list);

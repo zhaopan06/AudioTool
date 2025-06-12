@@ -269,7 +269,7 @@ void MainWindow::loginIm(int code, QString msg)
                 m_chatPage->ChatC2C(data);
             });
 
-            QTimer::singleShot(300, this, [this](){
+            QTimer::singleShot(100, this, [this](){
                 m_timInterface->initTIMConvGetConvList();
                 m_timInterface->getTIMConvGetTotalUnreadMessageCount();
             });
@@ -1241,7 +1241,7 @@ void MainWindow::on_pushButton_7_clicked()
             m_chatPage->ChatC2C(data);
         });
 
-        QTimer::singleShot(300, this, [this](){
+        QTimer::singleShot(100, this, [this](){
             m_timInterface->initTIMConvGetConvList();
             m_timInterface->getTIMConvGetTotalUnreadMessageCount();
         });

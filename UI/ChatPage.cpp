@@ -64,6 +64,22 @@ void ChatPage::mouseReleaseEvent(QMouseEvent *event)
     m_bMoveing = false;
 }
 
+void ChatPage::showEvent(QShowEvent *event)
+{
+    static bool isF = false;
+    if(false == isF)
+    {
+        if(m_chatList.size() > 0)
+        {
+            QTimer::singleShot(100, this, [this](){
+                ui->listWidget->setCurrentRow(0);
+                m_chatList.at(0)->setClick();
+            });
+        }
+        isF = true;
+    }
+}
+
 void ChatPage::c2c_msg_text(QVariantMap data, QString msg)
 {
     QString uid = data["user_profile_identifier"].toString();
@@ -131,16 +147,6 @@ void ChatPage::c2c_initTimList(QVariantList list)
         ui->listWidget->setItemWidget(item1,item);
         item1->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item->height()));
         m_chatList.append(item);
-    }
-
-
-    if(m_chatList.size() > 0)
-    {
-        QTimer::singleShot(300, this, [this](){
-            ui->listWidget->setCurrentRow(0);
-            m_chatList.at(0)->setClick();
-        });
-
     }
 }
 
