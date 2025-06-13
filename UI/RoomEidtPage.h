@@ -2,6 +2,7 @@
 #define ROOMEIDTPAGE_H
 
 #include <QDialog>
+#include <QVariantMap>
 
 namespace Ui {
 class RoomEidtPage;
@@ -37,6 +38,9 @@ private:
     Ui::RoomEidtPage *ui;
     bool  m_bMoveing = false;
     QPoint m_pMovePosition = QPoint(0,0);
+    QString m_path;
+    QVariantMap m_data;
+    QString m_imageUrl;
 };
 
 #endif // ROOMEIDTPAGE_H

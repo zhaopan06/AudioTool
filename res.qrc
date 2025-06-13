@@ -72,5 +72,7 @@
         <file>images/icon_提示.png</file>
         <file>images/live_mic_lock.png</file>
         <file>images/icon_闭麦.png</file>
+        <file>images/bg_房间推荐.png</file>
+        <file>images/toolBg.png</file>
     </qresource>
 </RCC>

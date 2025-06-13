@@ -54,7 +54,10 @@ public:
 
     void downLoad(QString url, downLoadCallBack callBack);
     //上传图片
-    void uploadFile(QString filePath, QString scenes, callBack callback);
+    void uploadFile(const QString &filePath, int type, callBack callback);
+
+    //更新直播间信息 传参 name 房间名称 announcement 房间公告 roomId 房间id  photo 房间封面
+    void uploadLiveInfo(QString photo, QString name, QString announcement, QString roomId, callBack callback);
 
     /*公会相关*/
     QVariantMap getFamilyDetail();

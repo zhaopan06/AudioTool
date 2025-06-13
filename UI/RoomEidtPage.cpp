@@ -1,8 +1,10 @@
 ﻿#include "RoomEidtPage.h"
+#include "Global.h"
 #include "qevent.h"
 #include "ui_RoomEidtPage.h"
 #include "HttpInterFace.h"
 #include <QFileDialog>
+#include "MsgBox.h"
 
 RoomEidtPage::RoomEidtPage(QWidget *parent)
     : QDialog(parent)
@@ -20,6 +22,7 @@ RoomEidtPage::~RoomEidtPage()
 
 void RoomEidtPage::setData(QVariantMap data)
 {
+    m_data = data;
     QString announcement = data["announcement"].toString();
     ui->textEdit->setText(announcement);
 
@@ -65,7 +68,13 @@ void RoomEidtPage::on_image_clicked()
     {
         return;
     }
+
+    HttpInterFace::getInstance()->uploadFile(localPath, 0, [&](QVariant vart){
+        showMapTojson(vart.toMap());
+        m_imageUrl = vart.toMap()["data"].toMap()["url"].toString();
+    });
     ui->image->setPixmap(localPath);
+    m_path = localPath;
 }
 
 void RoomEidtPage::on_lineEdit_textChanged(const QString &arg1)
@@ -73,7 +82,6 @@ void RoomEidtPage::on_lineEdit_textChanged(const QString &arg1)
     int number = arg1.size();
     ui->label_4->setText(QString::number(number));
 }
-
 
 void RoomEidtPage::on_textEdit_textChanged()
 {
@@ -96,7 +104,28 @@ void RoomEidtPage::on_textEdit_textChanged()
 
 void RoomEidtPage::on_okBtn_clicked()
 {
-
+    if(m_imageUrl.isEmpty())
+    {
+        MsgBox::showMsg(this,tr("提示"), tr("请上传文件"));
+        return;
+    }
+    QString text = ui->lineEdit->text();
+    if(text.isEmpty())
+    {
+        MsgBox::showMsg(this,tr("提示"), tr("请输出房间名称"));
+        return;
+    }
+    QString text1 = ui->textEdit->toPlainText();
+    if(text1.isEmpty())
+    {
+        MsgBox::showMsg(this,tr("提示"), tr("请输出房间公告"));
+        return;
+    }
+    QString roomID =  m_data["roomId"].toString();
+    HttpInterFace::getInstance()->uploadLiveInfo(m_imageUrl,text,text1,roomID,[&](QVariant vart){
+        MsgBox::showMsg(this,tr("提示"), tr("房间信息更新成功"));
+        accept();
+    });
 }
 
 

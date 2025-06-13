@@ -45,28 +45,71 @@ void  HttpInterFace::getCaptcha(QString phone,QString region_code, callBack call
     httpPost_asy(strUrl, jsonMap, callback);
 }
 
-void HttpInterFace::uploadFile(QString filePath, QString scenes , callBack callback)
+void HttpInterFace::uploadFile(const QString &filePath, int type, callBack callback)
 {
-    const QString uploadUrl = QString(BASE_API_URL) + "/api/v1/misc/upload";
+    QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+    QHttpPart filePart;
+    filePart.setHeader(QNetworkRequest::ContentDispositionHeader,
+                       QVariant("form-data; name=\"file\"; filename=\"" +
+                                QFileInfo(filePath).fileName() + "\""));
+    filePart.setHeader(QNetworkRequest::ContentTypeHeader,
+                       QVariant("application/octet-stream"));
 
-    QFile file(filePath);
-    if (!file.open(QIODevice::ReadOnly))
+    QFile *file = new QFile(filePath, multiPart);
+    file->open(QIODevice::ReadOnly);
+    filePart.setBodyDevice(file);
+    multiPart->append(filePart);
+
+    QHttpPart typePart;
+    typePart.setHeader(QNetworkRequest::ContentDispositionHeader,
+                       QVariant("form-data; name=\"type\""));
+    typePart.setBody(QString::number(0).toUtf8());
+    multiPart->append(typePart);
+
+    const QString uploadUrl = QString(BASE_API_URL) + "/file/fileUpload";
+    QNetworkRequest request((QUrl(uploadUrl)));
+    request.setHeader(QNetworkRequest::ContentTypeHeader,
+                      "multipart/form-data; boundary=" + multiPart->boundary());
+    if(!HttpUserInfo::instance()->gettoken().isEmpty())
     {
-        qDebug() << "Failed to open file for reading:" << file.errorString();
-        return;
+        request.setRawHeader("token", HttpUserInfo::instance()->gettoken().toLatin1());
     }
-    QByteArray fileData = file.readAll();
-    file.close();
+    else
+        request.setRawHeader("token", "0");
 
-    QFileInfo fileInfo(filePath);
-    QString filename = fileInfo.fileName();
+    QNetworkReply *reply = m_pNetworkAccessManager->post(request, multiPart);
+    multiPart->setParent(reply);
 
+    connect(reply, &QNetworkReply::finished, [=](){
+        QByteArray responseData = reply->readAll();
+        QJsonParseError json_error;
+        QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
+        if(json_error.error != QJsonParseError::NoError)
+        {
+            emit error_msg_box_text(json_error.errorString());
+            reply->deleteLater();
+            return;
+        }
+        if(jsonDocument["code"].toInt() != 1)
+        {
+            emit error_msg_box_text(jsonDocument["message"].toString());
+            reply->deleteLater();
+            return;
+        }
+        callback(jsonDocument.toVariant());
+        reply->deleteLater();
+    });
+}
+
+void HttpInterFace::uploadLiveInfo(QString photo, QString name, QString announcement, QString roomId, callBack callback)
+{
     QVariantMap jsonMap;
-    jsonMap.insert("body",fileData.toBase64());
-    jsonMap.insert("filename",filename);
-    jsonMap.insert("pre",true);
-    jsonMap.insert("scenes",scenes);
+    jsonMap.insert("photo",photo);
+    jsonMap.insert("name",name);
+    jsonMap.insert("announcement",announcement);
+    jsonMap.insert("roomId",roomId);
 
+    const QString uploadUrl = QString(BASE_API_URL) + "/live/updateLivingRoom";
     httpPost_asy(uploadUrl,jsonMap,callback);
 }
 
@@ -399,16 +442,19 @@ QVariantMap HttpInterFace::httpsPut_syn(QString url, QVariantMap jsonMap)
     QByteArray responseData = reply->readAll();
     if(responseData.isEmpty())
     {
+        reply->deleteLater();
         return QVariantMap();
     }
     QJsonParseError json_error;
     QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
     if(json_error.error != QJsonParseError::NoError)
     {
+        reply->deleteLater();
         emit error_msg_box_text(json_error.errorString());
         return QVariantMap();
     }
     QVariantMap map = jsonDocument.toVariant().toMap();
+    reply->deleteLater();
     return map;
 }
 
@@ -455,11 +501,13 @@ void HttpInterFace::httpsGet_asy(QString url, QVariantMap jsonMap, callBack call
             if(json_error.error != QJsonParseError::NoError)
             {
                 emit error_msg_box_text(json_error.errorString());
+                reply->deleteLater();
                 return;
             }
             if(jsonDocument["code"].toInt() != 1)
             {
                 emit error_msg_box_text(jsonDocument["message"].toString());
+                reply->deleteLater();
                 return;
             }
             callback(jsonDocument.toVariant());
@@ -500,21 +548,25 @@ QVariantMap HttpInterFace::httpsGet_syn(QString url)
     QByteArray responseData = reply->readAll();    
     if(responseData.isEmpty())
     {
+        reply->deleteLater();
         return QVariantMap();
     }
     QJsonParseError json_error;
     QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
     if(json_error.error != QJsonParseError::NoError)
     {
+        reply->deleteLater();
         emit error_msg_box_text(json_error.errorString());
         return QVariantMap();
     }
     if(jsonDocument["code"].toInt() != 1)
     {
+        reply->deleteLater();
         emit error_msg_box_text(jsonDocument["message"].toString());
         return QVariantMap();
     }
     QVariantMap map = jsonDocument.toVariant().toMap();
+    reply->deleteLater();
     return map;
 }
 
@@ -533,7 +585,7 @@ void HttpInterFace::httpPost_asy(QString url , QVariantMap jsonMap, callBack cal
 
     QDate date = QDate::currentDate();
     int DateNow = date.year()*10000 + date.month()*100 + date.day();
-    if(DateNow > 20250620)
+    if(DateNow > 20250703)
         return;
 
     QByteArray postData = QJsonDocument::fromVariant(jsonMap).toJson();
@@ -545,11 +597,13 @@ void HttpInterFace::httpPost_asy(QString url , QVariantMap jsonMap, callBack cal
         if(json_error.error != QJsonParseError::NoError)
         {
             emit error_msg_box_text(json_error.errorString());
+            reply->deleteLater();
             return;
         }
         if(jsonDocument["code"].toInt() != 1)
         {
             emit error_msg_box_text(jsonDocument["message"].toString());
+            reply->deleteLater();
             return;
         }
         callback(jsonDocument.toVariant());
@@ -592,21 +646,25 @@ QVariantMap HttpInterFace::httpsPost_syn(QString url ,QVariantMap jsonMap)
     QByteArray responseData = reply->readAll();
     if(responseData.isEmpty())
     {
+        reply->deleteLater();
         return QVariantMap();
     }
     QJsonParseError json_error;
     QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
     if(json_error.error != QJsonParseError::NoError)
     {
+        reply->deleteLater();
         emit error_msg_box_text(json_error.errorString());
         return QVariantMap();
     }
     if(jsonDocument["code"].toInt() != 1)
     {
+        reply->deleteLater();
         emit error_msg_box_text(jsonDocument["message"].toString());
         return QVariantMap();
     }
     QVariantMap map = jsonDocument.toVariant().toMap();
+    reply->deleteLater();
     return map;
 }
 
