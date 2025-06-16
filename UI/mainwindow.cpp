@@ -12,6 +12,7 @@
 #include "MicInfoItem.h"
 #include "MicseQuenceItem.h"
 #include "NewUserPage.h"
+#include "PromoteBusinePage.h"
 #include "RoomEidtPage.h"
 #include "RoomInvitePage.h"
 #include "UserinfoPage.h"
@@ -517,6 +518,8 @@ void MainWindow::msg_numbers(int numbers)
 void MainWindow::on_sendBtn_clicked()
 {
     QString msg = ui->msgEdit->text();
+    if(msg == (" "))
+        return;
     m_timInterface->setSendJson(IMType_Text, msg);
 
     QVariantMap data = HttpUserInfo::instance()->getLoginInfo();
@@ -1312,6 +1315,22 @@ void MainWindow::on_pushButton_25_clicked()
         m_chatPage->c2c_msg_inviteFriends(data);
     });
     page.init(m_roomInfo);
+    connect(&page, &QDialog::finished, [=](){
+        mask->deleteLater();
+    });
+    page.exec();
+}
+
+
+void MainWindow::on_pushButton_22_clicked()
+{
+    QWidget *mask = new QWidget(this);
+    mask->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
+    mask->setGeometry(rect());
+    mask->show();
+
+    PromoteBusinePage page;
+    //page.init(m_roomInfo);
     connect(&page, &QDialog::finished, [=](){
         mask->deleteLater();
     });

@@ -139,6 +139,11 @@ bool MicInfoItem::eventFilter(QObject *watched, QEvent *event)
                 return true;
             if(MenuManagerRight::getInstance()->isVisible())
                 return true;
+            if(MenuHomeownerRight::getInstance()->isVisible())
+                return true;
+            if(MenuLockRight::getInstance()->isVisible())
+                return true;
+
             QPoint labelGlobalPos = ui->image->mapToGlobal(QPoint(0, 0));
             UserinfoPageSimple *page = UserinfoPageSimple::getInstance();
             page->init(m_data["member"].toMap()["userId"].toString());

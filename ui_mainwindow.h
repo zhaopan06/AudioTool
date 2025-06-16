@@ -655,7 +655,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 631, 16));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 100, 30));
         scrollArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout_13->addWidget(scrollArea);
@@ -2405,7 +2405,7 @@ public:
         scrollArea_4->setWidgetResizable(true);
         scrollAreaWidgetContents_4 = new QWidget();
         scrollAreaWidgetContents_4->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_4"));
-        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 83, 16));
+        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 100, 30));
         verticalLayout_42 = new QVBoxLayout(scrollAreaWidgetContents_4);
         verticalLayout_42->setSpacing(0);
         verticalLayout_42->setObjectName(QString::fromUtf8("verticalLayout_42"));
@@ -2644,7 +2644,7 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         label_12->setText(QString());
         label_13->setText(QCoreApplication::translate("MainWindow", "\350\223\235\344\274\264\350\257\255\351\237\263", nullptr));
-        label_28->setText(QCoreApplication::translate("MainWindow", "1.0.0.1", nullptr));
+        label_28->setText(QCoreApplication::translate("MainWindow", "1.0.0.2", nullptr));
         userImage->setText(QString());
         userName->setText(QCoreApplication::translate("MainWindow", "\347\224\250\346\210\267\345\220\215\345\215\240\344\275\215", nullptr));
         pushButton_8->setText(QString());
