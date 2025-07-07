@@ -6,6 +6,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include "MsgBox.h"
+#include "qwebengineview.h"
 
 TimInterface* TimInterface::pTimInterfaceFace = NULL;
 TimInterface *TimInterface::getInstance()
@@ -525,6 +526,13 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                     {
                         QVariantMap user = str_doc["user"].toVariant().toMap();
                         emit msg_notice(user, content);
+
+                        QJsonDocument json_doc = QJsonDocument::fromJson(user["mount"].toString().toLatin1(), &error);                    
+                        QString url = json_doc["animation"].toString();
+                        if(!url.isEmpty())
+                        {
+                           qDebug()<<"animation url---"<<url;
+                        }
                         break;
                     }
 

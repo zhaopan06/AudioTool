@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'ContributeItem.ui'
+** Form generated from reading UI file 'PromoteBusinePageTopItem.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_CONTRIBUTEITEM_H
-#define UI_CONTRIBUTEITEM_H
+#ifndef UI_PROMOTEBUSINEPAGETOPITEM_H
+#define UI_PROMOTEBUSINEPAGETOPITEM_H
 
 #include <CRoundLabel.h>
 #include <QtCore/QVariant>
@@ -21,31 +21,38 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_ContributeItem
+class Ui_PromoteBusinePageTopItem
 {
 public:
     QHBoxLayout *horizontalLayout;
+    QWidget *widget_2;
+    QHBoxLayout *horizontalLayout_3;
     QLabel *label;
     QWidget *widget;
     CRoundLabel *image;
     QLabel *label_2;
     QVBoxLayout *verticalLayout;
     QLabel *nameLab;
-    QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
     QLabel *label_3;
     QLabel *label_4;
 
-    void setupUi(QDialog *ContributeItem)
+    void setupUi(QDialog *PromoteBusinePageTopItem)
     {
-        if (ContributeItem->objectName().isEmpty())
-            ContributeItem->setObjectName(QString::fromUtf8("ContributeItem"));
-        ContributeItem->resize(398, 71);
-        horizontalLayout = new QHBoxLayout(ContributeItem);
-        horizontalLayout->setSpacing(12);
+        if (PromoteBusinePageTopItem->objectName().isEmpty())
+            PromoteBusinePageTopItem->setObjectName(QString::fromUtf8("PromoteBusinePageTopItem"));
+        PromoteBusinePageTopItem->resize(397, 71);
+        horizontalLayout = new QHBoxLayout(PromoteBusinePageTopItem);
+        horizontalLayout->setSpacing(0);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(ContributeItem);
+        widget_2 = new QWidget(PromoteBusinePageTopItem);
+        widget_2->setObjectName(QString::fromUtf8("widget_2"));
+        horizontalLayout_3 = new QHBoxLayout(widget_2);
+        horizontalLayout_3->setSpacing(12);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(12, 0, 12, 0);
+        label = new QLabel(widget_2);
         label->setObjectName(QString::fromUtf8("label"));
         label->setMinimumSize(QSize(24, 24));
         label->setMaximumSize(QSize(24, 24));
@@ -58,21 +65,21 @@ public:
         label->setPixmap(QPixmap(QString::fromUtf8(":/images/top1.png")));
         label->setScaledContents(true);
 
-        horizontalLayout->addWidget(label);
+        horizontalLayout_3->addWidget(label);
 
-        widget = new QWidget(ContributeItem);
+        widget = new QWidget(widget_2);
         widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setMinimumSize(QSize(40, 48));
-        widget->setMaximumSize(QSize(40, 48));
+        widget->setMinimumSize(QSize(40, 50));
+        widget->setMaximumSize(QSize(40, 50));
         image = new CRoundLabel(widget);
         image->setObjectName(QString::fromUtf8("image"));
-        image->setGeometry(QRect(0, 0, 40, 40));
+        image->setGeometry(QRect(0, 5, 40, 40));
         image->setMinimumSize(QSize(40, 40));
         image->setMaximumSize(QSize(40, 40));
         image->setScaledContents(true);
         label_2 = new QLabel(widget);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(0, 32, 40, 16));
+        label_2->setGeometry(QRect(0, 34, 40, 16));
         label_2->setStyleSheet(QString::fromUtf8("background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #D197FE, stop:1 #9752ED);\n"
 "border-radius: 8px;\n"
 "font-size: 11px;\n"
@@ -80,13 +87,13 @@ public:
 ""));
         label_2->setAlignment(Qt::AlignCenter);
 
-        horizontalLayout->addWidget(widget);
+        horizontalLayout_3->addWidget(widget);
 
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(2);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(-1, 12, -1, 0);
-        nameLab = new QLabel(ContributeItem);
+        verticalLayout->setContentsMargins(-1, 0, -1, 0);
+        nameLab = new QLabel(widget_2);
         nameLab->setObjectName(QString::fromUtf8("nameLab"));
         nameLab->setMinimumSize(QSize(0, 22));
         nameLab->setStyleSheet(QString::fromUtf8("font-weight: 400;\n"
@@ -97,50 +104,45 @@ public:
 
         verticalLayout->addWidget(nameLab);
 
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+
+        horizontalLayout_3->addLayout(verticalLayout);
+
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_2->addItem(horizontalSpacer);
+        horizontalLayout_3->addItem(horizontalSpacer);
 
-
-        verticalLayout->addLayout(horizontalLayout_2);
-
-
-        horizontalLayout->addLayout(verticalLayout);
-
-        label_3 = new QLabel(ContributeItem);
+        label_3 = new QLabel(widget_2);
         label_3->setObjectName(QString::fromUtf8("label_3"));
         label_3->setStyleSheet(QString::fromUtf8("font-size: 14px;\n"
-"color: #A8A8A7;\n"
-"line-height: 20px;\n"
-"text-align: right;\n"
-"font-style: normal;"));
+"color: #ffffff;"));
 
-        horizontalLayout->addWidget(label_3);
+        horizontalLayout_3->addWidget(label_3);
 
-        label_4 = new QLabel(ContributeItem);
+        label_4 = new QLabel(widget_2);
         label_4->setObjectName(QString::fromUtf8("label_4"));
         label_4->setStyleSheet(QString::fromUtf8("font-size: 14px;\n"
 "color: #ffffff;\n"
 "line-height: 20px;\n"
 "font-style: normal;"));
 
-        horizontalLayout->addWidget(label_4);
+        horizontalLayout_3->addWidget(label_4);
 
 
-        retranslateUi(ContributeItem);
+        horizontalLayout->addWidget(widget_2);
 
-        QMetaObject::connectSlotsByName(ContributeItem);
+
+        retranslateUi(PromoteBusinePageTopItem);
+
+        QMetaObject::connectSlotsByName(PromoteBusinePageTopItem);
     } // setupUi
 
-    void retranslateUi(QDialog *ContributeItem)
+    void retranslateUi(QDialog *PromoteBusinePageTopItem)
     {
-        ContributeItem->setWindowTitle(QCoreApplication::translate("ContributeItem", "Dialog", nullptr));
+        PromoteBusinePageTopItem->setWindowTitle(QCoreApplication::translate("PromoteBusinePageTopItem", "Dialog", nullptr));
         label->setText(QString());
         image->setText(QString());
-        label_2->setText(QCoreApplication::translate("ContributeItem", "\345\234\250\346\210\277\351\227\264", nullptr));
-        nameLab->setText(QCoreApplication::translate("ContributeItem", "\347\224\250\346\210\267\346\230\265\347\247\260\345\215\240\344\275\215\345\215\240\344\275\215\345\215\240\344\275\215\345\215\240\344\275\215\345\215\240\342\200\246", nullptr));
+        label_2->setText(QCoreApplication::translate("PromoteBusinePageTopItem", "\345\234\250\346\210\277\351\227\264", nullptr));
+        nameLab->setText(QCoreApplication::translate("PromoteBusinePageTopItem", "\347\224\250\346\210\267\346\230\265\347\247\260\345\215\240\344\275\215\345\215\240\344\275\215\345\215\240\344\275\215\345\215\240\344\275\215\345\215\240\342\200\246", nullptr));
         label_3->setText(QString());
         label_4->setText(QString());
     } // retranslateUi
@@ -148,9 +150,9 @@ public:
 };
 
 namespace Ui {
-    class ContributeItem: public Ui_ContributeItem {};
+    class PromoteBusinePageTopItem: public Ui_PromoteBusinePageTopItem {};
 } // namespace Ui
 
 QT_END_NAMESPACE
 
-#endif // UI_CONTRIBUTEITEM_H
+#endif // UI_PROMOTEBUSINEPAGETOPITEM_H

@@ -1330,7 +1330,7 @@ void MainWindow::on_pushButton_22_clicked()
     mask->show();
 
     PromoteBusinePage page;
-    //page.init(m_roomInfo);
+    page.init(m_roomInfo["roomId"].toString());
     connect(&page, &QDialog::finished, [=](){
         mask->deleteLater();
     });

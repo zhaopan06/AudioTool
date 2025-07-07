@@ -1,4 +1,4 @@
-QT       += core gui network websockets webenginewidgets
+QT       += core gui network websockets webenginewidgets multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -53,6 +53,7 @@ SOURCES += \
     UI/GIftItem.cpp \
     UI/GiftPage.cpp \
     UI/GiftPageItem.cpp \
+    UI/HotPushPage.cpp \
     UI/LoginPage.cpp \
     UI/ManagementPage.cpp \
     UI/ManagementPageItem.cpp \
@@ -62,6 +63,8 @@ SOURCES += \
     UI/NewUserPage.cpp \
     UI/OnlineItem.cpp \
     UI/PromoteBusinePage.cpp \
+    UI/PromoteBusinePageItem.cpp \
+    UI/PromoteBusinePageTopItem.cpp \
     UI/RoomEidtPage.cpp \
     UI/RoomInvitePage.cpp \
     UI/RoomInvitePageItem.cpp \
@@ -81,6 +84,7 @@ SOURCES += \
     control/MenuLockRight.cpp \
     control/MenuManagerRight.cpp \
     control/MsgBox.cpp \
+    control/PlayerPage.cpp \
     control/WebEngView.cpp \
     control/click_label.cpp \
     main.cpp
@@ -109,6 +113,7 @@ HEADERS += \
     UI/GIftItem.h \
     UI/GiftPage.h \
     UI/GiftPageItem.h \
+    UI/HotPushPage.h \
     UI/LoginPage.h \
     UI/ManagementPage.h \
     UI/ManagementPageItem.h \
@@ -118,6 +123,8 @@ HEADERS += \
     UI/NewUserPage.h \
     UI/OnlineItem.h \
     UI/PromoteBusinePage.h \
+    UI/PromoteBusinePageItem.h \
+    UI/PromoteBusinePageTopItem.h \
     UI/RoomEidtPage.h \
     UI/RoomInvitePage.h \
     UI/RoomInvitePageItem.h \
@@ -139,6 +146,7 @@ HEADERS += \
     control/MenuLockRight.h \
     control/MenuManagerRight.h \
     control/MsgBox.h \
+    control/PlayerPage.h \
     control/WebEngView.h \
     control/click_label.h
 
@@ -159,6 +167,7 @@ FORMS += \
     UI/GIftItem.ui \
     UI/GiftPage.ui \
     UI/GiftPageItem.ui \
+    UI/HotPushPage.ui \
     UI/LoginPage.ui \
     UI/ManagementPage.ui \
     UI/ManagementPageItem.ui \
@@ -168,6 +177,8 @@ FORMS += \
     UI/NewUserPage.ui \
     UI/OnlineItem.ui \
     UI/PromoteBusinePage.ui \
+    UI/PromoteBusinePageItem.ui \
+    UI/PromoteBusinePageTopItem.ui \
     UI/RoomEidtPage.ui \
     UI/RoomInvitePage.ui \
     UI/RoomInvitePageItem.ui \
@@ -185,6 +196,7 @@ FORMS += \
     control/MenuLockRight.ui \
     control/MenuManagerRight.ui \
     control/MsgBox.ui \
+    control/PlayerPage.ui \
     control/WebEngView.ui
 
 # Default rules for deployment.

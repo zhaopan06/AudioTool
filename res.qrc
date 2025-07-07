@@ -74,5 +74,9 @@
         <file>images/icon_闭麦.png</file>
         <file>images/bg_房间推荐.png</file>
         <file>images/toolBg.png</file>
+        <file>images/icon_火 .png</file>
+        <file>images/bk_top1.png</file>
+        <file>images/bk_top2.png</file>
+        <file>images/bk_top3.png</file>
     </qresource>
 </RCC>

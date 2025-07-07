@@ -15,6 +15,7 @@ public:
     explicit PromoteBusinePage(QWidget *parent = nullptr);
     ~PromoteBusinePage();
 
+    void init(QString roomId);
 private slots:
     void on_topBtn_clicked();
 
@@ -22,8 +23,20 @@ private slots:
 
     void on_closeBtn_clicked();
 
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_day_btn_clicked();
+
+    void on_week_btn_clicked();
+
+    void on_m_btn_clicked();
+
 private:
     Ui::PromoteBusinePage *ui;
+    QString m_roomId;
+    QString m_currRoomId;
 };
 
 #endif // PROMOTEBUSINEPAGE_H

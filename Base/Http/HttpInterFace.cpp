@@ -317,6 +317,14 @@ void HttpInterFace::getOwnerAuthList(QString roomId, callBack callback)
     httpsGet_asy(url,jsonMap, callback);
 }
 
+void HttpInterFace::getRecommendRoom(QString roomId,callBack callBack)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",roomId);
+    QString url = BASE_API_URL + QString("/live/leaveReferralLiving");
+    httpPost_asy(url,jsonMap, callBack);
+}
+
 QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)
 {
     QVariantMap jsonMap;
@@ -585,7 +593,7 @@ void HttpInterFace::httpPost_asy(QString url , QVariantMap jsonMap, callBack cal
 
     QDate date = QDate::currentDate();
     int DateNow = date.year()*10000 + date.month()*100 + date.day();
-    if(DateNow > 20250703)
+    if(DateNow > 20250820)
         return;
 
     QByteArray postData = QJsonDocument::fromVariant(jsonMap).toJson();

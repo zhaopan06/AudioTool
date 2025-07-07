@@ -80,6 +80,8 @@ public:
     void getMyFollow(int currentPage, int requestType, callBack callBack, QString param = "");
     void getMessageList(callBack callBack);
     void getOwnerAuthList(QString roomId, callBack callback);
+    void getRecommendRoom(QString roomId, callBack callBack);
+
     QVariantMap getGiftList();
 
 

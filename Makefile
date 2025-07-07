@@ -273,7 +273,9 @@ Makefile: AudioTool.pro D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\win32-msvc\qmake.con
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineCore.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Quick.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5PrintSupport.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5MultimediaWidgets.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Widgets.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Multimedia.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Gui.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebSockets.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5QmlModels.prl \
@@ -289,7 +291,9 @@ Makefile: AudioTool.pro D:\Qt5.15.2\5.15.2\msvc2019\mkspecs\win32-msvc\qmake.con
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineCored.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Quickd.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5PrintSupportd.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5MultimediaWidgetsd.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Widgetsd.prl \
+		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Multimediad.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Guid.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebSocketsd.prl \
 		D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5QmlModelsd.prl \
@@ -489,7 +493,9 @@ D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineWidgets.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineCore.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Quick.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5PrintSupport.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5MultimediaWidgets.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Widgets.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Multimedia.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Gui.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebSockets.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5QmlModels.prl:
@@ -505,7 +511,9 @@ D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineWidgetsd.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebEngineCored.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Quickd.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5PrintSupportd.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5MultimediaWidgetsd.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Widgetsd.prl:
+D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Multimediad.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5Guid.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5WebSocketsd.prl:
 D:\Qt5.15.2\5.15.2\msvc2019\lib\Qt5QmlModelsd.prl:

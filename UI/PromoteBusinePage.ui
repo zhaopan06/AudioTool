@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>展业小助手</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background: #222429;
@@ -602,7 +602,41 @@ padding-bottom: 2px;</string>
              </widget>
             </item>
             <item>
-             <widget class="QListView" name="listView"/>
+             <widget class="QScrollArea" name="scrollArea">
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>248</width>
+                 <height>588</height>
+                </rect>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <property name="spacing">
+                 <number>16</number>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <layout class="QVBoxLayout" name="listWidget"/>
+                </item>
+               </layout>
+              </widget>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -870,6 +904,9 @@ line-height: 22px;
                  <property name="checked">
                   <bool>true</bool>
                  </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">buttonGroup_2</string>
+                 </attribute>
                 </widget>
                </item>
                <item>
@@ -886,6 +923,9 @@ line-height: 22px;
                  <property name="checkable">
                   <bool>true</bool>
                  </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">buttonGroup_2</string>
+                 </attribute>
                 </widget>
                </item>
                <item>
@@ -902,6 +942,9 @@ line-height: 22px;
                  <property name="checkable">
                   <bool>true</bool>
                  </property>
+                 <attribute name="buttonGroup">
+                  <string notr="true">buttonGroup_2</string>
+                 </attribute>
                 </widget>
                </item>
               </layout>
@@ -965,5 +1008,6 @@ line-height: 22px;
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>

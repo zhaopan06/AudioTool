@@ -17,7 +17,6 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
-#include <QtWidgets/QListView>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
@@ -55,7 +54,10 @@ public:
     QHBoxLayout *horizontalLayout_4;
     QLabel *label_16;
     QPushButton *updateBtn;
-    QListView *listView;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents;
+    QVBoxLayout *verticalLayout_7;
+    QVBoxLayout *listWidget;
     QWidget *widget_3;
     QVBoxLayout *verticalLayout_3;
     QWidget *widget_5;
@@ -75,6 +77,7 @@ public:
     QVBoxLayout *verticalLayout_42;
     QVBoxLayout *contList;
     QButtonGroup *buttonGroup;
+    QButtonGroup *buttonGroup_2;
 
     void setupUi(QDialog *PromoteBusinePage)
     {
@@ -357,10 +360,24 @@ public:
 
         verticalLayout_4->addWidget(widget_8);
 
-        listView = new QListView(widget_4);
-        listView->setObjectName(QString::fromUtf8("listView"));
+        scrollArea = new QScrollArea(widget_4);
+        scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents = new QWidget();
+        scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 248, 588));
+        verticalLayout_7 = new QVBoxLayout(scrollAreaWidgetContents);
+        verticalLayout_7->setSpacing(16);
+        verticalLayout_7->setObjectName(QString::fromUtf8("verticalLayout_7"));
+        verticalLayout_7->setContentsMargins(0, 0, 0, 0);
+        listWidget = new QVBoxLayout();
+        listWidget->setObjectName(QString::fromUtf8("listWidget"));
 
-        verticalLayout_4->addWidget(listView);
+        verticalLayout_7->addLayout(listWidget);
+
+        scrollArea->setWidget(scrollAreaWidgetContents);
+
+        verticalLayout_4->addWidget(scrollArea);
 
 
         horizontalLayout->addWidget(widget_4);
@@ -487,6 +504,9 @@ public:
         horizontalLayout_31->setObjectName(QString::fromUtf8("horizontalLayout_31"));
         horizontalLayout_31->setContentsMargins(2, 2, 2, 2);
         day_btn = new QPushButton(widget_52);
+        buttonGroup_2 = new QButtonGroup(PromoteBusinePage);
+        buttonGroup_2->setObjectName(QString::fromUtf8("buttonGroup_2"));
+        buttonGroup_2->addButton(day_btn);
         day_btn->setObjectName(QString::fromUtf8("day_btn"));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
@@ -500,6 +520,7 @@ public:
         horizontalLayout_31->addWidget(day_btn);
 
         week_btn = new QPushButton(widget_52);
+        buttonGroup_2->addButton(week_btn);
         week_btn->setObjectName(QString::fromUtf8("week_btn"));
         QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Expanding);
         sizePolicy1.setHorizontalStretch(0);
@@ -511,6 +532,7 @@ public:
         horizontalLayout_31->addWidget(week_btn);
 
         m_btn = new QPushButton(widget_52);
+        buttonGroup_2->addButton(m_btn);
         m_btn->setObjectName(QString::fromUtf8("m_btn"));
         sizePolicy1.setHeightForWidth(m_btn->sizePolicy().hasHeightForWidth());
         m_btn->setSizePolicy(sizePolicy1);
@@ -558,7 +580,7 @@ public:
 
     void retranslateUi(QDialog *PromoteBusinePage)
     {
-        PromoteBusinePage->setWindowTitle(QCoreApplication::translate("PromoteBusinePage", "Dialog", nullptr));
+        PromoteBusinePage->setWindowTitle(QCoreApplication::translate("PromoteBusinePage", "\345\261\225\344\270\232\345\260\217\345\212\251\346\211\213", nullptr));
         label_14->setText(QCoreApplication::translate("PromoteBusinePage", "\345\261\225\344\270\232\345\260\217\345\212\251\346\211\213", nullptr));
         topBtn->setText(QString());
         minBtn->setText(QString());

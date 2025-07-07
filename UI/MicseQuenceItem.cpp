@@ -1,5 +1,4 @@
 ﻿#include "MicseQuenceItem.h"
-#include "Global.h"
 #include "ui_MicseQuenceItem.h"
 #include "HttpInterFace.h"
 #include "HttpUserInfo.h"
