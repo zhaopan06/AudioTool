@@ -81,6 +81,9 @@ public:
     void getMessageList(callBack callBack);
     void getOwnerAuthList(QString roomId, callBack callback);
     void getRecommendRoom(QString roomId, callBack callBack);
+    void getHouPushData(QString roomId,callBack callBack);
+    void useReferralCard(QString placeId, QString roomId, callBack callBack);
+    void getHotDataHistory(QString roomId, int currentPage, callBack callBack);
 
     QVariantMap getGiftList();
 

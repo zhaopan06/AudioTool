@@ -40,6 +40,13 @@ LoginPage::LoginPage(QWidget *parent)
     }
 
     connect(&m_timer, &QTimer::timeout, this, &LoginPage::onTimeout);
+
+    connect(HttpInterFace::getInstance(), &HttpInterFace::error_msg_box_text, this,[&](QString msg){
+
+        MsgBox::showMsg(this,tr("提示"), msg);
+        ui->login_btn->setEnabled(true);
+        ui->next_page_btn->setEnabled(true);
+    });
 }
 
 LoginPage::~LoginPage()

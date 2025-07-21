@@ -31,6 +31,7 @@
 #include <QFileDialog>
 #include "MsgBox.h"
 #include <QProcess>
+#include "HotPushPage.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -1330,6 +1331,22 @@ void MainWindow::on_pushButton_22_clicked()
     mask->show();
 
     PromoteBusinePage page;
+    page.init(m_roomInfo["roomId"].toString());
+    connect(&page, &QDialog::finished, [=](){
+        mask->deleteLater();
+    });
+    page.exec();
+}
+
+
+void MainWindow::on_pushButton_20_clicked()
+{
+    QWidget *mask = new QWidget(this);
+    mask->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
+    mask->setGeometry(rect());
+    mask->show();
+
+    HotPushPage page;
     page.init(m_roomInfo["roomId"].toString());
     connect(&page, &QDialog::finished, [=](){
         mask->deleteLater();

@@ -50,10 +50,14 @@ SOURCES += \
     UI/ChatTextItem.cpp \
     UI/ChatTextMyItem.cpp \
     UI/ContributeItem.cpp \
+    UI/DressUpPage.cpp \
     UI/GIftItem.cpp \
     UI/GiftPage.cpp \
     UI/GiftPageItem.cpp \
+    UI/HotPushHistoryPage.cpp \
+    UI/HotPushHistoryPageItem.cpp \
     UI/HotPushPage.cpp \
+    UI/HotPushPageItem.cpp \
     UI/LoginPage.cpp \
     UI/ManagementPage.cpp \
     UI/ManagementPageItem.cpp \
@@ -85,6 +89,7 @@ SOURCES += \
     control/MenuManagerRight.cpp \
     control/MsgBox.cpp \
     control/PlayerPage.cpp \
+    control/ToastPage.cpp \
     control/WebEngView.cpp \
     control/click_label.cpp \
     main.cpp
@@ -110,10 +115,14 @@ HEADERS += \
     UI/ChatTextItem.h \
     UI/ChatTextMyItem.h \
     UI/ContributeItem.h \
+    UI/DressUpPage.h \
     UI/GIftItem.h \
     UI/GiftPage.h \
     UI/GiftPageItem.h \
+    UI/HotPushHistoryPage.h \
+    UI/HotPushHistoryPageItem.h \
     UI/HotPushPage.h \
+    UI/HotPushPageItem.h \
     UI/LoginPage.h \
     UI/ManagementPage.h \
     UI/ManagementPageItem.h \
@@ -147,6 +156,7 @@ HEADERS += \
     control/MenuManagerRight.h \
     control/MsgBox.h \
     control/PlayerPage.h \
+    control/ToastPage.h \
     control/WebEngView.h \
     control/click_label.h
 
@@ -164,10 +174,14 @@ FORMS += \
     UI/ChatTextItem.ui \
     UI/ChatTextMyItem.ui \
     UI/ContributeItem.ui \
+    UI/DressUpPage.ui \
     UI/GIftItem.ui \
     UI/GiftPage.ui \
     UI/GiftPageItem.ui \
+    UI/HotPushHistoryPage.ui \
+    UI/HotPushHistoryPageItem.ui \
     UI/HotPushPage.ui \
+    UI/HotPushPageItem.ui \
     UI/LoginPage.ui \
     UI/ManagementPage.ui \
     UI/ManagementPageItem.ui \
@@ -197,6 +211,7 @@ FORMS += \
     control/MenuManagerRight.ui \
     control/MsgBox.ui \
     control/PlayerPage.ui \
+    control/ToastPage.ui \
     control/WebEngView.ui
 
 # Default rules for deployment.

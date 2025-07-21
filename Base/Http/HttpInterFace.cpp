@@ -325,6 +325,32 @@ void HttpInterFace::getRecommendRoom(QString roomId,callBack callBack)
     httpPost_asy(url,jsonMap, callBack);
 }
 
+void HttpInterFace::getHouPushData(QString roomId,callBack callBack)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",roomId);
+    QString url = BASE_API_URL + QString("/live/getReferralPlaceConfig");
+    httpsGet_asy(url,jsonMap, callBack);
+}
+
+void HttpInterFace::useReferralCard(QString placeId, QString roomId,callBack callBack)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("placeId",placeId);
+    jsonMap.insert("roomId",roomId);
+    QString url = BASE_API_URL + QString("/live/useReferralCard");
+    httpPost_asy(url,jsonMap, callBack);
+}
+
+void HttpInterFace::getHotDataHistory(QString roomId, int currentPage, callBack callBack)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",roomId);
+    jsonMap.insert("currentPage",currentPage);
+    QString url = BASE_API_URL + QString("/live/getReferralUsedCard");
+    httpsGet_asy(url,jsonMap, callBack);
+}
+
 QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)
 {
     QVariantMap jsonMap;

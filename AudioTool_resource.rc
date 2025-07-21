@@ -1,6 +1,6 @@
 #include <windows.h>
 
-IDI_ICON1	ICON	DISCARDABLE	"D:\\zhaopan\\code_git\\AudioTool\\lanban.ico"
+IDI_ICON1	ICON	DISCARDABLE	"E:\\zhaopan\\gitCode\\AudioTool\\lanban.ico"
 
 VS_VERSION_INFO VERSIONINFO
 	FILEVERSION 0,0,0,0

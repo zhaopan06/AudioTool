@@ -78,5 +78,6 @@
         <file>images/bk_top1.png</file>
         <file>images/bk_top2.png</file>
         <file>images/bk_top3.png</file>
+        <file>images/icon_hot_click.png</file>
     </qresource>
 </RCC>
