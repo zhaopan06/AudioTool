@@ -111,6 +111,7 @@ private:
 
 signals:
     void error_msg_box_text(QString);
+    void reLogin();
 public:
     QString m_authorization;
 };

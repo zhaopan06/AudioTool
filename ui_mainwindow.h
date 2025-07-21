@@ -311,8 +311,8 @@ public:
     QPushButton *pushButton_15;
     QPushButton *pushButton_16;
     QButtonGroup *buttonGroup_2;
-    QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_3;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -2641,7 +2641,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "\347\257\256\346\235\277\350\257\255\351\237\263-PC", nullptr));
         label_12->setText(QString());
         label_13->setText(QCoreApplication::translate("MainWindow", "\350\223\235\344\274\264\350\257\255\351\237\263", nullptr));
         label_28->setText(QCoreApplication::translate("MainWindow", "1.0.0.2", nullptr));

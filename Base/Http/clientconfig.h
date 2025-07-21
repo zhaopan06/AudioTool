@@ -10,24 +10,13 @@ class ClientConfig : public QObject
 public:
     static ClientConfig* getInstance();
 
-public:
-    /**
-     * @brief 写文件
-     * @param strKey 键
-     * @param strValue 键对应的值
-     * @date 18-03-15
-     * @author zjj
-     */
+public:   
     void writeIniFile(QString strGroup, QString strKey, QString strValue);
 
-    /**
-     * @brief 读文件
-     * @param strKey 键
-     * @param strValue 键对应的值
-     * @date 18-03-15
-     * @author zjj
-     */
     QString readIniFile(QString strGroup, QString strKey);
+
+    void setLoginData(QVariantMap data);
+    QVariantMap getLoginData();
 
 signals:
 

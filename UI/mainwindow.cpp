@@ -32,6 +32,7 @@
 #include "MsgBox.h"
 #include <QProcess>
 #include "HotPushPage.h"
+#include "clientconfig.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -63,14 +64,22 @@ MainWindow::MainWindow(QWidget *parent)
     ui->osList->setVerticalScrollMode(QListWidget::ScrollPerPixel);
     ui->osList->verticalScrollBar()->setSingleStep(20);
 
-    LoginPage login;
-    if(login.exec() == QDialog::Accepted)
+    QVariantMap data =  ClientConfig::getInstance()->getLoginData();
+    if(!data.isEmpty())
     {
-
+        HttpUserInfo::instance()->setLoginInfo(data);
     }
     else
     {
-        exit(0);
+        LoginPage login;
+        if(login.exec() == QDialog::Accepted)
+        {
+
+        }
+        else
+        {
+            exit(0);
+        }
     }
 
     ui->pushButton_8->hide();
@@ -176,6 +185,29 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event)
 void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 {
     m_bMoveing = false;
+}
+
+#include <QTextCodec>
+bool MainWindow::nativeEvent(const QByteArray &eventType, void *message, long *result)
+{
+    if (eventType == "windows_generic_MSG") //windows平台
+    {
+        MSG* msg = reinterpret_cast<MSG*>(message);
+
+        if(msg->message == WM_COPYDATA)
+        {
+            COPYDATASTRUCT *data = reinterpret_cast<COPYDATASTRUCT*>(msg->lParam);
+            QTextCodec *gbk = QTextCodec::codecForName("GB18030");
+            QString recevice = gbk->toUnicode((char *)(data->lpData));
+            if(recevice.contains("showAudioTool"))
+            {
+                this->show();
+                this->activateWindow();
+                return true;
+            }
+        }
+    }
+    return QWidget::nativeEvent(eventType, message, result);//交给Qt处理
 }
 
 void MainWindow::joinedChannelSuccess(const QString& channel, unsigned int uid, int elapsed)

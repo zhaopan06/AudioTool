@@ -22,6 +22,7 @@ LoginPage::LoginPage(QWidget *parent)
     ui->lineEdit_4->setMaxLength(1);
     ui->lineEdit_5->setMaxLength(1);
     ui->lineEdit_6->setMaxLength(1);
+    ui->cap_mobile->setMaxLength(11);
 
     ui->stackedWidget_2->setCurrentIndex(0);
     ui->code_label_click->setVisible(false);
@@ -292,9 +293,9 @@ void LoginPage::on_login_btn_clicked()
     QString acc =  ui->cap_mobile->text();
     QVariantMap data = HttpInterFace::getInstance()->loginToServer(acc, "654321");
     if(data["code"].toInt() == 1)
-    {        
-        QJsonObject jsonObject = QJsonObject::fromVariantMap(data);        
+    {
         HttpUserInfo::instance()->setLoginInfo(data["data"].toMap());
+        ClientConfig::getInstance()->setLoginData(data["data"].toMap());
 
         if(ui->login_status->isChecked())
         {

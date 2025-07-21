@@ -523,31 +523,27 @@ void HttpInterFace::httpsGet_asy(QString url, QVariantMap jsonMap, callBack call
     request.setRawHeader("emulator", "0");
     request.setRawHeader("networkType", "0");
 
-
     QNetworkReply *reply = m_http_asy->get(request);
 
-    auto processResponse = [=]()
-    {
-        QObject::connect(reply, &QNetworkReply::readyRead, reply, [=]{
-            QByteArray responseData = reply->readAll();
-            QJsonParseError json_error;
-            QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
-            if(json_error.error != QJsonParseError::NoError)
-            {
-                emit error_msg_box_text(json_error.errorString());
-                reply->deleteLater();
-                return;
-            }
-            if(jsonDocument["code"].toInt() != 1)
-            {
-                emit error_msg_box_text(jsonDocument["message"].toString());
-                reply->deleteLater();
-                return;
-            }
-            callback(jsonDocument.toVariant());
-            reply->deleteLater();});
-    };
-    processResponse();
+    QObject::connect(reply, &QNetworkReply::readyRead, reply, [=]{
+        QByteArray responseData = reply->readAll();
+        QJsonParseError json_error;
+        QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
+        if(json_error.error != QJsonParseError::NoError)
+        {
+            emit error_msg_box_text(json_error.errorString());
+            reply->deleteLater();
+            return;
+        }
+        if(jsonDocument["code"].toInt() != 1)
+        {
+            emit error_msg_box_text(jsonDocument["message"].toString());
+            reply->deleteLater();
+            return;
+        }
+        callback(jsonDocument.toVariant());
+        reply->deleteLater();
+    });
 }
 
 QVariantMap HttpInterFace::httpsGet_syn(QString url)
@@ -592,7 +588,7 @@ QVariantMap HttpInterFace::httpsGet_syn(QString url)
         reply->deleteLater();
         emit error_msg_box_text(json_error.errorString());
         return QVariantMap();
-    }
+    }    
     if(jsonDocument["code"].toInt() != 1)
     {
         reply->deleteLater();

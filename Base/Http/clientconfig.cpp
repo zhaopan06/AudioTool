@@ -21,13 +21,6 @@ ClientConfig *ClientConfig::getInstance()
     return pClientConfig;
 }
 
-/**
- * @brief 写文件
- * @param strKey 键
- * @param strValue 键对应的值
- * @date 18-03-15
- * @author zjj
- */
 void ClientConfig::writeIniFile(QString strGroup, QString strKey, QString strValue)
 {
     QString strDirPath = g_appData + "/client.ini";
@@ -38,13 +31,6 @@ void ClientConfig::writeIniFile(QString strGroup, QString strKey, QString strVal
     settings.endGroup();
 }
 
-/**
- * @brief 读文件
- * @param strKey 键
- * @param strValue 键对应的值
- * @date 18-03-15
- * @author zjj
- */
 QString ClientConfig::readIniFile(QString strGroup, QString strKey)
 {
     QString strDirPath = g_appData+ "/client.ini";
@@ -56,6 +42,47 @@ QString ClientConfig::readIniFile(QString strGroup, QString strKey)
 
     return strValue;
 }
+
+void ClientConfig::setLoginData(QVariantMap data)
+{
+    QString strDirPath = g_appData + "/login.json";
+
+    QJsonObject jsonObject = QJsonObject::fromVariantMap(data);
+    QJsonDocument jsonDoc(jsonObject);
+    QByteArray jsonData = jsonDoc.toJson(QJsonDocument::Indented);
+
+    QFile file(strDirPath);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        file.write(jsonData);
+        file.close();
+    }
+}
+
+
+QVariantMap ClientConfig::getLoginData()
+{
+    QString strDirPath = g_appData + "/login.json";
+    QFile file(strDirPath);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QString jsonData = file.readAll();
+        qDebug()<<"jsonData---"<<jsonData.toUtf8();
+        file.close();
+
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData.toUtf8());
+        if (jsonDoc.isObject())
+        {
+            QJsonObject jsonObject = jsonDoc.object();
+            QVariantMap map = jsonObject.toVariantMap();
+            showMapTojson(map);
+            return map;
+        }
+    }
+
+    return QVariantMap();
+}
+
 
 
 
