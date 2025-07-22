@@ -71,6 +71,12 @@ void ChatPageCommunicationItem::setData(QVariantMap data)
                 weakThis->ui->pushButton->show();
             }
         }
+    },[weakThis](const QVariant &data) {
+        if (weakThis.isNull()) return;
+
+        weakThis->ui->pushButton_3->hide();
+        weakThis->ui->pushButton->show();
+
     });
 }
 //关注

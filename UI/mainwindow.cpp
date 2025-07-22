@@ -84,7 +84,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->pushButton_8->hide();
     ui->pushButton_10->hide();
-    initUserUI();
+
     connect(HttpInterFace::getInstance(), &HttpInterFace::error_msg_box_text, this,[&](QString msg){
 
         MsgBox::showMsg(this,tr("提示"), msg);
@@ -93,11 +93,13 @@ MainWindow::MainWindow(QWidget *parent)
             QString program = QCoreApplication::applicationFilePath();
             QStringList arguments = QCoreApplication::arguments();
             QString workingDir = QCoreApplication::applicationDirPath();
-
+            ClientConfig::getInstance()->setLoginData(QVariantMap());
             QProcess::startDetached(program, arguments, workingDir);
-            QCoreApplication::exit(0);
+            exit(0);
         }
     });
+
+    initUserUI();
 }
 
 MainWindow::~MainWindow()

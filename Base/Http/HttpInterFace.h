@@ -22,6 +22,7 @@ enum class PhoneCodeType : int
 };
 
 using callBack = std::function<void(const QVariant &content)>;
+using ErrCallBack = std::function<void(const QVariant &content)>;
 
 using downLoadCallBack = std::function<void(const QString &path)>;
 
@@ -76,7 +77,7 @@ public:
     void getUserMedals(QString userID, callBack callBack);
     void clearCardiacValue(QString roomId, callBack callBack);
     void noticeFans(QString roomId, callBack callBack);
-    void queryMessageListUserInfo(QString roomId, callBack callBack);
+    void queryMessageListUserInfo(QString roomId, callBack callBack, ErrCallBack errorCallBack = nullptr);
     void getMyFollow(int currentPage, int requestType, callBack callBack, QString param = "");
     void getMessageList(callBack callBack);
     void getOwnerAuthList(QString roomId, callBack callback);
@@ -97,7 +98,7 @@ private:
     QVariantMap httpsPut_syn(QString url, QVariantMap jsonMap);
 
     QVariantMap httpsGet_syn(QString url);
-    void httpsGet_asy(QString url, QVariantMap jsonMap, callBack callback);//get异步
+    void httpsGet_asy(QString url, QVariantMap jsonMap, callBack callback, ErrCallBack errorCallBack = nullptr);//get异步
 
     QVariantMap httpsPost_syn(QString url ,QVariantMap jsonMap);//同步
     void httpPost_asy(QString url , QVariantMap jsonMap, callBack callback);//Post异步

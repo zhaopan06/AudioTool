@@ -49,12 +49,12 @@ void ClientConfig::setLoginData(QVariantMap data)
 
     QJsonObject jsonObject = QJsonObject::fromVariantMap(data);
     QJsonDocument jsonDoc(jsonObject);
-    QByteArray jsonData = jsonDoc.toJson(QJsonDocument::Indented);
+    QString jsonData = jsonDoc.toJson(QJsonDocument::Indented);
 
     QFile file(strDirPath);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
-        file.write(jsonData);
+        file.write(jsonData.toUtf8());
         file.close();
     }
 }
@@ -67,15 +67,12 @@ QVariantMap ClientConfig::getLoginData()
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QString jsonData = file.readAll();
-        qDebug()<<"jsonData---"<<jsonData.toUtf8();
         file.close();
-
         QJsonDocument jsonDoc = QJsonDocument::fromJson(jsonData.toUtf8());
         if (jsonDoc.isObject())
         {
             QJsonObject jsonObject = jsonDoc.object();
-            QVariantMap map = jsonObject.toVariantMap();
-            showMapTojson(map);
+            QVariantMap map = jsonObject.toVariantMap();           
             return map;
         }
     }

@@ -282,12 +282,12 @@ void HttpInterFace::noticeFans(QString roomId, callBack callBack)
     httpsGet_asy(url,jsonMap, callBack);
 }
 
-void HttpInterFace::queryMessageListUserInfo(QString roomId, callBack callBack)
+void HttpInterFace::queryMessageListUserInfo(QString roomId, callBack callBack, ErrCallBack errorCallBack)
 {
     QVariantMap jsonMap;
     jsonMap.insert("userIds",roomId);
     QString url = BASE_API_URL + QString("/user/queryMessageListUserInfo");
-    httpsGet_asy(url,jsonMap, callBack);
+    httpsGet_asy(url,jsonMap, callBack, errorCallBack);
 }
 
 //请求类型（0：我的关注，1：关注我的，2：我的好友，3：我的黑名单，4：访客）
@@ -492,7 +492,7 @@ QVariantMap HttpInterFace::httpsPut_syn(QString url, QVariantMap jsonMap)
     return map;
 }
 
-void HttpInterFace::httpsGet_asy(QString url, QVariantMap jsonMap, callBack callback)
+void HttpInterFace::httpsGet_asy(QString url, QVariantMap jsonMap, callBack callback, ErrCallBack errorCallBack)
 {
     QUrlQuery query;
     for (auto it = jsonMap.constBegin(); it != jsonMap.constEnd(); ++it)
@@ -537,6 +537,12 @@ void HttpInterFace::httpsGet_asy(QString url, QVariantMap jsonMap, callBack call
         }
         if(jsonDocument["code"].toInt() != 1)
         {
+            if(errorCallBack)
+            {
+                errorCallBack(jsonDocument.toVariant());
+                reply->deleteLater();
+                return;
+            }
             emit error_msg_box_text(jsonDocument["message"].toString());
             reply->deleteLater();
             return;
