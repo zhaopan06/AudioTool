@@ -920,7 +920,7 @@ public:
 
     void retranslateUi(QDialog *UserinfoPageSimple)
     {
-        UserinfoPageSimple->setWindowTitle(QCoreApplication::translate("UserinfoPageSimple", "Dialog", nullptr));
+        UserinfoPageSimple->setWindowTitle(QCoreApplication::translate("UserinfoPageSimple", "\347\224\250\346\210\267\350\265\204\346\226\231", nullptr));
         big_image->setText(QString());
         image->setText(QString());
         name->setText(QCoreApplication::translate("UserinfoPageSimple", "Rx. \345\207\214\344\271\261", nullptr));

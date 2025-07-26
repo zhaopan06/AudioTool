@@ -15,6 +15,8 @@ RC_ICONS = lanban.ico
 INCLUDEPATH += \
         ./Base/Agora \
         ./Base/ImSDK \
+        #./SDK/vlc/include \
+        #./SDK/vlcLib     \
         ./SDK/Agora/include \
         ./SDK/ImSDK/include \        
         ./Base/Http \
@@ -24,10 +26,15 @@ INCLUDEPATH += \
 
 LIBS += \
     -L$$PWD/SDK/Agora/lib   \
+    #-L$$PWD/SDK/vlc/lib   \
+    #-L$$PWD/SDK/vlcLib    \
     -L$$PWD/SDK/ImSDK/lib
 
 LIBS += \
     -lagora_rtc_sdk.dll \
+    #-lVLCQtCore   \
+    #-lVLCQtWidgets \
+    #-lVlcLib  \
     -limsdk
 
 SOURCES += \
@@ -89,9 +96,12 @@ SOURCES += \
     control/MenuManagerRight.cpp \
     control/MsgBox.cpp \
     control/PlayerPage.cpp \
+    control/SetTingMenu.cpp \
     control/ToastPage.cpp \
     control/WebEngView.cpp \
     control/click_label.cpp \
+    control/usermenu.cpp \
+    #control/videoplayer.cpp \
     main.cpp
 
 
@@ -156,9 +166,13 @@ HEADERS += \
     control/MenuManagerRight.h \
     control/MsgBox.h \
     control/PlayerPage.h \
+    control/SetTingMenu.h \
+    control/ShowPlayer.h \
     control/ToastPage.h \
     control/WebEngView.h \
-    control/click_label.h
+    control/click_label.h \
+    control/usermenu.h
+    #control/videoplayer.h
 
 FORMS += \
     UI/ChatEmoTionItem.ui \
@@ -211,8 +225,10 @@ FORMS += \
     control/MenuManagerRight.ui \
     control/MsgBox.ui \
     control/PlayerPage.ui \
+    control/SetTingMenu.ui \
     control/ToastPage.ui \
-    control/WebEngView.ui
+    control/WebEngView.ui \
+    control/usermenu.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -102,6 +102,8 @@ signals:
     void msg_multipleAuthoriation(QVariantMap);
     void msg_uninit();
 
+    void msg_playerUrl(QString url);
+
     void c2c_msg_text(QVariantMap, QString);
     void c2c_initTimList(QVariantList);
     void c2c_initTimMsgList(QVariantList);

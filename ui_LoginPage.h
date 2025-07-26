@@ -23,7 +23,7 @@
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include <click_label.h>
+#include "click_label.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -625,7 +625,7 @@ public:
 
     void retranslateUi(QDialog *LoginPage)
     {
-        LoginPage->setWindowTitle(QCoreApplication::translate("LoginPage", "Dialog", nullptr));
+        LoginPage->setWindowTitle(QCoreApplication::translate("LoginPage", "\347\231\273\345\275\225\351\241\265\351\235\242", nullptr));
         label->setText(QString());
         label_2->setText(QString());
         label_4->setText(QCoreApplication::translate("LoginPage", "\346\254\242\350\277\216\344\275\277\347\224\250\350\223\235\344\274\264\350\257\255\351\237\263\344\274\264\344\276\243", nullptr));

@@ -241,7 +241,7 @@ public:
 
     void retranslateUi(QDialog *ManagementPage)
     {
-        ManagementPage->setWindowTitle(QCoreApplication::translate("ManagementPage", "Dialog", nullptr));
+        ManagementPage->setWindowTitle(QCoreApplication::translate("ManagementPage", "\346\235\203\351\231\220\347\256\241\347\220\206", nullptr));
         onlineBtn->setText(QCoreApplication::translate("ManagementPage", "\346\235\203\351\231\220\347\256\241\347\220\206", nullptr));
         closeBtn->setText(QString());
         button1_1->setText(QCoreApplication::translate("ManagementPage", "\344\270\273\346\214\201\344\272\272", nullptr));

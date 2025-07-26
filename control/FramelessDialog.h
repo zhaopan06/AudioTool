@@ -1,13 +1,13 @@
 ﻿#ifndef FRAMELESSDIALOG_H
 #define FRAMELESSDIALOG_H
 
-#include <QDialog>
+#include <QWidget>
 #include <QMouseEvent>
 #include <QPainter>
 #include <QGraphicsBlurEffect>
 #include <QCursor>
 
-class FramelessDialog : public QDialog
+class FramelessDialog : public QWidget
 {
     Q_OBJECT
 public:
@@ -18,7 +18,6 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
-    void paintEvent(QPaintEvent *event) override;
 
 private:
     enum Edge {
@@ -30,7 +29,6 @@ private:
 
     Edge getEdgeAt(const QPoint &pos);
     void updateCursor(Edge edge);
-    void setWindowEffects();
 
     bool m_isDragging;
     QPoint m_dragStartPos;

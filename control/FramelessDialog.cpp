@@ -6,18 +6,11 @@
 #include <QCursor>
 
 FramelessDialog::FramelessDialog(QWidget *parent)
-    : QDialog(parent), m_isDragging(false), m_dragEdge(None)
+    : QWidget(parent), m_isDragging(false), m_dragEdge(None)
 {
     setWindowFlags(Qt::FramelessWindowHint | Qt::Window);
     installEventFilter(this);
     setMouseTracking(true);
-}
-
-void FramelessDialog::setWindowEffects()
-{
-    m_blurEffect = new QGraphicsBlurEffect(this);
-    m_blurEffect->setBlurRadius(10);
-    setGraphicsEffect(m_blurEffect);
 }
 
 bool FramelessDialog::eventFilter(QObject *watched, QEvent *event)
@@ -27,7 +20,7 @@ bool FramelessDialog::eventFilter(QObject *watched, QEvent *event)
         Edge edge = getEdgeAt(mouseEvent->pos());
         updateCursor(edge);
     }
-    return QDialog::eventFilter(watched, event);
+    return QWidget::eventFilter(watched, event);
 }
 
 void FramelessDialog::mousePressEvent(QMouseEvent *event)
@@ -77,16 +70,6 @@ void FramelessDialog::mouseReleaseEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
     m_isDragging = false;
-}
-
-void FramelessDialog::paintEvent(QPaintEvent *event)
-{
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
-    painter.setPen(Qt::transparent);
-    painter.setBrush(QBrush(QColor(0, 0, 0, 50)));  // Semi-transparent background
-    painter.drawRect(rect());
-    QDialog::paintEvent(event);
 }
 
 FramelessDialog::Edge FramelessDialog::getEdgeAt(const QPoint &pos)

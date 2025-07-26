@@ -260,7 +260,7 @@ public:
 
     void retranslateUi(QDialog *HotPushHistoryPage)
     {
-        HotPushHistoryPage->setWindowTitle(QCoreApplication::translate("HotPushHistoryPage", "Dialog", nullptr));
+        HotPushHistoryPage->setWindowTitle(QCoreApplication::translate("HotPushHistoryPage", "\347\203\255\346\216\250\345\215\241\344\275\277\347\224\250\350\256\260\345\275\225", nullptr));
         label_14->setText(QCoreApplication::translate("HotPushHistoryPage", "\347\203\255\346\216\250\345\215\241\344\275\277\347\224\250\350\256\260\345\275\225", nullptr));
         closeBtn->setText(QString());
         label->setText(QCoreApplication::translate("HotPushHistoryPage", "\344\275\277\347\224\250\346\227\266\351\227\264", nullptr));

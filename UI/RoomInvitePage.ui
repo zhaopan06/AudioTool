@@ -120,7 +120,7 @@ line-height: 25px;
          <item>
           <widget class="QPushButton" name="onlineBtn">
            <property name="text">
-            <string>编辑房间</string>
+            <string>房间邀请</string>
            </property>
            <property name="checkable">
             <bool>true</bool>

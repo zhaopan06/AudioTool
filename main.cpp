@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <Psapi.h>
+#include "clientconfig.h"
 
 bool getIsHaveMyselfPoss()
 {
@@ -80,7 +81,25 @@ int main(int argc, char *argv[])
     a.setStyleSheet(fStyle.readAll());
 
     CreateDir();
+
     MainWindow w;
-    w.show();
+
+    int x = ClientConfig::getInstance()->readIniFile("CLIENT", "x").toInt();
+    int y = ClientConfig::getInstance()->readIniFile("CLIENT", "y").toInt();
+    int width = ClientConfig::getInstance()->readIniFile("CLIENT", "width").toInt();
+    int height = ClientConfig::getInstance()->readIniFile("CLIENT", "height").toInt();
+    if(width > 1000)
+    {
+        w.resize(width, height);
+        w.move(x,y);
+    }
+    bool isMax = ClientConfig::getInstance()->readIniFile("CLIENT", "isMax").toInt();
+    w.initMax(isMax);
+    if(isMax)
+    {
+        w.showMaximized();
+    }
+    else
+        w.show();
     return a.exec();
 }

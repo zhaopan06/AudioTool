@@ -137,8 +137,8 @@ public:
     QSpacerItem *horizontalSpacer_7;
     QPushButton *Attention;
     QPushButton *pushButton_3;
-    QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_2;
+    QButtonGroup *buttonGroup;
     QButtonGroup *buttonGroup_3;
 
     void setupUi(QDialog *UserinfoPage)
@@ -1016,7 +1016,7 @@ public:
 
     void retranslateUi(QDialog *UserinfoPage)
     {
-        UserinfoPage->setWindowTitle(QCoreApplication::translate("UserinfoPage", "Dialog", nullptr));
+        UserinfoPage->setWindowTitle(QCoreApplication::translate("UserinfoPage", "\347\224\250\346\210\267\350\265\204\346\226\231", nullptr));
         onlineBtn->setText(QCoreApplication::translate("UserinfoPage", "\350\257\246\347\273\206\350\265\204\346\226\231", nullptr));
         squareBtn->setText(QCoreApplication::translate("UserinfoPage", "\347\244\274\347\211\251\345\242\231", nullptr));
         contributeBtn->setText(QCoreApplication::translate("UserinfoPage", "\345\213\213\347\253\240", nullptr));

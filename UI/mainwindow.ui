@@ -19,13 +19,16 @@
   <property name="maximumSize">
    <size>
     <width>16777215</width>
-    <height>1155</height>
+    <height>16777215</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>篮板语音-PC</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout_16">
     <property name="spacing">
      <number>0</number>
@@ -218,7 +221,7 @@ border-radius: 18px;</string>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="userName">
+           <widget class="click_label" name="userName">
             <property name="styleSheet">
              <string notr="true">border:none;
 font-family: &quot;微软雅黑&quot;;
@@ -489,13 +492,13 @@ border:none;
         <widget class="QWidget" name="widget_16" native="true">
          <property name="minimumSize">
           <size>
-           <width>72</width>
+           <width>0</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>72</width>
+           <width>666</width>
            <height>16777215</height>
           </size>
          </property>
@@ -529,6 +532,9 @@ border:none;
               <height>24</height>
              </size>
             </property>
+            <property name="toolTip">
+             <string>最小化</string>
+            </property>
             <property name="styleSheet">
              <string notr="true">QPushButton{	
 border:none;
@@ -552,8 +558,100 @@ border:none;
             </property>
             <property name="iconSize">
              <size>
-              <width>28</width>
-              <height>28</height>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="maxBtn">
+            <property name="minimumSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>进入全屏</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{	
+border:none;
+}
+QPushButton::hover{
+border:none;
+background:#3E3E3E;
+}
+QPushButton::checked {
+border:none;
+}
+
+</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../res.qrc">
+              <normaloff>:/images/icon_最大化.png</normaloff>:/images/icon_最大化.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="max_c_btn">
+            <property name="minimumSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>退出全屏</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{	
+border:none;
+}
+QPushButton::hover{
+border:none;
+background:#3E3E3E;
+}
+QPushButton::checked {
+border:none;
+}
+
+</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../res.qrc">
+              <normaloff>:/images/icon_最大化.png</normaloff>:/images/icon_最大化.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>24</width>
+              <height>24</height>
              </size>
             </property>
            </widget>
@@ -571,6 +669,9 @@ border:none;
               <width>24</width>
               <height>24</height>
              </size>
+            </property>
+            <property name="toolTip">
+             <string>退出程序</string>
             </property>
             <property name="styleSheet">
              <string notr="true">QPushButton{	
@@ -595,8 +696,8 @@ border:none;
             </property>
             <property name="iconSize">
              <size>
-              <width>28</width>
-              <height>28</height>
+              <width>24</width>
+              <height>24</height>
              </size>
             </property>
            </widget>
@@ -609,6 +710,9 @@ border:none;
     </item>
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
+      <property name="mouseTracking">
+       <bool>true</bool>
+      </property>
       <property name="styleSheet">
        <string notr="true">background: #161616;</string>
       </property>
@@ -616,6 +720,9 @@ border:none;
        <number>1</number>
       </property>
       <widget class="QWidget" name="page">
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
        </property>
@@ -966,6 +1073,12 @@ font-style: normal;</string>
                  <layout class="QVBoxLayout" name="verticalLayout_7">
                   <item>
                    <widget class="QLabel" name="label_5">
+                    <property name="maximumSize">
+                     <size>
+                      <width>80</width>
+                      <height>21</height>
+                     </size>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true">font-family: &quot;微软雅黑&quot;;
 font-weight: 500;
@@ -1400,6 +1513,9 @@ font-style: normal;</string>
        </layout>
       </widget>
       <widget class="QWidget" name="page_2">
+       <property name="mouseTracking">
+        <bool>true</bool>
+       </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <property name="spacing">
          <number>0</number>
@@ -1422,17 +1538,30 @@ font-style: normal;</string>
            <number>16</number>
           </property>
           <property name="leftMargin">
-           <number>271</number>
+           <number>12</number>
           </property>
           <property name="topMargin">
            <number>24</number>
           </property>
           <property name="rightMargin">
-           <number>271</number>
+           <number>12</number>
           </property>
           <property name="bottomMargin">
            <number>12</number>
           </property>
+          <item>
+           <spacer name="horizontalSpacer_16">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
           <item>
            <widget class="QWidget" name="widget_19" native="true">
             <property name="minimumSize">
@@ -2339,7 +2468,7 @@ font-style: normal;</string>
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
-                 <height>336</height>
+                 <height>16777215</height>
                 </size>
                </property>
                <property name="styleSheet">
@@ -2487,7 +2616,7 @@ font-style: normal;</string>
                          <x>0</x>
                          <y>0</y>
                          <width>397</width>
-                         <height>280</height>
+                         <height>374</height>
                         </rect>
                        </property>
                        <layout class="QVBoxLayout" name="verticalLayout_52">
@@ -3016,13 +3145,13 @@ font-style: normal;</string>
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
-                      <height>388</height>
+                      <height>390</height>
                      </size>
                     </property>
                     <property name="maximumSize">
                      <size>
                       <width>16777215</width>
-                      <height>16777215</height>
+                      <height>390</height>
                      </size>
                     </property>
                     <property name="styleSheet">
@@ -3337,7 +3466,7 @@ font-style: normal;</string>
                     <property name="maximumSize">
                      <size>
                       <width>488</width>
-                      <height>581</height>
+                      <height>16777215</height>
                      </size>
                     </property>
                     <property name="styleSheet">
@@ -4842,6 +4971,19 @@ border-radius: 18px;</string>
             </layout>
            </widget>
           </item>
+          <item>
+           <spacer name="horizontalSpacer_17">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
          </layout>
         </item>
        </layout>
@@ -4865,14 +5007,22 @@ border-radius: 18px;</string>
    <extends>QLineEdit</extends>
    <header>ImageDropLineEdit.h</header>
   </customwidget>
+  <customwidget>
+   <class>click_label</class>
+   <extends>QLabel</extends>
+   <header location="global">click_label.h</header>
+   <slots>
+    <signal>clicked()</signal>
+   </slots>
+  </customwidget>
  </customwidgets>
  <resources>
   <include location="../res.qrc"/>
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>

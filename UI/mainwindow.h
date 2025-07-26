@@ -9,6 +9,10 @@
 #include "EmotionPage.h"
 #include "AudioValuePage.h"
 #include "ChatPage.h"
+#include <QMouseEvent>
+#include <QGraphicsBlurEffect>
+#include <QCursor>
+//#include "VideoPlayer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -25,15 +29,36 @@ public:
     ~MainWindow();
 
     void chatC2C(QVariantMap data);
+    void initMax(bool isMax);
 private:
     void initUserUI();
     void initTim();
     void initAgora();
+
+    void initRoomInfoUI();
 protected:
-    void mouseMoveEvent(QMouseEvent* event);
-    void mousePressEvent(QMouseEvent* event);
-    void mouseReleaseEvent(QMouseEvent *event);
+    bool eventFilter(QObject *watched, QEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+
+private:
+    enum Edge {
+        None = 0,
+        Top = 1, Bottom = 2, Left = 4, Right = 8,
+        TopLeft = Top | Left, TopRight = Top | Right,
+        BottomLeft = Bottom | Left, BottomRight = Bottom | Right
+    };
+
+    Edge getEdgeAt(const QPoint &pos);
+    void updateCursor(Edge edge);
+
+    bool m_isDragging = false;
+    QPoint m_dragStartPos;
+    Edge m_dragEdge;
+    QGraphicsBlurEffect *m_blurEffect;
     bool nativeEvent(const QByteArray &eventType, void *message, long *result);
+
 private slots:
     void joinedChannelSuccess(const QString& channel, unsigned int uid, int elapsed);
     void audioVolumeIndication(int uid,int value);
@@ -52,6 +77,7 @@ private slots:
     void msg_vip(QVariantMap user, QString url);
     void msg_multipleAuthoriation(QVariantMap data);
 
+    void msg_playerUrl(QString url);
     void on_sendBtn_clicked();
 
     void on_emoBtn_clicked();
@@ -128,6 +154,14 @@ private slots:
 
     void on_pushButton_20_clicked();
 
+    void on_maxBtn_clicked();
+
+    void on_max_c_btn_clicked();
+
+    void on_pushButton_9_clicked();
+
+    void on_userName_clicked();
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;
@@ -143,5 +177,6 @@ private:
     AudioValuePage *m_soundValuePage = nullptr;
     ChatPage *m_chatPage = nullptr;
     QVariantMap m_roomInfo;
+    //VideoPlayer *m_player;
 };
 #endif // MAINWINDOW_H

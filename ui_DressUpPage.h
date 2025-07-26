@@ -194,7 +194,7 @@ public:
 
     void retranslateUi(QDialog *DressUpPage)
     {
-        DressUpPage->setWindowTitle(QCoreApplication::translate("DressUpPage", "Dialog", nullptr));
+        DressUpPage->setWindowTitle(QCoreApplication::translate("DressUpPage", "\350\220\214\346\226\260\345\271\277\345\234\272", nullptr));
         label_14->setText(QCoreApplication::translate("DressUpPage", "\350\220\214\346\226\260\345\271\277\345\234\272", nullptr));
         closeBtn->setText(QString());
         label->setText(QString());

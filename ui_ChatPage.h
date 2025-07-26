@@ -538,7 +538,7 @@ public:
 
     void retranslateUi(QDialog *ChatPage)
     {
-        ChatPage->setWindowTitle(QCoreApplication::translate("ChatPage", "Dialog", nullptr));
+        ChatPage->setWindowTitle(QCoreApplication::translate("ChatPage", "\350\223\235\344\274\264\350\257\255\351\237\263", nullptr));
         label_12->setText(QString());
         label_13->setText(QCoreApplication::translate("ChatPage", "\350\223\235\344\274\264\350\257\255\351\237\263", nullptr));
         lineEdit->setPlaceholderText(QCoreApplication::translate("ChatPage", "\350\257\267\350\276\223\345\205\245\346\230\265\347\247\260/id", nullptr));

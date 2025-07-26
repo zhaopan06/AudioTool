@@ -7,6 +7,7 @@
 #include "MsgBox.h"
 #include "clientconfig.h"
 #include <QWebEngineView>
+#include <QProcess>
 
 LoginPage::LoginPage(QWidget *parent)
     : QDialog(parent)
@@ -42,11 +43,33 @@ LoginPage::LoginPage(QWidget *parent)
 
     connect(&m_timer, &QTimer::timeout, this, &LoginPage::onTimeout);
 
-    connect(HttpInterFace::getInstance(), &HttpInterFace::error_msg_box_text, this,[&](QString msg){
+    connect(HttpInterFace::getInstance(), &HttpInterFace::error_msg_box_text, this,[&](QString msg, int code){
 
-        MsgBox::showMsg(this,tr("提示"), msg);
-        ui->login_btn->setEnabled(true);
-        ui->next_page_btn->setEnabled(true);
+        if(0 == code)
+        {
+            QString program = QCoreApplication::applicationFilePath();
+            QStringList arguments = QCoreApplication::arguments();
+            QString workingDir = QCoreApplication::applicationDirPath();
+            ClientConfig::getInstance()->setLoginData(QVariantMap());
+            QProcess::startDetached(program, arguments, workingDir);
+            exit(0);
+            return;
+        }
+        else if(356 == code)
+        {
+            MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code) );
+            QString program = QCoreApplication::applicationFilePath();
+            QStringList arguments = QCoreApplication::arguments();
+            QString workingDir = QCoreApplication::applicationDirPath();
+            ClientConfig::getInstance()->setLoginData(QVariantMap());
+            QProcess::startDetached(program, arguments, workingDir);
+            exit(0);
+            return;
+        }
+        else
+        {
+            MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code) );
+        }
     });
 }
 
@@ -289,9 +312,16 @@ void LoginPage::on_back_label_clicked()
 
 void LoginPage::on_login_btn_clicked()
 {
+    QString pass = ui->lineEdit->text();
+    pass.append(ui->lineEdit_2->text());
+    pass.append(ui->lineEdit_3->text());
+    pass.append(ui->lineEdit_4->text());
+    pass.append(ui->lineEdit_5->text());
+    pass.append(ui->lineEdit_6->text());
+
     ui->login_btn->setEnabled(false);
     QString acc =  ui->cap_mobile->text();
-    QVariantMap data = HttpInterFace::getInstance()->loginToServer(acc, "654321");
+    QVariantMap data = HttpInterFace::getInstance()->loginToServer(acc, pass);
     if(data["code"].toInt() == 1)
     {
         HttpUserInfo::instance()->setLoginInfo(data["data"].toMap());
@@ -309,12 +339,15 @@ void LoginPage::on_login_btn_clicked()
         ui->login_btn->setEnabled(true);
         accept();
     }
+    else
+    {
+        ui->login_btn->setEnabled(true);
+    }
 }
 
 void LoginPage::on_next_page_btn_clicked()
 {    
     QString acc =  ui->cap_mobile->text();
-
     if (acc.isEmpty())
     {
         MsgBox::showMsg(this, QStringLiteral("提示"), QStringLiteral("请输入手机号"));

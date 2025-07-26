@@ -282,7 +282,7 @@ public:
     void retranslateUi(QDialog *RoomInvitePage)
     {
         RoomInvitePage->setWindowTitle(QCoreApplication::translate("RoomInvitePage", "\346\210\277\351\227\264\351\202\200\350\257\267", nullptr));
-        onlineBtn->setText(QCoreApplication::translate("RoomInvitePage", "\347\274\226\350\276\221\346\210\277\351\227\264", nullptr));
+        onlineBtn->setText(QCoreApplication::translate("RoomInvitePage", "\346\210\277\351\227\264\351\202\200\350\257\267", nullptr));
         closeBtn->setText(QString());
         label->setText(QCoreApplication::translate("RoomInvitePage", "TextLabel", nullptr));
         copyBtn->setText(QCoreApplication::translate("RoomInvitePage", "\345\244\215\345\210\266\351\223\276\346\216\245", nullptr));

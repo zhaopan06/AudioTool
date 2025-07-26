@@ -86,13 +86,13 @@ void HttpInterFace::uploadFile(const QString &filePath, int type, callBack callb
         QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
         if(json_error.error != QJsonParseError::NoError)
         {
-            emit error_msg_box_text(json_error.errorString());
+            emit error_msg_box_text(json_error.errorString(),-1);
             reply->deleteLater();
             return;
         }
         if(jsonDocument["code"].toInt() != 1)
         {
-            emit error_msg_box_text(jsonDocument["message"].toString());
+            emit error_msg_box_text(jsonDocument["message"].toString(),jsonDocument["code"].toInt());
             reply->deleteLater();
             return;
         }
@@ -170,6 +170,13 @@ QVariantMap HttpInterFace::getLiveRoomInfo()
 {
     QString url = BASE_API_URL + QString("/pcHome/getPcHomeInfo");
     return httpsGet_syn(url);
+}
+
+void HttpInterFace::getLiveRoomInfo_asy(callBack callBack)
+{
+    QString url = BASE_API_URL + QString("/pcHome/getPcHomeInfo");
+    QVariantMap map;
+    httpsGet_asy(url,map,callBack);
 }
 
 QVariantMap HttpInterFace::followUser(QString followedId, int isFollow)
@@ -484,7 +491,7 @@ QVariantMap HttpInterFace::httpsPut_syn(QString url, QVariantMap jsonMap)
     if(json_error.error != QJsonParseError::NoError)
     {
         reply->deleteLater();
-        emit error_msg_box_text(json_error.errorString());
+        emit error_msg_box_text(json_error.errorString(), -1);
         return QVariantMap();
     }
     QVariantMap map = jsonDocument.toVariant().toMap();
@@ -531,7 +538,7 @@ void HttpInterFace::httpsGet_asy(QString url, QVariantMap jsonMap, callBack call
         QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
         if(json_error.error != QJsonParseError::NoError)
         {
-            emit error_msg_box_text(json_error.errorString());
+            emit error_msg_box_text(json_error.errorString(), -1);
             reply->deleteLater();
             return;
         }
@@ -543,7 +550,7 @@ void HttpInterFace::httpsGet_asy(QString url, QVariantMap jsonMap, callBack call
                 reply->deleteLater();
                 return;
             }
-            emit error_msg_box_text(jsonDocument["message"].toString());
+            emit error_msg_box_text(jsonDocument["message"].toString(),jsonDocument["code"].toInt());
             reply->deleteLater();
             return;
         }
@@ -592,13 +599,13 @@ QVariantMap HttpInterFace::httpsGet_syn(QString url)
     if(json_error.error != QJsonParseError::NoError)
     {
         reply->deleteLater();
-        emit error_msg_box_text(json_error.errorString());
+        emit error_msg_box_text(json_error.errorString(),-1);
         return QVariantMap();
     }    
     if(jsonDocument["code"].toInt() != 1)
     {
         reply->deleteLater();
-        emit error_msg_box_text(jsonDocument["message"].toString());
+        emit error_msg_box_text(jsonDocument["message"].toString(),jsonDocument["code"].toInt());
         return QVariantMap();
     }
     QVariantMap map = jsonDocument.toVariant().toMap();
@@ -632,13 +639,13 @@ void HttpInterFace::httpPost_asy(QString url , QVariantMap jsonMap, callBack cal
         QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
         if(json_error.error != QJsonParseError::NoError)
         {
-            emit error_msg_box_text(json_error.errorString());
+            emit error_msg_box_text(json_error.errorString(),-1);
             reply->deleteLater();
             return;
         }
         if(jsonDocument["code"].toInt() != 1)
         {
-            emit error_msg_box_text(jsonDocument["message"].toString());
+            emit error_msg_box_text(jsonDocument["message"].toString(),jsonDocument["code"].toInt());
             reply->deleteLater();
             return;
         }
@@ -690,13 +697,13 @@ QVariantMap HttpInterFace::httpsPost_syn(QString url ,QVariantMap jsonMap)
     if(json_error.error != QJsonParseError::NoError)
     {
         reply->deleteLater();
-        emit error_msg_box_text(json_error.errorString());
+        emit error_msg_box_text(json_error.errorString(),-1);
         return QVariantMap();
     }
     if(jsonDocument["code"].toInt() != 1)
     {
         reply->deleteLater();
-        emit error_msg_box_text(jsonDocument["message"].toString());
+        emit error_msg_box_text(jsonDocument["message"].toString(),jsonDocument["code"].toInt());
         return QVariantMap();
     }
     QVariantMap map = jsonDocument.toVariant().toMap();

@@ -531,7 +531,8 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                         QString url = json_doc["animation"].toString();
                         if(!url.isEmpty())
                         {
-                           qDebug()<<"animation url---"<<url;
+                            qDebug()<<"animation url---"<<url;
+                            emit msg_playerUrl(url);
                         }
                         break;
                     }

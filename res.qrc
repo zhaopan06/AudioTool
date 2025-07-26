@@ -79,5 +79,7 @@
         <file>images/bk_top2.png</file>
         <file>images/bk_top3.png</file>
         <file>images/icon_hot_click.png</file>
+        <file>images/形状.png</file>
+        <file>images/形状_big.png</file>
     </qresource>
 </RCC>

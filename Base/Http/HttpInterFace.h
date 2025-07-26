@@ -64,6 +64,7 @@ public:
     QVariantMap getFamilyDetail();
 
     QVariantMap getLiveRoomInfo();
+    void getLiveRoomInfo_asy(callBack callBack);
 
     QVariantMap followUser(QString followedId, int isFollow);
 
@@ -111,7 +112,7 @@ private:
     QString m_token;
 
 signals:
-    void error_msg_box_text(QString);
+    void error_msg_box_text(QString,int);
     void reLogin();
 public:
     QString m_authorization;

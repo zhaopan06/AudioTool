@@ -245,7 +245,7 @@ public:
 
     void retranslateUi(QDialog *GiftPage)
     {
-        GiftPage->setWindowTitle(QCoreApplication::translate("GiftPage", "Dialog", nullptr));
+        GiftPage->setWindowTitle(QCoreApplication::translate("GiftPage", "\347\244\274\347\211\251", nullptr));
         giftBtn->setText(QCoreApplication::translate("GiftPage", "\347\244\274\347\211\251", nullptr));
         gift1Btn->setText(QCoreApplication::translate("GiftPage", "\347\244\274\347\233\222", nullptr));
         pushButton_2->setText(QCoreApplication::translate("GiftPage", "VIP", nullptr));

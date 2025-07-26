@@ -34,6 +34,7 @@
 #include "HotPushPage.h"
 #include "clientconfig.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -48,6 +49,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->contList->setAlignment(Qt::AlignTop);
     ui->micLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 
+    m_isDragging = false;
+    m_dragEdge = None;
+    installEventFilter(this);
+    setMouseTracking(true);
     g_main = this;
 
     //设置listWidget无虚框
@@ -85,10 +90,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->pushButton_8->hide();
     ui->pushButton_10->hide();
 
-    connect(HttpInterFace::getInstance(), &HttpInterFace::error_msg_box_text, this,[&](QString msg){
+    connect(HttpInterFace::getInstance(), &HttpInterFace::error_msg_box_text, this,[&](QString msg, int code){
 
-        MsgBox::showMsg(this,tr("提示"), msg);
-        if(msg.contains(QStringLiteral("请重新登录")))
+        if(0 == code)
         {
             QString program = QCoreApplication::applicationFilePath();
             QStringList arguments = QCoreApplication::arguments();
@@ -96,6 +100,22 @@ MainWindow::MainWindow(QWidget *parent)
             ClientConfig::getInstance()->setLoginData(QVariantMap());
             QProcess::startDetached(program, arguments, workingDir);
             exit(0);
+            return;
+        }
+        else if(356 == code)
+        {
+            MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code) );
+            QString program = QCoreApplication::applicationFilePath();
+            QStringList arguments = QCoreApplication::arguments();
+            QString workingDir = QCoreApplication::applicationDirPath();
+            ClientConfig::getInstance()->setLoginData(QVariantMap());
+            QProcess::startDetached(program, arguments, workingDir);
+            exit(0);
+            return;
+        }
+        else
+        {
+            MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code) );
         }
     });
 
@@ -109,8 +129,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::initUserUI()
 {
+    //m_player = new VideoPlayer;
+    //m_player->hide();
     ui->number->hide();
-    initAgora();
     ui->mic_stackedWidget->setCurrentIndex(0);
     ui->autioMicBtn->show();
     ui->downMicBtn->hide();
@@ -123,70 +144,114 @@ void MainWindow::initUserUI()
         ui->userImage->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
-    QVariantMap familyData = HttpInterFace::getInstance()->getLiveRoomInfo();
-    QVariantMap roomInfo = familyData["data"].toMap();
-
-    //公会相关
-    QVariantMap pcFamilyPo = roomInfo["pcFamilyPo"].toMap();
-    QString fName = pcFamilyPo["name"].toString();
-    ui->guildName->setText(fName);
-    QString fID = pcFamilyPo["id"].toString();
-    ui->IDLabel->setText(fID);
-    QString intro = pcFamilyPo["intro"].toString();
-    ui->intro->setText(intro);
-    QString fPhotoUrl = pcFamilyPo["photo"].toString();
-    HttpInterFace::getInstance()->downLoad(fPhotoUrl, [&](const QString &path) {
-        ui->guildImage->setPixmap(QPixmap::fromImage(QImage(path)));
-    });
-
-    if(pcFamilyPo["wallList"].toList().size() > 0)
-    {
-        QString title = pcFamilyPo["wallList"].toList().at(0).toMap()["title"].toString();
-        ui->label_8->setText(title);
-        QString wallPhotoUrl = pcFamilyPo["wallList"].toList().at(0).toMap()["medalUrl"].toString();
-        HttpInterFace::getInstance()->downLoad(wallPhotoUrl, [&](const QString &path) {
-            this->ui->label_9->setPixmap(QPixmap::fromImage(QImage(path)));
-        });
-    }
-
-    //直播房间相关
-    if(roomInfo["pcChatRoomPo"].toList().size() > 0)
-    {
-        QVariantMap pcChatRoomPo = roomInfo["pcChatRoomPo"].toList().at(0).toMap();
-        RoomItem *roomItem = new RoomItem;
-        roomItem->setData(pcChatRoomPo);
-        connect(roomItem, SIGNAL(enterTheRoom(QVariantMap)),this,SLOT(enterTheToom(QVariantMap)));
-        roomItem->setFixedSize(155,211);
-        ui->gridLayout->addWidget(roomItem,0,0);
-    }
-
+    initAgora();
+    initRoomInfoUI();
     initTim();
     m_timInterface->login();
 }
 
-void MainWindow::mousePressEvent(QMouseEvent* event)
+bool MainWindow::eventFilter(QObject *watched, QEvent *event)
 {
-    if(event->pos().ry() < 66)
+    if (event->type() == QEvent::MouseMove)
     {
-        m_bMoveing = true;
-        m_pMovePosition = event->globalPos() - this->pos();
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+        Edge edge = getEdgeAt(mouseEvent->pos());
+        updateCursor(edge);
+    }
+    return QWidget::eventFilter(watched, event);
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        m_dragEdge = getEdgeAt(event->pos());
+
+        if(event->pos().ry() < 66)
+        {
+            m_dragStartPos = event->globalPos();
+            m_isDragging = true;
+            m_dragEdge = getEdgeAt(event->pos());
+        }
+        else if (m_dragEdge != None)
+        {
+            m_dragStartPos = event->globalPos();
+            m_isDragging = true;
+        }
     }
 }
 
-void MainWindow::mouseMoveEvent(QMouseEvent* event)
+void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
-    if (m_bMoveing&&
-        (event->buttons() & Qt::LeftButton)&&
-        (event->globalPos() - m_pMovePosition).manhattanLength() > QApplication::startDragDistance())
+    if (m_isDragging)
     {
-        move(event->globalPos() - m_pMovePosition);
-        m_pMovePosition = event->globalPos() - pos();
+        QPoint diff = event->globalPos() - m_dragStartPos;
+        if (m_dragEdge == None)
+        {
+            move(this->pos() + diff);
+        }
+        else
+        {
+            QRect newRect = geometry();
+            if (m_dragEdge & Top) {
+                newRect.setTop(event->globalPos().y());
+            }
+            if (m_dragEdge & Bottom) {
+                newRect.setBottom(event->globalPos().y());
+            }
+            if (m_dragEdge & Left) {
+                newRect.setLeft(event->globalPos().x());
+            }
+            if (m_dragEdge & Right) {
+                newRect.setRight(event->globalPos().x());
+            }
+            setGeometry(newRect);
+        }
+        m_dragStartPos = event->globalPos();
     }
 }
+
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 {
-    m_bMoveing = false;
+    Q_UNUSED(event);
+    m_isDragging = false;
+    QRect erct =  this->geometry();
+    ClientConfig::getInstance()->writeIniFile("CLIENT", "x", QString::number(erct.x()) );
+    ClientConfig::getInstance()->writeIniFile("CLIENT", "y", QString::number(erct.y()) );
+    ClientConfig::getInstance()->writeIniFile("CLIENT", "width", QString::number(erct.width()) );
+    ClientConfig::getInstance()->writeIniFile("CLIENT", "height", QString::number(erct.height()) );
+}
+
+MainWindow::Edge MainWindow::getEdgeAt(const QPoint &pos)
+{
+    const int margin = 10;
+
+    if (pos.y() < margin) {
+        return (pos.x() < margin) ? TopLeft : (pos.x() > width() - margin ? TopRight : Top);
+    } else if (pos.y() > height() - margin) {
+        return (pos.x() < margin) ? BottomLeft : (pos.x() > width() - margin ? BottomRight : Bottom);
+    } else if (pos.x() < margin) {
+        return Left;
+    } else if (pos.x() > width() - margin) {
+        return Right;
+    }
+    return None;
+}
+
+void MainWindow::updateCursor(Edge edge)
+{
+    if (edge == None) {
+        setCursor(Qt::ArrowCursor);
+    } else if (edge == TopLeft || edge == BottomRight) {
+        setCursor(Qt::SizeFDiagCursor);
+    } else if (edge == TopRight || edge == BottomLeft) {
+        setCursor(Qt::SizeBDiagCursor);
+    } else if (edge == Left || edge == Right) {
+        setCursor(Qt::SizeHorCursor);
+    } else if (edge == Top || edge == Bottom) {
+        setCursor(Qt::SizeVerCursor);
+    }
 }
 
 #include <QTextCodec>
@@ -269,6 +334,7 @@ void MainWindow::initTim()
         connect(m_timInterface, &TimInterface::msg_liveClose, this, &MainWindow::msg_liveClose);
         connect(m_timInterface, &TimInterface::loginStatus, this, &MainWindow::loginIm);
         connect(m_timInterface, &TimInterface::msg_notice, this, &MainWindow::msg_notice);
+        connect(m_timInterface, &TimInterface::msg_playerUrl, this, &MainWindow::msg_playerUrl);
         connect(m_timInterface, &TimInterface::msg_txt, this, &MainWindow::msg_txt);
         connect(m_timInterface, &TimInterface::msg_image, this, &MainWindow::msg_image);
         connect(m_timInterface, &TimInterface::msg_gift, this, &MainWindow::msg_gift);
@@ -474,6 +540,12 @@ void MainWindow::msg_multipleAuthoriation(QVariantMap data)
             }
         }
     }
+}
+
+void MainWindow::msg_playerUrl(QString url)
+{
+    //m_player->show();
+    //m_player->starPlay(url);
 }
 
 void MainWindow::msg_vip(QVariantMap user, QString url)
@@ -724,7 +796,7 @@ void MainWindow::on_copyBtn_clicked()
 //刷新
 void MainWindow::on_updateBtn_clicked()
 {
-
+    initRoomInfoUI();
 }
 //进入房间
 void MainWindow::enterTheToom(QVariantMap data)
@@ -869,6 +941,46 @@ void MainWindow::initAgora()
         connect(m_agoraFace, &AgoraRtcEngineInterface::audioVolumeIndication, this, &MainWindow::audioVolumeIndication);
         connect(m_agoraFace, &AgoraRtcEngineInterface::reconnect, this, &MainWindow::reconnect);
     }
+}
+
+void MainWindow::initRoomInfoUI()
+{
+    cleanupLayout(ui->gridLayout);
+    HttpInterFace::getInstance()->getLiveRoomInfo_asy([&](QVariant vart){
+
+        QVariantMap roomInfo = vart.toMap()["data"].toMap();
+        QVariantMap pcFamilyPo = roomInfo["pcFamilyPo"].toMap();
+        QString fName = pcFamilyPo["name"].toString();
+        ui->guildName->setText(fName);
+        QString fID = pcFamilyPo["id"].toString();
+        ui->IDLabel->setText(fID);
+        QString intro = pcFamilyPo["intro"].toString();
+        ui->intro->setText(intro);
+        QString fPhotoUrl = pcFamilyPo["photo"].toString();
+        HttpInterFace::getInstance()->downLoad(fPhotoUrl, [&](const QString &path) {
+            ui->guildImage->setPixmap(QPixmap::fromImage(QImage(path)));
+        });
+
+        if(pcFamilyPo["wallList"].toList().size() > 0)
+        {
+            QString title = pcFamilyPo["wallList"].toList().at(0).toMap()["title"].toString();
+            ui->label_8->setText(title);
+            QString wallPhotoUrl = pcFamilyPo["wallList"].toList().at(0).toMap()["medalUrl"].toString();
+            HttpInterFace::getInstance()->downLoad(wallPhotoUrl, [&](const QString &path) {
+                this->ui->label_9->setPixmap(QPixmap::fromImage(QImage(path)));
+            });
+        }
+        //直播房间相关
+        if(roomInfo["pcChatRoomPo"].toList().size() > 0)
+        {
+            QVariantMap pcChatRoomPo = roomInfo["pcChatRoomPo"].toList().at(0).toMap();
+            RoomItem *roomItem = new RoomItem;
+            roomItem->setData(pcChatRoomPo);
+            connect(roomItem, SIGNAL(enterTheRoom(QVariantMap)),this,SLOT(enterTheToom(QVariantMap)));
+            roomItem->setFixedSize(155,211);
+            ui->gridLayout->addWidget(roomItem,0,0);
+        }
+    });
 }
 
 void MainWindow::setMyselfMicInfo(int status)
@@ -1296,6 +1408,14 @@ void MainWindow::chatC2C(QVariantMap data)
     m_chatPage->ChatC2C(data);
 }
 
+void MainWindow::initMax(bool isMax)
+{
+    if(isMax)
+        ui->maxBtn->hide();
+    else
+        ui->max_c_btn->hide();
+}
+
 void MainWindow::on_pushButton_19_clicked()
 {
     QWidget *mask = new QWidget(this);
@@ -1386,5 +1506,61 @@ void MainWindow::on_pushButton_20_clicked()
         mask->deleteLater();
     });
     page.exec();
+}
+
+void MainWindow::on_maxBtn_clicked()
+{
+    ui->maxBtn->hide();
+    ui->max_c_btn->show();
+    showMaximized();
+    ClientConfig::getInstance()->writeIniFile("CLIENT", "isMax", "1");
+}
+
+void MainWindow::on_max_c_btn_clicked()
+{
+    ui->maxBtn->show();
+    ui->max_c_btn->hide();
+    showNormal();
+    ClientConfig::getInstance()->writeIniFile("CLIENT", "isMax", "0");
+}
+
+#include "usermenu.h"
+#include "UserinfoPageSimple.h"
+#include <QScreen>
+#include "SetTingMenu.h"
+void MainWindow::on_pushButton_9_clicked()
+{
+    SetTingMenu *menu = new SetTingMenu;
+    QPoint point;
+    point.setX(ui->pushButton_9->mapToGlobal(QPoint(0, 0)).rx() + ui->pushButton_9->width()/2 - menu->width()/2);
+    point.setY(ui->pushButton_9->mapToGlobal(QPoint(0, 0)).ry() + ui->pushButton_9->height());
+
+    menu->move(point);
+    menu->show();
+    m_isDragging = false;
+}
+
+
+void MainWindow::on_userName_clicked()
+{
+    UserMenu *meun = new UserMenu;
+    connect(meun, &UserMenu::showMyselfData, [&](){
+        UserinfoPageSimple *page = UserinfoPageSimple::getInstance();
+        page->init(HttpUserInfo::instance()->getUserID());
+
+        QScreen *targetScreen = QGuiApplication::screenAt(QCursor::pos());
+        if (!targetScreen) targetScreen = QGuiApplication::primaryScreen();
+        QRect screenRect = targetScreen->geometry();
+        page->move(screenRect.center() - page->rect().center());
+
+        page->show();
+    });
+    QPoint point;
+    point.setX(ui->userName->mapToGlobal(QPoint(0, 0)).rx() + ui->userName->width()/2 - meun->width()/2);
+    point.setY(ui->userName->mapToGlobal(QPoint(0, 0)).ry() + ui->userName->height());
+
+    meun->move(point);
+    meun->show();
+    m_isDragging = false;
 }
 
