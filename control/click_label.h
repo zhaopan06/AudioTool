@@ -15,6 +15,7 @@ public:
     void setRadius(int radius){m_radius = radius;}
     void setRound(){m_isRound = true;}
     void setColor(){m_isShowColor = true;}
+    void setMove(){m_isMove = true;}
 signals:
     void clicked();
 
@@ -30,6 +31,7 @@ private:
     int m_radius = 0;
     bool m_isShowColor = false;
     bool m_isRound = false;
+    bool m_isMove = false;
 };
 
 

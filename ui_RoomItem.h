@@ -43,8 +43,11 @@ public:
         imageLab = new click_label(RoomItem);
         imageLab->setObjectName(QString::fromUtf8("imageLab"));
         imageLab->setGeometry(QRect(0, 0, 156, 156));
+        imageLab->setMinimumSize(QSize(156, 156));
+        imageLab->setMaximumSize(QSize(156, 156));
         imageLab->setStyleSheet(QString::fromUtf8("border-radius: 16px;"));
-        imageLab->setScaledContents(true);
+        imageLab->setScaledContents(false);
+        imageLab->setAlignment(Qt::AlignCenter);
         roomName = new QLabel(RoomItem);
         roomName->setObjectName(QString::fromUtf8("roomName"));
         roomName->setGeometry(QRect(0, 166, 156, 22));

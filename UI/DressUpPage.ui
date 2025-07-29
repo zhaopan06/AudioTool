@@ -107,7 +107,7 @@ text-align: left;
 font-style: normal;</string>
            </property>
            <property name="text">
-            <string>萌新广场</string>
+            <string>装扮管理</string>
            </property>
           </widget>
          </item>
@@ -269,6 +269,128 @@ border-radius: 24px;</string>
              <height>56</height>
             </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+     border:none;
+font-family: &quot;微软雅黑&quot;;
+font-size: 16px;
+color: #222429;
+}
+
+QPushButton::hover{
+     border:none;
+font-family: &quot;微软雅黑&quot;;
+font-weight: 500;
+font-size: 18px;
+color: #9752ED; 
+}
+
+QPushButton::checked{
+border-radius: 0;
+     border:none;
+border-bottom: 1px solid #9752ED;
+font-family: &quot;微软雅黑&quot;;
+font-weight: 500;
+font-size: 18px;
+color: #9752ED; 
+} </string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>56</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>房间背景</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">buttonGroup</string>
+              </attribute>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_3">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>56</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>气泡</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">buttonGroup</string>
+              </attribute>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_4">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>56</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>头像框</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">buttonGroup</string>
+              </attribute>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_5">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>56</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>座驾</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">buttonGroup</string>
+              </attribute>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
          <item>
@@ -326,4 +448,7 @@ border-radius: 24px;</string>
   <include location="../res.qrc"/>
  </resources>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>

@@ -9,6 +9,7 @@
 #include "Global.h"
 #include "HttpUserInfo.h"
 #include <QUrlQuery>
+#include <QThread>
 
 HttpInterFace* HttpInterFace::pHttpInterFace = NULL;
 HttpInterFace *HttpInterFace::getInstance()
@@ -16,6 +17,9 @@ HttpInterFace *HttpInterFace::getInstance()
     if(pHttpInterFace == NULL)
     {
         pHttpInterFace = new HttpInterFace();
+        QThread* workerThread = new QThread;
+        pHttpInterFace->moveToThread(workerThread);
+        workerThread->start();
     }
     return pHttpInterFace;
 }

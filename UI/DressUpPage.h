@@ -15,8 +15,11 @@ public:
     explicit DressUpPage(QWidget *parent = nullptr);
     ~DressUpPage();
 
+    void init();
 private slots:
     void on_pushButton_clicked();
+
+    void on_closeBtn_clicked();
 
 private:
     Ui::DressUpPage *ui;

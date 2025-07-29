@@ -19,13 +19,30 @@ void click_label::paintEvent(QPaintEvent *e)
         painter.setClipPath(path);
         painter.drawPixmap(0, 0, width(), height(), *pixmap());
     }
-    else if(m_radius > 0)
+    else if(m_radius > 0 && false == m_isMove)
     {
         QPainterPath path;
-
         path.addRoundedRect(0, 0, width(), height(),m_radius,m_radius);
         painter.setClipPath(path);
-        painter.drawPixmap(0, 0, width(), height(), *pixmap());
+
+        QSize widgetSize = size();
+        QSize pixmapSize = pixmap()->size();
+        QSize scaledSize = pixmapSize.scaled(widgetSize, Qt::KeepAspectRatioByExpanding);
+        int x = (widgetSize.width() - scaledSize.width()) / 2;
+        int y = (widgetSize.height() - scaledSize.height()) / 2;
+
+        painter.drawPixmap(QRect(x, y, scaledSize.width(), scaledSize.height()),
+                           *pixmap(),
+                           QRect(0, 0, pixmapSize.width(), pixmapSize.height()));
+    }
+    else if(m_radius > 0 &&  m_isMove)
+    {
+        QPainterPath path;
+        path.addRoundedRect(0, 0, width(), height(),m_radius,m_radius);
+        painter.setClipPath(path);
+        int x = (width() - pixmap()->width()) / 2;
+        int y = (height() - pixmap()->height()) / 2;
+        painter.drawPixmap(x, y, pixmap()->width(), pixmap()->height(), *pixmap());
     }
     else
         QLabel::paintEvent(e);

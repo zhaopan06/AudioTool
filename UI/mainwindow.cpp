@@ -1564,3 +1564,19 @@ void MainWindow::on_userName_clicked()
     m_isDragging = false;
 }
 
+#include "DressUpPage.h"
+void MainWindow::on_pushButton_21_clicked()
+{
+    QWidget *mask = new QWidget(this);
+    mask->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
+    mask->setGeometry(rect());
+    mask->show();
+
+    DressUpPage page;
+    page.init();
+    connect(&page, &QDialog::finished, [=](){
+        mask->deleteLater();
+    });
+    page.exec();
+}
+

@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -40,10 +41,16 @@ public:
     QWidget *widget_4;
     QVBoxLayout *verticalLayout_2;
     QWidget *widget_3;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *pushButton_2;
+    QPushButton *pushButton_3;
+    QPushButton *pushButton_4;
+    QPushButton *pushButton_5;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
     QVBoxLayout *verticalLayout_5;
     QVBoxLayout *listLayout;
+    QButtonGroup *buttonGroup;
 
     void setupUi(QDialog *DressUpPage)
     {
@@ -156,6 +163,69 @@ public:
         widget_3 = new QWidget(widget_4);
         widget_3->setObjectName(QString::fromUtf8("widget_3"));
         widget_3->setMinimumSize(QSize(0, 56));
+        widget_3->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"     border:none;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-size: 16px;\n"
+"color: #222429;\n"
+"}\n"
+"\n"
+"QPushButton::hover{\n"
+"     border:none;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 500;\n"
+"font-size: 18px;\n"
+"color: #9752ED; \n"
+"}\n"
+"\n"
+"QPushButton::checked{\n"
+"border-radius: 0;\n"
+"     border:none;\n"
+"border-bottom: 1px solid #9752ED;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 500;\n"
+"font-size: 18px;\n"
+"color: #9752ED; \n"
+"} "));
+        horizontalLayout = new QHBoxLayout(widget_3);
+        horizontalLayout->setSpacing(0);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        pushButton_2 = new QPushButton(widget_3);
+        buttonGroup = new QButtonGroup(DressUpPage);
+        buttonGroup->setObjectName(QString::fromUtf8("buttonGroup"));
+        buttonGroup->addButton(pushButton_2);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        pushButton_2->setMinimumSize(QSize(0, 56));
+        pushButton_2->setCheckable(true);
+        pushButton_2->setChecked(true);
+
+        horizontalLayout->addWidget(pushButton_2);
+
+        pushButton_3 = new QPushButton(widget_3);
+        buttonGroup->addButton(pushButton_3);
+        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        pushButton_3->setMinimumSize(QSize(0, 56));
+        pushButton_3->setCheckable(true);
+
+        horizontalLayout->addWidget(pushButton_3);
+
+        pushButton_4 = new QPushButton(widget_3);
+        buttonGroup->addButton(pushButton_4);
+        pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
+        pushButton_4->setMinimumSize(QSize(0, 56));
+        pushButton_4->setCheckable(true);
+
+        horizontalLayout->addWidget(pushButton_4);
+
+        pushButton_5 = new QPushButton(widget_3);
+        buttonGroup->addButton(pushButton_5);
+        pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
+        pushButton_5->setMinimumSize(QSize(0, 56));
+        pushButton_5->setCheckable(true);
+
+        horizontalLayout->addWidget(pushButton_5);
+
 
         verticalLayout_2->addWidget(widget_3);
 
@@ -195,10 +265,14 @@ public:
     void retranslateUi(QDialog *DressUpPage)
     {
         DressUpPage->setWindowTitle(QCoreApplication::translate("DressUpPage", "\350\220\214\346\226\260\345\271\277\345\234\272", nullptr));
-        label_14->setText(QCoreApplication::translate("DressUpPage", "\350\220\214\346\226\260\345\271\277\345\234\272", nullptr));
+        label_14->setText(QCoreApplication::translate("DressUpPage", "\350\243\205\346\211\256\347\256\241\347\220\206", nullptr));
         closeBtn->setText(QString());
         label->setText(QString());
         pushButton->setText(QCoreApplication::translate("DressUpPage", "\347\202\271\345\207\273\346\224\276\345\244\247\351\242\204\350\247\210", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("DressUpPage", "\346\210\277\351\227\264\350\203\214\346\231\257", nullptr));
+        pushButton_3->setText(QCoreApplication::translate("DressUpPage", "\346\260\224\346\263\241", nullptr));
+        pushButton_4->setText(QCoreApplication::translate("DressUpPage", "\345\244\264\345\203\217\346\241\206", nullptr));
+        pushButton_5->setText(QCoreApplication::translate("DressUpPage", "\345\272\247\351\251\276", nullptr));
     } // retranslateUi
 
 };

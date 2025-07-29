@@ -26,6 +26,18 @@ border-radius: 16px;</string>
      <height>156</height>
     </rect>
    </property>
+   <property name="minimumSize">
+    <size>
+     <width>156</width>
+     <height>156</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>156</width>
+     <height>156</height>
+    </size>
+   </property>
    <property name="styleSheet">
     <string notr="true">border-radius: 16px;</string>
    </property>
@@ -33,7 +45,10 @@ border-radius: 16px;</string>
     <string/>
    </property>
    <property name="scaledContents">
-    <bool>true</bool>
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="roomName">

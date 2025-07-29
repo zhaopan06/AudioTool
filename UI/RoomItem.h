@@ -20,12 +20,17 @@ public:
 signals:
     void enterTheRoom(QVariantMap);
 
+protected:
+    void enterEvent(QEvent* event);
+    void leaveEvent(QEvent *event);
+
 private slots:
     void on_imageLab_clicked();
 
 private:
     Ui::RoomItem *ui;
     QVariantMap m_data;
+    QString m_path;
 };
 
 #endif // ROOMITEM_H
