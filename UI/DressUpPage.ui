@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>萌新广场</string>
+   <string>装扮管理</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background: #D8D8D8 #222429;
@@ -45,7 +45,7 @@ border-radius: 12px;
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <property name="spacing">
-       <number>16</number>
+       <number>0</number>
       </property>
       <property name="leftMargin">
        <number>32</number>
@@ -175,16 +175,21 @@ border:none;
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>387</height>
+          <height>443</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>387</height>
+          <height>443</height>
          </size>
         </property>
-        <widget class="QLabel" name="label">
+        <property name="styleSheet">
+         <string notr="true">QWidget#widget{
+background-image: url(:/images/dressUp_bg.png);
+}</string>
+        </property>
+        <widget class="click_label" name="image">
          <property name="geometry">
           <rect>
            <x>132</x>
@@ -205,6 +210,9 @@ border:none;
            <height>332</height>
           </size>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background: transparent;</string>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -219,17 +227,174 @@ border:none;
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">background: rgba(255, 255, 255, 0.3);
+          <string notr="true">
+QPushButton{
+background: rgba(255, 255, 255, 0.3);
 border-radius: 16px;
 
 font-family: &quot;微软雅黑&quot;;
 font-weight: 400;
 font-size: 14px;
-color: #FFFFFF;</string>
+color: #FFFFFF;
+}
+
+QPushButton:hover {
+           font-size: 17px;  
+		  background: rgba(255, 255, 255, 0.2);
+ }</string>
          </property>
          <property name="text">
           <string>点击放大预览</string>
          </property>
+        </widget>
+        <widget class="QWidget" name="widget_3" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>387</y>
+           <width>488</width>
+           <height>56</height>
+          </rect>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>56</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QWidget{
+background: #FFFFFF;
+border-top-left-radius: 24px;    
+border-top-right-radius: 24px;   
+border-bottom-left-radius: 0px;   
+border-bottom-right-radius: 0px; 
+}
+
+QPushButton {
+     border:none;
+font-family: &quot;微软雅黑&quot;;
+font-size: 16px;
+color: rgba(34, 36, 41, 0.5); 
+}
+
+QPushButton::hover{
+     border:none;
+font-family: &quot;微软雅黑&quot;;
+font-weight: 500;
+font-size: 18px;
+color: #9752ED; 
+}
+
+QPushButton::checked{
+border-top-left-radius: 24px;    
+border-top-right-radius: 24px;   
+border-bottom-left-radius: 0px;   
+border-bottom-right-radius: 0px; 
+border:none;
+border-bottom: 1px solid #9752ED;
+font-family: &quot;微软雅黑&quot;;
+font-weight: 500;
+font-size: 18px;
+color: #9752ED; 
+} </string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_2">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>56</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>房间背景</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">buttonGroup</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_3">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>56</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>气泡</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">buttonGroup</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_4">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>56</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>头像框</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">buttonGroup</string>
+            </attribute>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_5">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>56</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>座驾</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <attribute name="buttonGroup">
+             <string notr="true">buttonGroup</string>
+            </attribute>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </widget>
       </item>
@@ -243,7 +408,11 @@ color: #FFFFFF;</string>
         </property>
         <property name="styleSheet">
          <string notr="true">background: #FFFFFF;
-border-radius: 24px;</string>
+
+border-top-left-radius: 0px;    
+border-top-right-radius: 0px;   
+border-bottom-left-radius: 24px;   
+border-bottom-right-radius: 24px; </string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <property name="spacing">
@@ -262,138 +431,6 @@ border-radius: 24px;</string>
           <number>24</number>
          </property>
          <item>
-          <widget class="QWidget" name="widget_3" native="true">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>56</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton {
-     border:none;
-font-family: &quot;微软雅黑&quot;;
-font-size: 16px;
-color: #222429;
-}
-
-QPushButton::hover{
-     border:none;
-font-family: &quot;微软雅黑&quot;;
-font-weight: 500;
-font-size: 18px;
-color: #9752ED; 
-}
-
-QPushButton::checked{
-border-radius: 0;
-     border:none;
-border-bottom: 1px solid #9752ED;
-font-family: &quot;微软雅黑&quot;;
-font-weight: 500;
-font-size: 18px;
-color: #9752ED; 
-} </string>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <property name="spacing">
-             <number>0</number>
-            </property>
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QPushButton" name="pushButton_2">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>56</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>房间背景</string>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-              <attribute name="buttonGroup">
-               <string notr="true">buttonGroup</string>
-              </attribute>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_3">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>56</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>气泡</string>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-              <attribute name="buttonGroup">
-               <string notr="true">buttonGroup</string>
-              </attribute>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_4">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>56</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>头像框</string>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-              <attribute name="buttonGroup">
-               <string notr="true">buttonGroup</string>
-              </attribute>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_5">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>56</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>座驾</string>
-              </property>
-              <property name="checkable">
-               <bool>true</bool>
-              </property>
-              <attribute name="buttonGroup">
-               <string notr="true">buttonGroup</string>
-              </attribute>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
           <widget class="QScrollArea" name="scrollArea">
            <property name="styleSheet">
             <string notr="true"/>
@@ -407,7 +444,7 @@ color: #9752ED;
               <x>0</x>
               <y>0</y>
               <width>488</width>
-              <height>481</height>
+              <height>513</height>
              </rect>
             </property>
             <property name="styleSheet">
@@ -421,7 +458,7 @@ color: #9752ED;
               <number>0</number>
              </property>
              <property name="topMargin">
-              <number>16</number>
+              <number>0</number>
              </property>
              <property name="rightMargin">
               <number>0</number>
@@ -430,7 +467,17 @@ color: #9752ED;
               <number>0</number>
              </property>
              <item>
-              <layout class="QVBoxLayout" name="listLayout"/>
+              <layout class="QGridLayout" name="gridLayout">
+               <property name="leftMargin">
+                <number>16</number>
+               </property>
+               <property name="topMargin">
+                <number>16</number>
+               </property>
+               <property name="spacing">
+                <number>16</number>
+               </property>
+              </layout>
              </item>
             </layout>
            </widget>
@@ -444,6 +491,13 @@ color: #9752ED;
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>click_label</class>
+   <extends>QLabel</extends>
+   <header location="global">click_label.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../res.qrc"/>
  </resources>

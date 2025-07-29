@@ -58,6 +58,8 @@ SOURCES += \
     UI/ChatTextMyItem.cpp \
     UI/ContributeItem.cpp \
     UI/DressUpPage.cpp \
+    UI/DressUpPageBKItem.cpp \
+    UI/DressUpPageQPItem.cpp \
     UI/GIftItem.cpp \
     UI/GiftPage.cpp \
     UI/GiftPageItem.cpp \
@@ -126,6 +128,8 @@ HEADERS += \
     UI/ChatTextMyItem.h \
     UI/ContributeItem.h \
     UI/DressUpPage.h \
+    UI/DressUpPageBKItem.h \
+    UI/DressUpPageQPItem.h \
     UI/GIftItem.h \
     UI/GiftPage.h \
     UI/GiftPageItem.h \
@@ -189,6 +193,8 @@ FORMS += \
     UI/ChatTextMyItem.ui \
     UI/ContributeItem.ui \
     UI/DressUpPage.ui \
+    UI/DressUpPageBKItem.ui \
+    UI/DressUpPageQPItem.ui \
     UI/GIftItem.ui \
     UI/GiftPage.ui \
     UI/GiftPageItem.ui \

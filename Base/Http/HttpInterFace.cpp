@@ -361,6 +361,23 @@ void HttpInterFace::getHotDataHistory(QString roomId, int currentPage, callBack 
     QString url = BASE_API_URL + QString("/live/getReferralUsedCard");
     httpsGet_asy(url,jsonMap, callBack);
 }
+//装扮类型 0 头像框 1 座驾 2 气泡 3 直播间背景
+void HttpInterFace::getDressUp(int type, callBack callBack)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("type",type);
+    QString url = BASE_API_URL + QString("/user-avatar-frame-record/list");
+    httpsGet_asy(url,jsonMap, callBack);
+}
+
+void HttpInterFace::setDressUp(int avatarFrameId, int type, callBack callBack)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("avatarFrameId",avatarFrameId);
+    jsonMap.insert("type",type);
+    QString url = BASE_API_URL + QString("/user-avatar-frame-record/wear");
+    httpPost_asy(url,jsonMap, callBack);
+}
 
 QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)
 {

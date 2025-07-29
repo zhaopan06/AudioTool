@@ -829,8 +829,8 @@ font-style: normal;</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>100</width>
-                  <height>30</height>
+                  <width>631</width>
+                  <height>16</height>
                  </rect>
                 </property>
                </widget>
@@ -2753,6 +2753,28 @@ font-style: normal;</string>
                 </item>
                 <item>
                  <widget class="QWidget" name="widget_39" native="true">
+                  <property name="styleSheet">
+                   <string notr="true">QPushButton {
+background: #36383B;
+border-radius: 6px;
+font-family: &quot;微软雅黑&quot;;
+font-weight: 400;
+font-size: 16px;
+color: #FFFFFF;
+line-height: 22px;
+}
+
+QPushButton::hover{
+background: #333333;
+border-radius: 6px;
+font-family: &quot;微软雅黑&quot;;
+font-weight: 400;
+font-size: 16px;
+color: #ED525A;
+line-height: 22px;
+}
+</string>
+                  </property>
                   <layout class="QVBoxLayout" name="verticalLayout_31">
                    <property name="spacing">
                     <number>12</number>
@@ -2783,16 +2805,7 @@ font-style: normal;</string>
                         </size>
                        </property>
                        <property name="styleSheet">
-                        <string notr="true">background: #36383B;
-border-radius: 6px;
-
-font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
-font-size: 16px;
-color: #FFFFFF;
-line-height: 22px;
-
-font-style: normal;</string>
+                        <string notr="true"/>
                        </property>
                        <property name="text">
                         <string>清空魅力值</string>
@@ -2817,18 +2830,6 @@ font-style: normal;</string>
                          <height>56</height>
                         </size>
                        </property>
-                       <property name="styleSheet">
-                        <string notr="true">background: #36383B;
-border-radius: 6px;
-
-font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
-font-size: 16px;
-color: #FFFFFF;
-line-height: 22px;
-
-font-style: normal;</string>
-                       </property>
                        <property name="text">
                         <string>开播通知</string>
                        </property>
@@ -2851,18 +2852,6 @@ font-style: normal;</string>
                          <width>125</width>
                          <height>56</height>
                         </size>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">background: #36383B;
-border-radius: 6px;
-
-font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
-font-size: 16px;
-color: #FFFFFF;
-line-height: 22px;
-
-font-style: normal;</string>
                        </property>
                        <property name="text">
                         <string>权限管理</string>
@@ -2894,18 +2883,6 @@ font-style: normal;</string>
                          <height>56</height>
                         </size>
                        </property>
-                       <property name="styleSheet">
-                        <string notr="true">background: #36383B;
-border-radius: 6px;
-
-font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
-font-size: 16px;
-color: #FFFFFF;
-line-height: 22px;
-
-font-style: normal;</string>
-                       </property>
                        <property name="text">
                         <string>房间热推</string>
                        </property>
@@ -2929,18 +2906,6 @@ font-style: normal;</string>
                          <height>56</height>
                         </size>
                        </property>
-                       <property name="styleSheet">
-                        <string notr="true">background: #36383B;
-border-radius: 6px;
-
-font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
-font-size: 16px;
-color: #FFFFFF;
-line-height: 22px;
-
-font-style: normal;</string>
-                       </property>
                        <property name="text">
                         <string>装扮管理</string>
                        </property>
@@ -2963,18 +2928,6 @@ font-style: normal;</string>
                          <width>0</width>
                          <height>56</height>
                         </size>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">background: #36383B;
-border-radius: 6px;
-
-font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
-font-size: 16px;
-color: #FFFFFF;
-line-height: 22px;
-
-font-style: normal;</string>
                        </property>
                        <property name="text">
                         <string>展业小助手</string>
@@ -3008,18 +2961,6 @@ font-style: normal;</string>
                          <width>125</width>
                          <height>16777215</height>
                         </size>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">background: #36383B;
-border-radius: 6px;
-
-font-family: &quot;微软雅黑&quot;;
-font-weight: 400;
-font-size: 16px;
-color: #FFFFFF;
-line-height: 22px;
-
-font-style: normal;</string>
                        </property>
                        <property name="text">
                         <string>萌新广场</string>
@@ -4512,8 +4453,8 @@ line-height: 22px;
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>100</width>
-                              <height>30</height>
+                              <width>83</width>
+                              <height>16</height>
                              </rect>
                             </property>
                             <layout class="QVBoxLayout" name="verticalLayout_42">
@@ -4995,6 +4936,14 @@ border-radius: 18px;</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>click_label</class>
+   <extends>QLabel</extends>
+   <header location="global">click_label.h</header>
+   <slots>
+    <signal>clicked()</signal>
+   </slots>
+  </customwidget>
+  <customwidget>
    <class>CRoundLabel</class>
    <extends>QLabel</extends>
    <header location="global">CRoundLabel.h</header>
@@ -5006,14 +4955,6 @@ border-radius: 18px;</string>
    <class>ImageDropLineEdit</class>
    <extends>QLineEdit</extends>
    <header>ImageDropLineEdit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>click_label</class>
-   <extends>QLabel</extends>
-   <header location="global">click_label.h</header>
-   <slots>
-    <signal>clicked()</signal>
-   </slots>
   </customwidget>
  </customwidgets>
  <resources>

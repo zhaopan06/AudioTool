@@ -707,7 +707,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 100, 30));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 631, 16));
         scrollArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout_13->addWidget(scrollArea);
@@ -1593,6 +1593,26 @@ public:
 
         widget_39 = new QWidget(widget_22);
         widget_39->setObjectName(QString::fromUtf8("widget_39"));
+        widget_39->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"background: #36383B;\n"
+"border-radius: 6px;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
+"font-size: 16px;\n"
+"color: #FFFFFF;\n"
+"line-height: 22px;\n"
+"}\n"
+"\n"
+"QPushButton::hover{\n"
+"background: #333333;\n"
+"border-radius: 6px;\n"
+"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"font-weight: 400;\n"
+"font-size: 16px;\n"
+"color: #ED525A;\n"
+"line-height: 22px;\n"
+"}\n"
+""));
         verticalLayout_31 = new QVBoxLayout(widget_39);
         verticalLayout_31->setSpacing(12);
         verticalLayout_31->setObjectName(QString::fromUtf8("verticalLayout_31"));
@@ -1603,16 +1623,7 @@ public:
         pushButton_18 = new QPushButton(widget_39);
         pushButton_18->setObjectName(QString::fromUtf8("pushButton_18"));
         pushButton_18->setMinimumSize(QSize(125, 56));
-        pushButton_18->setStyleSheet(QString::fromUtf8("background: #36383B;\n"
-"border-radius: 6px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
-"font-size: 16px;\n"
-"color: #FFFFFF;\n"
-"line-height: 22px;\n"
-"\n"
-"font-style: normal;"));
+        pushButton_18->setStyleSheet(QString::fromUtf8(""));
         QIcon icon9;
         icon9.addFile(QString::fromUtf8(":/images/live_setting_n.png"), QSize(), QIcon::Normal, QIcon::Off);
         pushButton_18->setIcon(icon9);
@@ -1623,16 +1634,6 @@ public:
         pushButton_17 = new QPushButton(widget_39);
         pushButton_17->setObjectName(QString::fromUtf8("pushButton_17"));
         pushButton_17->setMinimumSize(QSize(125, 56));
-        pushButton_17->setStyleSheet(QString::fromUtf8("background: #36383B;\n"
-"border-radius: 6px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
-"font-size: 16px;\n"
-"color: #FFFFFF;\n"
-"line-height: 22px;\n"
-"\n"
-"font-style: normal;"));
         pushButton_17->setIcon(icon9);
         pushButton_17->setIconSize(QSize(24, 24));
 
@@ -1641,16 +1642,6 @@ public:
         pushButton_19 = new QPushButton(widget_39);
         pushButton_19->setObjectName(QString::fromUtf8("pushButton_19"));
         pushButton_19->setMinimumSize(QSize(125, 56));
-        pushButton_19->setStyleSheet(QString::fromUtf8("background: #36383B;\n"
-"border-radius: 6px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
-"font-size: 16px;\n"
-"color: #FFFFFF;\n"
-"line-height: 22px;\n"
-"\n"
-"font-style: normal;"));
         pushButton_19->setIcon(icon9);
         pushButton_19->setIconSize(QSize(24, 24));
 
@@ -1665,16 +1656,6 @@ public:
         pushButton_20 = new QPushButton(widget_39);
         pushButton_20->setObjectName(QString::fromUtf8("pushButton_20"));
         pushButton_20->setMinimumSize(QSize(125, 56));
-        pushButton_20->setStyleSheet(QString::fromUtf8("background: #36383B;\n"
-"border-radius: 6px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
-"font-size: 16px;\n"
-"color: #FFFFFF;\n"
-"line-height: 22px;\n"
-"\n"
-"font-style: normal;"));
         pushButton_20->setIcon(icon9);
         pushButton_20->setIconSize(QSize(24, 24));
 
@@ -1683,16 +1664,6 @@ public:
         pushButton_21 = new QPushButton(widget_39);
         pushButton_21->setObjectName(QString::fromUtf8("pushButton_21"));
         pushButton_21->setMinimumSize(QSize(125, 56));
-        pushButton_21->setStyleSheet(QString::fromUtf8("background: #36383B;\n"
-"border-radius: 6px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
-"font-size: 16px;\n"
-"color: #FFFFFF;\n"
-"line-height: 22px;\n"
-"\n"
-"font-style: normal;"));
         pushButton_21->setIcon(icon9);
         pushButton_21->setIconSize(QSize(24, 24));
 
@@ -1701,16 +1672,6 @@ public:
         pushButton_22 = new QPushButton(widget_39);
         pushButton_22->setObjectName(QString::fromUtf8("pushButton_22"));
         pushButton_22->setMinimumSize(QSize(0, 56));
-        pushButton_22->setStyleSheet(QString::fromUtf8("background: #36383B;\n"
-"border-radius: 6px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
-"font-size: 16px;\n"
-"color: #FFFFFF;\n"
-"line-height: 22px;\n"
-"\n"
-"font-style: normal;"));
         pushButton_22->setIcon(icon9);
         pushButton_22->setIconSize(QSize(24, 24));
 
@@ -1725,16 +1686,6 @@ public:
         squareBtn->setObjectName(QString::fromUtf8("squareBtn"));
         squareBtn->setMinimumSize(QSize(125, 56));
         squareBtn->setMaximumSize(QSize(125, 16777215));
-        squareBtn->setStyleSheet(QString::fromUtf8("background: #36383B;\n"
-"border-radius: 6px;\n"
-"\n"
-"font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
-"font-weight: 400;\n"
-"font-size: 16px;\n"
-"color: #FFFFFF;\n"
-"line-height: 22px;\n"
-"\n"
-"font-style: normal;"));
         squareBtn->setIcon(icon9);
         squareBtn->setIconSize(QSize(24, 24));
 
@@ -2463,7 +2414,7 @@ public:
         scrollArea_4->setWidgetResizable(true);
         scrollAreaWidgetContents_4 = new QWidget();
         scrollAreaWidgetContents_4->setObjectName(QString::fromUtf8("scrollAreaWidgetContents_4"));
-        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 100, 30));
+        scrollAreaWidgetContents_4->setGeometry(QRect(0, 0, 83, 16));
         verticalLayout_42 = new QVBoxLayout(scrollAreaWidgetContents_4);
         verticalLayout_42->setSpacing(0);
         verticalLayout_42->setObjectName(QString::fromUtf8("verticalLayout_42"));

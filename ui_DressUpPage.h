@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
@@ -21,6 +22,7 @@
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <click_label.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -36,20 +38,20 @@ public:
     QSpacerItem *horizontalSpacer_7;
     QPushButton *closeBtn;
     QWidget *widget;
-    QLabel *label;
+    click_label *image;
     QPushButton *pushButton;
-    QWidget *widget_4;
-    QVBoxLayout *verticalLayout_2;
     QWidget *widget_3;
     QHBoxLayout *horizontalLayout;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
     QPushButton *pushButton_4;
     QPushButton *pushButton_5;
+    QWidget *widget_4;
+    QVBoxLayout *verticalLayout_2;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
     QVBoxLayout *verticalLayout_5;
-    QVBoxLayout *listLayout;
+    QGridLayout *gridLayout;
     QButtonGroup *buttonGroup;
 
     void setupUi(QDialog *DressUpPage)
@@ -72,7 +74,7 @@ public:
 "\n"
 ""));
         verticalLayout_3 = new QVBoxLayout(widget_2);
-        verticalLayout_3->setSpacing(16);
+        verticalLayout_3->setSpacing(0);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(32, 0, 32, 16);
         widget_1 = new QWidget(widget_2);
@@ -131,43 +133,52 @@ public:
 
         widget = new QWidget(widget_2);
         widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setMinimumSize(QSize(0, 387));
-        widget->setMaximumSize(QSize(16777215, 387));
-        label = new QLabel(widget);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(132, 28, 224, 332));
-        label->setMinimumSize(QSize(224, 332));
-        label->setMaximumSize(QSize(224, 332));
+        widget->setMinimumSize(QSize(0, 443));
+        widget->setMaximumSize(QSize(16777215, 443));
+        widget->setStyleSheet(QString::fromUtf8("QWidget#widget{\n"
+"background-image: url(:/images/dressUp_bg.png);\n"
+"}"));
+        image = new click_label(widget);
+        image->setObjectName(QString::fromUtf8("image"));
+        image->setGeometry(QRect(132, 28, 224, 332));
+        image->setMinimumSize(QSize(224, 332));
+        image->setMaximumSize(QSize(224, 332));
+        image->setStyleSheet(QString::fromUtf8("background: transparent;"));
         pushButton = new QPushButton(widget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setGeometry(QRect(190, 312, 108, 32));
-        pushButton->setStyleSheet(QString::fromUtf8("background: rgba(255, 255, 255, 0.3);\n"
+        pushButton->setStyleSheet(QString::fromUtf8("\n"
+"QPushButton{\n"
+"background: rgba(255, 255, 255, 0.3);\n"
 "border-radius: 16px;\n"
 "\n"
 "font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 400;\n"
 "font-size: 14px;\n"
-"color: #FFFFFF;"));
-
-        verticalLayout_3->addWidget(widget);
-
-        widget_4 = new QWidget(widget_2);
-        widget_4->setObjectName(QString::fromUtf8("widget_4"));
-        widget_4->setMinimumSize(QSize(0, 56));
-        widget_4->setStyleSheet(QString::fromUtf8("background: #FFFFFF;\n"
-"border-radius: 24px;"));
-        verticalLayout_2 = new QVBoxLayout(widget_4);
-        verticalLayout_2->setSpacing(0);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        verticalLayout_2->setContentsMargins(0, 0, 0, 24);
-        widget_3 = new QWidget(widget_4);
+"color: #FFFFFF;\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"           font-size: 17px;  \n"
+"		  background: rgba(255, 255, 255, 0.2);\n"
+" }"));
+        widget_3 = new QWidget(widget);
         widget_3->setObjectName(QString::fromUtf8("widget_3"));
+        widget_3->setGeometry(QRect(0, 387, 488, 56));
         widget_3->setMinimumSize(QSize(0, 56));
-        widget_3->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+        widget_3->setStyleSheet(QString::fromUtf8("QWidget{\n"
+"background: #FFFFFF;\n"
+"border-top-left-radius: 24px;    \n"
+"border-top-right-radius: 24px;   \n"
+"border-bottom-left-radius: 0px;   \n"
+"border-bottom-right-radius: 0px; \n"
+"}\n"
+"\n"
+"QPushButton {\n"
 "     border:none;\n"
 "font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-size: 16px;\n"
-"color: #222429;\n"
+"color: rgba(34, 36, 41, 0.5); \n"
 "}\n"
 "\n"
 "QPushButton::hover{\n"
@@ -179,8 +190,11 @@ public:
 "}\n"
 "\n"
 "QPushButton::checked{\n"
-"border-radius: 0;\n"
-"     border:none;\n"
+"border-top-left-radius: 24px;    \n"
+"border-top-right-radius: 24px;   \n"
+"border-bottom-left-radius: 0px;   \n"
+"border-bottom-right-radius: 0px; \n"
+"border:none;\n"
 "border-bottom: 1px solid #9752ED;\n"
 "font-family: \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "font-weight: 500;\n"
@@ -227,24 +241,39 @@ public:
         horizontalLayout->addWidget(pushButton_5);
 
 
-        verticalLayout_2->addWidget(widget_3);
+        verticalLayout_3->addWidget(widget);
 
+        widget_4 = new QWidget(widget_2);
+        widget_4->setObjectName(QString::fromUtf8("widget_4"));
+        widget_4->setMinimumSize(QSize(0, 56));
+        widget_4->setStyleSheet(QString::fromUtf8("background: #FFFFFF;\n"
+"\n"
+"border-top-left-radius: 0px;    \n"
+"border-top-right-radius: 0px;   \n"
+"border-bottom-left-radius: 24px;   \n"
+"border-bottom-right-radius: 24px; "));
+        verticalLayout_2 = new QVBoxLayout(widget_4);
+        verticalLayout_2->setSpacing(0);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, 0, 0, 24);
         scrollArea = new QScrollArea(widget_4);
         scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
         scrollArea->setStyleSheet(QString::fromUtf8(""));
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 488, 481));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 488, 513));
         scrollAreaWidgetContents->setStyleSheet(QString::fromUtf8(""));
         verticalLayout_5 = new QVBoxLayout(scrollAreaWidgetContents);
         verticalLayout_5->setSpacing(0);
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
-        verticalLayout_5->setContentsMargins(0, 16, 0, 0);
-        listLayout = new QVBoxLayout();
-        listLayout->setObjectName(QString::fromUtf8("listLayout"));
+        verticalLayout_5->setContentsMargins(0, 0, 0, 0);
+        gridLayout = new QGridLayout();
+        gridLayout->setSpacing(16);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setContentsMargins(16, 16, -1, -1);
 
-        verticalLayout_5->addLayout(listLayout);
+        verticalLayout_5->addLayout(gridLayout);
 
         scrollArea->setWidget(scrollAreaWidgetContents);
 
@@ -264,10 +293,10 @@ public:
 
     void retranslateUi(QDialog *DressUpPage)
     {
-        DressUpPage->setWindowTitle(QCoreApplication::translate("DressUpPage", "\350\220\214\346\226\260\345\271\277\345\234\272", nullptr));
+        DressUpPage->setWindowTitle(QCoreApplication::translate("DressUpPage", "\350\243\205\346\211\256\347\256\241\347\220\206", nullptr));
         label_14->setText(QCoreApplication::translate("DressUpPage", "\350\243\205\346\211\256\347\256\241\347\220\206", nullptr));
         closeBtn->setText(QString());
-        label->setText(QString());
+        image->setText(QString());
         pushButton->setText(QCoreApplication::translate("DressUpPage", "\347\202\271\345\207\273\346\224\276\345\244\247\351\242\204\350\247\210", nullptr));
         pushButton_2->setText(QCoreApplication::translate("DressUpPage", "\346\210\277\351\227\264\350\203\214\346\231\257", nullptr));
         pushButton_3->setText(QCoreApplication::translate("DressUpPage", "\346\260\224\346\263\241", nullptr));

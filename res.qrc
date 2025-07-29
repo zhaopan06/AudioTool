@@ -81,5 +81,6 @@
         <file>images/icon_hot_click.png</file>
         <file>images/形状.png</file>
         <file>images/形状_big.png</file>
+        <file>images/dressUp_bg.png</file>
     </qresource>
 </RCC>
