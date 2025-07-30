@@ -5,6 +5,7 @@
 #include "DressUpPageQPItem.h"
 #include "Global.h"
 #include "ImageDialog.h"
+#include "ToastPage.h"
 
 DressUpPage::DressUpPage(QWidget *parent)
     : QDialog(parent)
@@ -198,12 +199,11 @@ void DressUpPage::on_pushButton_2_clicked()
 
 void DressUpPage::on_setDressUp()
 {
-    showMapTojson(m_clickMap);
     int id = m_clickMap["avatarFrameId"].toInt();
     int type = m_clickMap["type"].toInt();
     HttpInterFace::getInstance()->setDressUp(id, type, [&](const QVariant &content){
-        showMapTojson(content.toMap());
-        this->accept();
+        ToastPage::showToast(this, QStringLiteral("设置成功"));
+        init();
     });
 }
 

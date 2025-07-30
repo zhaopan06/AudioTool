@@ -25,6 +25,13 @@ void ChatTextMyItem::setData(QString path, QString msg)
     HttpInterFace::getInstance()->downLoad(path, [&](const QString &path) {
         this->ui->image->setPixmap(QPixmap::fromImage(QImage(path)));
     });
+    QVariantMap data = HttpUserInfo::instance()->getLoginInfo();
+    QString photoBorder = data["user"].toMap()["photoBorder"].toString();
+    showMapTojson(data["user"].toMap());
+    qDebug()<<"photoBorder==="<<photoBorder;
+    HttpInterFace::getInstance()->downLoad(photoBorder, [&](const QString &path) {
+        ui->image_2->setPixmap(QPixmap::fromImage(QImage(path)));
+    });
 
     //设置文字
     QLabel *label = new QLabel();
@@ -60,6 +67,10 @@ void ChatTextMyItem::setEmotion(QString path, int type)
     QString photoUrl = data["user"].toMap()["photo"].toString();
     HttpInterFace::getInstance()->downLoad(photoUrl, [&](const QString &path) {
         this->ui->image->setPixmap(QPixmap::fromImage(QImage(path)));
+    });
+    QString photoBorder = data["user"].toMap()["photoBorder"].toString();
+    HttpInterFace::getInstance()->downLoad(photoBorder, [&](const QString &path) {
+        this->ui->image_2->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
     if(type > 4)

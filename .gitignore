@@ -6,3 +6,5 @@ Makefile.Release
 release/
 AudioTool/
 AudioTool.zip
+SDK/vlc/
+SDK/vlcLib/

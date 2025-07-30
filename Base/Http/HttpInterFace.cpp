@@ -373,9 +373,7 @@ void HttpInterFace::getDressUp(int type, callBack callBack)
 void HttpInterFace::setDressUp(int avatarFrameId, int type, callBack callBack)
 {
     QVariantMap jsonMap;
-    jsonMap.insert("avatarFrameId",avatarFrameId);
-    jsonMap.insert("type",type);
-    QString url = BASE_API_URL + QString("/user-avatar-frame-record/wear");
+    QString url = BASE_API_URL + QString("/user-avatar-frame-record/wear?avatarFrameId=%1&type=%2").arg(avatarFrameId).arg(type);;
     httpPost_asy(url,jsonMap, callBack);
 }
 

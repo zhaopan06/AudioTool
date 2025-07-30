@@ -315,8 +315,8 @@ public:
     QPushButton *pushButton_15;
     QPushButton *pushButton_16;
     QSpacerItem *horizontalSpacer_17;
-    QButtonGroup *buttonGroup_3;
     QButtonGroup *buttonGroup;
+    QButtonGroup *buttonGroup_3;
     QButtonGroup *buttonGroup_2;
 
     void setupUi(QMainWindow *MainWindow)
@@ -387,7 +387,7 @@ public:
         widget_18 = new QWidget(widget_14);
         widget_18->setObjectName(QString::fromUtf8("widget_18"));
         widget_18->setMinimumSize(QSize(170, 0));
-        widget_18->setMaximumSize(QSize(170, 36));
+        widget_18->setMaximumSize(QSize(16777215, 36));
         widget_18->setStyleSheet(QString::fromUtf8("background: #36383B;\n"
 "\n"
 "border-radius: 18px;"));
@@ -707,7 +707,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 631, 16));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 648, 362));
         scrollArea->setWidget(scrollAreaWidgetContents);
 
         verticalLayout_13->addWidget(scrollArea);
@@ -1008,13 +1008,19 @@ public:
 
         updateBtn = new QPushButton(widget_10);
         updateBtn->setObjectName(QString::fromUtf8("updateBtn"));
-        updateBtn->setStyleSheet(QString::fromUtf8("font-family: \342\200\234\345\276\256\350\275\257\351\233\205\351\273\221\342\200\235;\n"
+        updateBtn->setStyleSheet(QString::fromUtf8("QPushButton{\n"
+"font-family: \342\200\234\345\276\256\350\275\257\351\233\205\351\273\221\342\200\235;\n"
 "font-weight: 400;\n"
 "font-size: 14px;\n"
 "color: #A8A8A7;\n"
 "line-height: 20px;\n"
 "text-align: left;\n"
-"font-style: normal;"));
+"font-style: normal;\n"
+"}\n"
+"\n"
+"QPushButton:hover{\n"
+"color: #ED525A;\n"
+"}"));
         QIcon icon8;
         icon8.addFile(QString::fromUtf8(":/images/update_n.png"), QSize(), QIcon::Normal, QIcon::Off);
         updateBtn->setIcon(icon8);

@@ -27,7 +27,9 @@ public:
     QVBoxLayout *verticalLayout;
     QWidget *widget;
     QHBoxLayout *horizontalLayout_2;
+    QWidget *widget_3;
     CRoundLabel *image;
+    CRoundLabel *image_2;
     QVBoxLayout *verticalLayout_2;
     QLabel *nameLab;
     QHBoxLayout *horizontalLayout_3;
@@ -54,18 +56,27 @@ public:
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         widget = new QWidget(ChatTextItem);
         widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setMinimumSize(QSize(0, 64));
-        widget->setMaximumSize(QSize(16777215, 64));
+        widget->setMinimumSize(QSize(0, 66));
+        widget->setMaximumSize(QSize(16777215, 66));
         horizontalLayout_2 = new QHBoxLayout(widget);
-        horizontalLayout_2->setSpacing(10);
+        horizontalLayout_2->setSpacing(2);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        image = new CRoundLabel(widget);
+        widget_3 = new QWidget(widget);
+        widget_3->setObjectName(QString::fromUtf8("widget_3"));
+        widget_3->setMinimumSize(QSize(66, 66));
+        image = new CRoundLabel(widget_3);
         image->setObjectName(QString::fromUtf8("image"));
+        image->setGeometry(QRect(9, 9, 46, 46));
         image->setMinimumSize(QSize(46, 46));
         image->setMaximumSize(QSize(46, 46));
+        image_2 = new CRoundLabel(widget_3);
+        image_2->setObjectName(QString::fromUtf8("image_2"));
+        image_2->setGeometry(QRect(0, 0, 66, 66));
+        image_2->setMinimumSize(QSize(0, 0));
+        image_2->setMaximumSize(QSize(16777215, 16777215));
 
-        horizontalLayout_2->addWidget(image);
+        horizontalLayout_2->addWidget(widget_3);
 
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
@@ -186,6 +197,7 @@ public:
     {
         ChatTextItem->setWindowTitle(QCoreApplication::translate("ChatTextItem", "Dialog", nullptr));
         image->setText(QString());
+        image_2->setText(QString());
         nameLab->setText(QCoreApplication::translate("ChatTextItem", "TextLabel", nullptr));
         label_3->setText(QCoreApplication::translate("ChatTextItem", "\347\256\241\347\220\206", nullptr));
         user_lab->setText(QCoreApplication::translate("ChatTextItem", "8", nullptr));

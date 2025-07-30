@@ -15,8 +15,6 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -33,9 +31,8 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QLabel *label;
     QWidget *horizontalWidget;
-    QVBoxLayout *verticalLayout;
     CRoundLabel *image;
-    QSpacerItem *verticalSpacer;
+    CRoundLabel *image_2;
 
     void setupUi(QDialog *ChatTextMyItem)
     {
@@ -43,9 +40,9 @@ public:
             ChatTextMyItem->setObjectName(QString::fromUtf8("ChatTextMyItem"));
         ChatTextMyItem->resize(466, 76);
         horizontalLayout_2 = new QHBoxLayout(ChatTextMyItem);
-        horizontalLayout_2->setSpacing(15);
+        horizontalLayout_2->setSpacing(0);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(0, 0, 10, 0);
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(0);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
@@ -109,22 +106,17 @@ public:
 
         horizontalWidget = new QWidget(ChatTextMyItem);
         horizontalWidget->setObjectName(QString::fromUtf8("horizontalWidget"));
-        horizontalWidget->setMaximumSize(QSize(46, 16777215));
+        horizontalWidget->setMinimumSize(QSize(66, 0));
+        horizontalWidget->setMaximumSize(QSize(66, 16777215));
         horizontalWidget->setLayoutDirection(Qt::RightToLeft);
-        verticalLayout = new QVBoxLayout(horizontalWidget);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 12, 0, 12);
         image = new CRoundLabel(horizontalWidget);
         image->setObjectName(QString::fromUtf8("image"));
+        image->setGeometry(QRect(10, 12, 46, 46));
         image->setMinimumSize(QSize(46, 46));
         image->setMaximumSize(QSize(46, 46));
-
-        verticalLayout->addWidget(image);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(verticalSpacer);
-
+        image_2 = new CRoundLabel(horizontalWidget);
+        image_2->setObjectName(QString::fromUtf8("image_2"));
+        image_2->setGeometry(QRect(0, 2, 66, 66));
 
         horizontalLayout_2->addWidget(horizontalWidget);
 
@@ -139,6 +131,7 @@ public:
         ChatTextMyItem->setWindowTitle(QCoreApplication::translate("ChatTextMyItem", "Dialog", nullptr));
         label->setText(QString());
         image->setText(QString());
+        image_2->setText(QString());
     } // retranslateUi
 
 };

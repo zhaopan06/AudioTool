@@ -26,6 +26,8 @@ ChatTextItem::~ChatTextItem()
 
 void ChatTextItem::setData(QVariantMap data,QString msg, int type)
 {
+    qDebug()<<"---------------";
+    showMapTojson(data);
     QVariantMap userLevelCompare = data["userLevelCompare"].toMap();
     QString level = userLevelCompare["level"].toString();
     ui->user_lab->setText(level);
@@ -58,6 +60,10 @@ void ChatTextItem::setData(QVariantMap data,QString msg, int type)
     QString photo = data["photo"].toString();
     HttpInterFace::getInstance()->downLoad(photo, [&](const QString &path) {
         this->ui->image->setPixmap(QPixmap::fromImage(QImage(path)));
+    });
+    QString photoBorder = data["photoBorder"].toString();
+    HttpInterFace::getInstance()->downLoad(photoBorder, [&](const QString &path) {
+        this->ui->image_2->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
     //设置文字
@@ -134,6 +140,10 @@ void ChatTextItem::setEmotion(QVariantMap data, QString path, int type)
     QString photo = data["photo"].toString();
     HttpInterFace::getInstance()->downLoad(photo, [&](const QString &path) {
         this->ui->image->setPixmap(QPixmap::fromImage(QImage(path)));
+    });
+    QString photoBorder = data["photoBorder"].toString();
+    HttpInterFace::getInstance()->downLoad(photoBorder, [&](const QString &path) {
+        this->ui->image_2->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
     //设置表情
