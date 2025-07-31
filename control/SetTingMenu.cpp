@@ -1,6 +1,7 @@
 #include "SetTingMenu.h"
 #include "ui_SetTingMenu.h"
 #include <QMouseEvent>
+#include <QDebug>
 
 SetTingMenu::SetTingMenu(QWidget *parent)
     : QDialog(parent)
@@ -8,6 +9,7 @@ SetTingMenu::SetTingMenu(QWidget *parent)
 {
     ui->setupUi(this);
     setAttribute(Qt::WA_TranslucentBackground, true);
+    setAttribute(Qt::WA_DeleteOnClose);
     this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     qApp->installEventFilter(this);
 }
@@ -36,26 +38,29 @@ bool SetTingMenu::eventFilter(QObject *obj, QEvent *event)
 //刷新页面
 void SetTingMenu::on_pushButton_clicked()
 {
-
+    emit updateRoomData();
+    close();
 }
 //帮助中心
 void SetTingMenu::on_pushButton_3_clicked()
 {
-
+    close();
 }
 
 void SetTingMenu::on_pushButton_4_clicked()
 {
-
+    close();
 }
 
 void SetTingMenu::on_pushButton_2_clicked()
 {
-
+    emit setTing();
+    close();
 }
 
 void SetTingMenu::on_pushButton_5_clicked()
 {
-
+    emit aboutPage();
+    close();
 }
 
