@@ -163,6 +163,9 @@ private slots:
     void on_userName_clicked();
 
     void on_pushButton_21_clicked();
+    void updateOnlineInfo();
+    void setTing();
+    void aboutPage();
 
 private:
     Ui::MainWindow *ui;

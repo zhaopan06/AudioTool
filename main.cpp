@@ -6,29 +6,48 @@
 #include <Psapi.h>
 #include "clientconfig.h"
 
+#ifdef _DEBUG
+#ifdef _WIN32
+#pragma comment(lib,"D:/Visual Leak Detector/lib/Win32/vld.lib")
+#include "D:/Visual Leak Detector/include/vld.h"
+#endif
+#endif
+
 bool getIsHaveMyselfPoss()
 {
     unsigned long aProcesses[1024], cbNeeded, cProcesses;
-    if( !EnumProcesses(aProcesses,sizeof(aProcesses),&cbNeeded) )
-    {
-        qDebug()<<"text01";
+    if(!EnumProcesses(aProcesses, sizeof(aProcesses), &cbNeeded)) {
+        qDebug() << "EnumProcesses failed:" << GetLastError();
+        return false;
     }
-    QStringList lprocess;
 
+    QStringList lprocess;
     cProcesses = cbNeeded / sizeof(unsigned long);
+    const DWORD bufSize = MAX_PATH;
+
     for(unsigned int i = 0; i < cProcesses; i++)
     {
         if(aProcesses[i] == 0)
-        {
             continue;
+
+        HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ,FALSE, aProcesses[i]);
+        if(!hProcess)
+            continue;
+
+        wchar_t buffer[bufSize] = {0};
+        if(GetModuleBaseName(hProcess, nullptr, buffer, bufSize))
+        {
+            if(QString::fromWCharArray(buffer) == "AudioTool.exe")
+            {
+                lprocess << QString::fromWCharArray(buffer);
+                if(lprocess.size() > 1)
+                {
+                    CloseHandle(hProcess);
+                    return true;
+                }
+            }
         }
-        //获取已存在的进程对象句柄
-        HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, 0, aProcesses[i]);
-        wchar_t buffer[50];
-        GetModuleBaseName(hProcess, 0, buffer, 50); //获取进程名
         CloseHandle(hProcess);
-        if(QString::fromWCharArray(buffer) == "AudioTool.exe")
-            lprocess << QString::fromWCharArray(buffer); //Qt开源库
     }
     return lprocess.size() > 1;
 }
@@ -60,6 +79,9 @@ bool findWindows()
 
 int main(int argc, char *argv[])
 {
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+
     QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);

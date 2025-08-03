@@ -15,7 +15,10 @@ public:
     explicit SetTingMenu(QWidget *parent = nullptr);
     ~SetTingMenu();
 
-
+signals:
+    void updateRoomData();
+    void setTing();
+    void aboutPage();
 private slots:
     void on_pushButton_clicked();
 

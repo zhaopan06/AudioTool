@@ -106,9 +106,9 @@ private:
     void httpPost_asy(QString url , QVariantMap jsonMap, callBack callback);//Post异步
 
 private:
-    QNetworkAccessManager* m_pNetworkAccessManager; //同步
-    QNetworkAccessManager* m_http_asy; //异步
-    static HttpInterFace *pHttpInterFace;
+    QNetworkAccessManager m_pNetworkAccessManager; //同步
+    QNetworkAccessManager m_http_asy; //异步
+    static HttpInterFace pHttpInterFace;
     QString m_version;
     QString m_token;
 

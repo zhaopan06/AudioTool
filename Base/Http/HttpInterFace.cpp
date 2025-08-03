@@ -11,31 +11,20 @@
 #include <QUrlQuery>
 #include <QThread>
 
-HttpInterFace* HttpInterFace::pHttpInterFace = NULL;
+HttpInterFace HttpInterFace::pHttpInterFace;
 HttpInterFace *HttpInterFace::getInstance()
-{
-    if(pHttpInterFace == NULL)
-    {
-        pHttpInterFace = new HttpInterFace();
-        QThread* workerThread = new QThread;
-        pHttpInterFace->moveToThread(workerThread);
-        workerThread->start();
-    }
-    return pHttpInterFace;
+{    
+    return &pHttpInterFace;
 }
 
 HttpInterFace::HttpInterFace(QObject *parent) : QObject(parent)
 {
-    m_pNetworkAccessManager = new QNetworkAccessManager;
-    m_http_asy = new QNetworkAccessManager;
-
     m_token = "";
     m_version = "1.0";
 }
 
 HttpInterFace::~HttpInterFace()
 {
-
 }
 
 void  HttpInterFace::getCaptcha(QString phone,QString region_code, callBack callback)
@@ -81,7 +70,7 @@ void HttpInterFace::uploadFile(const QString &filePath, int type, callBack callb
     else
         request.setRawHeader("token", "0");
 
-    QNetworkReply *reply = m_pNetworkAccessManager->post(request, multiPart);
+    QNetworkReply *reply = m_pNetworkAccessManager.post(request, multiPart);
     multiPart->setParent(reply);
 
     connect(reply, &QNetworkReply::finished, [=](){
@@ -488,15 +477,14 @@ QVariantMap HttpInterFace::httpsPut_syn(QString url, QVariantMap jsonMap)
     request.setUrl(QUrl(url));
 
     QByteArray postData = QJsonDocument::fromVariant(jsonMap).toJson();
-    QNetworkReply *reply = m_pNetworkAccessManager->put(request,postData);
+    QNetworkReply *reply = m_pNetworkAccessManager.put(request,postData);
     if (NULL == reply)
     {
-        delete m_pNetworkAccessManager;
         return QVariantMap();
     }
 
     QEventLoop eventloop;
-    connect(m_pNetworkAccessManager, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
+    connect(&m_pNetworkAccessManager, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
     eventloop.exec();
 
     QByteArray responseData = reply->readAll();
@@ -549,7 +537,7 @@ void HttpInterFace::httpsGet_asy(QString url, QVariantMap jsonMap, callBack call
     request.setRawHeader("emulator", "0");
     request.setRawHeader("networkType", "0");
 
-    QNetworkReply *reply = m_http_asy->get(request);
+    QNetworkReply *reply = m_http_asy.get(request);
 
     QObject::connect(reply, &QNetworkReply::readyRead, reply, [=]{
         QByteArray responseData = reply->readAll();
@@ -596,15 +584,14 @@ QVariantMap HttpInterFace::httpsGet_syn(QString url)
         request.setRawHeader("token", "0");
 
 
-    QNetworkReply *reply = m_pNetworkAccessManager->get(request);
+    QNetworkReply *reply = m_pNetworkAccessManager.get(request);
     if (NULL == reply)
     {
-        delete m_pNetworkAccessManager;
         return QVariantMap();
     }
 
     QEventLoop eventloop;
-    connect(m_pNetworkAccessManager, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
+    connect(&m_pNetworkAccessManager, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
     eventloop.exec();
 
     QByteArray responseData = reply->readAll();    
@@ -651,7 +638,7 @@ void HttpInterFace::httpPost_asy(QString url , QVariantMap jsonMap, callBack cal
         return;
 
     QByteArray postData = QJsonDocument::fromVariant(jsonMap).toJson();
-    QNetworkReply *reply = m_http_asy->post(request, postData);
+    QNetworkReply *reply = m_http_asy.post(request, postData);
     QObject::connect(reply, &QNetworkReply::readyRead, reply, [=]{
         QByteArray responseData = reply->readAll();
         QJsonParseError json_error;
@@ -694,15 +681,14 @@ QVariantMap HttpInterFace::httpsPost_syn(QString url ,QVariantMap jsonMap)
     request.setRawHeader("networkType", "0");
     request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
 
-    QNetworkReply *reply = m_pNetworkAccessManager->post(request, postData);
+    QNetworkReply *reply = m_pNetworkAccessManager.post(request, postData);
     if (NULL == reply)
     {
-        delete m_pNetworkAccessManager;
         return QVariantMap();
     }
 
     QEventLoop eventloop;
-    connect(m_pNetworkAccessManager, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
+    connect(&m_pNetworkAccessManager, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
     eventloop.exec();
 
     QByteArray responseData = reply->readAll();

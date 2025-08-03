@@ -26,7 +26,7 @@ private:
     explicit ClientConfig(QObject *parent = nullptr);
 
 private:
-    static ClientConfig* pClientConfig;
+    static ClientConfig pClientConfig;
 };
 
 #endif // CLIENTCONFIG_H

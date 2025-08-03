@@ -1,28 +1,33 @@
 #ifndef TOASTPAGE_H
 #define TOASTPAGE_H
 
-#include <QDialog>
+#include <QWidget>
+#include <QLabel>
+#include <QTimer>
 #include <QPropertyAnimation>
 
-namespace Ui {
-class ToastPage;
-}
-
-
-class ToastPage : public QDialog
+class ToastPage : public QWidget
 {
     Q_OBJECT
-public:
-    explicit ToastPage(QWidget *parent = nullptr);
-    static void showToast(QWidget *parent, const QString &message, int duration = 2000);
+    Q_PROPERTY(double opacity READ opacity WRITE setOpacity)
 
-    void setText(QString text);
-signals:
+public:
+    explicit ToastPage(const QString &message, QWidget *parent = nullptr);
+    ~ToastPage() override;
+
+    static void showToast(QWidget *parent = nullptr, const QString &message = "");
+
+    double opacity() const;
+    void setOpacity(double opacity);
+
+protected:
+    void paintEvent(QPaintEvent *event) override;
 
 private:
-    Ui::ToastPage *ui;
-    QPropertyAnimation *animation;
-
+    QLabel *m_label;
+    QTimer *m_timer;
+    double m_opacity;
+    QPropertyAnimation *m_fadeAnimation;
 };
 
 #endif // TOASTPAGE_H

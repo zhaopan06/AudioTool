@@ -142,6 +142,7 @@ void LoginPage::on_lineEdit_textEdited(const QString &arg1)
                                     "font-size: 26px;"
                                     "color: #FFFFFF;");
         ui->lineEdit_2->setFocus();
+        ui->lineEdit_2->selectAll();
     }
 
     updateBtnStyle();
@@ -171,6 +172,7 @@ void LoginPage::on_lineEdit_2_textEdited(const QString &arg1)
                                       "font-size: 26px;"
                                       "color: #FFFFFF;");
         ui->lineEdit_3->setFocus();
+        ui->lineEdit_3->selectAll();
     }
 
     updateBtnStyle();
@@ -200,6 +202,7 @@ void LoginPage::on_lineEdit_3_textEdited(const QString &arg1)
                                       "font-size: 26px;"
                                       "color: #FFFFFF;");
         ui->lineEdit_4->setFocus();
+        ui->lineEdit_4->selectAll();
     }
 
     updateBtnStyle();
@@ -229,6 +232,7 @@ void LoginPage::on_lineEdit_4_textEdited(const QString &arg1)
                                       "font-size: 26px;"
                                       "color: #FFFFFF;");
         ui->lineEdit_5->setFocus();
+        ui->lineEdit_5->selectAll();
     }
 
     updateBtnStyle();
@@ -258,6 +262,7 @@ void LoginPage::on_lineEdit_5_textEdited(const QString &arg1)
                                       "font-size: 26px;"
                                       "color: #FFFFFF;");
         ui->lineEdit_6->setFocus();
+        ui->lineEdit_6->selectAll();
     }
 
     updateBtnStyle();

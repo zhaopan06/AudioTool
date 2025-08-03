@@ -232,7 +232,6 @@ FORMS += \
     control/MsgBox.ui \
     control/PlayerPage.ui \
     control/SetTingMenu.ui \
-    control/ToastPage.ui \
     control/WebEngView.ui \
     control/usermenu.ui
 

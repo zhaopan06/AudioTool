@@ -33,7 +33,7 @@
 #include <QProcess>
 #include "HotPushPage.h"
 #include "clientconfig.h"
-
+#include "ToastPage.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -48,6 +48,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->micList->setAlignment(Qt::AlignTop);
     ui->contList->setAlignment(Qt::AlignTop);
     ui->micLayout->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    ui->msgList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->msgList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     m_isDragging = false;
     m_dragEdge = None;
@@ -83,7 +85,7 @@ MainWindow::MainWindow(QWidget *parent)
         }
         else
         {
-            exit(0);
+            qApp->quit();
         }
     }
 
@@ -99,7 +101,7 @@ MainWindow::MainWindow(QWidget *parent)
             QString workingDir = QCoreApplication::applicationDirPath();
             ClientConfig::getInstance()->setLoginData(QVariantMap());
             QProcess::startDetached(program, arguments, workingDir);
-            exit(0);
+            qApp->quit();
             return;
         }
         else if(356 == code)
@@ -110,12 +112,13 @@ MainWindow::MainWindow(QWidget *parent)
             QString workingDir = QCoreApplication::applicationDirPath();
             ClientConfig::getInstance()->setLoginData(QVariantMap());
             QProcess::startDetached(program, arguments, workingDir);
-            exit(0);
+            qApp->quit();
             return;
         }
         else
         {
-            MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code) );
+            //MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code) );
+            ToastPage::showToast(this, msg + " code=" + QString::number(code));
         }
     });
 
@@ -124,6 +127,25 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    if(m_agoraFace)
+        delete m_agoraFace;
+    if(m_timInterface)
+        delete m_timInterface;
+    if(m_emotionPage)
+        delete m_emotionPage;
+    if(m_giftPage)
+        delete m_giftPage;
+    for(auto au: m_micList)
+        delete au;
+    m_micList.clear();
+
+    if(m_valuePage)
+        delete m_valuePage;
+    if(m_soundValuePage)
+        delete m_soundValuePage;
+    if(m_chatPage)
+        delete m_chatPage;
+
     delete ui;
 }
 
@@ -776,7 +798,7 @@ void MainWindow::emotionClicked(QVariantMap data)
 
 void MainWindow::on_closeBtn_clicked()
 {
-    exit(0);
+    qApp->quit();
 }
 
 
@@ -1531,6 +1553,10 @@ void MainWindow::on_max_c_btn_clicked()
 void MainWindow::on_pushButton_9_clicked()
 {
     SetTingMenu *menu = new SetTingMenu;
+    connect(menu, &SetTingMenu::updateRoomData, this, &MainWindow::updateOnlineInfo);
+    connect(menu, &SetTingMenu::setTing, this, &MainWindow::setTing);
+    connect(menu, &SetTingMenu::aboutPage, this, &MainWindow::aboutPage);
+
     QPoint point;
     point.setX(ui->pushButton_9->mapToGlobal(QPoint(0, 0)).rx() + ui->pushButton_9->width()/2 - menu->width()/2);
     point.setY(ui->pushButton_9->mapToGlobal(QPoint(0, 0)).ry() + ui->pushButton_9->height());
@@ -1579,4 +1605,35 @@ void MainWindow::on_pushButton_21_clicked()
     });
     page.exec();
 }
+
+void MainWindow::updateOnlineInfo()
+{
+    cleanupLayout(ui->onlineList);
+    int currentPage = 1;
+    HttpInterFace::getInstance()->getOnlineInfo(g_roomID,currentPage, [&](const QVariant &data) {
+
+        QVariantMap onlineInfo =  data.toMap();
+        QVariantList list = onlineInfo["data"].toList();
+        for(QVariant var : list)
+        {
+            QVariantMap map = var.toMap();
+            OnlineItem *item = new OnlineItem();
+            item->setFixedSize(390,70);
+            item->setData(map,g_roomID);
+            ui->onlineList->addWidget(item);
+        }
+    });
+}
+
+void MainWindow::setTing()
+{
+
+}
+
+void MainWindow::aboutPage()
+{
+
+}
+
+
 

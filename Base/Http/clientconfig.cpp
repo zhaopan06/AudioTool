@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <QFileDialog>
 #include "Global.h"
-ClientConfig* ClientConfig::pClientConfig = NULL;
+ClientConfig ClientConfig::pClientConfig;
 
 ClientConfig::ClientConfig(QObject *parent) : QObject(parent)
 {
@@ -13,12 +13,7 @@ ClientConfig::ClientConfig(QObject *parent) : QObject(parent)
 
 ClientConfig *ClientConfig::getInstance()
 {
-    if(pClientConfig == NULL)
-    {
-        pClientConfig = new ClientConfig();
-    }
-
-    return pClientConfig;
+    return &pClientConfig;
 }
 
 void ClientConfig::writeIniFile(QString strGroup, QString strKey, QString strValue)
