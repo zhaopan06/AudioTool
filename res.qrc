@@ -82,5 +82,7 @@
         <file>images/形状.png</file>
         <file>images/形状_big.png</file>
         <file>images/dressUp_bg.png</file>
+        <file>images/icon_关.png</file>
+        <file>images/icon_开.png</file>
     </qresource>
 </RCC>

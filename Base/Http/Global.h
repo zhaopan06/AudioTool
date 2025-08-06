@@ -27,8 +27,8 @@ QString mapDownloadImagePath(QString url);
 void showMapTojson(QVariantMap data);
 QString replaceEmojiTagsSimple(const QString &text);
 QString restoreEmojiTags(const QString &htmlText);
-
-
+bool isAutoStartEnabled();
+void setAutoStart(bool enable);
 
 
 

@@ -8,6 +8,9 @@
 #include <QApplication>
 #include <QUdpSocket>
 #include <QStandardPaths>
+#include <QSettings>
+#include <QCoreApplication>
+#include <QFileInfo>
 
 // 全局变量定义
 QString g_downloadImages = "";
@@ -303,5 +306,28 @@ QString replaceEmojiTagsSimple(const QString &text)
     }
 
     return result;
+}
+
+void setAutoStart(bool enable)
+{
+    QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
+    QString appName = QCoreApplication::applicationName(); // 获取程序名称
+    QString appPath = QCoreApplication::applicationFilePath(); // 获取程序绝对路径
+    appPath = QDir::toNativeSeparators(appPath);
+    if (enable)
+    {
+        settings.setValue(appName, appPath);
+    }
+    else
+    {
+        settings.remove(appName);
+    }
+}
+
+bool isAutoStartEnabled()
+{
+    QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
+    QString appName = QCoreApplication::applicationName();
+    return settings.contains(appName);
 }
 

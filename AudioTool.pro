@@ -83,6 +83,7 @@ SOURCES += \
     UI/RoomInvitePage.cpp \
     UI/RoomInvitePageItem.cpp \
     UI/RoomItem.cpp \
+    UI/SetTingPage.cpp \
     UI/UserinfoPage.cpp \
     UI/UserinfoPageGiftItem.cpp \
     UI/UserinfoPageMedalItem.cpp \
@@ -154,6 +155,7 @@ HEADERS += \
     UI/RoomInvitePage.h \
     UI/RoomInvitePageItem.h \
     UI/RoomItem.h \
+    UI/SetTingPage.h \
     UI/UserinfoPage.h \
     UI/UserinfoPageGiftItem.h \
     UI/UserinfoPageMedalItem.h \
@@ -219,6 +221,7 @@ FORMS += \
     UI/RoomInvitePage.ui \
     UI/RoomInvitePageItem.ui \
     UI/RoomItem.ui \
+    UI/SetTingPage.ui \
     UI/UserinfoPage.ui \
     UI/UserinfoPageGiftItem.ui \
     UI/UserinfoPageMedalItem.ui \

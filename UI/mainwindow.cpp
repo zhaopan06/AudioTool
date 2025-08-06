@@ -34,6 +34,7 @@
 #include "HotPushPage.h"
 #include "clientconfig.h"
 #include "ToastPage.h"
+#include "SetTingPage.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -1626,7 +1627,19 @@ void MainWindow::updateOnlineInfo()
 
 void MainWindow::setTing()
 {
+    QTimer::singleShot(30, this, [this](){
+        QWidget *mask = new QWidget(this);
+        mask->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
+        mask->setGeometry(rect());
+        mask->show();
 
+        SetTingPage page;
+        page.init();
+        connect(&page, &QDialog::finished, [=](){
+            mask->deleteLater();
+        });
+        page.exec();
+    });
 }
 
 void MainWindow::aboutPage()

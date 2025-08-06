@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
     QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-    QApplication a(argc, argv);
+    QApplication a(argc, argv);    
 
     if(getIsHaveMyselfPoss())
     {
@@ -103,6 +103,13 @@ int main(int argc, char *argv[])
     a.setStyleSheet(fStyle.readAll());
 
     CreateDir();
+
+    QString powerOn = ClientConfig::getInstance()->readIniFile("CLIENT", "powerOn");
+    if(powerOn.isEmpty())
+    {
+        ClientConfig::getInstance()->writeIniFile("CLIENT", "powerOn", "1");
+        setAutoStart(true);
+    }
 
     MainWindow w;
 
