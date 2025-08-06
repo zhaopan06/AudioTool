@@ -37,7 +37,6 @@ public:
     static TimInterface* getInstance();
 private:
     TimInterface();
-    static TimInterface *pTimInterfaceFace;
 public:
 
     //初始化腾讯IM

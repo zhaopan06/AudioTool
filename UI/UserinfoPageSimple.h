@@ -31,7 +31,6 @@ protected:
     bool nativeEvent(const QByteArray &eventType, void *message, long *result)override;
 private:
     Ui::UserinfoPageSimple *ui;
-    static UserinfoPageSimple *pUserinfoPageSimpleFace;
     bool  m_bMoveing = false;
     QPoint m_pMovePosition = QPoint(0,0);
     QString m_userId;

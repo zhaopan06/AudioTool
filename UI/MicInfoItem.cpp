@@ -3,7 +3,6 @@
 #include "MenuHomeownerRight.h"
 #include "MenuLockRight.h"
 #include "UserinfoPageSimple.h"
-#include "qmovie.h"
 #include "qscreen.h"
 #include "ui_MicInfoItem.h"
 #include "HttpInterFace.h"
@@ -12,14 +11,14 @@
 
 MicInfoItem::MicInfoItem(QWidget *parent)
     : QDialog(parent)
+    , movie(":/images/gifts/sound.gif")
     , ui(new Ui::MicInfoItem)
 {
     ui->setupUi(this);
     ui->image->installEventFilter(this);
-    QMovie *movie = new QMovie(":/images/gifts/sound.gif");
-    movie->setScaledSize(ui->label->size());
-    ui->label->setMovie(movie);
-    movie->start();
+    movie.setScaledSize(ui->label->size());
+    ui->label->setMovie(&movie);
+    movie.start();
     ui->label->hide();
     ui->mic->hide();
 }

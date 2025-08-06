@@ -37,6 +37,7 @@ public:
     QVariantMap loginToServer(QString account, QString passwd);
 
     QVariantMap joinRoom(int roomId, int entryType, QString subTopic);
+    void joinRoom(int roomId, int entryType, QString subTopic, callBack callback);
 
     QVariantMap closeRoom(QString roomId);
     //上麦
@@ -63,7 +64,6 @@ public:
     /*公会相关*/
     QVariantMap getFamilyDetail();
 
-    QVariantMap getLiveRoomInfo();
     void getLiveRoomInfo_asy(callBack callBack);
 
     QVariantMap followUser(QString followedId, int isFollow);
@@ -86,7 +86,7 @@ public:
     void getHouPushData(QString roomId,callBack callBack);
     void useReferralCard(QString placeId, QString roomId, callBack callBack);
     void getHotDataHistory(QString roomId, int currentPage, callBack callBack);
-    void getDressUp(int type, callBack callBack);
+    void getDressUp(int type, int currentPage, callBack callBack);
     void setDressUp(int avatarFrameId, int type, callBack callBack);
     QVariantMap getGiftList();
 

@@ -130,13 +130,13 @@ MainWindow::~MainWindow()
     if(m_agoraFace)
         delete m_agoraFace;
     if(m_timInterface)
-        delete m_timInterface;
+    {
+        m_timInterface->logout();
+    }
     if(m_emotionPage)
         delete m_emotionPage;
     if(m_giftPage)
         delete m_giftPage;
-    for(auto au: m_micList)
-        delete au;
     m_micList.clear();
 
     if(m_valuePage)
@@ -324,7 +324,7 @@ void MainWindow::audioVolumeIndication(int uid,int value)
 void MainWindow::reconnect()
 {
     if(0 == m_agoraFace->leaveChannel())
-    {        
+    {
         QVariantMap roomdata =  HttpInterFace::getInstance()->joinRoom(g_roomID.toInt(), 1 , "");
         if(1 == roomdata["code"].toInt())
         {
@@ -845,9 +845,10 @@ void MainWindow::enterTheToom(QVariantMap data)
     });
 
 
-    QVariantMap roomdata =  HttpInterFace::getInstance()->joinRoom(id.toInt(), 1 , "");
-    if(1 == roomdata["code"].toInt())
-    {
+    HttpInterFace::getInstance()->joinRoom(id.toInt(), 1 , "", [&](const QVariant vart){
+
+        ui->stackedWidget->setCurrentIndex(1);
+        QVariantMap roomdata = vart.toMap();
         roomdata = roomdata["data"].toMap();
         m_roomInfo = roomdata;
         HttpUserInfo::instance()->setRoomInfo(roomdata);
@@ -888,9 +889,6 @@ void MainWindow::enterTheToom(QVariantMap data)
 
         QString chatRoomld = HttpUserInfo::instance()->getIMRoomID();
         m_timInterface->groupJoin(chatRoomld.toLatin1());
-
-        ui->stackedWidget->setCurrentIndex(1);
-
         QString multipleAuthoriation = roomdata["multipleAuthoriation"].toString();
         g_multipleAuthoriation = multipleAuthoriation;
         QString type = multipleAuthoriation.at(1);
@@ -899,7 +897,6 @@ void MainWindow::enterTheToom(QVariantMap data)
             g_isManager = true;
         else
         {
-            //ui->imageBtn->hide();
             g_isManager = false;
         }
 
@@ -929,7 +926,7 @@ void MainWindow::enterTheToom(QVariantMap data)
             QString textStyle = "<p style='line-height:22px'>" + labelText + "</p>";
             label->setText(textStyle);
             label->setWordWrap(true);
-            label->adjustSize();           
+            label->adjustSize();
 
             QListWidgetItem *item = new QListWidgetItem();
             ui->msgList->addItem(item);
@@ -950,7 +947,8 @@ void MainWindow::enterTheToom(QVariantMap data)
             ui->osList->setCurrentRow(ui->osList->count()-1);
             ui->osList->scrollToBottom();
         });
-    }
+    });
+
 }
 
 void MainWindow::initAgora()
@@ -1036,6 +1034,7 @@ void MainWindow::on_onlineBtn_clicked()
 void MainWindow::on_squareBtn_clicked()
 {
     NewUserPage::getInstance()->show();
+    NewUserPage::getInstance()->init();
 }
 
 //贡献

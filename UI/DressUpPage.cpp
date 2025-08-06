@@ -45,10 +45,17 @@ void DressUpPage::init()
 {
     m_bk_list.clear();
     cleanupLayout(ui->gridLayout);
-    HttpInterFace::getInstance()->getDressUp(3, [&](const QVariant &content){
+    HttpInterFace::getInstance()->getDressUp(3,1, [&](const QVariant &content){
 
-        showMapTojson(content.toMap());
-        QVariantList list =  content.toMap()["data"].toList();
+        QVariantList list;
+        for(auto au: content.toMap()["data"].toList())
+        {
+            if(au.toMap()["dictValue"] == 3)
+            {
+                list = au.toMap()["dictData"].toList();
+                break;
+            }
+        }
         for (int var = 0; var < list.size(); ++var)
         {
             DressUpPageBKItem *item = new DressUpPageBKItem;
@@ -101,10 +108,17 @@ void DressUpPage::on_closeBtn_clicked()
 void DressUpPage::on_pushButton_3_clicked()
 {
     cleanupLayout(ui->gridLayout);
-    HttpInterFace::getInstance()->getDressUp(2, [&](const QVariant &content){
+    HttpInterFace::getInstance()->getDressUp(2,1, [&](const QVariant &content){
 
-        showMapTojson(content.toMap());
-        QVariantList list =  content.toMap()["data"].toList();
+        QVariantList list;
+        for(auto au: content.toMap()["data"].toList())
+        {
+            if(au.toMap()["dictValue"] == 2)
+            {
+                list = au.toMap()["dictData"].toList();
+                break;
+            }
+        }
         for (int var = 0; var < list.size(); ++var)
         {
             DressUpPageQPItem *item = new DressUpPageQPItem;
@@ -133,9 +147,18 @@ void DressUpPage::on_pushButton_3_clicked()
 void DressUpPage::on_pushButton_4_clicked()
 {
     cleanupLayout(ui->gridLayout);
-    HttpInterFace::getInstance()->getDressUp(0, [&](const QVariant &content){
+    HttpInterFace::getInstance()->getDressUp(0,1, [&](const QVariant &content){
 
-        QVariantList list =  content.toMap()["data"].toList();
+        QVariantList list;
+        for(auto au: content.toMap()["data"].toList())
+        {
+            if(au.toMap()["dictValue"] == 0)
+            {
+                list = au.toMap()["dictData"].toList();
+                break;
+            }
+        }
+
         for (int var = 0; var < list.size(); ++var)
         {
             DressUpPageQPItem *item = new DressUpPageQPItem;
@@ -164,9 +187,18 @@ void DressUpPage::on_pushButton_4_clicked()
 void DressUpPage::on_pushButton_5_clicked()
 {
     cleanupLayout(ui->gridLayout);
-    HttpInterFace::getInstance()->getDressUp(1, [&](const QVariant &content){
+    HttpInterFace::getInstance()->getDressUp(1,1, [&](const QVariant &content){
 
-        QVariantList list =  content.toMap()["data"].toList();
+        QVariantList list;
+        for(auto au: content.toMap()["data"].toList())
+        {
+            if(au.toMap()["dictValue"] == 0)
+            {
+                list = au.toMap()["dictData"].toList();
+                break;
+            }
+        }
+
         for (int var = 0; var < list.size(); ++var)
         {
             DressUpPageQPItem *item = new DressUpPageQPItem;

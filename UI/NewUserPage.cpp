@@ -5,15 +5,10 @@
 #include "ui_NewUserPage.h"
 #include "HttpInterFace.h"
 
-NewUserPage* NewUserPage::pNewUserPageFace = NULL;
 NewUserPage *NewUserPage::getInstance()
 {
-    if(pNewUserPageFace == NULL)
-    {
-        pNewUserPageFace = new NewUserPage();
-        pNewUserPageFace->init();
-    }
-    return pNewUserPageFace;
+    static NewUserPage pNewUserPageFace;
+    return &pNewUserPageFace;
 }
 
 NewUserPage::NewUserPage(QWidget *parent)

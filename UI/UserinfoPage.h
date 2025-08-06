@@ -54,7 +54,6 @@ signals:
     void chatC2C(QVariantMap);
 private:
     Ui::UserinfoPage *ui;
-    static UserinfoPage *pUserinfoPageFace;
     bool  m_bMoveing = false;
     QPoint m_pMovePosition = QPoint(0,0);
     QString m_userId;

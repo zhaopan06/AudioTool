@@ -40,6 +40,7 @@ LIBS += \
 SOURCES += \
     Base/Agora/agorartcengineinterface.cpp \
     Base/Http/Global.cpp \
+    Base/Http/HttpAsyncWorker.cpp \
     Base/Http/HttpInterFace.cpp \
     Base/Http/HttpUserInfo.cpp \
     Base/Http/clientconfig.cpp \
@@ -110,6 +111,7 @@ SOURCES += \
 HEADERS += \
     Base/Agora/agorartcengineinterface.h \
     Base/Http/Global.h \
+    Base/Http/HttpAsyncWorker.h \
     Base/Http/HttpInterFace.h \
     Base/Http/HttpUserInfo.h \
     Base/Http/clientconfig.h \

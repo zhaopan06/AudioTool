@@ -49,7 +49,7 @@ private:
 
     QVariant m_areaInfo;//地域信息
     QVariant m_phoneAreaInfo;
-    QString m_token;
+    QString m_token = "0";
     QString m_wsPath;
 
     /***********************开播所需相关*********************/

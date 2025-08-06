@@ -25,7 +25,6 @@ private slots:
 
 private:
     Ui::MenuLockRight *ui;
-    static MenuLockRight *pMenuLockRightFace;
     QVariantMap m_data;
 };
 

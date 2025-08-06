@@ -3,14 +3,10 @@
 #include "ui_MenuLockRight.h"
 #include <windows.h>
 
-MenuLockRight* MenuLockRight::pMenuLockRightFace = NULL;
 MenuLockRight *MenuLockRight::getInstance()
 {
-    if(pMenuLockRightFace == NULL)
-    {
-        pMenuLockRightFace = new MenuLockRight();
-    }
-    return pMenuLockRightFace;
+    static MenuLockRight pMenuLockRightFace;
+    return &pMenuLockRightFace;
 }
 
 MenuLockRight::MenuLockRight(QWidget *parent)

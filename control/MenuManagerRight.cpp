@@ -5,14 +5,10 @@
 #include <windows.h>
 #include "HttpInterFace.h"
 
-MenuManagerRight* MenuManagerRight::pMenuManagerRightFace = NULL;
 MenuManagerRight *MenuManagerRight::getInstance()
 {
-    if(pMenuManagerRightFace == NULL)
-    {
-        pMenuManagerRightFace = new MenuManagerRight();
-    }
-    return pMenuManagerRightFace;
+    static MenuManagerRight pMenuManagerRightFace;
+    return &pMenuManagerRightFace;
 }
 
 MenuManagerRight::MenuManagerRight(QWidget *parent)

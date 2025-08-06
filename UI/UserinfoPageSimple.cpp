@@ -6,14 +6,10 @@
 #include <windows.h>
 #include "UserinfoPage.h"
 
-UserinfoPageSimple* UserinfoPageSimple::pUserinfoPageSimpleFace = NULL;
 UserinfoPageSimple *UserinfoPageSimple::getInstance()
 {
-    if(pUserinfoPageSimpleFace == NULL)
-    {
-        pUserinfoPageSimpleFace = new UserinfoPageSimple();
-    }
-    return pUserinfoPageSimpleFace;
+    static UserinfoPageSimple pUserinfoPageSimpleFace;
+    return &pUserinfoPageSimpleFace;
 }
 
 UserinfoPageSimple::UserinfoPageSimple(QWidget *parent)

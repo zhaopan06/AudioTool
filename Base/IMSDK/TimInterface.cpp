@@ -8,14 +8,10 @@
 #include "MsgBox.h"
 #include "qwebengineview.h"
 
-TimInterface* TimInterface::pTimInterfaceFace = NULL;
 TimInterface *TimInterface::getInstance()
 {
-    if(pTimInterfaceFace == NULL)
-    {
-        pTimInterfaceFace = new TimInterface();
-    }
-    return pTimInterfaceFace;
+    static TimInterface pTimInterfaceFace;
+    return &pTimInterfaceFace;
 }
 
 TimInterface::TimInterface()

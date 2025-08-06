@@ -7,14 +7,10 @@
 #include "qevent.h"
 #include <windows.h>
 
-UserinfoPage* UserinfoPage::pUserinfoPageFace = NULL;
 UserinfoPage *UserinfoPage::getInstance()
 {
-    if(pUserinfoPageFace == NULL)
-    {
-        pUserinfoPageFace = new UserinfoPage();
-    }
-    return pUserinfoPageFace;
+    static UserinfoPage pUserinfoPageFace;
+    return &pUserinfoPageFace;
 }
 
 UserinfoPage::UserinfoPage(QWidget *parent)

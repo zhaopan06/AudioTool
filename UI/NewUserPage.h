@@ -14,11 +14,10 @@ class NewUserPage : public QDialog
 public:
     static NewUserPage* getInstance();
 
+    void init();
 private:
     explicit NewUserPage(QWidget *parent = nullptr);
-    ~NewUserPage();
-
-    void init();
+    ~NewUserPage();    
 
 protected:
     void mouseMoveEvent(QMouseEvent* event);
@@ -33,8 +32,7 @@ private slots:
     void on_topBtn_clicked();
 
 private:
-    Ui::NewUserPage *ui;
-    static NewUserPage *pNewUserPageFace;
+    Ui::NewUserPage *ui;    
     bool  m_bMoveing = false;
     QPoint m_pMovePosition = QPoint(0,0);
 };

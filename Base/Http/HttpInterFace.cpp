@@ -10,6 +10,7 @@
 #include "HttpUserInfo.h"
 #include <QUrlQuery>
 #include <QThread>
+#include "HttpAsyncWorker.h"
 
 HttpInterFace HttpInterFace::pHttpInterFace;
 HttpInterFace *HttpInterFace::getInstance()
@@ -34,8 +35,11 @@ void  HttpInterFace::getCaptcha(QString phone,QString region_code, callBack call
     jsonMap.insert("areaCode","+86");
     jsonMap.insert("phone",phone);
 
-    const QString strUrl = QString(BASE_API_URL) + "/sms/send";
-    httpPost_asy(strUrl, jsonMap, callback);
+    const QString strUrl = "/sms/send";
+    HttpAsyncWorker::getInstance()->setBaseUrl(BASE_API_URL);
+    HttpAsyncWorker::getInstance()->setHeaders();
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,strUrl,callback,nullptr,jsonMap);
+    //httpPost_asy(strUrl, jsonMap, callback);
 }
 
 void HttpInterFace::uploadFile(const QString &filePath, int type, callBack callback)
@@ -156,12 +160,6 @@ void HttpInterFace::downLoad(QString url, downLoadCallBack callBack)
 QVariantMap HttpInterFace::getFamilyDetail()
 {
     QString url = BASE_API_URL + QString("/family/getFamilyDetail");
-    return httpsGet_syn(url);
-}
-
-QVariantMap HttpInterFace::getLiveRoomInfo()
-{
-    QString url = BASE_API_URL + QString("/pcHome/getPcHomeInfo");
     return httpsGet_syn(url);
 }
 
@@ -351,11 +349,12 @@ void HttpInterFace::getHotDataHistory(QString roomId, int currentPage, callBack 
     httpsGet_asy(url,jsonMap, callBack);
 }
 //装扮类型 0 头像框 1 座驾 2 气泡 3 直播间背景
-void HttpInterFace::getDressUp(int type, callBack callBack)
+void HttpInterFace::getDressUp(int type,int currentPage, callBack callBack)
 {
     QVariantMap jsonMap;
     jsonMap.insert("type",type);
-    QString url = BASE_API_URL + QString("/user-avatar-frame-record/list");
+    jsonMap.insert("currentPage",currentPage);
+    QString url = BASE_API_URL + QString("/user-avatar-frame-record/listV2");
     httpsGet_asy(url,jsonMap, callBack);
 }
 
@@ -457,6 +456,17 @@ QVariantMap HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic)
     QString url = BASE_API_URL + QString("/live/joinLivingRoom");
     return httpsPost_syn(url,jsonMap);
 }
+
+void HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic, callBack callback)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",roomId);
+    jsonMap.insert("entryType", entryType);
+    jsonMap.insert("subTopic", subTopic);
+    QString url = BASE_API_URL + QString("/live/joinLivingRoom");
+    httpPost_asy(url,jsonMap, callback);
+}
+
 
 QVariantMap HttpInterFace::closeRoom(QString roomId)
 {
@@ -631,6 +641,16 @@ void HttpInterFace::httpPost_asy(QString url , QVariantMap jsonMap, callBack cal
     }
     else
         request.setRawHeader("token", "0");
+    request.setRawHeader("deviceId", "11");
+    request.setRawHeader("appVersion", "1.0");
+    request.setRawHeader("deviceType", "2");
+    request.setRawHeader("osVersion", "win10");
+    request.setRawHeader("root", "0");
+    request.setRawHeader("deviceName", "PC");
+    request.setRawHeader("channel", "1");
+    request.setRawHeader("emulator", "0");
+    request.setRawHeader("networkType", "0");
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
 
     QDate date = QDate::currentDate();
     int DateNow = date.year()*10000 + date.month()*100 + date.day();

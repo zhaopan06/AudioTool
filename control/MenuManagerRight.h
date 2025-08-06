@@ -29,7 +29,6 @@ private:
 
 private:
     Ui::MenuManagerRight *ui;
-    static MenuManagerRight *pMenuManagerRightFace;
     QVariantMap m_data;
 };
 

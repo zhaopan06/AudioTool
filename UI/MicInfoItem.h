@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QVariantMap>
+#include "qmovie.h"
 
 namespace Ui {
 class MicInfoItem;
@@ -33,6 +34,7 @@ private:
     Ui::MicInfoItem *ui;
     QString m_multipleAuthoriation;
     QVariantMap m_data;
+    QMovie movie;
 };
 
 #endif // MICINFOITEM_H
