@@ -16,6 +16,7 @@
 #include "RoomEidtPage.h"
 #include "RoomInvitePage.h"
 #include "UserinfoPage.h"
+#include "WebPlayerPage.h"
 #include "qdebug.h"
 #include "ui_mainwindow.h"
 #include "agorartcengineinterface.h"
@@ -146,6 +147,8 @@ MainWindow::~MainWindow()
         delete m_soundValuePage;
     if(m_chatPage)
         delete m_chatPage;
+    if(m_player)
+        m_player->deleteLater();
 
     delete ui;
 }
@@ -361,6 +364,7 @@ void MainWindow::initTim()
         connect(m_timInterface, &TimInterface::msg_txt, this, &MainWindow::msg_txt);
         connect(m_timInterface, &TimInterface::msg_image, this, &MainWindow::msg_image);
         connect(m_timInterface, &TimInterface::msg_gift, this, &MainWindow::msg_gift);
+        connect(m_timInterface, &TimInterface::msg_gift_mp4, this, &MainWindow::msg_gift_mp4);
         connect(m_timInterface, &TimInterface::msg_micInfo, this, &MainWindow::msg_micInfo);
         connect(m_timInterface, &TimInterface::msg_updateMicList, this, &MainWindow::updateMicList);
         connect(m_timInterface, &TimInterface::msg_uninit, this, &MainWindow::msg_uninit);
@@ -1647,5 +1651,25 @@ void MainWindow::aboutPage()
 
 }
 
+void MainWindow::on_pushButton_11_clicked()
+{
 
+}
+
+void MainWindow::msg_gift_mp4(QString str)
+{
+    if(nullptr == m_player)
+    {
+        m_player = new WebPlayerPage(this);
+        QPoint point;
+        point.setX(ui->widget_26->mapToGlobal(QPoint(0, 0)).rx());
+        point.setY(ui->widget_26->mapToGlobal(QPoint(0, 0)).ry());
+        m_player->move(point);
+        m_player->setFixedSize(ui->widget_26->size());
+        qDebug()<<"widget_26---"<<m_player->geometry();
+    }
+
+    m_player->init(str);
+    m_player->show();
+}
 

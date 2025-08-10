@@ -103,6 +103,7 @@ SOURCES += \
     control/SetTingMenu.cpp \
     control/ToastPage.cpp \
     control/WebEngView.cpp \
+    control/WebPlayerPage.cpp \
     control/click_label.cpp \
     control/usermenu.cpp \
     #control/videoplayer.cpp \
@@ -178,6 +179,7 @@ HEADERS += \
     control/ShowPlayer.h \
     control/ToastPage.h \
     control/WebEngView.h \
+    control/WebPlayerPage.h \
     control/click_label.h \
     control/usermenu.h
     #control/videoplayer.h
@@ -238,6 +240,7 @@ FORMS += \
     control/PlayerPage.ui \
     control/SetTingMenu.ui \
     control/WebEngView.ui \
+    control/WebPlayerPage.ui \
     control/usermenu.ui
 
 # Default rules for deployment.

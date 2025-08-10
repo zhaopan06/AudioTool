@@ -4,6 +4,7 @@
 #include "Base/IMSDK/TimInterface.h"
 #include "GiftPage.h"
 #include "MicInfoItem.h"
+#include "WebPlayerPage.h"
 #include "agorartcengineinterface.h"
 #include <QMainWindow>
 #include "EmotionPage.h"
@@ -57,7 +58,7 @@ private:
     QPoint m_dragStartPos;
     Edge m_dragEdge;
     QGraphicsBlurEffect *m_blurEffect;
-    bool nativeEvent(const QByteArray &eventType, void *message, long *result);
+    bool nativeEvent(const QByteArray &eventType, void *message, long *result) override;
 
 private slots:
     void joinedChannelSuccess(const QString& channel, unsigned int uid, int elapsed);
@@ -72,6 +73,7 @@ private slots:
     void msg_txt(QVariantMap user, QString msg, int type);
     void msg_image(QVariantMap user, QString path, QString largePath);
     void msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to);
+    void msg_gift_mp4(QString str);
     void msg_micInfo(QVariantList list);
     void msg_emotion(QVariantMap user, QString path, int type);
     void msg_vip(QVariantMap user, QString url);
@@ -167,6 +169,8 @@ private slots:
     void setTing();
     void aboutPage();
 
+    void on_pushButton_11_clicked();
+
 private:
     Ui::MainWindow *ui;
     AgoraRtcEngineInterface *m_agoraFace = nullptr;
@@ -182,6 +186,6 @@ private:
     AudioValuePage *m_soundValuePage = nullptr;
     ChatPage *m_chatPage = nullptr;
     QVariantMap m_roomInfo;
-    //VideoPlayer *m_player;
+    WebPlayerPage *m_player = nullptr;
 };
 #endif // MAINWINDOW_H

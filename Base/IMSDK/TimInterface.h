@@ -96,6 +96,7 @@ signals:
     void msg_vip(QVariantMap, QString url);
     void msg_micInfo(QVariantList);
     void msg_gift(QVariantMap,  QVariantMap,  QVariantMap);
+    void msg_gift_mp4(QString);
     void updateContribute();
     void msg_updateMicList();
     void msg_multipleAuthoriation(QVariantMap);
