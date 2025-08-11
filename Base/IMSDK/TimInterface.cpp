@@ -712,7 +712,7 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                         emit msg_gift(fromUser, gift, var.toMap());
                     }
 
-                    int type = object["data"].toObject()["playType"].toInt();
+                    int type = gift["playType"].toInt();
                     if(type == 1 || type == 2)
                     {
                         emit msg_gift_mp4(giftMsg.toUtf8());

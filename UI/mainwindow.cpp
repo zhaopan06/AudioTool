@@ -1666,9 +1666,10 @@ void MainWindow::msg_gift_mp4(QString str)
         point.setY(ui->widget_26->mapToGlobal(QPoint(0, 0)).ry());
         m_player->move(point);
         m_player->setFixedSize(ui->widget_26->size());
-        qDebug()<<"widget_26---"<<m_player->geometry();
+        m_player->hide();
     }
 
+    qDebug()<<"widget_26---"<<m_player->geometry();
     m_player->init(str);
     m_player->show();
 }
