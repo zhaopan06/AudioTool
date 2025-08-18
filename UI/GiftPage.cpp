@@ -44,28 +44,33 @@ bool GiftPage::nativeEvent(const QByteArray &eventType, void *message, long *res
 void GiftPage::init()
 {
     QString roomID = HttpUserInfo::instance()->getClassRoomID();
-    QVariantMap data = HttpInterFace::getInstance()->getGiftList();
-    QVariantList list = data["data"].toMap()["giftResponseVos"].toList();
-    m_list = list;
-    m_number = 20;
-    foreach (QVariant var, list)
-    {
-        if(QStringLiteral("礼物") ==  var.toMap()["name"].toString())
+    HttpInterFace::getInstance()->getGiftList([&](const QVariant &vart){
+        QVariantMap data = vart.toMap();
+        QVariantList list = data["data"].toMap()["giftResponseVos"].toList();
+        m_list = list;
+        m_number = 20;
+        foreach (QVariant var, list)
         {
-            QVariantList list = var.toMap()["giftResponseList"].toList();
-            m_giftList = list;
-            m_number = list.size() > 20? 20 : list.size();
-            for (int var = 0; var < m_number; ++var)
+            if(QStringLiteral("礼物") ==  var.toMap()["name"].toString())
             {
-                GiftPageItem *item = new GiftPageItem;
-                item->setData(list.at(var).toMap());
+                QVariantList list = var.toMap()["giftResponseList"].toList();
+                m_giftList = list;
+                m_number = list.size() > 20? 20 : list.size();
+                for (int var = 0; var < m_number; ++var)
+                {
+                    GiftPageItem *item = new GiftPageItem;
+                    item->setData(list.at(var).toMap());
 
-                int row = var / 4;
-                int col = var % 4;
-                ui->gridLayout->addWidget(item,row, col);
+                    int row = var / 4;
+                    int col = var % 4;
+                    ui->gridLayout->addWidget(item,row, col);
+                }
             }
         }
-    }
+
+        ui->label_2->setText(data["data"].toMap()["balance"].toString());
+    },this);
+
 
     connect(ui->scrollArea->verticalScrollBar(), &QScrollBar::valueChanged,
             [=](int value){
@@ -86,8 +91,6 @@ void GiftPage::init()
                     m_number = m_giftList.size();
                 }
             });
-
-    ui->label_2->setText(data["data"].toMap()["balance"].toString());
 }
 
 

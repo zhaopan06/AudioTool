@@ -5,8 +5,9 @@
 #include <QNetworkAccessManager>
 #include <QQueue>
 #include <QMutex>
-#include <QWaitCondition>
 #include <QThread>
+#include <QMap>
+#include <QVariantMap>
 #include <functional>
 
 class HttpAsyncWorker : public QObject
@@ -20,48 +21,58 @@ public:
         PATCH
     };
 
-    using ResponseCallback = std::function<void(const QVariantMap&)>;
+    using ResponseCallback = std::function<void(const QVariant&)>;
     using ErrorCallback = std::function<void(int, const QString&)>;
 
     struct RequestTask {
         RequestMethod method;
         QString url;
         QByteArray body;
-        QObject* context;  // 新增：指定回调应该在哪个对象的线程执行
+        QObject* context = nullptr;  // 回调执行的上下文对象
         ResponseCallback successCallback;
         ErrorCallback errorCallback;
+        int timeout = 30000;  // 请求超时时间(毫秒)
     };
 
     static HttpAsyncWorker* getInstance();
     ~HttpAsyncWorker();
 
+    // 提交请求接口
     void submitRequest(RequestMethod method,
                        const QString& url,
                        const ResponseCallback& successCallback,
                        const ErrorCallback& errorCallback = nullptr,
                        const QVariantMap& body = QVariantMap(),
-                       QObject* context  = nullptr);
+                       QObject* context = nullptr);
 
+    // 配置接口
     void setMaxConcurrentRequests(int max);
     void setBaseUrl(const QString& baseUrl);
+    void setRequestTimeout(int milliseconds);
+
+    // 头部管理接口
     void setHeaders();
+    void addHeader(const QString& key, const QString& value);
+    void removeHeader(const QString& key);
+    void clearHeaders();
 
 signals:
     void requestAdded();
 
 private:
     explicit HttpAsyncWorker(QObject* parent = nullptr);
-    void processNextRequest();
     QNetworkRequest createRequest(const QString& url);
 
     QNetworkAccessManager* m_manager;
     QQueue<RequestTask> m_requestQueue;
     QMutex m_queueMutex;
-    int m_activeRequests;
-    int m_maxConcurrentRequests;
+    int m_activeRequests = 0;
+    int m_maxConcurrentRequests = 4;
+    int m_requestTimeout = 30000;  // 默认30秒超时
     QString m_baseUrl;
     QThread m_workerThread;
-    QMap<QString, QString> m_map;
+    QMap<QString, QString> m_map;  // 自定义头部
+
 private slots:
     void handleRequest();
 };

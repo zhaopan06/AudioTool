@@ -349,7 +349,7 @@ void LoginPage::on_login_btn_clicked()
         {
             ui->login_btn->setEnabled(true);
         }
-    });
+    }, this);
 }
 
 void LoginPage::on_next_page_btn_clicked()
@@ -403,8 +403,9 @@ void LoginPage::on_next_page_btn_clicked()
         }
         ui->next_page_btn->setEnabled(true);
 
-    });
-
+    }, [&](int code, const QString& str){
+           ui->next_page_btn->setEnabled(true);
+        },this);
 }
 
 //获取帮助

@@ -23,6 +23,7 @@ enum class PhoneCodeType : int
 
 using callBack = std::function<void(const QVariant &content)>;
 using ErrCallBack = std::function<void(const QVariant &content)>;
+using ErrorCallback = std::function<void(int, const QString&)>;
 using downLoadCallBack = std::function<void(const QString &path)>;
 
 class HttpInterFace : public QObject
@@ -30,18 +31,17 @@ class HttpInterFace : public QObject
     Q_OBJECT
 public:
     static HttpInterFace* getInstance();
-    //获取验证码
-    void getCaptcha(QString phone,QString region_code, callBack callback);
+    //login page
+    void getCaptcha(QString phone, QString region_code, callBack callback, ErrorCallback errBack, QObject* context);
+    void loginToServer(QString account, QString passwd, callBack callBack, QObject* context);
 
-    void loginToServer(QString account, QString passwd, callBack callBack);
 
     QVariantMap joinRoom(int roomId, int entryType, QString subTopic);
     void joinRoom(int roomId, int entryType, QString subTopic, callBack callback);
-
     QVariantMap closeRoom(QString roomId);
+
     //上麦
     QVariantMap addMic(QString roomId, int type);
-
     //抱上麦
     QVariantMap b_upMic(QString roomId, QString targetUserId);
     //抱下麦
@@ -59,9 +59,6 @@ public:
 
     //更新直播间信息 传参 name 房间名称 announcement 房间公告 roomId 房间id  photo 房间封面
     void uploadLiveInfo(QString photo, QString name, QString announcement, QString roomId, callBack callback);
-
-    /*公会相关*/
-    QVariantMap getFamilyDetail();
 
     void getLiveRoomInfo_asy(callBack callBack);
 
@@ -87,22 +84,14 @@ public:
     void getHotDataHistory(QString roomId, int currentPage, callBack callBack);
     void getDressUp(int type, int currentPage, callBack callBack);
     void setDressUp(int avatarFrameId, int type, callBack callBack);
-    QVariantMap getGiftList();
+    void getGiftList(callBack callBack, QObject *context);
 
 
 private:
     explicit HttpInterFace(QObject *parent = nullptr);
     ~HttpInterFace();
 
-
-
-    QVariantMap httpsPut_syn(QString url, QVariantMap jsonMap);
-
-    QVariantMap httpsGet_syn(QString url);
-    void httpsGet_asy(QString url, QVariantMap jsonMap, callBack callback, ErrCallBack errorCallBack = nullptr);//get异步
-
     QVariantMap httpsPost_syn(QString url ,QVariantMap jsonMap);//同步
-    void httpPost_asy(QString url , QVariantMap jsonMap, callBack callback);//Post异步
 
 private:
     QNetworkAccessManager m_pNetworkAccessManager; //同步
