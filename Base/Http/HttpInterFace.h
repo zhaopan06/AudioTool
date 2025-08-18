@@ -23,7 +23,6 @@ enum class PhoneCodeType : int
 
 using callBack = std::function<void(const QVariant &content)>;
 using ErrCallBack = std::function<void(const QVariant &content)>;
-
 using downLoadCallBack = std::function<void(const QString &path)>;
 
 class HttpInterFace : public QObject
@@ -81,7 +80,7 @@ public:
     void queryMessageListUserInfo(QString roomId, callBack callBack, ErrCallBack errorCallBack = nullptr);
     void getMyFollow(int currentPage, int requestType, callBack callBack, QString param = "");
     void getMessageList(callBack callBack);
-    void getOwnerAuthList(QString roomId, callBack callback);
+    void getOwnerAuthList(QString roomId, callBack callBack);
     void getRecommendRoom(QString roomId, callBack callBack);
     void getHouPushData(QString roomId,callBack callBack);
     void useReferralCard(QString placeId, QString roomId, callBack callBack);
@@ -108,7 +107,6 @@ private:
 private:
     QNetworkAccessManager m_pNetworkAccessManager; //同步
     QNetworkAccessManager m_http_asy; //异步
-    static HttpInterFace pHttpInterFace;
     QString m_version;
     QString m_token;
 

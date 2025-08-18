@@ -65,7 +65,8 @@ void HttpAsyncWorker::handleRequest()
     QNetworkRequest request = createRequest(fullUrl);
 
     QNetworkReply* reply = nullptr;
-    switch (task.method) {
+    switch (task.method)
+    {
     case RequestMethod::GET:
         reply = m_manager->get(request);
         break;
@@ -74,6 +75,8 @@ void HttpAsyncWorker::handleRequest()
         break;
     case RequestMethod::PUT:
         reply = m_manager->put(request, task.body);
+        break;
+    case RequestMethod::PATCH:
         break;
     }
 
