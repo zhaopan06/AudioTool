@@ -364,14 +364,14 @@ void HttpInterFace::setDressUp(int avatarFrameId, int type, callBack callBack)
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,strUrl,callBack,nullptr,jsonMap);
 }
 
-QVariantMap HttpInterFace::loginToServer(QString phone,QString verifyCode)
+void HttpInterFace::loginToServer(QString phone,QString verifyCode, callBack callBack)
 {
     QVariantMap jsonMap;
     jsonMap.insert("phone",phone);
     jsonMap.insert("verifyCode", verifyCode);
     jsonMap.insert("authType", -1);
-    QString url = BASE_API_URL + QString(LOGIN_URL);
-    return httpsPost_syn(url,jsonMap);
+    QString url = QString(LOGIN_URL);
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,callBack,nullptr,jsonMap);
 }
 /*
  操作类型 0-取消排麦 1-申请排麦

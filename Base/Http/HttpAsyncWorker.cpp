@@ -33,17 +33,18 @@ HttpAsyncWorker::~HttpAsyncWorker()
 void HttpAsyncWorker::submitRequest(RequestMethod method, const QString& url,
                                     const ResponseCallback& successCallback,
                                     const ErrorCallback& errorCallback,
-                                    const QVariantMap &body)
+                                    const QVariantMap &body,
+                                    QObject* context /* = nullptr */)
 {
     QMutexLocker locker(&m_queueMutex);
 
     RequestTask task;
     task.method = method;
     task.url = url;
-    QByteArray data = QJsonDocument::fromVariant(body).toJson();
-    task.body = data;
+    task.body = QJsonDocument::fromVariant(body).toJson();
     task.successCallback = successCallback;
     task.errorCallback = errorCallback;
+    task.context = context ? context : nullptr;  // 默认使用 g_main
 
     m_requestQueue.enqueue(task);
     emit requestAdded();
@@ -113,7 +114,9 @@ void HttpAsyncWorker::handleRequest()
                 return;
             }
 
-            QMetaObject::invokeMethod(g_main, [task,jsonDocument]() {
+            // 确保回调在正确的线程执行
+            QObject* targetContext = task.context ? task.context : g_main;
+            QMetaObject::invokeMethod(targetContext, [task,jsonDocument]() {
                 task.successCallback(jsonDocument.toVariant().toMap());
             }, Qt::QueuedConnection);
 

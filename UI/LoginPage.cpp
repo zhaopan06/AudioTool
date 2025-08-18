@@ -326,28 +326,30 @@ void LoginPage::on_login_btn_clicked()
 
     ui->login_btn->setEnabled(false);
     QString acc =  ui->cap_mobile->text();
-    QVariantMap data = HttpInterFace::getInstance()->loginToServer(acc, pass);
-    if(data["code"].toInt() == 1)
-    {
-        HttpUserInfo::instance()->setLoginInfo(data["data"].toMap());
-        ClientConfig::getInstance()->setLoginData(data["data"].toMap());
-
-        if(ui->login_status->isChecked())
+    HttpInterFace::getInstance()->loginToServer(acc, pass, [&](const QVariant &vart){
+        QVariantMap data = vart.toMap();
+        if(data["code"].toInt() == 1)
         {
-            ClientConfig::getInstance()->writeIniFile("CLIENT", "isrememberpasswd", "1" );
-            ClientConfig::getInstance()->writeIniFile("CLIENT", "userName", acc);
+            HttpUserInfo::instance()->setLoginInfo(data["data"].toMap());
+            ClientConfig::getInstance()->setLoginData(data["data"].toMap());
+
+            if(ui->login_status->isChecked())
+            {
+                ClientConfig::getInstance()->writeIniFile("CLIENT", "isrememberpasswd", "1" );
+                ClientConfig::getInstance()->writeIniFile("CLIENT", "userName", acc);
+            }
+            else
+            {
+                ClientConfig::getInstance()->writeIniFile("CLIENT", "isrememberpasswd", "0" );
+            }
+            ui->login_btn->setEnabled(true);
+            accept();
         }
         else
         {
-            ClientConfig::getInstance()->writeIniFile("CLIENT", "isrememberpasswd", "0" );
+            ui->login_btn->setEnabled(true);
         }
-        ui->login_btn->setEnabled(true);
-        accept();
-    }
-    else
-    {
-        ui->login_btn->setEnabled(true);
-    }
+    });
 }
 
 void LoginPage::on_next_page_btn_clicked()

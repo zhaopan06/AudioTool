@@ -33,7 +33,7 @@ public:
     //获取验证码
     void getCaptcha(QString phone,QString region_code, callBack callback);
 
-    QVariantMap loginToServer(QString account, QString passwd);
+    void loginToServer(QString account, QString passwd, callBack callBack);
 
     QVariantMap joinRoom(int roomId, int entryType, QString subTopic);
     void joinRoom(int roomId, int entryType, QString subTopic, callBack callback);

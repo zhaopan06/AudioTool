@@ -27,6 +27,7 @@ public:
         RequestMethod method;
         QString url;
         QByteArray body;
+        QObject* context;  // 新增：指定回调应该在哪个对象的线程执行
         ResponseCallback successCallback;
         ErrorCallback errorCallback;
     };
@@ -38,7 +39,8 @@ public:
                        const QString& url,
                        const ResponseCallback& successCallback,
                        const ErrorCallback& errorCallback = nullptr,
-                       const QVariantMap& body = QVariantMap());
+                       const QVariantMap& body = QVariantMap(),
+                       QObject* context  = nullptr);
 
     void setMaxConcurrentRequests(int max);
     void setBaseUrl(const QString& baseUrl);
