@@ -36,6 +36,7 @@
 #include "clientconfig.h"
 #include "ToastPage.h"
 #include "SetTingPage.h"
+#include <QtConcurrent/QtConcurrent>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -170,10 +171,13 @@ void MainWindow::initUserUI()
         ui->userImage->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
-    initAgora();
-    initRoomInfoUI();
-    initTim();
-    m_timInterface->login();
+    QtConcurrent::run([this]{
+        initAgora();
+        initTim();
+        m_timInterface->login();
+    });
+
+    initRoomInfoUI();    
 }
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
