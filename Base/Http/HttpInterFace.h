@@ -60,7 +60,7 @@ public:
     //更新直播间信息 传参 name 房间名称 announcement 房间公告 roomId 房间id  photo 房间封面
     void uploadLiveInfo(QString photo, QString name, QString announcement, QString roomId, callBack callback);
 
-    void getLiveRoomInfo_asy(callBack callBack);
+    void getLiveRoomInfo_asy(callBack callBack, QObject* context);
 
     QVariantMap followUser(QString followedId, int isFollow);
 

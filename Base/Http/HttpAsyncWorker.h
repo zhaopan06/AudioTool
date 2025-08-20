@@ -27,7 +27,7 @@ public:
     struct RequestTask {
         RequestMethod method;
         QString url;
-        QByteArray body;
+        QVariantMap body;
         QObject* context = nullptr;  // 回调执行的上下文对象
         ResponseCallback successCallback;
         ErrorCallback errorCallback;
@@ -61,7 +61,7 @@ signals:
 
 private:
     explicit HttpAsyncWorker(QObject* parent = nullptr);
-    QNetworkRequest createRequest(const QString& url);
+    QNetworkRequest createRequest(const QString& url, const QVariantMap &body = QVariantMap());
 
     QNetworkAccessManager* m_manager;
     QQueue<RequestTask> m_requestQueue;

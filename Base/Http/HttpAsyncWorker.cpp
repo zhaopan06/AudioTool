@@ -7,6 +7,7 @@
 #include "qtimer.h"
 #include <QSslConfiguration>
 #include "ToastPage.h"
+#include "qurlquery.h"
 
 HttpAsyncWorker* HttpAsyncWorker::getInstance()
 {
@@ -45,10 +46,10 @@ void HttpAsyncWorker::submitRequest(RequestMethod method, const QString& url,
     RequestTask task;
     task.method = method;
     task.url = url;
-    task.body = QJsonDocument::fromVariant(body).toJson();
+    task.body = body;
     task.successCallback = successCallback;
     task.errorCallback = errorCallback;
-    task.context = context ? context : g_main;  // 默认使用g_main
+    task.context = context ? context : g_main;
     task.timeout = m_requestTimeout;
 
     m_requestQueue.enqueue(task);
@@ -67,10 +68,10 @@ void HttpAsyncWorker::handleRequest()
     RequestTask task = m_requestQueue.dequeue();
     m_activeRequests++;
 
+    QByteArray body = QJsonDocument::fromVariant(task.body).toJson();
     QString fullUrl = m_baseUrl + task.url;
     QNetworkRequest request = createRequest(fullUrl);
 
-    // 创建超时定时器
     QSharedPointer<QTimer> timeoutTimer(new QTimer);
     timeoutTimer->setSingleShot(true);
     timeoutTimer->setInterval(task.timeout);
@@ -79,16 +80,19 @@ void HttpAsyncWorker::handleRequest()
     switch (task.method)
     {
     case RequestMethod::GET:
+    {
+        QNetworkRequest request = createRequest(fullUrl, task.body);
         reply = m_manager->get(request);
         break;
+    }
     case RequestMethod::POST:
-        reply = m_manager->post(request, task.body);
+        reply = m_manager->post(request, body);
         break;
     case RequestMethod::PUT:
-        reply = m_manager->put(request, task.body);
+        reply = m_manager->put(request, body);
         break;
     case RequestMethod::PATCH:
-        reply = m_manager->sendCustomRequest(request, "PATCH", task.body);
+        reply = m_manager->sendCustomRequest(request, "PATCH", body);
         break;
     }
 
@@ -104,24 +108,21 @@ void HttpAsyncWorker::handleRequest()
         });
         timeoutTimer->start();
 
-        // 使用QPointer确保安全访问
-        QPointer<QNetworkReply> replyGuard(reply);
-        connect(reply, &QNetworkReply::finished, [=]() {
+        QObject::connect(reply, &QNetworkReply::readyRead, reply, [=]{
 
             timeoutTimer->stop();
-            if (!replyGuard) return;
 
-            QByteArray response = replyGuard->readAll();
+            QByteArray response = reply->readAll();
             QJsonParseError json_error;
             QJsonDocument jsonDocument = QJsonDocument::fromJson(response, &json_error);
 
             QPointer<QObject> targetContext = task.context ? QPointer<QObject>(task.context) :  QPointer<QObject>(g_main);
-            if (replyGuard->error() != QNetworkReply::NoError)
+            if (reply->error() != QNetworkReply::NoError)
             {
                 if(task.errorCallback)
                 {
-                    const int errorCode = replyGuard->error();
-                    const QString errorMsg = replyGuard->errorString();
+                    const int errorCode = reply->error();
+                    const QString errorMsg = reply->errorString();
                     const auto errorCallback = task.errorCallback;
                     QMetaObject::invokeMethod(qApp, [=]() {
                         if (!targetContext)
@@ -137,7 +138,7 @@ void HttpAsyncWorker::handleRequest()
                     }, Qt::QueuedConnection);
                 }
 
-                QString errorMsg = replyGuard->errorString();
+                QString errorMsg = reply->errorString();
                 QMetaObject::invokeMethod(g_main, [=]() {
                     ToastPage::showToast(nullptr,errorMsg);
                 }, Qt::QueuedConnection);
@@ -180,7 +181,7 @@ void HttpAsyncWorker::handleRequest()
                 }, Qt::QueuedConnection);
             }
 
-            replyGuard->deleteLater();
+            reply->deleteLater();
             m_activeRequests--;
 
             QMetaObject::invokeMethod(this, &HttpAsyncWorker::handleRequest, Qt::QueuedConnection);
@@ -199,9 +200,19 @@ void HttpAsyncWorker::handleRequest()
     }
 }
 
-QNetworkRequest HttpAsyncWorker::createRequest(const QString& url)
+QNetworkRequest HttpAsyncWorker::createRequest(const QString& url, const QVariantMap &body)
 {
-    QNetworkRequest request(url);
+    QUrlQuery query;
+    for (auto it = body.constBegin(); it != body.constEnd(); ++it)
+    {
+        query.addQueryItem(it.key(), it.value().toString());
+    }
+    QUrl qurl(url);
+    qurl.setQuery(query);
+
+    QNetworkRequest request;
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request.setUrl(qurl);
 
     // 自动配置HTTPS
     if (url.startsWith("https://", Qt::CaseInsensitive))
@@ -212,7 +223,6 @@ QNetworkRequest HttpAsyncWorker::createRequest(const QString& url)
         request.setSslConfiguration(sslConfig);
     }
 
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     // 添加自定义头部
     for (auto it = m_map.constBegin(); it != m_map.constEnd(); ++it)

@@ -27,8 +27,32 @@ WebPlayerPage::~WebPlayerPage()
 
 void WebPlayerPage::init(QString str)
 {
-    m_web.page()->runJavaScript(QString("receiveJsonData(%1)").arg(str));
-//   m_web.page()->runJavaScript("getDataFromPage();", [](const QVariant &result){
-//       qDebug() << "Data from JavaScript:" << result;
-//   });
+    qDebug()<<"str-----------"<<str;
+    m_str = str;
+    if(isload)
+    {
+        QString jsCode = QString("jsbridge.StartPlayGift(function(res) { "
+                                 "   console.log('收到数据', res); "
+                                 "}, %1)"
+                                 ).arg(m_str);
+        m_web.page()->runJavaScript(jsCode, [](const QVariant &result){
+            qDebug() << "init from JavaScript:" << result;
+        });
+    }
+}
+
+void WebPlayerPage::loadFinished(bool b)
+{
+    if(!m_str.isEmpty())
+    {
+        QString jsCode = QString("jsbridge.StartPlayGift(function(res) { "
+                                 "console.log('收到数据', res); "
+                                 "}, %1)"
+                                 ).arg(m_str);
+
+        m_web.page()->runJavaScript(jsCode, [](const QVariant &result){
+            qDebug() << "loadFinished Data from JavaScript:" << result;
+        });
+    }
+    isload = b;
 }

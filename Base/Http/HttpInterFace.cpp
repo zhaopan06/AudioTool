@@ -155,11 +155,11 @@ void HttpInterFace::downLoad(QString url, downLoadCallBack callBack)
                      });
 }
 
-void HttpInterFace::getLiveRoomInfo_asy(callBack callBack)
+void HttpInterFace::getLiveRoomInfo_asy(callBack callBack, QObject *context)
 {
     QVariantMap jsonMap;
     QString strUrl = QString("/pcHome/getPcHomeInfo");
-    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,strUrl,callBack,nullptr,jsonMap);
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,strUrl,callBack,nullptr,jsonMap,context);
 }
 
 QVariantMap HttpInterFace::followUser(QString followedId, int isFollow)

@@ -326,7 +326,7 @@ void LoginPage::on_login_btn_clicked()
 
     ui->login_btn->setEnabled(false);
     QString acc =  ui->cap_mobile->text();
-    HttpInterFace::getInstance()->loginToServer(acc, pass, [&](const QVariant &vart){
+    HttpInterFace::getInstance()->loginToServer(acc, pass, [&,acc](const QVariant &vart){
         QVariantMap data = vart.toMap();
         if(data["code"].toInt() == 1)
         {

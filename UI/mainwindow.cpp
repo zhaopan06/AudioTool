@@ -156,8 +156,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::initUserUI()
 {
-    //m_player = new VideoPlayer;
-    //m_player->hide();
     ui->number->hide();
     ui->mic_stackedWidget->setCurrentIndex(0);
     ui->autioMicBtn->show();
@@ -171,13 +169,14 @@ void MainWindow::initUserUI()
         ui->userImage->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
-    QtConcurrent::run([this]{
+
+    QtConcurrent::run([this]() {
         initAgora();
         initTim();
         m_timInterface->login();
     });
 
-    initRoomInfoUI();    
+    initRoomInfoUI();
 }
 
 bool MainWindow::eventFilter(QObject *watched, QEvent *event)
@@ -864,10 +863,13 @@ void MainWindow::enterTheToom(QVariantMap data)
 
         QString rtcToken = roomdata["rtcToken"].toString();
         QString chatRoomId = roomdata["roomId"].toString();
+
         int userId = roomdata["userInfoResponse"].toMap()["userId"].toInt();
-        m_agoraFace->joinChannel(rtcToken, chatRoomId, userId);
-        m_agoraFace->setChannelProfile(agora::CHANNEL_PROFILE_COMMUNICATION);
-        m_agoraFace->enableLoopbackRecording(true);
+        QtConcurrent::run([this,rtcToken, chatRoomId,userId]() {
+            m_agoraFace->joinChannel(rtcToken, chatRoomId, userId);
+            m_agoraFace->setChannelProfile(agora::CHANNEL_PROFILE_COMMUNICATION);
+            m_agoraFace->enableLoopbackRecording(true);
+        });
 
         QString roomName = roomdata["roomName"].toString();
         ui->roomName->setText(roomName);
@@ -1009,7 +1011,7 @@ void MainWindow::initRoomInfoUI()
             roomItem->setFixedSize(155,211);
             ui->gridLayout->addWidget(roomItem,0,0);
         }
-    });
+    }, this);
 }
 
 void MainWindow::setMyselfMicInfo(int status)
@@ -1664,16 +1666,11 @@ void MainWindow::msg_gift_mp4(QString str)
 {
     if(nullptr == m_player)
     {
-        m_player = new WebPlayerPage(this);
-        QPoint point;
-        point.setX(ui->widget_26->mapToGlobal(QPoint(0, 0)).rx());
-        point.setY(ui->widget_26->mapToGlobal(QPoint(0, 0)).ry());
-        m_player->move(point);
-        m_player->setFixedSize(ui->widget_26->size());
+        m_player = new WebPlayerPage(ui->widget_26);
+        m_player->setGeometry(ui->widget_26->geometry());
         m_player->hide();
     }
 
-    qDebug()<<"widget_26---"<<m_player->geometry();
     m_player->init(str);
     m_player->show();
 }

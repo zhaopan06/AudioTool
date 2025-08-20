@@ -18,6 +18,9 @@ public:
     ~WebPlayerPage();
     void init(QString str);
 
+    private slots:
+    void loadFinished(bool b);
+
 protected:
     // 拦截所有鼠标事件，不处理
     bool event(QEvent *ev) override {
@@ -27,6 +30,8 @@ protected:
 private:
     Ui::WebPlayerPage *ui;
     QWebEngineView m_web;
+    QString m_str = "";
+    bool isload = false;
 };
 
 #endif // WEBPLAYERPAGE_H
