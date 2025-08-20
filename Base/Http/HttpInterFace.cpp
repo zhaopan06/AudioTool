@@ -162,13 +162,13 @@ void HttpInterFace::getLiveRoomInfo_asy(callBack callBack, QObject *context)
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,strUrl,callBack,nullptr,jsonMap,context);
 }
 
-QVariantMap HttpInterFace::followUser(QString followedId, int isFollow)
+void HttpInterFace::followUser(QString followedId, int isFollow, callBack callBack, QObject *context)
 {
     QVariantMap jsonMap;
     jsonMap.insert("followedId",followedId);
     jsonMap.insert("isFollow", isFollow);
-    QString url = BASE_API_URL + QString("/user/followUser");
-    return httpsPost_syn(url,jsonMap);
+    QString url = QString("/user/followUser");
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,callBack,nullptr,jsonMap,context);
 }
 
 void HttpInterFace::getOnlineInfo(QString roomId, int currentPage, callBack callBack)
@@ -369,13 +369,13 @@ void HttpInterFace::loginToServer(QString phone, QString verifyCode, callBack ca
 /*
  操作类型 0-取消排麦 1-申请排麦
 */
-QVariantMap HttpInterFace::addMic(QString roomId, int type)
+void HttpInterFace::addMic(QString roomId, int type, callBack callBack, QObject *context)
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);
     jsonMap.insert("type", type);
-    QString url = BASE_API_URL + QString("/live/dealApplyMic");
-    return httpsPost_syn(url,jsonMap);
+    QString url = QString("/live/dealApplyMic");
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,callBack,nullptr,jsonMap,context);
 }
 
 QVariantMap HttpInterFace::b_upMic(QString roomId, QString targetUserId)
@@ -439,16 +439,6 @@ QVariantMap HttpInterFace::settingEmceeOrAdmin(int settingType, QString targetUs
     return httpsPost_syn(url,jsonMap);
 }
 
-QVariantMap HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic)
-{
-    QVariantMap jsonMap;
-    jsonMap.insert("roomId",roomId);
-    jsonMap.insert("entryType", entryType);
-    jsonMap.insert("subTopic", subTopic);
-    QString url = BASE_API_URL + QString("/live/joinLivingRoom");
-    return httpsPost_syn(url,jsonMap);
-}
-
 void HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic, callBack callback)
 {
     QVariantMap jsonMap;
@@ -458,7 +448,6 @@ void HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic, callBa
     QString strUrl = QString("/live/joinLivingRoom");
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,strUrl,callback,nullptr,jsonMap);
 }
-
 
 QVariantMap HttpInterFace::closeRoom(QString roomId)
 {

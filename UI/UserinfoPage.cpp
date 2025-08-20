@@ -268,17 +268,19 @@ void UserinfoPage::on_Attention_clicked()
     {
         isFollow = 1;
     }
-    QVariantMap data = HttpInterFace::getInstance()->followUser(m_userId, isFollow);
 
-    if(0 == isFollow)
-    {
-        ui->Attention->setText(QStringLiteral("关注"));
-    }
-    if(1 == isFollow)
-    {
-        ui->Attention->setText(QStringLiteral("取消关注"));
-    }
-    m_isFollow = !m_isFollow;
+    HttpInterFace::getInstance()->followUser(m_userId, isFollow, [=](const QVariant &content){
+        QVariantMap data = content.toMap();
+        if(0 == isFollow)
+        {
+            ui->Attention->setText(QStringLiteral("关注"));
+        }
+        if(1 == isFollow)
+        {
+            ui->Attention->setText(QStringLiteral("取消关注"));
+        }
+        m_isFollow = !m_isFollow;
+    },this);
 }
 
 void UserinfoPage::on_pushButton_3_clicked()

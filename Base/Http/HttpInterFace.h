@@ -36,12 +36,10 @@ public:
     void loginToServer(QString account, QString passwd, callBack callBack, QObject* context);
 
 
-    QVariantMap joinRoom(int roomId, int entryType, QString subTopic);
     void joinRoom(int roomId, int entryType, QString subTopic, callBack callback);
     QVariantMap closeRoom(QString roomId);
 
-    //上麦
-    QVariantMap addMic(QString roomId, int type);
+    void addMic(QString roomId, int type, callBack callBack, QObject *context);
     //抱上麦
     QVariantMap b_upMic(QString roomId, QString targetUserId);
     //抱下麦
@@ -56,14 +54,9 @@ public:
     void downLoad(QString url, downLoadCallBack callBack);
     //上传图片
     void uploadFile(const QString &filePath, int type, callBack callback);
-
-    //更新直播间信息 传参 name 房间名称 announcement 房间公告 roomId 房间id  photo 房间封面
     void uploadLiveInfo(QString photo, QString name, QString announcement, QString roomId, callBack callback);
-
     void getLiveRoomInfo_asy(callBack callBack, QObject* context);
-
-    QVariantMap followUser(QString followedId, int isFollow);
-
+    void followUser(QString followedId, int isFollow, callBack callBack, QObject *context);
     void getOnlineInfo(QString roomId, int currentPage, callBack callBack);
     void getMicApplyList(QString roomId, callBack callBack);
     void getContributeList(int type, int timeType, int size, QString roomId, callBack callBack);

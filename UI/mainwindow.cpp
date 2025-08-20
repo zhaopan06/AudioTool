@@ -332,20 +332,22 @@ void MainWindow::reconnect()
 {
     if(0 == m_agoraFace->leaveChannel())
     {
-        QVariantMap roomdata =  HttpInterFace::getInstance()->joinRoom(g_roomID.toInt(), 1 , "");
-        if(1 == roomdata["code"].toInt())
-        {
-            roomdata = roomdata["data"].toMap();
-            QString rtcToken = roomdata["rtcToken"].toString();
-            QString chatRoomId = roomdata["roomId"].toString();
-            int userId = roomdata["userInfoResponse"].toMap()["userId"].toInt();
+        HttpInterFace::getInstance()->joinRoom(g_roomID.toInt(), 1 , "", [&](const QVariant vart){
+            QVariantMap roomdata = vart.toMap();
+            if(1 == roomdata["code"].toInt())
+            {
+                roomdata = roomdata["data"].toMap();
+                QString rtcToken = roomdata["rtcToken"].toString();
+                QString chatRoomId = roomdata["roomId"].toString();
+                int userId = roomdata["userInfoResponse"].toMap()["userId"].toInt();
 
-            m_agoraFace->joinChannel(rtcToken, chatRoomId, userId);
-            m_agoraFace->setChannelProfile(agora::CHANNEL_PROFILE_COMMUNICATION);
-            m_agoraFace->enableLoopbackRecording(true);
-        }
-        else
-            MsgBox::showMsg(this,tr("提示"), roomdata["message"].toString());
+                m_agoraFace->joinChannel(rtcToken, chatRoomId, userId);
+                m_agoraFace->setChannelProfile(agora::CHANNEL_PROFILE_COMMUNICATION);
+                m_agoraFace->enableLoopbackRecording(true);
+            }
+            else
+                MsgBox::showMsg(this,tr("提示"), roomdata["message"].toString());
+        });
     }
     else
     {
@@ -1255,13 +1257,16 @@ void MainWindow::on_autioMicBtn_clicked()
 {
     if(ui->autioMicBtn->isChecked())
     {
-        HttpInterFace::getInstance()->addMic(HttpUserInfo::instance()->getClassRoomID(),1);
-        ui->autioMicBtn->setText(QStringLiteral("取消上麦"));
+        HttpInterFace::getInstance()->addMic(HttpUserInfo::instance()->getClassRoomID(),1, [=](const QVariant &content){
+            ui->autioMicBtn->setText(QStringLiteral("取消上麦"));
+        },this);
+
     }
     else
     {
-        HttpInterFace::getInstance()->addMic(HttpUserInfo::instance()->getClassRoomID(),0);
-        ui->autioMicBtn->setText(QStringLiteral("上麦"));
+        HttpInterFace::getInstance()->addMic(HttpUserInfo::instance()->getClassRoomID(),0, [=](const QVariant &content){
+            ui->autioMicBtn->setText(QStringLiteral("上麦"));
+        },this);
     }
 }
 

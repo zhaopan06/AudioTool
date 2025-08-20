@@ -113,20 +113,21 @@ void NewUserItem::on_pushButton_clicked()
     {
         isFollow = 0;
     }
-    QVariantMap data = HttpInterFace::getInstance()->followUser(id, isFollow);
 
-    if(0 == isFollow)
-    {
-        ui->pushButton->setText(QStringLiteral("关注"));
-        ui->pushButton->setChecked(false);
-    }
-    if(1 == isFollow)
-    {
-        ui->pushButton->setText(QStringLiteral("取消关注"));
-        ui->pushButton->setChecked(true);
-    }
-
-    m_isFollow = isFollow;
+    HttpInterFace::getInstance()->followUser(id, isFollow, [=](const QVariant &content){
+        QVariantMap data = content.toMap();
+        if(0 == isFollow)
+        {
+            ui->pushButton->setText(QStringLiteral("关注"));
+            ui->pushButton->setChecked(false);
+        }
+        if(1 == isFollow)
+        {
+            ui->pushButton->setText(QStringLiteral("取消关注"));
+            ui->pushButton->setChecked(true);
+        }
+        m_isFollow = !m_isFollow;
+    },this);
 
 }
 

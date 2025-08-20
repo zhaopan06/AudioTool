@@ -82,17 +82,19 @@ void ChatPageCommunicationItem::setData(QVariantMap data)
 //关注
 void ChatPageCommunicationItem::on_pushButton_clicked()
 {
-    QVariantMap data = HttpInterFace::getInstance()->followUser(m_data["userId"].toString(), 1);
-    ui->pushButton_3->show();
-    ui->pushButton->hide();
+    HttpInterFace::getInstance()->followUser(m_data["userId"].toString(), 1, [=](const QVariant &content){
+        ui->pushButton_3->show();
+        ui->pushButton->hide();
+    },this);
 }
 
 //取消关注
 void ChatPageCommunicationItem::on_pushButton_3_clicked()
-{    
-    QVariantMap data = HttpInterFace::getInstance()->followUser(m_data["userId"].toString(), 0);
-    ui->pushButton_3->hide();
-    ui->pushButton->show();
+{
+    HttpInterFace::getInstance()->followUser(m_data["userId"].toString(), 0, [=](const QVariant &content){
+        ui->pushButton_3->hide();
+        ui->pushButton->show();
+    },this);
 }
 
 //私聊
