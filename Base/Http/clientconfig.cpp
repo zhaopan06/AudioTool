@@ -1,10 +1,10 @@
 ﻿#include "clientconfig.h"
-
 #include <QDir>
 #include <QDebug>
 #include <QFileDialog>
 #include "Global.h"
-ClientConfig ClientConfig::pClientConfig;
+
+QMutex ClientConfig::s_instanceMutex;
 
 ClientConfig::ClientConfig(QObject *parent) : QObject(parent)
 {
@@ -13,11 +13,14 @@ ClientConfig::ClientConfig(QObject *parent) : QObject(parent)
 
 ClientConfig *ClientConfig::getInstance()
 {
+    QMutexLocker locker(&s_instanceMutex);
+    static ClientConfig pClientConfig;
     return &pClientConfig;
 }
 
 void ClientConfig::writeIniFile(QString strGroup, QString strKey, QString strValue)
 {
+    QMutexLocker locker(&m_mutex);
     QString strDirPath = g_appData + "/client.ini";
     QSettings settings(strDirPath, QSettings::IniFormat);
     settings.setIniCodec("UTF-8");
@@ -28,6 +31,7 @@ void ClientConfig::writeIniFile(QString strGroup, QString strKey, QString strVal
 
 QString ClientConfig::readIniFile(QString strGroup, QString strKey)
 {
+    QMutexLocker locker(&m_mutex);
     QString strDirPath = g_appData+ "/client.ini";
     QString strValue = "";
     QSettings settings(strDirPath, QSettings::IniFormat);
@@ -40,6 +44,7 @@ QString ClientConfig::readIniFile(QString strGroup, QString strKey)
 
 void ClientConfig::setLoginData(QVariantMap data)
 {
+    QMutexLocker locker(&m_mutex);
     QString strDirPath = g_appData + "/login.json";
 
     QJsonObject jsonObject = QJsonObject::fromVariantMap(data);
@@ -57,6 +62,7 @@ void ClientConfig::setLoginData(QVariantMap data)
 
 QVariantMap ClientConfig::getLoginData()
 {
+    QMutexLocker locker(&m_mutex);
     QString strDirPath = g_appData + "/login.json";
     QFile file(strDirPath);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))

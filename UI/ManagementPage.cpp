@@ -69,8 +69,7 @@ void ManagementPage::on_button1_1_clicked()
             ManagementPageItem *item  =new ManagementPageItem;
             connect(item, &ManagementPageItem::removeOne, this, [&](QVariantMap data){
                 QString userId = data["userId"].toString();
-                QVariantMap map = HttpInterFace::getInstance()->settingEmceeOrAdmin(2, userId);
-                showMapTojson(map);
+                HttpInterFace::getInstance()->settingEmceeOrAdmin(2, userId);
                 on_button1_1_clicked();
             });
             item->setData(data);
@@ -150,7 +149,7 @@ void ManagementPage::on_button1_4_clicked()
             connect(item, &ManagementPageItem::removeOne, this, [&](QVariantMap data){
 
                 QString userId = data["userId"].toString();
-                QVariantMap map = HttpInterFace::getInstance()->settingEmceeOrAdmin(5, userId);
+                HttpInterFace::getInstance()->settingEmceeOrAdmin(5, userId);
                 on_button1_4_clicked();
             });
             item->setData(data);
@@ -160,8 +159,6 @@ void ManagementPage::on_button1_4_clicked()
             ui->listWidget->setItemWidget(item1,item);
             item1->setSizeHint(QSize(ui->listWidget->contentsRect().width(), item->height()));
         }
-
-
     });
 }
 

@@ -1,6 +1,7 @@
 #ifndef CLIENTCONFIG_H
 #define CLIENTCONFIG_H
 
+#include "qmutex.h"
 #include <QObject>
 #include <QSettings>
 
@@ -24,9 +25,8 @@ public slots:
 
 private:
     explicit ClientConfig(QObject *parent = nullptr);
-
-private:
-    static ClientConfig pClientConfig;
+    mutable QMutex m_mutex;
+    static QMutex s_instanceMutex;
 };
 
 #endif // CLIENTCONFIG_H

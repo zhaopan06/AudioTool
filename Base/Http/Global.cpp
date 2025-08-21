@@ -184,7 +184,8 @@ qint32 getWebTime()
         udpSocket.flush();
         udpSocket.write(timeRequest);
         udpSocket.flush();
-        if(udpSocket.waitForReadyRead(3000)){
+        if(udpSocket.waitForReadyRead(3000))
+        {
             QByteArray newTime;
             QDateTime epoch(QDate(1900, 1, 1));
             QDateTime unixStart(QDate(1970, 1, 1));

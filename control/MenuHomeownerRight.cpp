@@ -100,7 +100,7 @@ void MenuHomeownerRight::on_pushButton_clicked()
 void MenuHomeownerRight::on_pushButton_2_clicked()
 {
     QString uid = m_data["member"].toMap()["userId"].toString();
-    HttpInterFace::getInstance()->b_upMic(g_roomID, uid);
+    HttpInterFace::getInstance()->b_upMic(g_roomID, uid,nullptr,this);
 }
 
 //聊天
@@ -128,41 +128,37 @@ void MenuHomeownerRight::on_pushButton_9_clicked()
 //设为管理
 void MenuHomeownerRight::on_pushButton_12_clicked()
 {
-    QVariantMap data;
     this->hide();
     QString multipleAuthoriation = m_multipleAuthoriation;
     QString type = multipleAuthoriation.at(2);
     if(type.toInt() == 1)
     {
         QString uid = m_data["member"].toMap()["userId"].toString();
-        data = HttpInterFace::getInstance()->settingEmceeOrAdmin(3, uid);
+        HttpInterFace::getInstance()->settingEmceeOrAdmin(3, uid);
     }
     else
     {
         QString uid = m_data["member"].toMap()["userId"].toString();
-        data = HttpInterFace::getInstance()->settingEmceeOrAdmin(1, uid);
+        HttpInterFace::getInstance()->settingEmceeOrAdmin(1, uid);
     }
-    showMapTojson(data);
 }
 
 //设为主持人
 void MenuHomeownerRight::on_pushButton_13_clicked()
 {
-    QVariantMap data;
     this->hide();
     QString multipleAuthoriation = m_multipleAuthoriation;
     QString type = multipleAuthoriation.at(1);
     if(type.toInt() == 1)
     {
         QString uid = m_data["member"].toMap()["userId"].toString();
-        data = HttpInterFace::getInstance()->settingEmceeOrAdmin(2, uid);
+        HttpInterFace::getInstance()->settingEmceeOrAdmin(2, uid);
     }
     else
     {
         QString uid = m_data["member"].toMap()["userId"].toString();
-        data = HttpInterFace::getInstance()->settingEmceeOrAdmin(0, uid);
+        HttpInterFace::getInstance()->settingEmceeOrAdmin(0, uid);
     }
-    showMapTojson(data);
 }
 
 

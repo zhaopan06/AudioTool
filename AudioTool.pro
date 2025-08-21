@@ -14,9 +14,7 @@ RC_ICONS = lanban.ico
 
 INCLUDEPATH += \
         ./Base/Agora \
-        ./Base/ImSDK \
-        #./SDK/vlc/include \
-        #./SDK/vlcLib     \
+        ./Base/ImSDK \       
         ./SDK/Agora/include \
         ./SDK/ImSDK/include \        
         ./Base/Http \
@@ -25,16 +23,11 @@ INCLUDEPATH += \
 
 
 LIBS += \
-    -L$$PWD/SDK/Agora/lib   \
-    #-L$$PWD/SDK/vlc/lib   \
-    #-L$$PWD/SDK/vlcLib    \
+    -L$$PWD/SDK/Agora/lib   \  
     -L$$PWD/SDK/ImSDK/lib
 
 LIBS += \
-    -lagora_rtc_sdk.dll \
-    #-lVLCQtCore   \
-    #-lVLCQtWidgets \
-    #-lVlcLib  \
+    -lagora_rtc_sdk.dll \   
     -limsdk
 
 SOURCES += \
@@ -106,7 +99,6 @@ SOURCES += \
     control/WebPlayerPage.cpp \
     control/click_label.cpp \
     control/usermenu.cpp \
-    #control/videoplayer.cpp \
     main.cpp
 
 
@@ -182,7 +174,6 @@ HEADERS += \
     control/WebPlayerPage.h \
     control/click_label.h \
     control/usermenu.h
-    #control/videoplayer.h
 
 FORMS += \
     UI/ChatEmoTionItem.ui \

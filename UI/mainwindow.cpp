@@ -833,10 +833,11 @@ void MainWindow::on_updateBtn_clicked()
 //进入房间
 void MainWindow::enterTheToom(QVariantMap data)
 {
+    ui->stackedWidget->setCurrentIndex(1);
     QString id = data["id"].toString();
-    g_roomID = id;
+    g_roomID = id;    
 
-    QTimer::singleShot(1000, this, [this](){
+    QTimer::singleShot(10, this, [this](){
 
         int currentPage = 1;
         HttpInterFace::getInstance()->getOnlineInfo(g_roomID,currentPage, [&](const QVariant &data) {
@@ -854,10 +855,8 @@ void MainWindow::enterTheToom(QVariantMap data)
         });
     });
 
-
     HttpInterFace::getInstance()->joinRoom(id.toInt(), 1 , "", [&](const QVariant vart){
 
-        ui->stackedWidget->setCurrentIndex(1);
         QVariantMap roomdata = vart.toMap();
         roomdata = roomdata["data"].toMap();
         m_roomInfo = roomdata;
@@ -1250,7 +1249,7 @@ void MainWindow::msg_uninit()
 
 void MainWindow::upMicToUserID(QString roomID, QString userID)
 {
-    HttpInterFace::getInstance()->b_upMic(roomID, userID);
+    HttpInterFace::getInstance()->b_upMic(roomID, userID,nullptr,this);
 }
 
 void MainWindow::on_autioMicBtn_clicked()
@@ -1359,11 +1358,13 @@ void MainWindow::on_closeLiveBtn_clicked()
 {
     if(QDialog::Accepted == MsgBox::showMsg(this,tr("提示"), tr("所有用户将强制退出房间，确定结束直播吗？"),MsgBox::QUERYDIALOG))
     {
-        QVariantMap data = HttpInterFace::getInstance()->closeRoom(g_roomID);
-        if(data["code"].toInt() == 1)
-        {
-            msg_liveClose();
-        }
+        HttpInterFace::getInstance()->closeRoom(g_roomID,[=](const QVariant &content){
+            QVariantMap data = content.toMap();
+            if(data["code"].toInt() == 1)
+            {
+                msg_liveClose();
+            }
+        });
     }
 }
 

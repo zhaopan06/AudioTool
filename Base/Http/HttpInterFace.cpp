@@ -22,9 +22,7 @@ HttpInterFace::HttpInterFace(QObject *parent) : QObject(parent)
 {
     HttpAsyncWorker::getInstance()->setBaseUrl(BASE_API_URL);
     HttpAsyncWorker::getInstance()->setHeaders();
-    connect(HttpAsyncWorker::getInstance(),SIGNAL(error_msg_box_text(QString,int)),this,SIGNAL(error_msg_box_text(QString,int)));
-    m_token = "";
-    m_version = "1.0";   
+    connect(HttpAsyncWorker::getInstance(),SIGNAL(error_msg_box_text(QString,int)),this,SIGNAL(error_msg_box_text(QString,int)));;
 }
 
 HttpInterFace::~HttpInterFace()
@@ -74,7 +72,8 @@ void HttpInterFace::uploadFile(const QString &filePath, int type, callBack callb
     else
         request.setRawHeader("token", "0");
 
-    QNetworkReply *reply = m_pNetworkAccessManager.post(request, multiPart);
+    QNetworkAccessManager *manager = new QNetworkAccessManager();
+    QNetworkReply *reply = manager->post(request, multiPart);
     multiPart->setParent(reply);
 
     connect(reply, &QNetworkReply::finished, [=](){
@@ -85,16 +84,19 @@ void HttpInterFace::uploadFile(const QString &filePath, int type, callBack callb
         {
             emit error_msg_box_text(json_error.errorString(),-1);
             reply->deleteLater();
+            manager->deleteLater();
             return;
         }
         if(jsonDocument["code"].toInt() != 1)
         {
             emit error_msg_box_text(jsonDocument["message"].toString(),jsonDocument["code"].toInt());
             reply->deleteLater();
+            manager->deleteLater();
             return;
         }
         callback(jsonDocument.toVariant());
         reply->deleteLater();
+        manager->deleteLater();
     });
 }
 
@@ -364,12 +366,11 @@ void HttpInterFace::loginToServer(QString phone, QString verifyCode, callBack ca
     jsonMap.insert("phone",phone);
     jsonMap.insert("verifyCode", verifyCode);
     jsonMap.insert("authType", -1);
-    QString url = QString(LOGIN_URL);
+    QString url = QString("/user/login");
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,callBack,nullptr,jsonMap,context);
 }
-/*
- 操作类型 0-取消排麦 1-申请排麦
-*/
+
+// 操作类型 0-取消排麦 1-申请排麦
 void HttpInterFace::addMic(QString roomId, int type, callBack callBack, QObject *context)
 {
     QVariantMap jsonMap;
@@ -379,65 +380,66 @@ void HttpInterFace::addMic(QString roomId, int type, callBack callBack, QObject 
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,callBack,nullptr,jsonMap,context);
 }
 
-QVariantMap HttpInterFace::b_upMic(QString roomId, QString targetUserId)
+void HttpInterFace::b_upMic(QString roomId, QString targetUserId, callBack callBack, QObject *context)
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);
     jsonMap.insert("type", 0);
     jsonMap.insert("targetUserId", targetUserId);
-    QString url = BASE_API_URL + QString("/live/dealUpDownMic");
-    return httpsPost_syn(url,jsonMap);
+    QString url = QString("/live/dealUpDownMic");
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,callBack,nullptr,jsonMap,context);
 }
 
-QVariantMap HttpInterFace::b_downMic(QString roomId, QString targetUserId)
+void HttpInterFace::b_downMic(QString roomId, QString targetUserId, callBack callBack, QObject *context)
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);
     jsonMap.insert("type", 1);
     jsonMap.insert("targetUserId", targetUserId);
-    QString url = BASE_API_URL + QString("/live/dealUpDownMic");
-    return httpsPost_syn(url,jsonMap);
+    QString url = QString("/live/dealUpDownMic");
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,callBack,nullptr,jsonMap,context);
 }
 
-QVariantMap HttpInterFace::m_downMic()
+void HttpInterFace::m_downMic()
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",HttpUserInfo::instance()->getClassRoomID());
     jsonMap.insert("type", 2);
     jsonMap.insert("targetUserId", HttpUserInfo::instance()->getUserID());
-    QString url = BASE_API_URL + QString("/live/dealUpDownMic");
-    return httpsPost_syn(url,jsonMap);
+    QString url = QString("/live/dealUpDownMic");
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,nullptr,nullptr,jsonMap,nullptr);
 }
+
 //操作类型 0-开麦 1-闭麦
-QVariantMap HttpInterFace::micOpenOrClose(QString roomId, QString targetUserId, int type)
+void HttpInterFace::micOpenOrClose(QString roomId, QString targetUserId, int type)
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",HttpUserInfo::instance()->getClassRoomID());
     jsonMap.insert("type", type);
     jsonMap.insert("targetUserId", targetUserId);
-    QString url = BASE_API_URL + QString("/live/micOpenOrClose");
-    return httpsPost_syn(url,jsonMap);
+    QString url = QString("/live/micOpenOrClose");
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,nullptr,nullptr,jsonMap,nullptr);
 }
 //操作类型 0-解除闭麦 1-锁麦
-QVariantMap HttpInterFace::lockMic(int type, int seat)
+void HttpInterFace::lockMic(int type, int seat)
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",HttpUserInfo::instance()->getClassRoomID());
     jsonMap.insert("type", type);
     jsonMap.insert("seat", seat);
-    QString url = BASE_API_URL + QString("/live/micLock");
-    return httpsPost_syn(url,jsonMap);
+    QString url = QString("/live/micLock");
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,nullptr,nullptr,jsonMap,nullptr);
 }
 
 //主机有房主才能设置
 /*设置类型，0=设置支持人，1=设置房间管理员，2=移除主持人，3=移除房间管理员,4=拉黑，5=解除拉黑*/
-QVariantMap HttpInterFace::settingEmceeOrAdmin(int settingType, QString targetUserId)
+void HttpInterFace::settingEmceeOrAdmin(int settingType, QString targetUserId)
 {
     QVariantMap jsonMap;
     jsonMap.insert("settingType", settingType);
     jsonMap.insert("targetUserId", targetUserId);
-    QString url = BASE_API_URL + QString("/room/settingEmceeOrAdmin");
-    return httpsPost_syn(url,jsonMap);
+    QString url = QString("/room/settingEmceeOrAdmin");
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,nullptr,nullptr,jsonMap,nullptr);
 }
 
 void HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic, callBack callback)
@@ -450,68 +452,14 @@ void HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic, callBa
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,strUrl,callback,nullptr,jsonMap);
 }
 
-QVariantMap HttpInterFace::closeRoom(QString roomId)
+void HttpInterFace::closeRoom(QString roomId, callBack callback)
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);
-    QString url = BASE_API_URL + QString("/room/closeVoiceRoom");
-    return httpsPost_syn(url,jsonMap);
+    QString url = QString("/room/closeVoiceRoom");
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,callback,nullptr,jsonMap);
 }
 
-QVariantMap HttpInterFace::httpsPost_syn(QString url ,QVariantMap jsonMap)
-{
-    QByteArray postData = QJsonDocument::fromVariant(jsonMap).toJson();
-    QNetworkRequest request(url);
-    if(!HttpUserInfo::instance()->gettoken().isEmpty())
-    {
-        request.setRawHeader("token", HttpUserInfo::instance()->gettoken().toLatin1());
-    }
-    else
-        request.setRawHeader("token", "0");
 
-    request.setRawHeader("deviceId", "11");
-    request.setRawHeader("appVersion", "1.0");
-    request.setRawHeader("deviceType", "2");
-    request.setRawHeader("osVersion", "win10");
-    request.setRawHeader("root", "0");
-    request.setRawHeader("deviceName", "PC");
-    request.setRawHeader("channel", "1");
-    request.setRawHeader("emulator", "0");
-    request.setRawHeader("networkType", "0");
-    request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
 
-    QNetworkReply *reply = m_pNetworkAccessManager.post(request, postData);
-    if (NULL == reply)
-    {
-        return QVariantMap();
-    }
-
-    QEventLoop eventloop;
-    connect(&m_pNetworkAccessManager, &QNetworkAccessManager::finished, &eventloop, &QEventLoop::quit);
-    eventloop.exec();
-
-    QByteArray responseData = reply->readAll();
-    if(responseData.isEmpty())
-    {
-        reply->deleteLater();
-        return QVariantMap();
-    }
-    QJsonParseError json_error;
-    QJsonDocument jsonDocument = QJsonDocument::fromJson(responseData, &json_error);
-    if(json_error.error != QJsonParseError::NoError)
-    {
-        reply->deleteLater();
-        emit error_msg_box_text(json_error.errorString(),-1);
-        return QVariantMap();
-    }
-    if(jsonDocument["code"].toInt() != 1)
-    {
-        reply->deleteLater();
-        emit error_msg_box_text(jsonDocument["message"].toString(),jsonDocument["code"].toInt());
-        return QVariantMap();
-    }
-    QVariantMap map = jsonDocument.toVariant().toMap();
-    reply->deleteLater();
-    return map;
-}
 

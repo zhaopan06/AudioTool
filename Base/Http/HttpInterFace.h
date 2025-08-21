@@ -7,8 +7,6 @@
 #include <QMap>
 
 #define BASE_API_URL "https://testapi.linkfunapp.com/app"
-#define LIVE_BASE_API_URL ""
-#define LOGIN_URL "/user/login" //登录
 #define H5Test "https://testm.linkfunapp.com/app.html#/h5/"
 #define H5 "https://m.linkfunapp.com/app.html#/h5/"
 
@@ -31,28 +29,19 @@ class HttpInterFace : public QObject
     Q_OBJECT
 public:
     static HttpInterFace* getInstance();
-    //login page
+
     void getCaptcha(QString phone, QString region_code, callBack callback, ErrorCallback errBack, QObject* context);
     void loginToServer(QString account, QString passwd, callBack callBack, QObject* context);
-
-
     void joinRoom(int roomId, int entryType, QString subTopic, callBack callback);
-    QVariantMap closeRoom(QString roomId);
-
+    void closeRoom(QString roomId, callBack callback);
     void addMic(QString roomId, int type, callBack callBack, QObject *context);
-    //抱上麦
-    QVariantMap b_upMic(QString roomId, QString targetUserId);
-    //抱下麦
-    QVariantMap b_downMic(QString roomId, QString targetUserId);
-    //自己下麦
-    QVariantMap m_downMic();
-    QVariantMap micOpenOrClose(QString roomId, QString targetUserId, int type);
-    QVariantMap lockMic(int type, int seat);
-
-    QVariantMap settingEmceeOrAdmin(int settingType, QString targetUserId);
-
-    void downLoad(QString url, downLoadCallBack callBack);
-    //上传图片
+    void b_upMic(QString roomId, QString targetUserId, callBack callBack, QObject *context);
+    void b_downMic(QString roomId, QString targetUserId, callBack callBack, QObject *context);
+    void m_downMic();
+    void micOpenOrClose(QString roomId, QString targetUserId, int type);
+    void lockMic(int type, int seat);
+    void settingEmceeOrAdmin(int settingType, QString targetUserId);
+    void downLoad(QString url, downLoadCallBack callBack);   
     void uploadFile(const QString &filePath, int type, callBack callback);
     void uploadLiveInfo(QString photo, QString name, QString announcement, QString roomId, callBack callback);
     void getLiveRoomInfo_asy(callBack callBack, QObject* context);
@@ -79,24 +68,13 @@ public:
     void setDressUp(int avatarFrameId, int type, callBack callBack);
     void getGiftList(callBack callBack, QObject *context);
 
-
 private:
     explicit HttpInterFace(QObject *parent = nullptr);
     ~HttpInterFace();
 
-    QVariantMap httpsPost_syn(QString url ,QVariantMap jsonMap);//同步
-
-private:
-    QNetworkAccessManager m_pNetworkAccessManager; //同步
-    QNetworkAccessManager m_http_asy; //异步
-    QString m_version;
-    QString m_token;
-
 signals:
     void error_msg_box_text(QString,int);
     void reLogin();
-public:
-    QString m_authorization;
 };
 
 #endif // HTTPINTERFACE_H

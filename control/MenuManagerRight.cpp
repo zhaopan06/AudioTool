@@ -91,6 +91,6 @@ void MenuManagerRight::on_pushButton_2_clicked()
 {
     this->hide();
     QString uid = m_data["member"].toMap()["userId"].toString();
-    HttpInterFace::getInstance()->b_downMic(g_roomID, uid);
+    HttpInterFace::getInstance()->b_downMic(g_roomID, uid,nullptr,this);
 }
 
