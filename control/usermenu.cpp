@@ -44,6 +44,7 @@ void UserMenu::on_pushButton_clicked()
 
 void UserMenu::on_pushButton_2_clicked()
 {
-    qApp->quit();
+    emit reLogin();
+    this->deleteLater();
 }
 

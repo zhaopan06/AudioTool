@@ -82,11 +82,7 @@ MainWindow::MainWindow(QWidget *parent)
     else
     {
         LoginPage login;
-        if(login.exec() == QDialog::Accepted)
-        {
-
-        }
-        else
+        if(login.exec() == QDialog::Rejected)
         {
             qApp->quit();
         }
@@ -120,7 +116,6 @@ MainWindow::MainWindow(QWidget *parent)
         }
         else
         {
-            //MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code) );
             ToastPage::showToast(this, msg + " code=" + QString::number(code));
         }
     });
@@ -1597,6 +1592,15 @@ void MainWindow::on_userName_clicked()
 
         page->show();
     });
+    connect(meun, &UserMenu::reLogin, this, [](){
+        QString program = QCoreApplication::applicationFilePath();
+        QStringList arguments = QCoreApplication::arguments();
+        QString workingDir = QCoreApplication::applicationDirPath();
+        ClientConfig::getInstance()->setLoginData(QVariantMap());
+        QProcess::startDetached(program, arguments, workingDir);
+        qApp->quit();
+    });
+
     QPoint point;
     point.setX(ui->userName->mapToGlobal(QPoint(0, 0)).rx() + ui->userName->width()/2 - meun->width()/2);
     point.setY(ui->userName->mapToGlobal(QPoint(0, 0)).ry() + ui->userName->height());

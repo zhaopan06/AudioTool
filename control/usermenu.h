@@ -22,7 +22,7 @@ private slots:
 
 signals:
     void showMyselfData();
-
+    void reLogin();
 private:
     bool eventFilter(QObject *obj, QEvent *event);
 
