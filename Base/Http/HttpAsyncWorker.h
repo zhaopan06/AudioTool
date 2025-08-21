@@ -58,6 +58,7 @@ public:
 
 signals:
     void requestAdded();
+    void error_msg_box_text(QString,int);
 
 private:
     explicit HttpAsyncWorker(QObject* parent = nullptr);

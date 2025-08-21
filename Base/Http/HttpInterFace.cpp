@@ -22,6 +22,7 @@ HttpInterFace::HttpInterFace(QObject *parent) : QObject(parent)
 {
     HttpAsyncWorker::getInstance()->setBaseUrl(BASE_API_URL);
     HttpAsyncWorker::getInstance()->setHeaders();
+    connect(HttpAsyncWorker::getInstance(),SIGNAL(error_msg_box_text(QString,int)),this,SIGNAL(error_msg_box_text(QString,int)));
     m_token = "";
     m_version = "1.0";   
 }

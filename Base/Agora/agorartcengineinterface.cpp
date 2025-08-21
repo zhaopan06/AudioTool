@@ -95,8 +95,7 @@ void AgoraRtcEngineInterface::vInitAgoraSdk()
     m_rtcEngine->enableAudioVolumeIndication(300,5,false);
     m_rtcEngine->enableAudio();
     m_rtcEngine->disableVideo();
-//    m_rtcEngine->setLogFile("agora.log");
-
+    m_rtcEngine->setLogFilter(agora::commons::LOG_FILTER_OFF);
 }
 
 int AgoraRtcEngineInterface::joinChannel(const QString& token, const QString& channel, int uid)

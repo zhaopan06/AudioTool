@@ -161,6 +161,11 @@ void HttpAsyncWorker::handleRequest()
             }
             else if(jsonDocument["code"].toInt() != 1)
             {
+                if(jsonDocument["code"].toInt() == 0 || jsonDocument["code"].toInt() == 356)
+                {
+                    emit error_msg_box_text(jsonDocument["message"].toString(),jsonDocument["code"].toInt());
+                }
+
                 if(task.errorCallback)
                 {
                     QMetaObject::invokeMethod(targetContext, [=]() {
@@ -195,7 +200,6 @@ void HttpAsyncWorker::handleRequest()
             ToastPage::showToast(nullptr,errorMsg);
         }, Qt::QueuedConnection);
 
-        // 处理下一个请求
         QMetaObject::invokeMethod(this, &HttpAsyncWorker::handleRequest, Qt::QueuedConnection);
     }
 }
@@ -223,7 +227,6 @@ QNetworkRequest HttpAsyncWorker::createRequest(const QString& url, const QVarian
         request.setSslConfiguration(sslConfig);
     }
 
-
     // 添加自定义头部
     for (auto it = m_map.constBegin(); it != m_map.constEnd(); ++it)
     {
@@ -240,7 +243,7 @@ QNetworkRequest HttpAsyncWorker::createRequest(const QString& url, const QVarian
 void HttpAsyncWorker::setMaxConcurrentRequests(int max)
 {
     QMutexLocker locker(&m_queueMutex);
-    m_maxConcurrentRequests = qMax(1, max); // 至少保持1个并发
+    m_maxConcurrentRequests = qMax(1, max);
 }
 
 void HttpAsyncWorker::setBaseUrl(const QString& baseUrl)
@@ -252,7 +255,7 @@ void HttpAsyncWorker::setBaseUrl(const QString& baseUrl)
 void HttpAsyncWorker::setRequestTimeout(int milliseconds)
 {
     QMutexLocker locker(&m_queueMutex);
-    m_requestTimeout = qMax(1000, milliseconds); // 最少1秒超时
+    m_requestTimeout = qMax(1000, milliseconds);
 }
 
 void HttpAsyncWorker::setHeaders()
