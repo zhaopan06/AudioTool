@@ -4,6 +4,7 @@
 #include "ChatImageMyItem.h"
 #include "ChatTextItem.h"
 #include "ChatTextMyItem.h"
+#include "CommonFun.h"
 #include "ContributeItem.h"
 #include "GIftItem.h"
 #include "GiftPage.h"
@@ -95,28 +96,18 @@ MainWindow::MainWindow(QWidget *parent)
 
         if(0 == code)
         {
-            QString program = QCoreApplication::applicationFilePath();
-            QStringList arguments = QCoreApplication::arguments();
-            QString workingDir = QCoreApplication::applicationDirPath();
             ClientConfig::getInstance()->setLoginData(QVariantMap());
-            QProcess::startDetached(program, arguments, workingDir);
-            qApp->quit();
-            return;
+            rebootExe();
         }
         else if(356 == code)
         {
             MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code) );
-            QString program = QCoreApplication::applicationFilePath();
-            QStringList arguments = QCoreApplication::arguments();
-            QString workingDir = QCoreApplication::applicationDirPath();
             ClientConfig::getInstance()->setLoginData(QVariantMap());
-            QProcess::startDetached(program, arguments, workingDir);
-            qApp->quit();
-            return;
+            rebootExe();
         }
         else
         {
-            ToastPage::showToast(this, msg + " code=" + QString::number(code));
+            MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code) );
         }
     });
 
@@ -1593,12 +1584,8 @@ void MainWindow::on_userName_clicked()
         page->show();
     });
     connect(meun, &UserMenu::reLogin, this, [](){
-        QString program = QCoreApplication::applicationFilePath();
-        QStringList arguments = QCoreApplication::arguments();
-        QString workingDir = QCoreApplication::applicationDirPath();
         ClientConfig::getInstance()->setLoginData(QVariantMap());
-        QProcess::startDetached(program, arguments, workingDir);
-        qApp->quit();
+        rebootExe();
     });
 
     QPoint point;

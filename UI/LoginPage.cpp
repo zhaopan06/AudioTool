@@ -1,4 +1,5 @@
 ﻿#include "LoginPage.h"
+#include "CommonFun.h"
 #include "WebEngView.h"
 #include "qjsonobject.h"
 #include "ui_LoginPage.h"
@@ -47,24 +48,14 @@ LoginPage::LoginPage(QWidget *parent)
 
         if(0 == code)
         {
-            QString program = QCoreApplication::applicationFilePath();
-            QStringList arguments = QCoreApplication::arguments();
-            QString workingDir = QCoreApplication::applicationDirPath();
             ClientConfig::getInstance()->setLoginData(QVariantMap());
-            QProcess::startDetached(program, arguments, workingDir);
-            exit(0);
-            return;
+            rebootExe();
         }
         else if(356 == code)
         {
             MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code) );
-            QString program = QCoreApplication::applicationFilePath();
-            QStringList arguments = QCoreApplication::arguments();
-            QString workingDir = QCoreApplication::applicationDirPath();
             ClientConfig::getInstance()->setLoginData(QVariantMap());
-            QProcess::startDetached(program, arguments, workingDir);
-            exit(0);
-            return;
+            rebootExe();
         }
         else
         {

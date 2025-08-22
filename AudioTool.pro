@@ -19,7 +19,8 @@ INCLUDEPATH += \
         ./SDK/ImSDK/include \        
         ./Base/Http \
         ./control \
-        ./UI
+        ./UI \
+        ./Base/common
 
 
 LIBS += \
@@ -31,13 +32,14 @@ LIBS += \
     -limsdk
 
 SOURCES += \
-    Base/Agora/agorartcengineinterface.cpp \
-    Base/Http/Global.cpp \
+    Base/Agora/agorartcengineinterface.cpp \    
     Base/Http/HttpAsyncWorker.cpp \
     Base/Http/HttpInterFace.cpp \
-    Base/Http/HttpUserInfo.cpp \
-    Base/Http/clientconfig.cpp \
+    Base/Http/HttpUserInfo.cpp \    
     Base/IMSDK/TimInterface.cpp \
+    Base/common/Global.cpp \
+    Base/common/clientconfig.cpp \
+    Base/common/CommonFun.cpp \
     UI/ChatEmoTionItem.cpp \
     UI/ChatImageItem.cpp \
     UI/ChatImageMyItem.cpp \
@@ -103,13 +105,14 @@ SOURCES += \
 
 
 HEADERS += \
-    Base/Agora/agorartcengineinterface.h \
-    Base/Http/Global.h \
+    Base/Agora/agorartcengineinterface.h \    
     Base/Http/HttpAsyncWorker.h \
     Base/Http/HttpInterFace.h \
-    Base/Http/HttpUserInfo.h \
-    Base/Http/clientconfig.h \
+    Base/Http/HttpUserInfo.h \    
     Base/IMSDK/TimInterface.h \
+    Base/common/clientconfig.h \
+    Base/common/Global.h \
+    Base/common/CommonFun.h \
     UI/ChatEmoTionItem.h \
     UI/ChatImageItem.h \
     UI/ChatImageMyItem.h \

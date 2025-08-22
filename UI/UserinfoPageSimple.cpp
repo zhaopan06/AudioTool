@@ -2,7 +2,6 @@
 #include "Global.h"
 #include "ui_UserinfoPageSimple.h"
 #include "HttpInterFace.h"
-#include "qevent.h"
 #include <windows.h>
 #include "UserinfoPage.h"
 
