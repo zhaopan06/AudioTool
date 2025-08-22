@@ -1,13 +1,40 @@
 ﻿#include "ChatPage.h"
 #include "ChatPageCommunicationItem.h"
 #include "ChatPageLeftItem.h"
-#include "Global.h"
 #include "qevent.h"
+#include "qmutex.h"
 #include "qscrollbar.h"
 #include "qtimer.h"
 #include "ui_ChatPage.h"
 #include "HttpInterFace.h"
 #include "MsgBox.h"
+#include "Base/IMSDK/TimInterface.h"
+
+ChatPage* ChatPage::instance = nullptr;
+ChatPage* ChatPage::getInstance()
+{
+    if (!instance)
+    {
+        static QMutex mutex;
+        QMutexLocker locker(&mutex);
+        if (!instance)
+        {
+            instance = new ChatPage();
+        }
+    }
+    return instance;
+}
+
+void ChatPage::destroyInstance()
+{
+    static QMutex mutex;
+    QMutexLocker locker(&mutex);
+    if (instance)
+    {
+        delete instance;
+        instance = nullptr;
+    }
+}
 
 ChatPage::ChatPage(QWidget *parent)
     : QDialog(parent)
@@ -31,6 +58,8 @@ ChatPage::ChatPage(QWidget *parent)
 
 ChatPage::~ChatPage()
 {
+    if(m_chatPage)
+        m_chatPage->deleteLater();
     delete ui;
 }
 

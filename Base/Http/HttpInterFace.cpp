@@ -360,14 +360,14 @@ void HttpInterFace::setDressUp(int avatarFrameId, int type, callBack callBack)
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,strUrl,callBack,nullptr,jsonMap);
 }
 
-void HttpInterFace::loginToServer(QString phone, QString verifyCode, callBack callBack, QObject *context)
+void HttpInterFace::loginToServer(QString phone, QString verifyCode, callBack callBack,ErrorCallback errBack, QObject *context)
 {
     QVariantMap jsonMap;
     jsonMap.insert("phone",phone);
     jsonMap.insert("verifyCode", verifyCode);
     jsonMap.insert("authType", -1);
     QString url = QString("/user/login");
-    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,callBack,nullptr,jsonMap,context);
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,callBack,errBack,jsonMap,context);
 }
 
 // 操作类型 0-取消排麦 1-申请排麦

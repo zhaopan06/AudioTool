@@ -340,7 +340,11 @@ void LoginPage::on_login_btn_clicked()
         {
             ui->login_btn->setEnabled(true);
         }
-    }, this);
+    }, [=](int code, const QString& errorStr){
+        QString str = QStringLiteral("错误码：%1,").arg(code) +  errorStr;
+        MsgBox::showMsg(this, QStringLiteral("提示"), str);
+        ui->login_btn->setEnabled(true);
+    },this);
 }
 
 void LoginPage::on_next_page_btn_clicked()

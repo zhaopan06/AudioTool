@@ -32,6 +32,8 @@ ChatPageC2C::ChatPageC2C(QWidget *parent)
 
 ChatPageC2C::~ChatPageC2C()
 {
+    if(m_emotionPage)
+        m_emotionPage->deleteLater();
     delete ui;
 }
 

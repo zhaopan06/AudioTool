@@ -35,7 +35,6 @@
 #include <QProcess>
 #include "HotPushPage.h"
 #include "clientconfig.h"
-#include "ToastPage.h"
 #include "SetTingPage.h"
 #include <QtConcurrent/QtConcurrent>
 
@@ -117,25 +116,28 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     if(m_agoraFace)
-        delete m_agoraFace;
+        m_agoraFace->deleteLater();
     if(m_timInterface)
     {
         m_timInterface->logout();
+        m_timInterface->deleteLater();
+        m_timInterface = nullptr;
     }
     if(m_emotionPage)
-        delete m_emotionPage;
+        m_emotionPage->deleteLater();
     if(m_giftPage)
-        delete m_giftPage;
+        m_giftPage->deleteLater();
     m_micList.clear();
 
     if(m_valuePage)
-        delete m_valuePage;
+        m_valuePage->deleteLater();
     if(m_soundValuePage)
-        delete m_soundValuePage;
-    if(m_chatPage)
-        delete m_chatPage;
+        m_soundValuePage->deleteLater();
     if(m_player)
         m_player->deleteLater();
+
+    if(m_chatPage)
+        ChatPage::destroyInstance();
 
     delete ui;
 }
@@ -376,7 +378,7 @@ void MainWindow::loginIm(int code, QString msg)
     {
         if(nullptr == m_chatPage)
         {
-            m_chatPage = new ChatPage;
+            m_chatPage = ChatPage::getInstance();
             connect(m_timInterface, &TimInterface::c2c_msg_text, m_chatPage, &ChatPage::c2c_msg_text);
             connect(m_timInterface, &TimInterface::c2c_initTimList, m_chatPage, &ChatPage::c2c_initTimList);
             connect(m_timInterface, &TimInterface::c2c_initTimMsgList, m_chatPage, &ChatPage::c2c_initTimMsgList);
@@ -387,9 +389,9 @@ void MainWindow::loginIm(int code, QString msg)
             connect(UserinfoPage::getInstance(), &UserinfoPage::chatC2C, this,[&](QVariantMap data){
                 m_chatPage->show();
                 m_chatPage->ChatC2C(data);
-            });
+            });            
 
-            QTimer::singleShot(100, this, [this](){
+            QtConcurrent::run([this]() {
                 m_timInterface->initTIMConvGetConvList();
                 m_timInterface->getTIMConvGetTotalUnreadMessageCount();
             });
@@ -1400,29 +1402,8 @@ void MainWindow::on_pushButton_6_clicked()
 
 void MainWindow::on_pushButton_7_clicked()
 {
-    if(nullptr == m_chatPage)
-    {
-        m_chatPage = new ChatPage;
-        connect(m_timInterface, &TimInterface::c2c_msg_text, m_chatPage, &ChatPage::c2c_msg_text);
-        connect(m_timInterface, &TimInterface::c2c_initTimList, m_chatPage, &ChatPage::c2c_initTimList);
-        connect(m_timInterface, &TimInterface::c2c_initTimMsgList, m_chatPage, &ChatPage::c2c_initTimMsgList);
-        connect(m_timInterface, &TimInterface::c2c_msg_image, m_chatPage, &ChatPage::c2c_msg_image);
-        connect(m_timInterface, &TimInterface::msg_numbers, m_chatPage, &ChatPage::c2c_msgNumber);
-        connect(m_timInterface, &TimInterface::msg_uidNumbers, m_chatPage, &ChatPage::msg_uidNumbers);
-        connect(m_timInterface, &TimInterface::c2c_msg_inviteFriends, m_chatPage, &ChatPage::c2c_msg_inviteFriends);
-        connect(UserinfoPage::getInstance(), &UserinfoPage::chatC2C, this,[&](QVariantMap data){
-            m_chatPage->show();
-            m_chatPage->ChatC2C(data);
-        });
-
-        QTimer::singleShot(100, this, [this](){
-            m_timInterface->initTIMConvGetConvList();
-            m_timInterface->getTIMConvGetTotalUnreadMessageCount();
-        });
-    }
-
-    m_chatPage->show();    
-    m_chatPage->activateWindow();
+    ChatPage::getInstance()->show();
+    ChatPage::getInstance()->activateWindow();
 }
 
 void MainWindow::chatC2C(QVariantMap data)

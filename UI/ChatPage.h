@@ -4,7 +4,6 @@
 #include "ChatPageC2C.h"
 #include <QDialog>
 #include <QVariantMap>
-#include "Base/IMSDK/TimInterface.h"
 #include "ChatPageLeftItem.h"
 
 namespace Ui {
@@ -14,9 +13,12 @@ class ChatPage;
 class ChatPage : public QDialog
 {
     Q_OBJECT
-
 public:
+    static ChatPage* getInstance();
+    static void destroyInstance();
+private:
     explicit ChatPage(QWidget *parent = nullptr);
+public:
     ~ChatPage();
     void init(QVariant data);
 protected:
@@ -64,6 +66,8 @@ private:
     ChatPageC2C *m_chatPage = nullptr;
     QVector<ChatPageLeftItem*> m_chatList;
     QString m_curID;
+
+    static ChatPage* instance; // 静态实例指针
 };
 
 #endif // CHATPAGE_H

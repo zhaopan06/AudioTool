@@ -13,7 +13,6 @@
 #include <QMouseEvent>
 #include <QGraphicsBlurEffect>
 #include <QCursor>
-//#include "VideoPlayer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

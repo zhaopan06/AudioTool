@@ -31,7 +31,7 @@ public:
     static HttpInterFace* getInstance();
 
     void getCaptcha(QString phone, QString region_code, callBack callback, ErrorCallback errBack, QObject* context);
-    void loginToServer(QString account, QString passwd, callBack callBack, QObject* context);
+    void loginToServer(QString account, QString passwd, callBack callBack, ErrorCallback errBack, QObject* context);
     void joinRoom(int roomId, int entryType, QString subTopic, callBack callback);
     void closeRoom(QString roomId, callBack callback);
     void addMic(QString roomId, int type, callBack callBack, QObject *context);

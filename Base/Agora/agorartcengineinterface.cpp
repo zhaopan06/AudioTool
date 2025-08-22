@@ -74,7 +74,9 @@ AgoraRtcEngineInterface::AgoraRtcEngineInterface(QObject *parent) : QObject(pare
 
 AgoraRtcEngineInterface::~AgoraRtcEngineInterface()
 {
-    m_rtcEngine->release();   
+    m_rtcEngine->release();
+    delete m_rtcEngine;
+    m_rtcEngine = nullptr;
 }
 
 
