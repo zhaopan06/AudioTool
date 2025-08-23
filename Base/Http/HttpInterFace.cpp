@@ -255,7 +255,7 @@ void HttpInterFace::getUserMedals(QString userId, callBack callBack)
 void HttpInterFace::getGiftList(callBack callBack, QObject *context)
 {
     QVariantMap jsonMap;
-    QString url = BASE_API_URL + QString("/gift/v3/getGiftList");
+    QString url = QString("/gift/v3/getGiftList");
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,url,callBack,nullptr,jsonMap,context);
 }
 
@@ -271,7 +271,7 @@ void HttpInterFace::noticeFans(QString roomId, callBack callBack)
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);
-    QString url = BASE_API_URL + QString("/room/noticeFans");
+    QString url = QString("/room/noticeFans");
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,url,callBack,nullptr,jsonMap);
 }
 
@@ -279,7 +279,7 @@ void HttpInterFace::queryMessageListUserInfo(QString roomId, callBack callBack, 
 {
     QVariantMap jsonMap;
     jsonMap.insert("userIds",roomId);
-    QString url = BASE_API_URL + QString("/user/queryMessageListUserInfo");
+    QString url = QString("/user/queryMessageListUserInfo");
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,url,callBack,nullptr,jsonMap);
 }
 
@@ -291,14 +291,14 @@ void HttpInterFace::getMyFollow(int currentPage, int requestType, callBack callB
     jsonMap.insert("requestType",requestType);
     if(!param.isEmpty())
         jsonMap.insert("param",param);
-    QString url = BASE_API_URL + QString("/user/myFollow");
+    QString url = QString("/user/myFollow");
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,url,callBack,nullptr,jsonMap);
 }
 
 void HttpInterFace::getMessageList(callBack callBack)
 {
     QVariantMap jsonMap;
-    QString url = BASE_API_URL + QString("/user/getMessageList");
+    QString url = QString("/user/getMessageList");
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,url,callBack,nullptr,jsonMap);
 }
 
@@ -306,7 +306,7 @@ void HttpInterFace::getOwnerAuthList(QString roomId, callBack callBack)
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);
-    QString url = BASE_API_URL + QString("/live/getOwnerAuthList");
+    QString url = QString("/live/getOwnerAuthList");
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,url,callBack,nullptr,jsonMap);
 }
 
@@ -322,7 +322,7 @@ void HttpInterFace::getHouPushData(QString roomId,callBack callBack)
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);
-    QString url = BASE_API_URL + QString("/live/getReferralPlaceConfig");
+    QString url = QString("/live/getReferralPlaceConfig");
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,url,callBack,nullptr,jsonMap);
 }
 
@@ -340,7 +340,7 @@ void HttpInterFace::getHotDataHistory(QString roomId, int currentPage, callBack 
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);
     jsonMap.insert("currentPage",currentPage);
-    QString url = BASE_API_URL + QString("/live/getReferralUsedCard");
+    QString url = QString("/live/getReferralUsedCard");
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,url,callBack,nullptr,jsonMap);
 }
 //装扮类型 0 头像框 1 座驾 2 气泡 3 直播间背景
@@ -349,7 +349,7 @@ void HttpInterFace::getDressUp(int type,int currentPage, callBack callBack)
     QVariantMap jsonMap;
     jsonMap.insert("type",type);
     jsonMap.insert("currentPage",currentPage);
-    QString url = BASE_API_URL + QString("/user-avatar-frame-record/listV2");
+    QString url = QString("/user-avatar-frame-record/listV2");
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,url,callBack,nullptr,jsonMap);
 }
 

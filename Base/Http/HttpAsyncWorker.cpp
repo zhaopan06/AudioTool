@@ -108,7 +108,7 @@ void HttpAsyncWorker::handleRequest()
         });
         timeoutTimer->start();
 
-        QObject::connect(reply, &QNetworkReply::readyRead, reply, [=]{
+        QObject::connect(reply, &QNetworkReply::finished, reply, [=]{
 
             timeoutTimer->stop();
 

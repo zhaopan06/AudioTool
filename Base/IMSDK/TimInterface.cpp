@@ -6,6 +6,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include "MsgBox.h"
+#include "CommonFun.h"
 
 TimInterface *TimInterface::getInstance()
 {
@@ -464,6 +465,11 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
 
         QJsonObject msg_obj = json_value_msg.toObject();
         QJsonArray elems = msg_obj["message_elem_array"].toArray();
+
+        if(kTIMConv_C2C == msg_obj["message_conv_type"].toInt())
+        {
+            playMp3Async();
+        }
 
         // 遍历消息元素
         for (const QJsonValue& elem_value : elems)

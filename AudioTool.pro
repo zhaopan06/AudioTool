@@ -32,7 +32,7 @@ LIBS += \
     -limsdk
 
 SOURCES += \
-    Base/Agora/agorartcengineinterface.cpp \    
+    Base/Agora/agorartcengineinterface.cpp \
     Base/Http/HttpAsyncWorker.cpp \
     Base/Http/HttpInterFace.cpp \
     Base/Http/HttpUserInfo.cpp \    
@@ -94,7 +94,6 @@ SOURCES += \
     control/MenuLockRight.cpp \
     control/MenuManagerRight.cpp \
     control/MsgBox.cpp \
-    control/PlayerPage.cpp \
     control/SetTingMenu.cpp \
     control/ToastPage.cpp \
     control/WebEngView.cpp \
@@ -105,10 +104,10 @@ SOURCES += \
 
 
 HEADERS += \
-    Base/Agora/agorartcengineinterface.h \    
+    Base/Agora/agorartcengineinterface.h \
     Base/Http/HttpAsyncWorker.h \
     Base/Http/HttpInterFace.h \
-    Base/Http/HttpUserInfo.h \    
+    Base/Http/HttpUserInfo.h \
     Base/IMSDK/TimInterface.h \
     Base/common/clientconfig.h \
     Base/common/Global.h \
@@ -169,7 +168,6 @@ HEADERS += \
     control/MenuLockRight.h \
     control/MenuManagerRight.h \
     control/MsgBox.h \
-    control/PlayerPage.h \
     control/SetTingMenu.h \
     control/ShowPlayer.h \
     control/ToastPage.h \
@@ -231,7 +229,6 @@ FORMS += \
     control/MenuLockRight.ui \
     control/MenuManagerRight.ui \
     control/MsgBox.ui \
-    control/PlayerPage.ui \
     control/SetTingMenu.ui \
     control/WebEngView.ui \
     control/WebPlayerPage.ui \
