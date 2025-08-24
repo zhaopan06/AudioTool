@@ -139,6 +139,7 @@ void HttpAsyncWorker::handleRequest()
                 }
 
                 QString errorMsg = reply->errorString();
+                qDebug()<<"errorMsg---"<<errorMsg<<"reply->error()---"<<reply->error();
                 QMetaObject::invokeMethod(g_main, [=]() {
                     ToastPage::showToast(nullptr,errorMsg);
                 }, Qt::QueuedConnection);
@@ -216,9 +217,11 @@ QNetworkRequest HttpAsyncWorker::createRequest(const QString& url, const QVarian
 
     QNetworkRequest request;
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    request.setUrl(qurl);
+    if(url.contains("user-avatar-frame-record/wear"))
+        request.setUrl(url);
+    else
+        request.setUrl(qurl);
 
-    // 自动配置HTTPS
     if (url.startsWith("https://", Qt::CaseInsensitive))
     {
         QSslConfiguration sslConfig = QSslConfiguration::defaultConfiguration();
@@ -227,16 +230,13 @@ QNetworkRequest HttpAsyncWorker::createRequest(const QString& url, const QVarian
         request.setSslConfiguration(sslConfig);
     }
 
-    // 添加自定义头部
     for (auto it = m_map.constBegin(); it != m_map.constEnd(); ++it)
     {
         request.setRawHeader(it.key().toUtf8(), it.value().toUtf8());
     }
 
-    // 设置token
     QString token = HttpUserInfo::instance()->gettoken();
     request.setRawHeader("token", token.isEmpty() ? "0" : token.toLatin1());
-
     return request;
 }
 

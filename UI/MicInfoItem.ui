@@ -127,6 +127,23 @@
           <pixmap resource="../res.qrc">:/images/icon_闭麦.png</pixmap>
          </property>
         </widget>
+        <widget class="CRoundLabel" name="photoBorder">
+         <property name="geometry">
+          <rect>
+           <x>18</x>
+           <y>0</y>
+           <width>86</width>
+           <height>86</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <zorder>photoBorder</zorder>
+        <zorder>label</zorder>
+        <zorder>image</zorder>
+        <zorder>mic</zorder>
        </widget>
       </item>
      </layout>
