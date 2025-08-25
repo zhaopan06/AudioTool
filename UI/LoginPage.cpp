@@ -412,6 +412,7 @@ void LoginPage::on_help_btn_clicked()
 
 void LoginPage::on_closeBtn_clicked()
 {
+    rejected();
     exit(0);
 }
 

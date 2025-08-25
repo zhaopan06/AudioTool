@@ -84,7 +84,7 @@ MainWindow::MainWindow(QWidget *parent)
         LoginPage login;
         if(login.exec() == QDialog::Rejected)
         {
-            qApp->quit();
+            exit(0);
         }
     }
 
