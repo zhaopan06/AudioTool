@@ -1,5 +1,5 @@
 ﻿#include "LoginPage.h"
-#include "CommonFun.h"
+#include "CommonTool.h"
 #include "WebEngView.h"
 #include "qjsonobject.h"
 #include "ui_LoginPage.h"

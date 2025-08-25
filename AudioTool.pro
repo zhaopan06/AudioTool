@@ -39,7 +39,7 @@ SOURCES += \
     Base/IMSDK/TimInterface.cpp \
     Base/common/Global.cpp \
     Base/common/clientconfig.cpp \
-    Base/common/CommonFun.cpp \
+    Base/common/CommonTool.cpp \
     UI/ChatEmoTionItem.cpp \
     UI/ChatImageItem.cpp \
     UI/ChatImageMyItem.cpp \
@@ -111,7 +111,7 @@ HEADERS += \
     Base/IMSDK/TimInterface.h \
     Base/common/clientconfig.h \
     Base/common/Global.h \
-    Base/common/CommonFun.h \
+    Base/common/CommonTool.h \
     UI/ChatEmoTionItem.h \
     UI/ChatImageItem.h \
     UI/ChatImageMyItem.h \

@@ -4,7 +4,7 @@
 #include "ChatImageMyItem.h"
 #include "ChatTextItem.h"
 #include "ChatTextMyItem.h"
-#include "CommonFun.h"
+#include "CommonTool.h"
 #include "ContributeItem.h"
 #include "GIftItem.h"
 #include "GiftPage.h"

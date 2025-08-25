@@ -6,7 +6,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include "MsgBox.h"
-#include "CommonFun.h"
+#include "CommonTool.h"
 
 TimInterface *TimInterface::getInstance()
 {
