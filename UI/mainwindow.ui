@@ -829,8 +829,8 @@ font-style: normal;</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>100</width>
-                  <height>30</height>
+                  <width>631</width>
+                  <height>16</height>
                  </rect>
                 </property>
                </widget>
@@ -4456,8 +4456,8 @@ line-height: 22px;
                              <rect>
                               <x>0</x>
                               <y>0</y>
-                              <width>100</width>
-                              <height>30</height>
+                              <width>83</width>
+                              <height>16</height>
                              </rect>
                             </property>
                             <layout class="QVBoxLayout" name="verticalLayout_42">
@@ -4664,6 +4664,12 @@ font-style: normal;
                       <height>36</height>
                      </size>
                     </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>96</width>
+                      <height>36</height>
+                     </size>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true">background: #ED525A;
 border-radius: 18px;</string>
@@ -4684,6 +4690,12 @@ border-radius: 18px;</string>
                       <height>36</height>
                      </size>
                     </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>96</width>
+                      <height>36</height>
+                     </size>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true">background: #ED525A;
 border-radius: 18px;</string>
@@ -4693,28 +4705,6 @@ border-radius: 18px;</string>
                     </property>
                     <property name="checkable">
                      <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="pushButton_5">
-                    <property name="minimumSize">
-                     <size>
-                      <width>92</width>
-                      <height>36</height>
-                     </size>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>92</width>
-                      <height>36</height>
-                     </size>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>自由发言</string>
                     </property>
                    </widget>
                   </item>
@@ -4799,6 +4789,19 @@ border-radius: 18px;</string>
                    </widget>
                   </item>
                  </layout>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_18">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                 <item>
                  <widget class="Line" name="line_4">
@@ -4905,7 +4908,7 @@ border-radius: 18px;</string>
                    </size>
                   </property>
                   <property name="text">
-                   <string>音频设置</string>
+                   <string>音效设置</string>
                   </property>
                  </widget>
                 </item>
@@ -4966,8 +4969,8 @@ border-radius: 18px;</string>
  </resources>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup_3"/>
   <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_3"/>
  </buttongroups>
 </ui>

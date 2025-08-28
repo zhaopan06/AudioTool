@@ -1565,6 +1565,7 @@ void MainWindow::on_userName_clicked()
         page->show();
     });
     connect(meun, &UserMenu::reLogin, this, [](){
+        ClientConfig::getInstance()->writeIniFile("CLIENT", "isrememberpasswd", "0" );
         ClientConfig::getInstance()->setLoginData(QVariantMap());
         rebootExe();
     });

@@ -309,17 +309,24 @@ bool ChatPageC2C::eventFilter(QObject *obj, QEvent *event)
             handleImagePaste();
             return true;
         }
+
         if (keyEvent->key() == Qt::Key_Return || keyEvent->key() == Qt::Key_Enter)
         {
             if (keyEvent->modifiers() & Qt::ControlModifier)
             {
+                on_sendBtn_clicked();
+                return true;
+            }
+            else if (keyEvent->modifiers() & Qt::ShiftModifier)
+            {
                 ui->textEdit->insertPlainText("\n");
+                return true;
             }
             else
             {
                 on_sendBtn_clicked();
+                return true;
             }
-            return true;
         }
     }
     return QObject::eventFilter(obj, event);
