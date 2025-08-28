@@ -2,6 +2,7 @@
 #include "CommonTool.h"
 #include "WebEngView.h"
 #include "qjsonobject.h"
+#include "qvalidator.h"
 #include "ui_LoginPage.h"
 #include "HttpInterFace.h"
 #include "HttpUserInfo.h"
@@ -25,6 +26,23 @@ LoginPage::LoginPage(QWidget *parent)
     ui->lineEdit_5->setMaxLength(1);
     ui->lineEdit_6->setMaxLength(1);
     ui->cap_mobile->setMaxLength(11);
+
+    ui->lineEdit_2->installEventFilter(this);
+    ui->lineEdit_3->installEventFilter(this);
+    ui->lineEdit_4->installEventFilter(this);
+    ui->lineEdit_5->installEventFilter(this);
+    ui->lineEdit_6->installEventFilter(this);
+
+
+    QIntValidator *validatorWithRange = new QIntValidator(this);
+    ui->lineEdit->setValidator(validatorWithRange);
+    ui->lineEdit_2->setValidator(validatorWithRange);
+    ui->lineEdit_3->setValidator(validatorWithRange);
+    ui->lineEdit_4->setValidator(validatorWithRange);
+    ui->lineEdit_5->setValidator(validatorWithRange);
+    ui->lineEdit_6->setValidator(validatorWithRange);
+    QDoubleValidator *validator = new QDoubleValidator(this);
+    ui->cap_mobile->setValidator(validator);
 
     ui->stackedWidget_2->setCurrentIndex(0);
     ui->code_label_click->setVisible(false);
@@ -100,9 +118,43 @@ void LoginPage::mousePressEvent(QMouseEvent* event)
     }
 }
 
-void LoginPage::mouseReleaseEvent(QMouseEvent *event)
+bool LoginPage::eventFilter(QObject *watched, QEvent *event)
 {
+    if(event->type() == QEvent::KeyPress)
+    {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+        if (keyEvent->key() == Qt::Key_Backspace)
+        {
+            if (watched == ui->lineEdit_6)
+            {
+                ui->lineEdit_5->setFocus();
+                ui->lineEdit_5->selectAll();
+            }
+            else if (watched == ui->lineEdit_5)
+            {
+                ui->lineEdit_4->setFocus();
+                ui->lineEdit_4->selectAll();
+            }
+            else if (watched == ui->lineEdit_4)
+            {
+                ui->lineEdit_3->setFocus();
+                ui->lineEdit_3->selectAll();
+            }
+            else if (watched == ui->lineEdit_3)
+            {
+                ui->lineEdit_2->setFocus();
+                ui->lineEdit_2->selectAll();
+            }
+            else if (watched == ui->lineEdit_2)
+            {
+                ui->lineEdit->setFocus();
+                ui->lineEdit->selectAll();
+            }
+            return false;
+        }
+    }
 
+    return QDialog::eventFilter(watched, event);
 }
 
 void LoginPage::on_back_btn_clicked()
@@ -121,7 +173,7 @@ void LoginPage::on_lineEdit_textEdited(const QString &arg1)
                                     "border: 1px solid #7B5AE4;"
                                     "font-family: \"微软雅黑\";"
                                     "font-size: 26px;"
-                                    "color: #FFFFFF;");
+                                    "color: #FFFFFF;");       
     }
     else
     {
@@ -151,7 +203,7 @@ void LoginPage::on_lineEdit_2_textEdited(const QString &arg1)
                                       "border: 1px solid #7B5AE4;"
                                       "font-family: \"微软雅黑\";"
                                       "font-size: 26px;"
-                                      "color: #FFFFFF;");
+                                      "color: #FFFFFF;");       
     }
     else
     {
@@ -181,7 +233,7 @@ void LoginPage::on_lineEdit_3_textEdited(const QString &arg1)
                                       "border: 1px solid #7B5AE4;"
                                       "font-family: \"微软雅黑\";"
                                       "font-size: 26px;"
-                                      "color: #FFFFFF;");
+                                      "color: #FFFFFF;");        
     }
     else
     {
@@ -257,6 +309,7 @@ void LoginPage::on_lineEdit_5_textEdited(const QString &arg1)
     }
 
     updateBtnStyle();
+
 }
 
 
@@ -285,6 +338,11 @@ void LoginPage::on_lineEdit_6_textEdited(const QString &arg1)
                                       "color: #FFFFFF;");
     }
     updateBtnStyle();
+
+    if(6 == m_count)
+    {
+        on_login_btn_clicked();
+    }
 }
 
 void LoginPage::updateBtnStyle()
@@ -340,9 +398,7 @@ void LoginPage::on_login_btn_clicked()
         {
             ui->login_btn->setEnabled(true);
         }
-    }, [=](int code, const QString& errorStr){
-        QString str = QStringLiteral("错误码：%1,").arg(code) +  errorStr;
-        MsgBox::showMsg(this, QStringLiteral("提示"), str);
+    }, [=](int code, const QString& errorStr){       
         ui->login_btn->setEnabled(true);
     },this);
 }

@@ -1646,7 +1646,6 @@ void MainWindow::msg_gift_mp4(QString str)
     {
         m_player = new WebPlayerPage(ui->widget_26);
         m_player->setGeometry(ui->widget_26->geometry());
-        m_player->hide();
     }
 
     m_player->init(str);

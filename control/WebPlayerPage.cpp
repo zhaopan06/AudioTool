@@ -1,10 +1,12 @@
 ﻿#include "WebPlayerPage.h"
 #include "ui_WebPlayerPage.h"
 #include <QWebEngineSettings>
+#include <QWebChannel>
 
 WebPlayerPage::WebPlayerPage(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::WebPlayerPage)
+    , webChannel(new QWebChannel(this))
 {
     ui->setupUi(this);
     setWindowFlags(Qt::FramelessWindowHint);
@@ -17,6 +19,13 @@ WebPlayerPage::WebPlayerPage(QWidget *parent)
     m_web.page()->setBackgroundColor(Qt::transparent);
     m_web.settings()->setAttribute(QWebEngineSettings::LocalStorageEnabled, true);
     m_web.settings()->setAttribute(QWebEngineSettings::AllowRunningInsecureContent, true);
+
+
+    webInterface = new WebChannelInterface(&m_web);
+    const QString objectName = "webInterface";
+    webChannel->registerObject(objectName, webInterface);
+    m_web.page()->setWebChannel(webChannel);
+
     m_web.load(QString("https://testm.linkfunapp.com/app.html#/h5/player"));
 }
 
@@ -26,17 +35,14 @@ WebPlayerPage::~WebPlayerPage()
 }
 
 void WebPlayerPage::init(QString str)
-{
-    qDebug()<<"str-----------"<<str;
+{    
     m_str = str;
     if(isload)
     {
-        QString jsCode = QString("jsbridge.StartPlayGift(function(res) { "
-                                 "   console.log('收到数据', res); "
-                                 "}, %1)"
-                                 ).arg(m_str);
+        QString jsCode = QString("window.StartPlayGift(%1)").arg(m_str);
+        qDebug().noquote()<<"init jsCode-----------"<<jsCode;
         m_web.page()->runJavaScript(jsCode, [](const QVariant &result){
-            qDebug() << "init from JavaScript:" << result;
+            qDebug() << "loadFinished Data from JavaScript:" << result;
         });
     }
 }
@@ -45,11 +51,8 @@ void WebPlayerPage::loadFinished(bool b)
 {
     if(!m_str.isEmpty())
     {
-        QString jsCode = QString("jsbridge.StartPlayGift(function(res) { "
-                                 "console.log('收到数据', res); "
-                                 "}, %1)"
-                                 ).arg(m_str);
-
+        QString jsCode = QString("window.StartPlayGift(%1)").arg(m_str);
+        qDebug().noquote()<<"jsCode-----------"<<jsCode;
         m_web.page()->runJavaScript(jsCode, [](const QVariant &result){
             qDebug() << "loadFinished Data from JavaScript:" << result;
         });

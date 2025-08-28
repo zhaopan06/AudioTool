@@ -60,7 +60,6 @@ void MicInfoItem::setData(QVariantMap data, int num)
         return;
     }
 
-    showMapTojson(data);
     QVariantMap map = data["member"].toMap();
     if(data["status"].toInt() >= 0)
     {
