@@ -264,7 +264,7 @@ void HttpInterFace::clearCardiacValue(QString roomId, callBack callBack)
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);
     QString strUrl = QString("/live/clearCardiacValue");
-    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,strUrl,callBack,nullptr,jsonMap);
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,strUrl,callBack,nullptr,jsonMap);
 }
 
 void HttpInterFace::noticeFans(QString roomId, callBack callBack)
@@ -315,7 +315,7 @@ void HttpInterFace::getRecommendRoom(QString roomId,callBack callBack)
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);
     QString url = QString("/live/leaveReferralLiving");
-    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,url,callBack,nullptr,jsonMap);
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,callBack,nullptr,jsonMap);
 }
 
 void HttpInterFace::getHouPushData(QString roomId,callBack callBack)
@@ -442,14 +442,14 @@ void HttpInterFace::settingEmceeOrAdmin(int settingType, QString targetUserId)
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,url,nullptr,nullptr,jsonMap,nullptr);
 }
 
-void HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic, callBack callback)
+void HttpInterFace::joinRoom(int roomId, int entryType, QString subTopic, callBack callback, ErrorCallback errBack)
 {
     QVariantMap jsonMap;
     jsonMap.insert("roomId",roomId);
     jsonMap.insert("entryType", entryType);
     jsonMap.insert("subTopic", subTopic);
     QString strUrl = QString("/live/joinLivingRoom");
-    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,strUrl,callback,nullptr,jsonMap);
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,strUrl,callback,errBack,jsonMap);
 }
 
 void HttpInterFace::closeRoom(QString roomId, callBack callback)

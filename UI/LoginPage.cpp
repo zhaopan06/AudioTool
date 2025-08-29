@@ -404,7 +404,21 @@ void LoginPage::on_login_btn_clicked()
 }
 
 void LoginPage::on_next_page_btn_clicked()
-{    
+{
+    m_count = 0;
+    ui->lineEdit->clear();
+    emit ui->lineEdit->textEdited("");
+    ui->lineEdit_2->clear();
+    emit ui->lineEdit_2->textEdited("");
+    ui->lineEdit_3->clear();
+    emit ui->lineEdit_3->textEdited("");
+    ui->lineEdit_4->clear();
+    emit ui->lineEdit_4->textEdited("");
+    ui->lineEdit_5->clear();
+    emit ui->lineEdit_5->textEdited("");
+    ui->lineEdit_6->clear();
+    emit ui->lineEdit_6->textEdited("");
+
     QString acc =  ui->cap_mobile->text();
     if (acc.isEmpty())
     {

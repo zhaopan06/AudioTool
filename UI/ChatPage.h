@@ -26,6 +26,7 @@ protected:
     void mousePressEvent(QMouseEvent* event)override;
     void mouseReleaseEvent(QMouseEvent *event)override;
     void showEvent(QShowEvent *event)override;
+    bool eventFilter(QObject *obj, QEvent *event)override;
 public slots:
     void c2c_msg_text(QVariantMap data, QString msg);
     void c2c_initTimList(QVariantList list);

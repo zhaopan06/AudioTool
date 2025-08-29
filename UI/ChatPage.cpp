@@ -54,6 +54,7 @@ ChatPage::ChatPage(QWidget *parent)
         ui->stackedWidget2->setCurrentIndex(0);
         ui->stackedWidget1->setCurrentIndex(0);
     }
+    installEventFilter(this);
 }
 
 ChatPage::~ChatPage()
@@ -107,6 +108,18 @@ void ChatPage::showEvent(QShowEvent *event)
         }
         isF = true;
     }
+}
+
+bool ChatPage::eventFilter(QObject *obj, QEvent *event)
+{
+    QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+
+    if (keyEvent->key() == Qt::Key_Escape)
+    {
+        return true;
+    }
+
+    return QDialog::eventFilter(obj, event);
 }
 
 void ChatPage::c2c_msg_text(QVariantMap data, QString msg)

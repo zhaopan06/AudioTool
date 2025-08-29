@@ -304,6 +304,12 @@ bool ChatPageC2C::eventFilter(QObject *obj, QEvent *event)
     if (obj == ui->textEdit && event->type() == QEvent::KeyPress)
     {
         QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+
+        if (keyEvent->key() == Qt::Key_Escape)
+        {
+            return true;
+        }
+
         if (keyEvent->matches(QKeySequence::Paste))
         {
             handleImagePaste();

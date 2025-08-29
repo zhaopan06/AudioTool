@@ -335,6 +335,8 @@ void MainWindow::reconnect()
             }
             else
                 MsgBox::showMsg(this,tr("提示"), roomdata["message"].toString());
+        }, [&](int code, const QString& str){
+            ui->stackedWidget->setCurrentIndex(0);
         });
     }
     else
@@ -894,7 +896,9 @@ void MainWindow::enterTheToom(QVariantMap data)
         QString type = multipleAuthoriation.at(1);
         QString type1 = multipleAuthoriation.at(2);
         if(type.toInt() == 1 || type1.toInt() == 1)
+        {
             g_isManager = true;
+        }
         else
         {
             g_isManager = false;
@@ -947,6 +951,8 @@ void MainWindow::enterTheToom(QVariantMap data)
             ui->osList->setCurrentRow(ui->osList->count()-1);
             ui->osList->scrollToBottom();
         });
+    }, [&](int code, const QString& str){
+             ui->stackedWidget->setCurrentIndex(0);
     });
 
 }
@@ -1399,7 +1405,6 @@ void MainWindow::on_pushButton_6_clicked()
     m_soundValuePage->show();
 }
 
-
 void MainWindow::on_pushButton_7_clicked()
 {
     ChatPage::getInstance()->show();
@@ -1423,6 +1428,11 @@ void MainWindow::initMax(bool isMax)
 
 void MainWindow::on_pushButton_19_clicked()
 {
+    if(false == g_isHomeowner)
+    {
+        MsgBox::showMsg(this,tr("提示"), tr("只有房主才能使用该功能"));
+        return;
+    }
     QWidget *mask = new QWidget(this);
     mask->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
     mask->setGeometry(rect());
@@ -1500,6 +1510,11 @@ void MainWindow::on_pushButton_22_clicked()
 
 void MainWindow::on_pushButton_20_clicked()
 {
+    if(false == g_isHomeowner)
+    {
+        MsgBox::showMsg(this,tr("提示"), tr("只有房主才能使用该功能"));
+        return;
+    }
     QWidget *mask = new QWidget(this);
     mask->setStyleSheet("background-color: rgba(0, 0, 0, 0.5);");
     mask->setGeometry(rect());

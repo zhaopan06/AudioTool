@@ -213,14 +213,12 @@ QNetworkRequest HttpAsyncWorker::createRequest(const QString& url, const QVarian
         query.addQueryItem(it.key(), it.value().toString());
     }
     QUrl qurl(url);
-    qurl.setQuery(query);
+    if(!body.isEmpty())
+        qurl.setQuery(query);
 
     QNetworkRequest request;
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    if(url.contains("user-avatar-frame-record/wear"))
-        request.setUrl(url);
-    else
-        request.setUrl(qurl);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");    
+    request.setUrl(qurl);
 
     if (url.startsWith("https://", Qt::CaseInsensitive))
     {
