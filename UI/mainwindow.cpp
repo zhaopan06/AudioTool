@@ -54,6 +54,10 @@ MainWindow::MainWindow(QWidget *parent)
     ui->msgList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->msgList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    ui->guildName->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+    ui->intro->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+    ui->IDLabel->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+
     m_isDragging = false;
     m_dragEdge = None;
     installEventFilter(this);
@@ -807,12 +811,13 @@ void MainWindow::on_minBtn_clicked()
     showMinimized();
 }
 
-//复制工会ID
+#include "ToastPage.h"
 void MainWindow::on_copyBtn_clicked()
 {
     QString text = ui->IDLabel->text();
     QClipboard *clipboard = QApplication::clipboard();
     clipboard->setText(text);
+    ToastPage::showToast(this, QStringLiteral("已复制"));
 }
 
 //刷新
@@ -1580,7 +1585,8 @@ void MainWindow::on_userName_clicked()
         page->show();
     });
     connect(meun, &UserMenu::reLogin, this, [](){
-        ClientConfig::getInstance()->writeIniFile("CLIENT", "isrememberpasswd", "0" );
+        ClientConfig::getInstance()->writeIniFile("CLIENT", "isrememberpasswd", "0");
+        ClientConfig::getInstance()->writeIniFile("CLIENT", "UserAgreement", "0");
         ClientConfig::getInstance()->setLoginData(QVariantMap());
         rebootExe();
     });

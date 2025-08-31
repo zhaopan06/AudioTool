@@ -172,7 +172,7 @@ void ChatTextItem::setEmotion(QVariantMap data, QString path, int type)
     }
     case 3:
     {
-        giftPath = ":/images/gifts/light.gif";
+        giftPath = ":/images/gifts/light.png";
         break;
     }
     case 4:

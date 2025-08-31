@@ -8,7 +8,6 @@
 #include "HttpUserInfo.h"
 #include "MsgBox.h"
 #include "clientconfig.h"
-#include <QWebEngineView>
 #include <QProcess>
 
 LoginPage::LoginPage(QWidget *parent)
@@ -47,6 +46,12 @@ LoginPage::LoginPage(QWidget *parent)
     ui->stackedWidget_2->setCurrentIndex(0);
     ui->code_label_click->setVisible(false);
     m_time = 60;
+
+    QString UserAgreement = ClientConfig::getInstance()->readIniFile("CLIENT", "UserAgreement");
+    if(UserAgreement == "1")
+    {
+        ui->UserAgreement->setChecked(true);
+    }
 
     QString isrememberpasswd = ClientConfig::getInstance()->readIniFile("CLIENT", "isrememberpasswd");
     if(isrememberpasswd == "1")
@@ -391,6 +396,8 @@ void LoginPage::on_login_btn_clicked()
             {
                 ClientConfig::getInstance()->writeIniFile("CLIENT", "isrememberpasswd", "0" );
             }
+
+            ClientConfig::getInstance()->writeIniFile("CLIENT", "UserAgreement", "1" );
             ui->login_btn->setEnabled(true);
             accept();
         }
@@ -432,7 +439,7 @@ void LoginPage::on_next_page_btn_clicked()
         return;
     }
 
-    if(!ui->radioButton->isChecked())
+    if(!ui->UserAgreement->isChecked())
     {
         MsgBox::showMsg(this, QStringLiteral("提示"), QStringLiteral("请勾选用户协议"));
         return;
@@ -495,7 +502,11 @@ void LoginPage::on_minBtn_clicked()
 //帮助
 void LoginPage::on_help_Btn_1_clicked()
 {
-
+    WebEngView *page = new WebEngView(this);
+    page->setAttribute(Qt::WA_DeleteOnClose);
+    page->setWindowTitle(QStringLiteral("帮助"));
+    page->init(H5Test + QString("CustomerService"));
+    page->show();
 }
 
 //重新获取验证码
@@ -504,20 +515,21 @@ void LoginPage::on_code_label_click_clicked()
     on_next_page_btn_clicked();
 }
 
-
 void LoginPage::on_Btn_clicked()
 {
-    WebEngView page;
-    page.setWindowTitle(QStringLiteral("用户服务协议"));
-    page.init(H5Test + QString("Agreements/ServiceAgreement"));
-    page.exec();
+    WebEngView *page = new WebEngView(this);
+    page->setAttribute(Qt::WA_DeleteOnClose);
+    page->setWindowTitle(QStringLiteral("用户服务协议"));
+    page->init(H5Test + QString("Agreements/ServiceAgreement"));
+    page->show();
 }
 
 void LoginPage::on_btn1_clicked()
 {
-    WebEngView page;
-    page.setWindowTitle(QStringLiteral("隐私协议"));
-    page.init(H5Test + QString("Agreements/PrivacyPolicy"));
-    page.exec();
+    WebEngView *page = new WebEngView(this);
+    page->setAttribute(Qt::WA_DeleteOnClose);
+    page->setWindowTitle(QStringLiteral("隐私协议"));
+    page->init(H5Test + QString("Agreements/PrivacyPolicy"));
+    page->show();
 }
 

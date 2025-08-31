@@ -54,7 +54,7 @@ bool getIsHaveMyselfPoss()
 
 bool findWindows()
 {
-    HWND hWnd = ::FindWindow(NULL, L"篮板语音-PC");
+    HWND hWnd = ::FindWindow(NULL, L"篮伴语音-PC");
     if (hWnd != NULL)
     {
         ::ShowWindow(hWnd, SW_RESTORE );
@@ -85,14 +85,12 @@ int main(int argc, char *argv[])
     QGuiApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-    QApplication a(argc, argv);    
+    QApplication a(argc, argv);
 
     if(getIsHaveMyselfPoss())
     {
-        if(findWindows())
-        {
-            return 0;
-        }
+        findWindows();
+        return 0;
     }
 
     QFile fStyle("app.qss");

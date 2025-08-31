@@ -50,7 +50,6 @@
         <file>images/gifts/dice.gif</file>
         <file>images/jinbi.png</file>
         <file>images/nextBtn.png</file>
-        <file>images/gifts/light.gif</file>
         <file>images/icon_公会.png</file>
         <file>images/icon_go.png</file>
         <file>images/HI.png</file>
@@ -84,5 +83,8 @@
         <file>images/dressUp_bg.png</file>
         <file>images/icon_关.png</file>
         <file>images/icon_开.png</file>
+        <file>images/gifts/light.png</file>
+        <file>images/lock_c.png</file>
+        <file>images/lock_n.png</file>
     </qresource>
 </RCC>

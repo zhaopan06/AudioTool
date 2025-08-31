@@ -78,7 +78,6 @@ void NewUserPage::on_closeBtn_clicked()
     this->close();
 }
 
-
 void NewUserPage::on_topBtn_clicked()
 {
     bool isOnTop = windowFlags() & Qt::WindowStaysOnTopHint;
