@@ -10,3 +10,6 @@ SDK/vlc/
 SDK/vlcLib/
 AudioTool.pro.user.2a98014
 ui_WebPlayerPage.h
+AudioTool.pro.user
+generated_ui/
+AudioTool_resource.rc

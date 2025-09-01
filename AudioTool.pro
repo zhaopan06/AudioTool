@@ -4,6 +4,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17 utf8_source
 
+UI_DIR = $$PWD/generated_ui
+
 QMAKE_PROJECT_DEPTH = 0
 
 LIBS += user32.lib
