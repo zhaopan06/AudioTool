@@ -71,18 +71,19 @@ LoginPage::LoginPage(QWidget *parent)
 
         if(0 == code)
         {
+            MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code));
             ClientConfig::getInstance()->setLoginData(QVariantMap());
             rebootExe();
         }
         else if(356 == code)
         {
-            MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code) );
+            MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code));
             ClientConfig::getInstance()->setLoginData(QVariantMap());
             rebootExe();
         }
         else
         {
-            MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code) );
+            MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code));
         }
     });
 }

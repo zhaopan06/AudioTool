@@ -92,12 +92,12 @@ void AgoraRtcEngineInterface::vInitAgoraSdk()
         qDebug()<<"initialize error";
     }
     agora::util::AutoPtr<agora::media::IMediaEngine> mediaEngine;
-    mediaEngine.queryInterface(m_rtcEngine, AGORA_IID_MEDIA_ENGINE);    
+    mediaEngine.queryInterface(m_rtcEngine, AGORA_IID_MEDIA_ENGINE);
 
+    m_rtcEngine->setLogFilter(agora::commons::LOG_FILTER_OFF);
     m_rtcEngine->enableAudioVolumeIndication(300,5,false);
     m_rtcEngine->enableAudio();
-    m_rtcEngine->disableVideo();
-    m_rtcEngine->setLogFilter(agora::commons::LOG_FILTER_OFF);
+    m_rtcEngine->disableVideo();    
 }
 
 int AgoraRtcEngineInterface::joinChannel(const QString& token, const QString& channel, int uid)

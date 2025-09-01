@@ -32,7 +32,7 @@ private slots:
 
 private:
     bool eventFilter(QObject *obj, QEvent *event);
-
+    void leaveEvent(QEvent *event);
 private:
     Ui::SetTingMenu *ui;
 };

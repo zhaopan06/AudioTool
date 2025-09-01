@@ -101,6 +101,7 @@ void HttpAsyncWorker::handleRequest()
         // 设置超时处理
         connect(timeoutTimer.data(), &QTimer::timeout, [=]() {
             reply->abort();
+            m_activeRequests--;
             QMetaObject::invokeMethod(qApp, []() {
                 QString toastMsg = QStringLiteral("请求超时");
                 ToastPage::showToast(nullptr,toastMsg);
@@ -110,6 +111,7 @@ void HttpAsyncWorker::handleRequest()
 
         QObject::connect(reply, &QNetworkReply::finished, reply, [=]{
 
+            m_activeRequests--;
             timeoutTimer->stop();
 
             QByteArray response = reply->readAll();
@@ -119,27 +121,26 @@ void HttpAsyncWorker::handleRequest()
             QPointer<QObject> targetContext = task.context ? QPointer<QObject>(task.context) :  QPointer<QObject>(g_main);
             if (reply->error() != QNetworkReply::NoError)
             {
+                const QString errorMsg = QStringLiteral("网络异常");
                 if(task.errorCallback)
                 {
                     const int errorCode = reply->error();
-                    const QString errorMsg = reply->errorString();
                     const auto errorCallback = task.errorCallback;
                     QMetaObject::invokeMethod(qApp, [=]() {
                         if (!targetContext)
                         {
-                            qDebug() << "Context object no longer exists";
                             return;
                         }
                         try {
                             errorCallback(errorCode, errorMsg);
-                        } catch (...) {
+                        }
+                        catch (...)
+                        {
                             qCritical() << "Exception in error callback";
                         }
                     }, Qt::QueuedConnection);
                 }
 
-                QString errorMsg = reply->errorString();
-                qDebug()<<"errorMsg---"<<errorMsg<<"reply->error()---"<<reply->error();
                 QMetaObject::invokeMethod(g_main, [=]() {
                     ToastPage::showToast(nullptr,errorMsg);
                 }, Qt::QueuedConnection);
@@ -188,9 +189,9 @@ void HttpAsyncWorker::handleRequest()
             }
 
             reply->deleteLater();
-            m_activeRequests--;
 
-            QMetaObject::invokeMethod(this, &HttpAsyncWorker::handleRequest, Qt::QueuedConnection);
+            if(m_activeRequests>0)
+                QMetaObject::invokeMethod(this, &HttpAsyncWorker::handleRequest, Qt::QueuedConnection);
         });
     }
     else
@@ -201,7 +202,8 @@ void HttpAsyncWorker::handleRequest()
             ToastPage::showToast(nullptr,errorMsg);
         }, Qt::QueuedConnection);
 
-        QMetaObject::invokeMethod(this, &HttpAsyncWorker::handleRequest, Qt::QueuedConnection);
+        if(m_activeRequests>0)
+            QMetaObject::invokeMethod(this, &HttpAsyncWorker::handleRequest, Qt::QueuedConnection);
     }
 }
 

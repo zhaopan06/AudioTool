@@ -36,6 +36,8 @@ private:
     void initAgora();
 
     void initRoomInfoUI();
+
+    void updateDate();
 protected:
     bool eventFilter(QObject *watched, QEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;

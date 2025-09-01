@@ -93,7 +93,8 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    QFile fStyle("app.qss");
+    QString qssAath = QCoreApplication::applicationDirPath() + "/app.qss";
+    QFile fStyle(qssAath);
     if (!fStyle.open(QIODevice::ReadOnly))
     {
         QMessageBox::warning(0,"open error","error",QMessageBox::Yes);

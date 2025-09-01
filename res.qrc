@@ -83,8 +83,8 @@
         <file>images/dressUp_bg.png</file>
         <file>images/icon_关.png</file>
         <file>images/icon_开.png</file>
-        <file>images/gifts/light.png</file>
         <file>images/lock_c.png</file>
         <file>images/lock_n.png</file>
+        <file>images/gifts/light.webp</file>
     </qresource>
 </RCC>

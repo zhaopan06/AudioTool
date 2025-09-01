@@ -93,7 +93,7 @@ void ChatTextMyItem::setEmotion(QString path, int type)
     }
     case 3:
     {
-        giftPath = ":/images/gifts/light.png";
+        giftPath = ":/images/gifts/light.webp";
         break;
     }
     case 4:

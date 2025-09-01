@@ -1014,6 +1014,36 @@ void MainWindow::initRoomInfoUI()
     }, this);
 }
 
+void MainWindow::updateDate()
+{
+    //1：更新登录的数据，头像名称等
+    QString userID = HttpUserInfo::instance()->getUserID();
+    HttpInterFace::getInstance()->getUserInfo(userID, [&](const QVariant &map) {
+
+        QVariantMap loginMap = HttpUserInfo::instance()->getLoginInfo();
+        loginMap["user"] = map.toMap()["data"].toMap();
+        HttpUserInfo::instance()->setLoginInfo(loginMap);
+
+        QString photoUrl = loginMap["user"].toMap()["photo"].toString();
+        QString name = loginMap["user"].toMap()["name"].toString();
+        ui->userName->setText(name);
+        HttpInterFace::getInstance()->downLoad(photoUrl, [&](const QString &path) {
+            ui->userImage->setPixmap(QPixmap::fromImage(QImage(path)));
+        });
+    });
+
+    //2：根据所在页面，更新所需要的内容
+    if(0 == ui->stackedWidget->currentIndex())
+    {
+        initRoomInfoUI();
+    }
+    else if(1 == ui->stackedWidget->currentIndex())
+    {
+        updateMicList();
+        ui->buttonGroup->checkedButton()->click();
+    }
+}
+
 void MainWindow::setMyselfMicInfo(int status)
 {
     if(status >= 0)

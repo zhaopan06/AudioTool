@@ -25,7 +25,7 @@ signals:
     void reLogin();
 private:
     bool eventFilter(QObject *obj, QEvent *event);
-
+    void leaveEvent(QEvent *event);
 private:
     Ui::UserMenu *ui;
 };
