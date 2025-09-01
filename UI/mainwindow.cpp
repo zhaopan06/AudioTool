@@ -1014,7 +1014,7 @@ void MainWindow::initRoomInfoUI()
     }, this);
 }
 
-void MainWindow::updateDate()
+void MainWindow::updateUI()
 {
     //1：更新登录的数据，头像名称等
     QString userID = HttpUserInfo::instance()->getUserID();
@@ -1040,6 +1040,7 @@ void MainWindow::updateDate()
     else if(1 == ui->stackedWidget->currentIndex())
     {
         updateMicList();
+        //更新房间的信息，比如房间名字等
         ui->buttonGroup->checkedButton()->click();
     }
 }
@@ -1648,6 +1649,8 @@ void MainWindow::on_pushButton_21_clicked()
 
 void MainWindow::updateOnlineInfo()
 {
+    updateUI();
+    return;
     cleanupLayout(ui->onlineList);
     int currentPage = 1;
     HttpInterFace::getInstance()->getOnlineInfo(g_roomID,currentPage, [&](const QVariant &data) {
