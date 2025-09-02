@@ -259,6 +259,15 @@ void HttpInterFace::getGiftList(callBack callBack, QObject *context)
     HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::GET,url,callBack,nullptr,jsonMap,context);
 }
 
+void HttpInterFace::updateRoomInfo(QString roomId, int entryType, callBack callback)
+{
+    QVariantMap jsonMap;
+    jsonMap.insert("roomId",roomId);
+    jsonMap.insert("entryType",entryType);
+    QString strUrl = QString("/live/getLivingRoom");
+    HttpAsyncWorker::getInstance()->submitRequest(HttpAsyncWorker::RequestMethod::POST,strUrl,callback,nullptr,jsonMap);
+}
+
 void HttpInterFace::clearCardiacValue(QString roomId, callBack callBack)
 {
     QVariantMap jsonMap;

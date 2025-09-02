@@ -717,7 +717,7 @@ border:none;
        <string notr="true">background: #161616;</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <property name="mouseTracking">
@@ -829,8 +829,8 @@ font-style: normal;</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>631</width>
-                  <height>16</height>
+                  <width>648</width>
+                  <height>362</height>
                  </rect>
                 </property>
                </widget>
@@ -1276,7 +1276,10 @@ border-radius: 6px;</string>
                         <string/>
                        </property>
                        <property name="scaledContents">
-                        <bool>true</bool>
+                        <bool>false</bool>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
                        </property>
                       </widget>
                      </item>
@@ -4970,7 +4973,7 @@ border-radius: 18px;</string>
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup_2"/>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>

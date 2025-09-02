@@ -19,6 +19,7 @@ signals:
     void updateRoomData();
     void setTing();
     void aboutPage();
+    void openHelpPage();
 private slots:
     void on_pushButton_clicked();
 

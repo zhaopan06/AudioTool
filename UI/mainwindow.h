@@ -37,7 +37,13 @@ private:
 
     void initRoomInfoUI();
 
+    void initUserPower();
+    void initChatHead();
+    void initmicList();
+
+private slots:
     void updateUI();
+
 protected:
     bool eventFilter(QObject *watched, QEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
@@ -79,8 +85,8 @@ private slots:
     void msg_emotion(QVariantMap user, QString path, int type);
     void msg_vip(QVariantMap user, QString url);
     void msg_multipleAuthoriation(QVariantMap data);
+    void msg_playerUrl(QString str);
 
-    void msg_playerUrl(QString url);
     void on_sendBtn_clicked();
 
     void on_emoBtn_clicked();
@@ -125,7 +131,7 @@ private slots:
     void setMyselfMicInfo(int status);
     void on_giftBtn_clicked();
 
-    void updateMicList();
+    void updateLeftMicList();
     void msg_uninit();
 
     void on_downMicBtn_clicked();
@@ -169,6 +175,7 @@ private slots:
     void updateOnlineInfo();
     void setTing();
     void aboutPage();
+    void openHelpPage();
 
     void on_pushButton_11_clicked();
 

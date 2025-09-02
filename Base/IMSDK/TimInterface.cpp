@@ -532,8 +532,20 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                         QString url = json_doc["animation"].toString();
                         if(!url.isEmpty())
                         {
-                            qDebug()<<"animation url---"<<url;
-                            emit msg_playerUrl(url);
+                            QVariantMap newJson;
+                            newJson["userId"] = user["userId"];
+                            newJson["level"] = user["userLevelCompare"].toJsonObject()["level"].toInt();
+                            newJson["message"] = content;
+                            newJson["mount"] = user["mount"];
+                            newJson["levelDict"] = user["userLevelCompare"];
+                            newJson["type"] = user["mountType"];
+                            newJson["photo"] = user["photo"];
+                            newJson["nickName"] = user["name"];
+                            newJson["action"] = "200001";
+
+                            QJsonObject jsonObject = QJsonObject::fromVariantMap(newJson);
+                            QJsonDocument jsonDoc(jsonObject);
+                            emit msg_playerUrl(jsonDoc.toJson(QJsonDocument::Compact));
                         }
                         break;
                     }
@@ -739,7 +751,7 @@ void TimInterface::getMSGTojson(QByteArray json_msg_array)
                 }
                 case 100008:
                 {
-                    qDebug()<<"100008 object==="<<object;
+                    emit updateRoom();
                     break;
                 }
                 case 100009:

@@ -101,8 +101,8 @@ signals:
     void msg_updateMicList();
     void msg_multipleAuthoriation(QVariantMap);
     void msg_uninit();
-
-    void msg_playerUrl(QString url);
+    void updateRoom();
+    void msg_playerUrl(QString);
 
     void c2c_msg_text(QVariantMap, QString);
     void c2c_initTimList(QVariantList);

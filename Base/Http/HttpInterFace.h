@@ -67,6 +67,7 @@ public:
     void getDressUp(int type, int currentPage, callBack callBack);
     void setDressUp(int avatarFrameId, int type, callBack callBack);
     void getGiftList(callBack callBack, QObject *context);
+    void updateRoomInfo(QString roomId, int entryType, callBack callback);
 
 private:
     explicit HttpInterFace(QObject *parent = nullptr);

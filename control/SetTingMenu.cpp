@@ -82,6 +82,7 @@ void SetTingMenu::on_pushButton_clicked()
 //帮助中心
 void SetTingMenu::on_pushButton_3_clicked()
 {
+    emit openHelpPage();
     close();
 }
 
