@@ -13,3 +13,4 @@ ui_WebPlayerPage.h
 AudioTool.pro.user
 generated_ui/
 AudioTool_resource.rc
+Makefile

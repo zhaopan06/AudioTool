@@ -526,6 +526,8 @@ void MainWindow::msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to)
             var->updateData(to);
         }
     }
+
+    ui->buttonGroup_2->checkedButton()->click();
 }
 //麦位发生变化
 void MainWindow::msg_micInfo(QVariantList list)
@@ -960,7 +962,14 @@ void MainWindow::updateUI()
 
         });
 
-        ui->buttonGroup->checkedButton()->click();
+        if(ui->onlineBtn == ui->buttonGroup->checkedButton())
+        {
+            ui->onlineBtn->click();
+        }
+        else
+        {
+            ui->buttonGroup_2->checkedButton()->click();
+        }
     }
 }
 
