@@ -7,6 +7,7 @@
 #include <QJsonDocument>
 #include "MsgBox.h"
 #include "CommonTool.h"
+#include "clientconfig.h"
 
 TimInterface *TimInterface::getInstance()
 {
@@ -36,11 +37,15 @@ int TimInterface::initSDK()
     initRecvNewMsgCallback();
 
     TIMSetKickedOfflineCallback([](const void* user_data) {
-        MsgBox::showMsg(NULL,tr("提示"), tr("被踢下线，请重启登录"));
+        ClientConfig::getInstance()->setLoginData(QVariantMap());
+        MsgBox::showMsgTop(NULL,tr("提示"), tr("被踢下线，请重启登录"));
+        rebootExe();
     }, this);
 
     TIMSetUserSigExpiredCallback([](const void* user_data) {
-        MsgBox::showMsg(NULL,tr("提示"), tr("IMToken过期，请重启登录"));
+        ClientConfig::getInstance()->setLoginData(QVariantMap());
+        MsgBox::showMsgTop(NULL,tr("提示"), tr("IMToken过期，请重启登录"));
+        rebootExe();
     }, this);
     //添加好友回调
     TIMSetOnAddFriendCallback([](const char* json_identifier_array, const void* user_data) {
