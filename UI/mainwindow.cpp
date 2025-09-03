@@ -101,6 +101,7 @@ MainWindow::MainWindow(QWidget *parent)
         if(0 == code)
         {
             ClientConfig::getInstance()->setLoginData(QVariantMap());
+            MsgBox::showMsg(this,tr("提示"), msg + " code=" + QString::number(code) );
             rebootExe();
         }
         else if(356 == code)
