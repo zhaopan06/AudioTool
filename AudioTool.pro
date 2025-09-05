@@ -18,7 +18,8 @@ INCLUDEPATH += \
         ./Base/Agora \
         ./Base/ImSDK \       
         ./SDK/Agora/include \
-        ./SDK/ImSDK/include \        
+        ./SDK/ImSDK/include \
+        ./SDK/Http/ \
         ./Base/Http \
         ./control \
         ./UI \
@@ -27,11 +28,13 @@ INCLUDEPATH += \
 
 LIBS += \
     -L$$PWD/SDK/Agora/lib   \  
-    -L$$PWD/SDK/ImSDK/lib
+    -L$$PWD/SDK/ImSDK/lib  \
+    -L$$PWD/SDK/Http
 
 LIBS += \
     -lagora_rtc_sdk.dll \   
-    -limsdk
+    -limsdk \
+    -lHttpAsynWork
 
 SOURCES += \
     Base/Agora/agorartcengineinterface.cpp \

@@ -55,6 +55,7 @@ public:
     void addHeader(const QString& key, const QString& value);
     void removeHeader(const QString& key);
     void clearHeaders();
+    void setToken(QString token);
 
 signals:
     void requestAdded();
@@ -66,14 +67,14 @@ private:
 
     QNetworkAccessManager* m_manager;
     QQueue<RequestTask> m_requestQueue;
-    QMutex m_queueMutex;
-    int m_activeRequests = 0;
+    QMutex m_queueMutex;    
+    std::atomic<int> m_activeRequests{0};
     int m_maxConcurrentRequests = 4;
     int m_requestTimeout = 30000;  // 默认30秒超时
     QString m_baseUrl;
     QThread m_workerThread;
     QMap<QString, QString> m_map;  // 自定义头部
-
+    QString m_token = "";
 private slots:
     void handleRequest();
 };

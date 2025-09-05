@@ -5,18 +5,18 @@
 #include <QObject>
 #include <QVariantMap>
 #include <QMap>
+#include "HttpAsynWorkFace.h"
 
 #define BASE_API_URL "https://testapi.linkfunapp.com/app"
 #define H5Test "https://testm.linkfunapp.com/app.html#/h5/"
 #define H5 "https://m.linkfunapp.com/app.html#/h5/"
 
 
-enum class PhoneCodeType : int
-{
-    TYPE_LOGIN = 0,// 登录
-    TYPE_RESET_PWD = 1,// 找回密码
-    TYPE_RESET_MOBILE = 2,//重置手机号
-    ATYPE_UNREGISTER = 3// 注销
+enum class RequestMethod {
+    GET,
+    POST,
+    PUT,
+    PATCH
 };
 
 using callBack = std::function<void(const QVariant &content)>;
@@ -73,6 +73,14 @@ private:
     explicit HttpInterFace(QObject *parent = nullptr);
     ~HttpInterFace();
 
+    void submitRequest(RequestMethod method,
+                       const QString& url,
+                       const callBack& successCallback,
+                       const ErrorCallback& errorCallback = nullptr,
+                       const QVariantMap& body = QVariantMap(),
+                       QObject* context = nullptr);
+
+    HttpAsynWorkFace m_http;
 signals:
     void error_msg_box_text(QString,int);
     void reLogin();

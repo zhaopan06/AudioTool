@@ -1,13 +1,11 @@
 #include "HttpAsyncWorker.h"
 #include <QNetworkReply>
 #include <QDebug>
-#include "Global.h"
 #include <QPointer>
-#include "HttpUserInfo.h"
 #include "qtimer.h"
 #include <QSslConfiguration>
-#include "ToastPage.h"
-#include "qurlquery.h"
+#include <qurlquery.h>
+#include <QJsonDocument>
 
 HttpAsyncWorker* HttpAsyncWorker::getInstance()
 {
@@ -49,7 +47,7 @@ void HttpAsyncWorker::submitRequest(RequestMethod method, const QString& url,
     task.body = body;
     task.successCallback = successCallback;
     task.errorCallback = errorCallback;
-    task.context = context ? context : g_main;
+    task.context = context;
     task.timeout = m_requestTimeout;
 
     m_requestQueue.enqueue(task);
@@ -58,15 +56,23 @@ void HttpAsyncWorker::submitRequest(RequestMethod method, const QString& url,
 
 void HttpAsyncWorker::handleRequest()
 {
-    QMutexLocker locker(&m_queueMutex);
+    RequestTask task;
+    bool hasTask = false;
 
-    if (m_requestQueue.isEmpty() || m_activeRequests >= m_maxConcurrentRequests)
     {
-        return;
+        QMutexLocker locker(&m_queueMutex);
+        if (m_requestQueue.isEmpty() || m_activeRequests >= m_maxConcurrentRequests)
+        {
+            return;
+        }
+        task = m_requestQueue.dequeue();
+        hasTask = true;
+        m_activeRequests++;
     }
 
-    RequestTask task = m_requestQueue.dequeue();
-    m_activeRequests++;
+    if (!hasTask) {
+        return;
+    }
 
     QByteArray body = QJsonDocument::fromVariant(task.body).toJson();
     QString fullUrl = m_baseUrl + task.url;
@@ -96,20 +102,46 @@ void HttpAsyncWorker::handleRequest()
         break;
     }
 
+    QSharedPointer<std::atomic<bool>> requestCompleted(new std::atomic<bool>(false));
+    QPointer<QObject> targetContext = QPointer<QObject>(task.context);
+
     if (reply)
     {
         // 设置超时处理
         connect(timeoutTimer.data(), &QTimer::timeout, [=]() {
-            reply->abort();
-            m_activeRequests--;
-            QMetaObject::invokeMethod(qApp, []() {
-                QString toastMsg = QStringLiteral("请求超时");
-                ToastPage::showToast(nullptr,toastMsg);
-            }, Qt::QueuedConnection);
-        });
-        timeoutTimer->start();
 
+            if (requestCompleted->load())
+            {
+                reply->deleteLater();
+                return;
+            }
+            requestCompleted->store(true);
+
+            reply->abort();
+            reply->deleteLater();
+            m_activeRequests--;
+
+            if(task.errorCallback && !targetContext.isNull())
+            {
+                QMetaObject::invokeMethod(targetContext, [=]() {
+                    QString errorMsg = QStringLiteral("请求超时");
+                    task.errorCallback(-1, errorMsg);
+                }, Qt::QueuedConnection);
+            }
+
+            if(m_activeRequests > 0)
+                QMetaObject::invokeMethod(this, &HttpAsyncWorker::handleRequest, Qt::QueuedConnection);
+        });
+
+        timeoutTimer->start();
         QObject::connect(reply, &QNetworkReply::finished, reply, [=]{
+
+            if (requestCompleted->load())
+            {
+                reply->deleteLater();
+                return;
+            }
+            requestCompleted->store(true);
 
             m_activeRequests--;
             timeoutTimer->stop();
@@ -118,71 +150,38 @@ void HttpAsyncWorker::handleRequest()
             QJsonParseError json_error;
             QJsonDocument jsonDocument = QJsonDocument::fromJson(response, &json_error);
 
-            QPointer<QObject> targetContext = task.context ? QPointer<QObject>(task.context) :  QPointer<QObject>(g_main);
             if (reply->error() != QNetworkReply::NoError)
             {
-                const QString errorMsg = QStringLiteral("网络异常");
-                if(task.errorCallback)
+                if(task.errorCallback && !targetContext.isNull())
                 {
-                    const int errorCode = reply->error();
-                    const auto errorCallback = task.errorCallback;
-                    QMetaObject::invokeMethod(qApp, [=]() {
-                        if (!targetContext)
-                        {
-                            return;
-                        }
-                        try {
-                            errorCallback(errorCode, errorMsg);
-                        }
-                        catch (...)
-                        {
-                            qCritical() << "Exception in error callback";
-                        }
+                    QMetaObject::invokeMethod(targetContext, [=]() {
+                        const int errorCode = reply->error();
+                        const QString errorMsg = QStringLiteral("网络异常");
+                        task.errorCallback(errorCode, errorMsg);
                     }, Qt::QueuedConnection);
                 }
-
-                QMetaObject::invokeMethod(g_main, [=]() {
-                    ToastPage::showToast(nullptr,errorMsg);
-                }, Qt::QueuedConnection);
             }
             else if(json_error.error != QJsonParseError::NoError)
             {
-                if(task.errorCallback)
+                if(task.errorCallback && !targetContext.isNull())
                 {
-                    const QString errorMsg = json_error.errorString();
-                    const auto errorCallback = task.errorCallback;
                     QMetaObject::invokeMethod(targetContext, [=]() {
-                        errorCallback(-1, "JSON parse error: " + errorMsg);
+                        const QString errorMsg = json_error.errorString();
+                        task.errorCallback(-1, "JSON parse error: " + errorMsg);
                     }, Qt::QueuedConnection);
                 }
-
-                QString errorMsg = json_error.errorString();
-                QMetaObject::invokeMethod(g_main, [=]() {
-                    ToastPage::showToast(nullptr,errorMsg);
-                }, Qt::QueuedConnection);
             }
             else if(jsonDocument["code"].toInt() != 1)
             {
-                if(jsonDocument["code"].toInt() == 0 || jsonDocument["code"].toInt() == 356)
-                {
-                    emit error_msg_box_text(jsonDocument["message"].toString(),jsonDocument["code"].toInt());
-                }
-
-                if(task.errorCallback)
+                if(task.errorCallback && !targetContext.isNull())
                 {
                     QMetaObject::invokeMethod(targetContext, [=]() {
-                        task.errorCallback(jsonDocument["code"].toInt(),
-                                           jsonDocument["message"].toString());
+                        task.errorCallback(jsonDocument["code"].toInt(),jsonDocument["message"].toString());
                     }, Qt::QueuedConnection);
                 }
-
-                QString errorMsg = jsonDocument["message"].toString();
-                QMetaObject::invokeMethod(g_main, [=]() {
-                    ToastPage::showToast(nullptr,errorMsg);
-                }, Qt::QueuedConnection);
             }
-            else if(task.successCallback)
-            {                
+            else if(task.successCallback && !targetContext.isNull())
+            {
                 QMetaObject::invokeMethod(targetContext, [=]() {
                     task.successCallback(jsonDocument.toVariant().toMap());
                 }, Qt::QueuedConnection);
@@ -190,19 +189,23 @@ void HttpAsyncWorker::handleRequest()
 
             reply->deleteLater();
 
-            if(m_activeRequests>0)
+            if(m_activeRequests > 0)
                 QMetaObject::invokeMethod(this, &HttpAsyncWorker::handleRequest, Qt::QueuedConnection);
         });
     }
     else
     {
         m_activeRequests--;
-        QString errorMsg = "Failed to create request";
-        QMetaObject::invokeMethod(g_main, [=]() {
-            ToastPage::showToast(nullptr,errorMsg);
-        }, Qt::QueuedConnection);
 
-        if(m_activeRequests>0)
+        if(task.errorCallback && !targetContext.isNull())
+        {
+            QMetaObject::invokeMethod(targetContext, [=]() {
+                QString errorMsg = "Failed to create request";
+                task.errorCallback(-1, errorMsg);
+            }, Qt::QueuedConnection);
+        }
+
+        if(m_activeRequests > 0)
             QMetaObject::invokeMethod(this, &HttpAsyncWorker::handleRequest, Qt::QueuedConnection);
     }
 }
@@ -235,8 +238,7 @@ QNetworkRequest HttpAsyncWorker::createRequest(const QString& url, const QVarian
         request.setRawHeader(it.key().toUtf8(), it.value().toUtf8());
     }
 
-    QString token = HttpUserInfo::instance()->gettoken();
-    request.setRawHeader("token", token.isEmpty() ? "0" : token.toLatin1());
+    request.setRawHeader("token", m_token.isEmpty() ? "0" : m_token.toLatin1());
     return request;
 }
 
@@ -284,4 +286,10 @@ void HttpAsyncWorker::removeHeader(const QString& key)
 {
     QMutexLocker locker(&m_queueMutex);
     m_map.remove(key);
+}
+
+void HttpAsyncWorker::setToken(QString token)
+{
+    QMutexLocker locker(&m_queueMutex);
+    m_token = token;
 }
