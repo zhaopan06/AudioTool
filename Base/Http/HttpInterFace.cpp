@@ -10,8 +10,10 @@
 #include "HttpUserInfo.h"
 #include <QUrlQuery>
 #include <QThread>
-#include "HttpAsyncWorker.h"
+#include "HttpAsynWorkFace.h"
 #include "ToastPage.h"
+
+HttpAsynWorkFace httpasynWork;
 
 HttpInterFace *HttpInterFace::getInstance()
 {
@@ -21,9 +23,19 @@ HttpInterFace *HttpInterFace::getInstance()
 
 HttpInterFace::HttpInterFace(QObject *parent) : QObject(parent)
 {
-    HttpAsyncWorker::getInstance()->setBaseUrl(BASE_API_URL);
-    HttpAsyncWorker::getInstance()->setHeaders();
-    connect(HttpAsyncWorker::getInstance(),SIGNAL(error_msg_box_text(QString,int)),this,SIGNAL(error_msg_box_text(QString,int)));
+    httpasynWork.initInterFace();
+    httpasynWork.setBaseUrl(BASE_API_URL);
+    QVariantMap map;
+    map.insert("deviceId", "11");
+    map.insert("appVersion", "1.0");
+    map.insert("deviceType", "2");
+    map.insert("osVersion", "win10");
+    map.insert("root", "0");
+    map.insert("deviceName", "PC");
+    map.insert("channel", "1");
+    map.insert("emulator", "0");
+    map.insert("networkType", "0");
+    httpasynWork.setHeaders(map);
 }
 
 HttpInterFace::~HttpInterFace()
@@ -32,9 +44,9 @@ HttpInterFace::~HttpInterFace()
 
 void HttpInterFace::submitRequest(RequestMethod method, const QString &url, const callBack &successCallback, const ErrorCallback &errorCallback, const QVariantMap &body, QObject *context)
 {
-    HttpAsyncWorker::getInstance()->setToken(HttpUserInfo::instance()->gettoken());
+    httpasynWork.setToken(HttpUserInfo::instance()->gettoken());
     QPointer<QObject> newObject = QPointer<QObject>(context ? context : g_main);
-    HttpAsyncWorker::getInstance()->submitRequest( static_cast<HttpAsyncWorker::RequestMethod>(method),url,successCallback,[=](int code, const QString& str){
+    httpasynWork.submitRequest( static_cast<HttpAsynWorkFace::RequestMethod>(method),url,successCallback,[=](int code, const QString& str){
 
         if (!newObject || !newObject.data())
         {
