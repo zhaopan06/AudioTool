@@ -318,7 +318,6 @@ void ChatPage::msg_uidNumbers(QString uid, int numbers)
     }
 }
 
-//我的关注
 void ChatPage::on_pushButton_3_clicked()
 {
     ui->listWidget_3->clear();
@@ -341,7 +340,6 @@ void ChatPage::on_pushButton_3_clicked()
     });
 }
 
-//我的粉丝
 void ChatPage::on_pushButton_4_clicked()
 {
     ui->listWidget_3->clear();
@@ -364,7 +362,6 @@ void ChatPage::on_pushButton_4_clicked()
     });
 }
 
-//我的好友
 void ChatPage::on_pushButton_clicked()
 {
     ui->listWidget_3->clear();
@@ -387,7 +384,6 @@ void ChatPage::on_pushButton_clicked()
     });
 }
 
-//我的访客
 void ChatPage::on_pushButton_2_clicked()
 {
     ui->listWidget_3->clear();
@@ -442,7 +438,7 @@ void ChatPage::ChatC2C(QVariantMap data)
 
     item->setClick();
 }
-//TODO 添加房间邀请的功能
+
 void ChatPage::c2c_msg_inviteFriends(QVariantMap data)
 {
     QString uid = data["user_profile_identifier"].toString();
@@ -485,7 +481,7 @@ bool ChatPage::updateLeftText(QString text, QString uid)
     return isNewUser;
 }
 
-//查询好友之类的
+
 void ChatPage::on_searchBtn_clicked()
 {
     QString searchText = ui->lineEdit->text();

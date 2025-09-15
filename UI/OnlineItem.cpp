@@ -58,10 +58,7 @@ bool OnlineItem::eventFilter(QObject *watched, QEvent *event)
     }
     return QWidget::eventFilter(watched, event);
 }
-/*
-status;//1-8代表1-8号麦，-1=在房间，-2=在线并且最近来过，-3=离线并最近来过  这是在线列表中status
--1 在房间  -2 在线 -3 离线
- */
+
 void OnlineItem::setData(QVariantMap data, QString id)
 {
     QString name = data["name"].toString();

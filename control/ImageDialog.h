@@ -22,11 +22,6 @@ private slots:
 
     void fileDownloaded(bool success, QString path);
 
-
-    // void on_left_clicked();
-
-    // void on_right_clicked();
-
 private:
     void paintEvent(QPaintEvent *event);
     Ui::ImageDialog *ui;

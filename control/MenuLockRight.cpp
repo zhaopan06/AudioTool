@@ -44,7 +44,6 @@ MenuLockRight::~MenuLockRight()
 void MenuLockRight::setData(QVariantMap data)
 {
     m_data = data;
-    //1=闭麦，3=锁麦
     if(3 == m_data["status"].toInt())
     {
         ui->pushButton->setText(tr("取消锁麦"));

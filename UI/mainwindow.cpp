@@ -65,7 +65,6 @@ MainWindow::MainWindow(QWidget *parent)
     setMouseTracking(true);
     g_main = this;
 
-    //设置listWidget无虚框
     ui->msgList->setFocusPolicy(Qt::NoFocus);
     ui->msgList->setVerticalScrollMode(QListWidget::ScrollPerPixel);
     ui->msgList->verticalScrollBar()->setSingleStep(20);
@@ -304,7 +303,7 @@ void MainWindow::joinedChannelSuccess(const QString& channel, unsigned int uid, 
 {
     qDebug()<<"join sueccess--------" <<channel;
 }
-//直播间的每个人麦克风音量回调
+
 void MainWindow::audioVolumeIndication(int uid,int value)
 {
     foreach (auto var, m_micList)
@@ -530,7 +529,7 @@ void MainWindow::msg_gift(QVariantMap form, QVariantMap gift, QVariantMap to)
 
     ui->buttonGroup_2->checkedButton()->click();
 }
-//麦位发生变化
+
 void MainWindow::msg_micInfo(QVariantList list)
 {  
     foreach (auto var, list)
@@ -645,8 +644,6 @@ void MainWindow::msg_numbers(int numbers)
     }
 }
 
-
-//发送文字消息
 void MainWindow::on_sendBtn_clicked()
 {
     QString msg = ui->msgEdit->text();
@@ -677,7 +674,7 @@ void MainWindow::on_sendBtn_clicked()
 
     ui->msgEdit->clear();
 }
-//发送图片
+
 void MainWindow::on_imageBtn_clicked()
 {
     QString localPath = QFileDialog::getOpenFileName(0, QStringLiteral("选择图片"), "", QStringLiteral("jpg、png图片(*.jpg *.png)"));
@@ -778,7 +775,6 @@ void MainWindow::emotionClicked(QVariantMap data)
             else
             {
                 setEmoTionItem(path, 5);
-                //表情
                 if(number <= 21)
                     number --;
                 else if(number >= 27 && number < 32)
@@ -819,12 +815,11 @@ void MainWindow::on_copyBtn_clicked()
     ToastPage::showToast(this, QStringLiteral("已复制"));
 }
 
-//刷新
 void MainWindow::on_updateBtn_clicked()
 {
     initRoomInfoUI();
 }
-//进入房间
+
 void MainWindow::enterTheToom(QVariantMap data)
 {
     ui->stackedWidget->setCurrentIndex(1);
@@ -910,7 +905,7 @@ void MainWindow::initRoomInfoUI()
                 ui->label_9->setPixmap(scaledImage);
             });
         }
-        //直播房间相关
+
         if(roomInfo["pcChatRoomPo"].toList().size() > 0)
         {
             QVariantMap pcChatRoomPo = roomInfo["pcChatRoomPo"].toList().at(0).toMap();
@@ -925,7 +920,6 @@ void MainWindow::initRoomInfoUI()
 
 void MainWindow::updateUI()
 {
-    //1：更新登录的数据，头像名称等
     QString userID = HttpUserInfo::instance()->getUserID();
     HttpInterFace::getInstance()->getUserInfo(userID, [&](const QVariant &map) {
 
@@ -941,7 +935,6 @@ void MainWindow::updateUI()
         });
     });
 
-    //2：根据所在页面，更新所需要的内容
     if(0 == ui->stackedWidget->currentIndex())
     {
         initRoomInfoUI();
@@ -1000,7 +993,7 @@ void MainWindow::initUserPower()
         ui->closeLiveBtn->hide();
     }
 }
-//初始化聊天区域的公告
+
 void MainWindow::initChatHead()
 {
     HttpInterFace::getInstance()->getCommonConfig([&](const QVariant &data) {
@@ -1091,28 +1084,24 @@ void MainWindow::setMyselfMicInfo(int status)
     }
 }
 
-//线上
 void MainWindow::on_onlineBtn_clicked()
 {
     ui->stackedWidget_2->setCurrentIndex(0);
     updateOnlineInfo();
 }
 
-//萌新
 void MainWindow::on_squareBtn_clicked()
 {
     NewUserPage::getInstance()->show();
     NewUserPage::getInstance()->init();
 }
 
-//贡献
 void MainWindow::on_contributeBtn_clicked()
 {
     ui->stackedWidget_2->setCurrentIndex(1);
     on_day_btn_clicked();
 }
 
-//日榜
 void MainWindow::on_day_btn_clicked()
 {
     QVariantMap data = HttpUserInfo::instance()->getRoomInfo();
@@ -1750,4 +1739,3 @@ void MainWindow::msg_gift_mp4(QString str)
     m_player->init(str);
     m_player->show();
 }
-

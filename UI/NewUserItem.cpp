@@ -99,7 +99,6 @@ void NewUserItem::setData(QVariantMap data)
     });
 }
 
-//关注
 void NewUserItem::on_pushButton_clicked()
 {
     QString id = m_data["id"].toString();
@@ -131,14 +130,12 @@ void NewUserItem::on_pushButton_clicked()
 
 }
 
-//邀请
 void NewUserItem::on_pushButton_3_clicked()
 {
     QString id = m_data["id"].toString();
     TimInterface::getInstance()->sendInvMsg(id);
 }
 
-//打招呼
 void NewUserItem::on_pushButton_2_clicked()
 {
     QString id = m_data["id"].toString();

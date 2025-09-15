@@ -16,7 +16,6 @@ WebEngView::WebEngView(QWidget *parent)
 
 WebEngView::~WebEngView()
 {
-    qDebug()<<"WebEngView  ~~~~~~~~~";
     delete ui;
 }
 

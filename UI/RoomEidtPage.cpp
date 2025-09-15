@@ -60,7 +60,7 @@ void RoomEidtPage::mouseReleaseEvent(QMouseEvent *event)
 {
     m_bMoveing = false;
 }
-//更换封面
+
 void RoomEidtPage::on_image_clicked()
 {
     QString localPath = QFileDialog::getOpenFileName(0, QStringLiteral("选择图片"), "", QStringLiteral("jpg、png图片(*.jpg *.png)"));

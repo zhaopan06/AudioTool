@@ -79,7 +79,7 @@ void ChatPageCommunicationItem::setData(QVariantMap data)
 
     });
 }
-//关注
+
 void ChatPageCommunicationItem::on_pushButton_clicked()
 {
     HttpInterFace::getInstance()->followUser(m_data["userId"].toString(), 1, [=](const QVariant &content){
@@ -88,7 +88,7 @@ void ChatPageCommunicationItem::on_pushButton_clicked()
     },this);
 }
 
-//取消关注
+
 void ChatPageCommunicationItem::on_pushButton_3_clicked()
 {
     HttpInterFace::getInstance()->followUser(m_data["userId"].toString(), 0, [=](const QVariant &content){
@@ -97,7 +97,7 @@ void ChatPageCommunicationItem::on_pushButton_3_clicked()
     },this);
 }
 
-//私聊
+
 void ChatPageCommunicationItem::on_pushButton_2_clicked()
 {
     emit ChatC2C(m_data);

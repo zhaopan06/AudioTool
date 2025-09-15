@@ -32,11 +32,11 @@ MenuHomeownerRight::~MenuHomeownerRight()
 void MenuHomeownerRight::setData(QVariantMap data, QString multipleAuthoriation)
 {
     m_data = data;
-    if(0 == m_data["status"].toInt())//闭麦
+    if(0 == m_data["status"].toInt())
     {
         ui->pushButton->setText(tr("闭麦"));
     }
-    if(1 == m_data["status"].toInt())//开麦
+    if(1 == m_data["status"].toInt())
     {
         ui->pushButton->setText(tr("开麦"));
     }
@@ -86,30 +86,27 @@ void MenuHomeownerRight::on_pushButton_clicked()
 
     QString uid = m_data["member"].toMap()["userId"].toString();
 
-    if(0 == m_data["status"].toInt())//开麦状态
+    if(0 == m_data["status"].toInt())
     {
         HttpInterFace::getInstance()->micOpenOrClose(g_roomID, uid, 1);
     }
-    if(1 == m_data["status"].toInt())//闭麦状态
+    if(1 == m_data["status"].toInt())
     {
         HttpInterFace::getInstance()->micOpenOrClose(g_roomID, uid, 0);
     }    
 }
 
-//下麦
 void MenuHomeownerRight::on_pushButton_2_clicked()
 {
     QString uid = m_data["member"].toMap()["userId"].toString();
     HttpInterFace::getInstance()->b_upMic(g_roomID, uid,nullptr,this);
 }
 
-//聊天
 void MenuHomeownerRight::on_pushButton_10_clicked()
 {
 
 }
 
-//看资料
 void MenuHomeownerRight::on_pushButton_9_clicked()
 {
     this->hide();
@@ -125,7 +122,6 @@ void MenuHomeownerRight::on_pushButton_9_clicked()
     page->show();
 }
 
-//设为管理
 void MenuHomeownerRight::on_pushButton_12_clicked()
 {
     this->hide();
@@ -143,7 +139,6 @@ void MenuHomeownerRight::on_pushButton_12_clicked()
     }
 }
 
-//设为主持人
 void MenuHomeownerRight::on_pushButton_13_clicked()
 {
     this->hide();
@@ -164,6 +159,6 @@ void MenuHomeownerRight::on_pushButton_13_clicked()
 
 void MenuHomeownerRight::on_pushButton_14_clicked()
 {
-    //禁言
+
 }
 

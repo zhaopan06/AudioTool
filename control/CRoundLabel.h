@@ -15,6 +15,6 @@ protected:
     void leaveEvent(QEvent *event);
     void mousePressEvent(QMouseEvent *ev);
 private:
-    bool m_bTransLayer; //透明层
+    bool m_bTransLayer;
 };
 #endif

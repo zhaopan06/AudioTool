@@ -18,7 +18,7 @@ ManagementPage::~ManagementPage()
 {
     delete ui;
 }
-//emceeUserList 主持人 roomAdminList 管理  muteUserList禁言  blackUserList 拉黑
+
 void ManagementPage::init(QVariantMap data)
 {
     m_roomInfo = data;

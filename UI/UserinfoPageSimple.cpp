@@ -66,7 +66,7 @@ void UserinfoPageSimple::init(QString userID)
         ui->playDayNum->setText(data["playDayNum"].toString());
 
         int isAttention = data["isAttention"].toInt();
-        if(0 == isAttention)//是否已关注该用户，1是，0否,-1=查看自己资料，无需展示关注按钮
+        if(0 == isAttention)
         {
             m_isFollow = false;
             ui->Attention->show();

@@ -111,25 +111,3 @@ void ImageDialog::on_close_clicked()
 {
     accept();
 }
-
-//void ImageDialog::on_left_clicked()
-//{
-//    m_currentIndex--;
-//    if(m_currentIndex < 0)
-//    {
-//        m_currentIndex = 0;
-//        return;
-//    }
-//    setPath(m_pathList.at(m_currentIndex));
-//}
-//
-//void ImageDialog::on_right_clicked()
-//{
-//    m_currentIndex++;
-//    if(m_currentIndex >= m_pathList.size())
-//    {
-//        m_currentIndex = m_pathList.size() - 1;
-//        return;
-//    }
-//    setPath(m_pathList.at(m_currentIndex));
-//}

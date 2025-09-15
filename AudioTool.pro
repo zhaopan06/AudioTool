@@ -38,7 +38,6 @@ LIBS += \
 
 SOURCES += \
     Base/Agora/agorartcengineinterface.cpp \
-    Base/Http/HttpAsyncWorker.cpp \
     Base/Http/HttpInterFace.cpp \
     Base/Http/HttpUserInfo.cpp \    
     Base/IMSDK/TimInterface.cpp \
@@ -110,7 +109,6 @@ SOURCES += \
 
 HEADERS += \
     Base/Agora/agorartcengineinterface.h \
-    Base/Http/HttpAsyncWorker.h \
     Base/Http/HttpInterFace.h \
     Base/Http/HttpUserInfo.h \
     Base/IMSDK/TimInterface.h \

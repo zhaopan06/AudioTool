@@ -274,10 +274,7 @@ void HttpInterFace::getUserInfo(QString userId, callBack callBack)
     QString url = QString("/user/getUserInfo");
     submitRequest(RequestMethod::GET,url,callBack,nullptr,jsonMap);
 }
-/*
- * 礼物类型，0=查询收到的礼物，1=查询送出去的礼物
- * 是否点亮，1=已点亮数据，0=未点亮数据
- */
+
 void HttpInterFace::getGiftWall(QString userId, int giftType, int isLighten, callBack callBack)
 {
     QVariantMap jsonMap;
@@ -336,7 +333,6 @@ void HttpInterFace::queryMessageListUserInfo(QString roomId, callBack callBack, 
     submitRequest(RequestMethod::GET,url,callBack,nullptr,jsonMap);
 }
 
-//请求类型（0：我的关注，1：关注我的，2：我的好友，3：我的黑名单，4：访客）
 void HttpInterFace::getMyFollow(int currentPage, int requestType, callBack callBack,QString param)
 {
     QVariantMap jsonMap;
@@ -396,7 +392,7 @@ void HttpInterFace::getHotDataHistory(QString roomId, int currentPage, callBack 
     QString url = QString("/live/getReferralUsedCard");
     submitRequest(RequestMethod::GET,url,callBack,nullptr,jsonMap);
 }
-//装扮类型 0 头像框 1 座驾 2 气泡 3 直播间背景
+
 void HttpInterFace::getDressUp(int type,int currentPage, callBack callBack)
 {
     QVariantMap jsonMap;
@@ -423,7 +419,6 @@ void HttpInterFace::loginToServer(QString phone, QString verifyCode, callBack ca
     submitRequest(RequestMethod::POST,url,callBack,errBack,jsonMap,context);
 }
 
-// 操作类型 0-取消排麦 1-申请排麦
 void HttpInterFace::addMic(QString roomId, int type, callBack callBack, QObject *context)
 {
     QVariantMap jsonMap;
@@ -463,7 +458,6 @@ void HttpInterFace::m_downMic()
     submitRequest(RequestMethod::POST,url,nullptr,nullptr,jsonMap,nullptr);
 }
 
-//操作类型 0-开麦 1-闭麦
 void HttpInterFace::micOpenOrClose(QString roomId, QString targetUserId, int type)
 {
     QVariantMap jsonMap;
@@ -473,7 +467,7 @@ void HttpInterFace::micOpenOrClose(QString roomId, QString targetUserId, int typ
     QString url = QString("/live/micOpenOrClose");
     submitRequest(RequestMethod::POST,url,nullptr,nullptr,jsonMap,nullptr);
 }
-//操作类型 0-解除闭麦 1-锁麦
+
 void HttpInterFace::lockMic(int type, int seat)
 {
     QVariantMap jsonMap;
@@ -484,8 +478,6 @@ void HttpInterFace::lockMic(int type, int seat)
     submitRequest(RequestMethod::POST,url,nullptr,nullptr,jsonMap,nullptr);
 }
 
-//主机有房主才能设置
-/*设置类型，0=设置支持人，1=设置房间管理员，2=移除主持人，3=移除房间管理员,4=拉黑，5=解除拉黑*/
 void HttpInterFace::settingEmceeOrAdmin(int settingType, QString targetUserId)
 {
     QVariantMap jsonMap;

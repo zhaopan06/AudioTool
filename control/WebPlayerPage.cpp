@@ -39,10 +39,9 @@ void WebPlayerPage::init(QString str)
     m_str = str;
     if(isload)
     {
-        QString jsCode = QString("window.StartPlayGift(%1)").arg(m_str);
-        qDebug().noquote()<<"init jsCode-----------"<<jsCode;
+        QString jsCode = QString("window.StartPlayGift(%1)").arg(m_str);       
         m_web.page()->runJavaScript(jsCode, [](const QVariant &result){
-            qDebug() << "loadFinished Data from JavaScript:" << result;
+
         });
     }
 }
@@ -51,10 +50,9 @@ void WebPlayerPage::loadFinished(bool b)
 {
     if(!m_str.isEmpty())
     {
-        QString jsCode = QString("window.StartPlayGift(%1)").arg(m_str);
-        qDebug().noquote()<<"jsCode-----------"<<jsCode;
+        QString jsCode = QString("window.StartPlayGift(%1)").arg(m_str);     
         m_web.page()->runJavaScript(jsCode, [](const QVariant &result){
-            qDebug() << "loadFinished Data from JavaScript:" << result;
+
         });
     }
     isload = b;

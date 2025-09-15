@@ -40,11 +40,10 @@ void MicInfoItem::setData(QVariantMap data, int num)
     }
 
     m_data = data;
-    if(3 == data["status"].toInt())//锁麦状态
+    if(3 == data["status"].toInt())
     {
         ui->gift->setIcon(QIcon(""));
         ui->gift->setText("");
-        //TODO 设置锁麦图标
         ui->image->setPixmap(QPixmap::fromImage(QImage(":/images/live_mic_lock.png")));
         ui->name->setText(QString::number(num+1) +  tr("号麦"));
         return;
@@ -170,13 +169,13 @@ bool MicInfoItem::eventFilter(QObject *watched, QEvent *event)
 void MicInfoItem::on_image_rightClicked()
 {
     QPoint point = QCursor::pos();
-    if(-1 == m_data["status"].toInt())//空闲
+    if(-1 == m_data["status"].toInt())
     {
          MenuLockRight::getInstance()->setData(m_data);
          MenuLockRight::getInstance()->move(point);
          MenuLockRight::getInstance()->show();
     }
-    else if(3 == m_data["status"].toInt())//锁麦状态
+    else if(3 == m_data["status"].toInt())
     {        
         MenuLockRight::getInstance()->setData(m_data);
         MenuLockRight::getInstance()->move(point);

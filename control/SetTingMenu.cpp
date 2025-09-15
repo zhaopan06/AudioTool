@@ -73,13 +73,12 @@ void SetTingMenu::leaveEvent(QEvent *event)
     close();
 }
 
-//刷新页面
 void SetTingMenu::on_pushButton_clicked()
 {
     emit updateRoomData();
     close();
 }
-//帮助中心
+
 void SetTingMenu::on_pushButton_3_clicked()
 {
     emit openHelpPage();

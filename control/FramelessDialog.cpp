@@ -34,7 +34,6 @@ void FramelessDialog::mousePressEvent(QMouseEvent *event)
 
 void FramelessDialog::mouseMoveEvent(QMouseEvent *event)
 {
-    qDebug()<<"1----------";
     if (m_isDragging)
     {
         QPoint diff = event->globalPos() - m_dragStartPos;
@@ -61,7 +60,7 @@ void FramelessDialog::mouseMoveEvent(QMouseEvent *event)
             }
             setGeometry(newRect);
         }
-        m_dragStartPos = event->globalPos();  // Update the start position for the next move
+        m_dragStartPos = event->globalPos();
     }
 }
 
@@ -74,7 +73,7 @@ void FramelessDialog::mouseReleaseEvent(QMouseEvent *event)
 
 FramelessDialog::Edge FramelessDialog::getEdgeAt(const QPoint &pos)
 {
-    const int margin = 10;  // Edge area width in pixels
+    const int margin = 10;
 
     if (pos.y() < margin) {
         return (pos.x() < margin) ? TopLeft : (pos.x() > width() - margin ? TopRight : Top);

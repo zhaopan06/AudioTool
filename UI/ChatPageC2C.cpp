@@ -50,7 +50,7 @@ void ChatPageC2C::init(QVariantList list)
         foreach (auto var, elems)
         {
             uint32_t elem_type = var.toMap()["elem_type"].toInt();
-            if(1 == elem_type)//图片
+            if(1 == elem_type)
             {
                 QString path = var.toMap()["image_elem_thumb_url"].toString();
                 QString largePath = var.toMap()["image_elem_large_url"].toString();

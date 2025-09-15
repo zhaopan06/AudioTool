@@ -28,7 +28,6 @@ void ChatPageC2CMyItem::setData(QString path, QString msg, int width)
         this->ui->image->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
-    //设置文字
     QLabel *label = new QLabel();
     label->setStyleSheet("background:rgba(255,255,255,0);");
     label->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
@@ -137,7 +136,7 @@ void ChatPageC2CMyItem::setEmotion(QString path, int type)
 
     QString giftPath;
     switch (type) {
-    case 1://骰子
+    case 1:
     {
         giftPath = ":/images/gifts/dice.gif";
         break;

@@ -46,11 +46,11 @@ bool MenuManagerRight::nativeEvent(const QByteArray &eventType, void *message, l
 void MenuManagerRight::setData(QVariantMap data)
 {
     m_data = data;
-    if(0 == m_data["status"].toInt())//闭麦
+    if(0 == m_data["status"].toInt())
     {
         ui->pushButton_3->setText(tr("闭麦"));
     }
-    if(1 == m_data["status"].toInt())//开麦
+    if(1 == m_data["status"].toInt())
     {
         ui->pushButton_3->setText(tr("开麦"));
     }
@@ -61,11 +61,11 @@ void MenuManagerRight::on_pushButton_3_clicked()
     this->hide();
 
     QString uid = m_data["member"].toMap()["userId"].toString();
-    if(0 == m_data["status"].toInt())//开麦状态
+    if(0 == m_data["status"].toInt())
     {
         HttpInterFace::getInstance()->micOpenOrClose(g_roomID, uid, 1);
     }
-    if(1 == m_data["status"].toInt())//闭麦状态
+    if(1 == m_data["status"].toInt())
     {
         HttpInterFace::getInstance()->micOpenOrClose(g_roomID, uid, 0);
     }
@@ -86,7 +86,6 @@ void MenuManagerRight::on_pushButton_4_clicked()
     page->show();
 }
 
-//抱下麦
 void MenuManagerRight::on_pushButton_2_clicked()
 {
     this->hide();

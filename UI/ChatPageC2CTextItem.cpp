@@ -27,7 +27,6 @@ void ChatPageC2CTextItem::setData(QVariantMap data, QString text, int width)
     QString nickname = data["user_profile_nick_name"].toString();
     ui->name->setText(nickname);
 
-    //设置文字
     ui->label->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
     QString labelText = text;
     labelText = replaceEmojiTagsSimple(labelText);

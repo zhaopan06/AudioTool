@@ -51,7 +51,7 @@ protected:
         if (keyEvent->matches(QKeySequence::Paste))
         {
             handleImagePaste();
-            return true; // 拦截粘贴事件
+            return true;
         }
         return QObject::eventFilter(obj, event);
     }

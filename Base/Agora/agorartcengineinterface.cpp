@@ -54,7 +54,6 @@ public:
     }
     virtual void onError(int err, const char* msg) override
     {
-        qDebug()<<"err---"<<err<<"msg---"<<QString::fromLatin1(msg);
     }
     virtual void onConnectionStateChanged( CONNECTION_STATE_TYPE state, CONNECTION_CHANGED_REASON_TYPE reason) override
     {
@@ -149,7 +148,6 @@ int AgoraRtcEngineInterface::muteAllRemoteAudioStreams(bool muted)
     return m_rtcEngine->muteAllRemoteAudioStreams(muted);
 }
 
-//设置直播模式
 void AgoraRtcEngineInterface::setChannelProfile(agora::CHANNEL_PROFILE_TYPE profile)
 {
     m_rtcEngine->setChannelProfile(profile);

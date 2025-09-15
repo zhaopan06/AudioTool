@@ -500,7 +500,6 @@ void LoginPage::on_minBtn_clicked()
     this->showMinimized();
 }
 
-//帮助
 void LoginPage::on_help_Btn_1_clicked()
 {
     WebEngView *page = new WebEngView(this);
@@ -510,7 +509,6 @@ void LoginPage::on_help_Btn_1_clicked()
     page->show();
 }
 
-//重新获取验证码
 void LoginPage::on_code_label_click_clicked()
 {
     on_next_page_btn_clicked();

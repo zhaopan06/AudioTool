@@ -15,19 +15,14 @@ QVariant readJsonFile(const QString &filePath)
         qWarning() << "无法打开文件:" << filePath;
         return false;
     }
-
-    // 2. 读取全部内容
     QByteArray jsonData = file.readAll();
     file.close();
 
-    // 3. 解析JSON
     QJsonParseError parseError;
     QJsonDocument doc = QJsonDocument::fromJson(jsonData, &parseError);
 
     if (parseError.error != QJsonParseError::NoError)
     {
-        qWarning() << "JSON解析错误:" << parseError.errorString()
-            << "at offset:" << parseError.offset;
         return false;
     }
 

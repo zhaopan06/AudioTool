@@ -33,7 +33,6 @@ void ChatTextMyItem::setData(QString path, QString msg)
         ui->image_2->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
-    //设置文字
     QLabel *label = new QLabel();
     label->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
     ui->textLayout->addWidget(label);
@@ -81,7 +80,7 @@ void ChatTextMyItem::setEmotion(QString path, int type)
 
     QString giftPath;
     switch (type) {
-    case 1://骰子
+    case 1:
     {
         giftPath = ":/images/gifts/dice.gif";
         break;

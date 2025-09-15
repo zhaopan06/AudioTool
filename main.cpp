@@ -6,12 +6,6 @@
 #include <Psapi.h>
 #include "clientconfig.h"
 
-#ifdef _DEBUG
-#ifdef _WIN32
-#pragma comment(lib,"D:/Visual Leak Detector/lib/Win32/vld.lib")
-#include "D:/Visual Leak Detector/include/vld.h"
-#endif
-#endif
 
 bool getIsHaveMyselfPoss()
 {

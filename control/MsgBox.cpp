@@ -12,7 +12,6 @@ MsgBox::MsgBox(const QString &title, const QString msg, BTN_MODE mode, QWidget *
     setTitle(title);
     setMessage(msg);
 
-    // 根据不同的样式显示不同的按钮
     switch (mode)
     {
     case MsgBox::TIPDIALOG:

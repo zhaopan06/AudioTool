@@ -12,7 +12,6 @@
 #include <QCoreApplication>
 #include <QFileInfo>
 
-// 全局变量定义
 QString g_downloadImages = "";
 QString g_appData = "";
 QString g_roomID = "";
@@ -21,7 +20,6 @@ bool g_isManager = false;
 bool g_isHomeowner = false;
 MainWindow *g_main = nullptr;
 
-// 清空布局
 void cleanupLayout(QLayout *targetLayout)
 {
     if (nullptr == targetLayout)
@@ -96,16 +94,12 @@ int dirFileSize(const QString &path)
 {
     QDir dir(path);
     int size = 0;
-    //dir.entryInfoList(QDir::Files)返回文件信息
     foreach(QFileInfo fileInfo, dir.entryInfoList(QDir::Files))
     {
-        //计算文件大小
         size += fileInfo.size();
     }
-    //dir.entryList(QDir::Dirs|QDir::NoDotAndDotDot)返回所有子目录，并进行过滤
     foreach(QString subDir, dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot))
     {
-        //若存在子目录，则递归调用dirFileSize()函数
         size += dirFileSize(path + QDir::separator() + subDir);
     }
     return size;
@@ -237,7 +231,6 @@ QString mapDownloadImagePath(QString url)
 void showMapTojson(QVariantMap data)
 {
     QJsonDocument doc(QJsonObject::fromVariantMap(data));
-    qDebug()<<"data---------"<<doc;
 }
 
 QString restoreEmojiTags(const QString &htmlText)
@@ -251,7 +244,6 @@ QString restoreEmojiTags(const QString &htmlText)
         int number = match.captured(1).toInt();
         int originalNum = number;
 
-        // 逆向应用原始转换规则
         if(number <= 21)
             originalNum = number - 1;
         else if(number >= 27 && number < 32)
@@ -312,8 +304,8 @@ QString replaceEmojiTagsSimple(const QString &text)
 void setAutoStart(bool enable)
 {
     QSettings settings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
-    QString appName = QCoreApplication::applicationName(); // 获取程序名称
-    QString appPath = QCoreApplication::applicationFilePath(); // 获取程序绝对路径
+    QString appName = QCoreApplication::applicationName();
+    QString appPath = QCoreApplication::applicationFilePath();
     appPath = QDir::toNativeSeparators(appPath);
     if (enable)
     {

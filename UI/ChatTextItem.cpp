@@ -26,7 +26,6 @@ ChatTextItem::~ChatTextItem()
 
 void ChatTextItem::setData(QVariantMap data,QString msg, int type)
 {
-    qDebug()<<"---------------";
     showMapTojson(data);
     QVariantMap userLevelCompare = data["userLevelCompare"].toMap();
     QString level = userLevelCompare["level"].toString();
@@ -66,7 +65,6 @@ void ChatTextItem::setData(QVariantMap data,QString msg, int type)
         this->ui->image_2->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
-    //设置文字
     QLabel *label = new QLabel();
     label->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
     if(12 == type)
@@ -146,7 +144,6 @@ void ChatTextItem::setEmotion(QVariantMap data, QString path, int type)
         this->ui->image_2->setPixmap(QPixmap::fromImage(QImage(path)));
     });
 
-    //设置表情
     QLabel *label = new QLabel();
     label->setFixedSize(34,34);
     label->setScaledContents(true);
@@ -160,7 +157,7 @@ void ChatTextItem::setEmotion(QVariantMap data, QString path, int type)
 
     QString giftPath;
     switch (type) {
-    case 1://骰子
+    case 1:
     {
         giftPath = ":/images/gifts/dice.gif";
         break;

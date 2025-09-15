@@ -30,7 +30,7 @@ protected:
 private:
     Ui::NewUserItem *ui;
     QVariantMap m_data;
-    int m_isFollow = 0; //0没关注
+    int m_isFollow = 0;
 };
 
 #endif // NEWUSERITEM_H

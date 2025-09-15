@@ -8,8 +8,6 @@ ChatPageLeftItem::ChatPageLeftItem(QWidget *parent)
     , ui(new Ui::ChatPageLeftItem)
 {
     ui->setupUi(this);
-    //TODO获取历史数据
-    //TIMMsgGetMessageReactions
 }
 
 ChatPageLeftItem::~ChatPageLeftItem()

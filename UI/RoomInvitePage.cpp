@@ -65,7 +65,6 @@ void RoomInvitePage::on_copyBtn_clicked()
     ui->copyBtn->setText(QStringLiteral("已复制"));
 }
 
-//最新聊天
 void RoomInvitePage::on_pushButton_clicked()
 {
     ui->listWidget->clear();
@@ -86,7 +85,6 @@ void RoomInvitePage::on_pushButton_clicked()
     });
 }
 
-//粉丝
 void RoomInvitePage::on_pushButton_2_clicked()
 {
     ui->listWidget->clear();
